@@ -37,22 +37,26 @@ public:
     ~object_transformer();
 
     template <typename Mixin>
-    void add()
+    object_transformer& add()
     {
         const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         internal_add(info);
+        return *this;
     }
 
     template <typename Mixin>
-    void remove()
+    object_transformer& remove()
     {
         const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         internal_remove(info);
+        return *this;
     }
 
     void apply();
 
     void cancel();
+
+    // todo: add operators + and -
 
 private:
 

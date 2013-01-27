@@ -45,7 +45,6 @@ public:
     {
         cout << "we're in c\n";
         bm_this->get<mixin_A>()->aaa();
-        cout << "B: " << bm_this->get<mixin_B>() << endl;
         if(bm_this->get<mixin_B>())
         {
             bm_this->get<mixin_B>()->bbb();
@@ -76,20 +75,28 @@ int main()
     const internal::mixin_type_info& t3 = *d._mixin_type_infos[2];
     cout << t3.name << ": " << t3.id << endl;
 
-    object* o = new object;
+    object* o1 = new object;
 
-    object_transformer transform(o);
+    object_transformer(o1)
+        .add<mixin_A>()
+        .add<mixin_C>()
+        .add<mixin_B>();
 
-    transform.add<mixin_A>();
-    //transform.add<mixin_B>();
-    transform.add<mixin_C>();
+    o1->get<mixin_C>()->ccc();
 
-    transform.apply();
+    object* o2 = new object;
+    object_transformer(o2)
+        .add<mixin_C>()
+        .add<mixin_B>()
+        .add<mixin_A>();
 
-    o->get<mixin_C>()->ccc();
+    o2->get<mixin_B>()->bbb();
+
+    cout << "type infos: " << d._object_type_infos.size() << endl;
 
 
-    delete o;
+    delete o1;
+    delete o2;
 
     return 0;
 }
