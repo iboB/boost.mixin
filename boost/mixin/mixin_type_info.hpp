@@ -26,8 +26,9 @@ typedef void (*mixin_constructor_proc)(void* memory);
 typedef void (*mixin_destructor_proc)(void* memory);
 
 // this struct contains information for a given mixin
-struct mixin_type_info : public noncopyable
+class BOOST_MIXIN_API mixin_type_info : public noncopyable
 {
+public:
     domain* dom; // the domain this mixin belongs to
     mixin_id id; // the mixin's id within said domain
 
