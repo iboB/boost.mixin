@@ -1,0 +1,19 @@
+
+# visual studio specific
+*.suo
+*.sdf
+*.opensdf
+*.user
+
+*Debug/
+*Release/
+*ipch/
+
+#code blocks stuff
+*.depend
+*.layout
+*.gch
+*.cbTemp
+
+*bin/
+*obj/
