@@ -47,7 +47,7 @@ void object_transformer::apply()
 
     for(size_t i=0; i<object_mixins.size(); ++i)
     {
-        const mixin_type_info_data* mixin_info = object_mixins[i];
+        const mixin_type_info* mixin_info = object_mixins[i];
 
         // intentionally using linear search instead of binary
         // cache locality makes it faster for small arrays
@@ -91,7 +91,7 @@ void object_transformer::cancel()
     _to_remove.clear();
 }
 
-void object_transformer::check_valid_mutation(const internal::mixin_type_info_data& mixin_info)
+void object_transformer::check_valid_mutation(const internal::mixin_type_info& mixin_info)
 {
     BOOST_ASSERT(mixin_info.is_valid());
     if(_object->dom())
@@ -110,7 +110,7 @@ void object_transformer::check_valid_mutation(const internal::mixin_type_info_da
     }
 }
 
-void object_transformer::internal_add(const internal::mixin_type_info_data& mixin_info)
+void object_transformer::internal_add(const internal::mixin_type_info& mixin_info)
 {
     check_valid_mutation(mixin_info);
 
@@ -131,7 +131,7 @@ void object_transformer::internal_add(const internal::mixin_type_info_data& mixi
     _to_add.push_back(&mixin_info);
 }
 
-void object_transformer::internal_remove(const internal::mixin_type_info_data& mixin_info)
+void object_transformer::internal_remove(const internal::mixin_type_info& mixin_info)
 {
     check_valid_mutation(mixin_info);
 

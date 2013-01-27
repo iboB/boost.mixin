@@ -15,6 +15,7 @@
 #include <boost/noncopyable.hpp>
 #include <algorithm>
 #include <vector>
+#include <cstring> // for memset
 
 #if !BOOST_MIXIN_USING_CXX11
 #   define nullptr NULL
@@ -32,7 +33,7 @@
 #       define BOOST_MIXIN_TYPE_NAME(type) (typeid(type).name() + 6)
 #   else
 #       error "getting typenames with typeid hasn't been tested on compilers other than gcc and msvc"
-#endif
+#   endif
 #else // safer but more inconvinient way
 #   define BOOST_MIXIN_TYPE_NAME(type) type::get_boost_mixin_name()
 #endif
@@ -73,8 +74,13 @@ namespace internal
         return std::adjacent_find(v.begin(), v.end(), std::greater<T>()) == v.end();
     }
 
-    class mixin_type_info_data;
-    typedef std::vector<const mixin_type_info_data*> mixin_type_info_vector;
+    inline void zero_memory(void* mem, size_t size)
+    {
+        std::memset(mem, 0, size);
+    }
+
+    class mixin_type_info;
+    typedef std::vector<const mixin_type_info*> mixin_type_info_vector;
 } // namespace internal
 }
 }

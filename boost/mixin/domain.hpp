@@ -57,22 +57,22 @@ public:
     domain_id id() const { return _id; }
     const char* name() const { return _name; }
 
-    size_t num_mixins() const { return _num_mixins; }
+    size_t num_registered_mixins() const { return _num_registered_mixins; }
 
     template <typename Mixin>
-    void register_mixin_type(mixin_type_info_data& data)
+    void register_mixin_type(mixin_type_info& info)
     {
-        BOOST_ASSERT(data.id == INVALID_MIXIN_ID);
-        BOOST_ASSERT_MSG(_num_mixins <= BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN, "you have to increase the maximal number of mixins");
+        BOOST_ASSERT(info.id == INVALID_MIXIN_ID);
+        BOOST_ASSERT_MSG(_num_registered_mixins <= BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN, "you have to increase the maximal number of mixins");
 
-        data.dom = this;
-        data.id = _num_mixins;
-        data.name = BOOST_MIXIN_TYPE_NAME(Mixin);
-        data.size = sizeof(Mixin);
-        data.constructor = &call_mixin_constructor<Mixin>;
-        data.destructor = &call_mixin_destructor<Mixin>;
+        info.dom = this;
+        info.id = _num_registered_mixins;
+        info.name = BOOST_MIXIN_TYPE_NAME(Mixin);
+        info.size = sizeof(Mixin);
+        info.constructor = &call_mixin_constructor<Mixin>;
+        info.destructor = &call_mixin_destructor<Mixin>;
 
-        _mixins[_num_mixins++] = &data;
+        _mixin_type_infos[_num_registered_mixins++] = &info;
     }
 
     // creates a new type info if needed
@@ -90,16 +90,16 @@ private:
     domain_id _id;
     const char* _name;
 
-    const mixin_type_info_data* _mixins[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
-    size_t _num_mixins;
+    const mixin_type_info* _mixin_type_infos[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
+    size_t _num_registered_mixins;
 
 #if BOOST_MIXIN_USING_CXX11
-    typedef std::unordered_map<available_mixins_bitset, object_type_info*> object_infos_hash_map;
+    typedef std::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
 #else
-    typedef boost::unordered_map<available_mixins_bitset, object_type_info*> object_infos_hash_map;
+    typedef boost::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
 #endif
 
-    object_infos_hash_map _types;
+    object_type_info_map _object_type_infos;
 };
 
 BOOST_MIXIN_API domain& get_domain(domain_id id);

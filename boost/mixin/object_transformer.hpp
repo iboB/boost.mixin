@@ -28,7 +28,6 @@ class object;
 namespace internal
 {
     class domain;
-    struct mixin_type_info_data;
 }
 
 class BOOST_MIXIN_API object_transformer : public noncopyable
@@ -40,14 +39,14 @@ public:
     template <typename Mixin>
     void add()
     {
-        const internal::mixin_type_info_data& info = _boost_get_mixin_type_info_data((Mixin*)nullptr);
+        const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         internal_add(info);
     }
 
     template <typename Mixin>
     void remove()
     {
-        const internal::mixin_type_info_data& info = _boost_get_mixin_type_info_data((Mixin*)nullptr);
+        const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         internal_remove(info);
     }
 
@@ -57,9 +56,9 @@ public:
 
 private:
 
-    void check_valid_mutation(const internal::mixin_type_info_data& mixin_info);
-    void internal_add(const internal::mixin_type_info_data& mixin_info);
-    void internal_remove(const internal::mixin_type_info_data& mixin_info);
+    void check_valid_mutation(const internal::mixin_type_info& mixin_info);
+    void internal_add(const internal::mixin_type_info& mixin_info);
+    void internal_remove(const internal::mixin_type_info& mixin_info);
 
     object* _object;
     internal::domain* _domain;

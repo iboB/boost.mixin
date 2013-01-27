@@ -9,7 +9,6 @@
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/mixin/domain.hpp>
-#include <cstring> // for memset
 
 namespace boost
 {
@@ -21,8 +20,8 @@ namespace internal
 object_type_info::object_type_info()
     : _domain(nullptr)
 {
-    std::memset(_mixins, 0, sizeof(_mixins));
-    std::memset(_mixin_indices, 0, sizeof(_mixin_indices));
+    zero_memory(_mixins, sizeof(_mixins));
+    zero_memory(_mixin_indices, sizeof(_mixin_indices));
 }
 
 object_type_info::~object_type_info()
@@ -36,20 +35,12 @@ const object_type_info& object_type_info::null()
     return n;
 };
 
-char** object_type_info::alloc_mixin_data(bool set_to_null /*= true*/) const
+mixin_data_in_object* object_type_info::alloc_mixin_data() const
 {
-    size_t size = _compact_mixins.size() * sizeof(char*);
-    char** data = new char*[size];
-
-    if(set_to_null)
-    {
-        memset(data, 0, size);
-    }
-
-    return data;
+    return new mixin_data_in_object[_compact_mixins.size() + 1]; //reserve idnex 0 for nullptr
 }
 
-void object_type_info::dealloc_mixin_data(char** data) const
+void object_type_info::dealloc_mixin_data(mixin_data_in_object* data) const
 {
     delete[] data;
 }

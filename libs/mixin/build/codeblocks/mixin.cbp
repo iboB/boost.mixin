@@ -49,6 +49,9 @@
 		<Unit filename="../../../../boost/mixin/domain.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
+		<Unit filename="../../../../boost/mixin/exception.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
 		<Unit filename="../../../../boost/mixin/global.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
@@ -61,8 +64,11 @@
 		<Unit filename="../../../../boost/mixin/object.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="main.cpp">
-			<Option virtualFolder="sources/" />
+		<Unit filename="../../../../boost/mixin/object_transformer.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/object_type_info.hpp">
+			<Option virtualFolder="includes/boost/" />
 		</Unit>
 		<Unit filename="../../src/domain.cpp">
 			<Option virtualFolder="sources/" />
@@ -71,6 +77,15 @@
 			<Option virtualFolder="sources/" />
 		</Unit>
 		<Unit filename="../../src/internal.hpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="../../src/object.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="../../src/object_transformer.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="../../src/object_type_info.cpp">
 			<Option virtualFolder="sources/" />
 		</Unit>
 		<Extensions>

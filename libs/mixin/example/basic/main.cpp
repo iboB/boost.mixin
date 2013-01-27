@@ -6,11 +6,6 @@
 
 using namespace std;
 
-class xxx
-{
-    ~xxx() { cout << "destroyed" << endl; }
-};
-
 BOOST_DECLARE_MIXIN(mixin_A);
 BOOST_DECLARE_MIXIN(mixin_B);
 BOOST_DECLARE_MIXIN(mixin_C);
@@ -50,14 +45,18 @@ public:
     {
         cout << "we're in c\n";
         bm_this->get<mixin_A>()->aaa();
-        bm_this->get<mixin_B>()->bbb();
+        cout << "B: " << bm_this->get<mixin_B>() << endl;
+        if(bm_this->get<mixin_B>())
+        {
+            bm_this->get<mixin_B>()->bbb();
+        }
     }
 
 };
 
-BOOST_DEFINE_MIXIN(mixin_A, asjkd);
-BOOST_DEFINE_MIXIN(mixin_B, asjkd);
-BOOST_DEFINE_MIXIN(mixin_C, asjkd);
+BOOST_DEFINE_MIXIN(mixin_A, features not supported yet);
+BOOST_DEFINE_MIXIN(mixin_B, features not supported yet);
+BOOST_DEFINE_MIXIN(mixin_C, features not supported yet);
 
 void _boost_mixin_constructor(void*);
 
@@ -66,15 +65,15 @@ using namespace boost::mixin;
 int main()
 {
     internal::domain& d = internal::get_domain(0);
-    cout << d._num_mixins << endl;
+    cout << d._num_registered_mixins << endl;
 
-    const internal::mixin_type_info_data& t1 = *d._mixins[0];
+    const internal::mixin_type_info& t1 = *d._mixin_type_infos[0];
     cout << t1.name << ": " << t1.id << endl;
 
-    const internal::mixin_type_info_data& t2 = *d._mixins[1];
+    const internal::mixin_type_info& t2 = *d._mixin_type_infos[1];
     cout << t2.name << ": " << t2.id << endl;
 
-    const internal::mixin_type_info_data& t3 = *d._mixins[2];
+    const internal::mixin_type_info& t3 = *d._mixin_type_infos[2];
     cout << t3.name << ": " << t3.id << endl;
 
     object* o = new object;
@@ -82,7 +81,7 @@ int main()
     object_transformer transform(o);
 
     transform.add<mixin_A>();
-    transform.add<mixin_B>();
+    //transform.add<mixin_B>();
     transform.add<mixin_C>();
 
     transform.apply();

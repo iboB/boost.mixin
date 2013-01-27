@@ -44,7 +44,7 @@
 #define BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN 256
 
 #if !defined(BOOST_NO_EXCEPTIONS)
-// setting this to true will cause them to throw exceptions instead of asserting
+// setting this to true will cause some functions to throw exceptions instead of asserting
 #   define BOOST_MIXIN_USE_EXCEPTIONS 1
 #endif
 

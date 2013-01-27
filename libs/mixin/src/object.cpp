@@ -34,38 +34,24 @@ domain* object::dom() const
     return _type_info->dom();
 }
 
-void* object::internal_get_mixin(const internal::mixin_type_info_data& mixin_info)
+void* object::internal_get_mixin(const internal::mixin_type_info& mixin_info)
 {
-    if(_type_info->has_mixin(mixin_info.id))
-    {
-        return _mixin_data[_type_info->mixin_index(mixin_info.id)] + sizeof(object*);
-    }
-    else
-    {
-        return nullptr;
-    }
+    return _mixin_data[_type_info->mixin_index(mixin_info.id)].mixin();
 }
 
-const void* object::internal_get_mixin(const internal::mixin_type_info_data& mixin_info) const
+const void* object::internal_get_mixin(const internal::mixin_type_info& mixin_info) const
 {
-    if(_type_info->has_mixin(mixin_info.id))
-    {
-        return _mixin_data[_type_info->mixin_index(mixin_info.id)] + sizeof(object*);
-    }
-    else
-    {
-        return nullptr;
-    }
+    return _mixin_data[_type_info->mixin_index(mixin_info.id)].mixin();
 }
 
-bool object::internal_has_mixin(const internal::mixin_type_info_data& mixin_info)
+bool object::internal_has_mixin(const internal::mixin_type_info& mixin_info)
 {
     return _type_info->has_mixin(mixin_info.id);
 }
 
 void object::clear()
 {
-    BOOST_FOREACH(const mixin_type_info_data* mixin_info, _type_info->_compact_mixins)
+    BOOST_FOREACH(const mixin_type_info* mixin_info, _type_info->_compact_mixins)
     {
         destroy_mixin(mixin_info->id);
     }
@@ -79,15 +65,15 @@ void object::clear()
 void object::change_type(const object_type_info* new_type, bool manage_mixins /*= false*/)
 {
     const object_type_info* old_type = _type_info;
-    char** old_mixin_data = _mixin_data;
-    char** new_mixin_data = new_type->alloc_mixin_data();
+    mixin_data_in_object* old_mixin_data = _mixin_data;
+    mixin_data_in_object* new_mixin_data = new_type->alloc_mixin_data();
 
-    BOOST_FOREACH(const mixin_type_info_data* mixin_info, old_type->_compact_mixins)
+    BOOST_FOREACH(const mixin_type_info* mixin_info, old_type->_compact_mixins)
     {
         mixin_id id = mixin_info->id;
         if(new_type->has_mixin(id))
         {
-            new_mixin_data[new_type->mixin_index(id)] = old_mixin_data[old_type->mixin_index(id)];
+            new_mixin_data[new_type->mixin_index(id)].set_buffer(old_mixin_data[old_type->mixin_index(id)].buffer());
         }
         else if(manage_mixins)
         {
@@ -102,10 +88,10 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
 
     if(manage_mixins)
     {
-        BOOST_FOREACH(const mixin_type_info_data* mixin_info, new_type->_compact_mixins)
+        BOOST_FOREACH(const mixin_type_info* mixin_info, new_type->_compact_mixins)
         {
             size_t index = new_type->mixin_index(mixin_info->id);
-            if(!new_mixin_data[index])
+            if(!new_mixin_data[index].buffer())
             {
                 construct_mixin(mixin_info->id);
             }
@@ -116,28 +102,25 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
 void object::construct_mixin(mixin_id id)
 {
     BOOST_ASSERT(_type_info->has_mixin(id));
-    size_t index = _type_info->mixin_index(id);
-    BOOST_ASSERT(!_mixin_data[index]);
+    mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
+    BOOST_ASSERT(!data.buffer());
 
     char* buffer = _type_info->alloc_mixin(id);
-    _mixin_data[index] = buffer;
+    data.set_buffer(buffer);
+    data.set_object(this);
 
-    object** self = reinterpret_cast<object**>(buffer);
-    *self = this;
-
-    buffer += sizeof(object*);
-
-    _type_info->mixin_info(id).constructor(buffer);
+    _type_info->mixin_info(id).constructor(data.mixin());
 }
 
 void object::destroy_mixin(mixin_id id)
 {
     BOOST_ASSERT(_type_info->has_mixin(id));
-    size_t index = _type_info->mixin_index(id);
+    mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
 
-    _type_info->mixin_info(id).destructor(_mixin_data[index] + sizeof(object*));
-    _type_info->dealloc_mixin(id, _mixin_data[index]);
-    _mixin_data[index] = nullptr;
+    _type_info->mixin_info(id).destructor(data.mixin());
+    _type_info->dealloc_mixin(id, data.buffer());
+
+    data.clear();
 }
 
 }

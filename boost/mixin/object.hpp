@@ -19,8 +19,8 @@ namespace mixin
 namespace internal
 {
     class object_type_info;
+    class mixin_data_in_object;
     class domain;
-    struct mixin_type_info_data;
 }
 
 // main object class
@@ -34,21 +34,21 @@ public:
     template <typename Mixin>
     bool has() const
     {
-        const internal::mixin_type_info_data& info = _boost_get_mixin_type_info_data((Mixin*)nullptr);
+        const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         return internal_has_mixin(info);
     }
 
     template <typename Mixin>
     Mixin* get()
     {
-        const internal::mixin_type_info_data& info = _boost_get_mixin_type_info_data((Mixin*)nullptr);
+        const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         return reinterpret_cast<Mixin*>(internal_get_mixin(info));
     }
 
     template <typename Mixin>
     const Mixin* get() const
     {
-        const internal::mixin_type_info_data& info = _boost_get_mixin_type_info_data((Mixin*)nullptr);
+        const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         return reinterpret_cast<const Mixin*>(internal_get_mixin(info));
     }
 
@@ -58,9 +58,9 @@ public:
 private:
     friend class object_transformer;
 
-    void* internal_get_mixin(const internal::mixin_type_info_data& mixin_info);
-    const void* internal_get_mixin(const internal::mixin_type_info_data& mixin_info) const;
-    bool internal_has_mixin(const internal::mixin_type_info_data& mixin_info);
+    void* internal_get_mixin(const internal::mixin_type_info& mixin_info);
+    const void* internal_get_mixin(const internal::mixin_type_info& mixin_info) const;
+    bool internal_has_mixin(const internal::mixin_type_info& mixin_info);
 
 
     // reorganizes the mixins for the new type
@@ -77,7 +77,7 @@ private:
     // each element of this array points to a buffer which cointains a pointer to
     // this - the object and then the mixin
     // thus each mixin can get its own object
-    char** _mixin_data;
+    internal::mixin_data_in_object* _mixin_data;
 };
 
 } // namespace mixin

@@ -60,14 +60,15 @@ domain& get_domain(domain_id id)
 domain::domain(domain_id id, const char* name)
     : _id(id)
     , _name(name)
-    , _num_mixins(0)
+    , _num_registered_mixins(0)
 {
+    zero_memory(_mixin_type_infos, sizeof(_mixin_type_infos));
 }
 
 domain::~domain()
 {
     // why is there no boost::ptr_unordered_map ?
-    for(object_infos_hash_map::iterator i=_types.begin(); i!=_types.end(); ++i)
+    for(object_type_info_map::iterator i=_object_type_infos.begin(); i!=_object_type_infos.end(); ++i)
     {
         delete i->second;
     }
@@ -85,10 +86,11 @@ const object_type_info* domain::get_object_type_info(const mixin_type_info_vecto
         query[mixins[i]->id] = true;
     }
 
-    object_infos_hash_map::iterator i = _types.find(query);
+    object_type_info_map::iterator i = _object_type_infos.find(query);
 
-    if(i != _types.end())
+    if(i != _object_type_infos.end())
     {
+        // get existing
         BOOST_ASSERT(mixins == i->second->_compact_mixins);
         return i->second;
     }
@@ -102,10 +104,10 @@ const object_type_info* domain::get_object_type_info(const mixin_type_info_vecto
         for(size_t i=0; i<mixins.size(); ++i)
         {
             new_type->_mixins[mixins[i]->id] = mixins[i];
-            new_type->_mixin_indices[mixins[i]->id] = i;
+            new_type->_mixin_indices[mixins[i]->id] = i + 1; // reserve mixin index 0 for nullptr
         }
 
-        _types.insert(make_pair(query, new_type));
+        _object_type_infos.insert(make_pair(query, new_type));
         return new_type;
     }
 }

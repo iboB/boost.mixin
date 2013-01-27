@@ -31,13 +31,13 @@ namespace internal
 
 
 template <typename Mixin>
-mixin_type_info<Mixin>::mixin_type_info()
+mixin_type_info_instance<Mixin>::mixin_type_info_instance()
 {
     // register the mixin within its domain
     get_domain_for_tag<typename _boost_mixin_domain<Mixin>::tag>().
         // we use the function to get the data, to guarantee that an instantiation of the template from another module
         // won't override the data
-        template register_mixin_type<Mixin>(_boost_get_mixin_type_info_data((Mixin*)nullptr));
+        template register_mixin_type<Mixin>(_boost_get_mixin_type_info((Mixin*)nullptr));
 }
 
 
@@ -47,7 +47,7 @@ mixin_type_info<Mixin>::mixin_type_info()
 // this may be included separately and doesn't need to be in the same header as the actual mixin class declaration
 #define BOOST_DECLARE_EXPORTED_MIXIN(export, mixin_type) \
     class mixin_type; \
-    extern export ::boost::mixin::internal::mixin_type_info_data& _boost_get_mixin_type_info_data(const mixin_type* m); \
+    extern export ::boost::mixin::internal::mixin_type_info& _boost_get_mixin_type_info(const mixin_type* m); \
 
 // call this in header files to forward declare a mixin type
 // this may be included separately and doesn't need to be in the same header as the actual mixin class definition
@@ -59,10 +59,10 @@ mixin_type_info<Mixin>::mixin_type_info()
 #define BOOST_DEFINE_MIXIN_IN_DOMAIN(mixin_domain, mixin_type, mixin_features) \
     /* specialize _boost_mixin_domain to bind this mixin's type to its domain tag */ \
     template <> struct _boost_mixin_domain<mixin_type> { typedef mixin_domain tag; }; \
-    /* create a function that will reference mixin_type_info static registrator to guarantee its instantiation */ \
-    inline void _boost_register_mixin(mixin_type*) { ::boost::mixin::internal::mixin_type_info<mixin_type>::registrator.unused = true; } \
+    /* create a function that will reference mixin_type_info_instance static registrator to guarantee its instantiation */ \
+    inline void _boost_register_mixin(mixin_type*) { ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::registrator.unused = true; } \
     /* create a mixin_type_info getter for this type */ \
-    ::boost::mixin::internal::mixin_type_info_data& _boost_get_mixin_type_info_data(const mixin_type*) { return ::boost::mixin::internal::mixin_type_info<mixin_type>::data(); } \
+    ::boost::mixin::internal::mixin_type_info& _boost_get_mixin_type_info(const mixin_type*) { return ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::info(); } \
 
 // short version to define mixins in the default domain
 #define BOOST_DEFINE_MIXIN(mixin_type, mixin_features) \

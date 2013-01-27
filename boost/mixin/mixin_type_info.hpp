@@ -26,7 +26,7 @@ typedef void (*mixin_constructor_proc)(void* memory);
 typedef void (*mixin_destructor_proc)(void* memory);
 
 // this struct contains information for a given mixin
-struct mixin_type_info_data : public noncopyable
+struct mixin_type_info : public noncopyable
 {
     domain* dom; // the domain this mixin belongs to
     mixin_id id; // the mixin's id within said domain
@@ -35,13 +35,14 @@ struct mixin_type_info_data : public noncopyable
 
     size_t size; // size of the mixin object
 
-    // a procedure obtained from the mixin definition that makes the actual construction
+    // procedures, obtained from the mixin definition that makes the actual
+    // construction and destruction
     mixin_constructor_proc constructor;
     mixin_destructor_proc destructor;
 
     bool is_valid() const { return id != INVALID_MIXIN_ID && dom; }
 
-    mixin_type_info_data()
+    mixin_type_info()
         : id(INVALID_MIXIN_ID)
         // since this is always static, other member will be initialized with 0
     {
@@ -50,29 +51,29 @@ struct mixin_type_info_data : public noncopyable
 
 // this metafunction binds the type info of a mixin to its type
 template <typename Mixin>
-struct mixin_type_info : public noncopyable
+struct mixin_type_info_instance : public noncopyable
 {
     // have this static function instead of a simple member to guarantee
-    // that mixin_type_info_data's constructor is called the first time
-    static mixin_type_info_data& data()
+    // that mixin_type_info's constructor is called the first time
+    static mixin_type_info& info()
     {
-        static mixin_type_info_data d;
+        static mixin_type_info d;
         return d;
     }
 
     // this static member registers the mixin
     // we need to reference it somewhere so as to call its constructor
-    static mixin_type_info registrator;
+    static mixin_type_info_instance registrator;
 
     // the constructor is defined in mixin.h because it refernces the domain object
-    mixin_type_info();
+    mixin_type_info_instance();
 
-    // to prevent warnings and optimizations that will say that we're not using mixin_type_info
-    // by simply referencing it
+    // to prevent warnings and optimizations that will say that we're not using
+    // mixin_type_info_instance by simply referencing it
     int unused;
 };
 template <typename Mixin>
-mixin_type_info<Mixin> mixin_type_info<Mixin>::registrator;
+mixin_type_info_instance<Mixin> mixin_type_info_instance<Mixin>::registrator;
 
 // this procedure is used for the mixin construction
 template <typename Mixin>
