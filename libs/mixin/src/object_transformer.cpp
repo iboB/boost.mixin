@@ -96,7 +96,7 @@ void object_transformer::check_valid_mutation(const internal::mixin_type_info_da
     BOOST_ASSERT(mixin_info.is_valid());
     if(_object->dom())
     {
-        //BOOST_MIXIN_THROW_UNLESS(_object->dom() == mixin_info.dom, invalid_domain);
+        BOOST_MIXIN_THROW_UNLESS(_object->dom() == mixin_info.dom, invalid_domain);
         BOOST_ASSERT(_object->dom() == mixin_info.dom);
     }
 
