@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{a24024b8-5de3-488d-9f2b-8fcacfc24982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boost">
+      <UniqueIdentifier>{10c2b1f0-6b50-4128-8c15-f0c7f74ea961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boost\mixin">
+      <UniqueIdentifier>{48d2c6f1-d209-4302-8515-cb8fb94b19a1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\object.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\object_transformer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\object_type_info.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\domain.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\global.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\internal.hpp">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\config.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\domain.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\exception.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\global.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\mixin_type_info.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_transformer.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_type_info.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\mixin.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

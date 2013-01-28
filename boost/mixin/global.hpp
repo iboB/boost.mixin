@@ -12,12 +12,14 @@
 #include "config.hpp"
 
 #include <boost/assert.hpp>
-#include <boost/noncopyable.hpp>
 #include <algorithm>
 #include <vector>
 #include <cstring> // for memset
 
-#if !BOOST_MIXIN_USING_CXX11
+#if BOOST_MIXIN_USING_CXX11
+#   define BOOST_MIXIN_CXX11_NAMESPACE std // some c++11 classes exist in boost use this namespace for them
+#else 
+#   define BOOST_MIXIN_CXX11_NAMESPACE boost
 #   define nullptr NULL
 #endif
 
@@ -50,6 +52,7 @@
 #define boost_mixin_internal public
 
 #include <bitset>
+
 namespace boost
 {
 namespace mixin
@@ -58,8 +61,6 @@ namespace mixin
 
 namespace internal
 {
-    typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
-
     // simple and often used function that just checks if an element is present
     // in a forward-iteratable container
     template <typename Container, typename Elem>
@@ -81,6 +82,19 @@ namespace internal
 
     class mixin_type_info;
     typedef std::vector<const mixin_type_info*> mixin_type_info_vector;
+
+    // msvc complains that boost::noncopyable doesn't have a dll interface
+    // instead of disabling the warning, use our own noncopyable
+    class BOOST_MIXIN_API noncopyable
+    {
+    protected:
+        noncopyable() {}
+        ~noncopyable() {}
+    private:  // emphasize the following members are private
+        noncopyable( const noncopyable& );
+        const noncopyable& operator=( const noncopyable& );
+    };
+
 } // namespace internal
 }
 }

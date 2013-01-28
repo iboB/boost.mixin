@@ -30,7 +30,7 @@ namespace internal
     class domain;
 }
 
-class BOOST_MIXIN_API object_transformer : public noncopyable
+class BOOST_MIXIN_API object_transformer : public internal::noncopyable
 {
 public:
     object_transformer(object* o);

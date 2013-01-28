@@ -24,7 +24,7 @@ namespace internal
 }
 
 // main object class
-class BOOST_MIXIN_API object : public noncopyable
+class BOOST_MIXIN_API object : public internal::noncopyable
 {
 public:
     // constructs an empty object - no mixins

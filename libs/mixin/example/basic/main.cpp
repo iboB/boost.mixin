@@ -57,8 +57,6 @@ BOOST_DEFINE_MIXIN(mixin_A, features not supported yet);
 BOOST_DEFINE_MIXIN(mixin_B, features not supported yet);
 BOOST_DEFINE_MIXIN(mixin_C, features not supported yet);
 
-void _boost_mixin_constructor(void*);
-
 using namespace boost::mixin;
 
 int main()
@@ -92,11 +90,10 @@ int main()
 
     o2->get<mixin_B>()->bbb();
 
-    cout << "type infos: " << d._object_type_infos.size() << endl;
-
-
     delete o1;
     delete o2;
+
+    cout << "type infos: " << d._object_type_infos.size() << endl;
 
     return 0;
 }

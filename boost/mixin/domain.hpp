@@ -51,6 +51,8 @@ typedef size_t domain_id;
 namespace internal
 {
 
+typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
+
 class BOOST_MIXIN_API domain : public noncopyable
 {
 public:
@@ -93,11 +95,7 @@ private:
     const mixin_type_info* _mixin_type_infos[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
     size_t _num_registered_mixins;
 
-#if BOOST_MIXIN_USING_CXX11
-    typedef std::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
-#else
-    typedef boost::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
-#endif
+    typedef BOOST_MIXIN_CXX11_NAMESPACE::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
 
     object_type_info_map _object_type_infos;
 };

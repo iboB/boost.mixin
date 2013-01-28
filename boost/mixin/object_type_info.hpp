@@ -38,7 +38,7 @@ public:
 
     domain* dom() const { return _domain; }
 
-    bool has_mixin(mixin_id id) const { return _mixins[id]; }
+    bool has_mixin(mixin_id id) const { return !!_mixins[id]; }
     const mixin_type_info& mixin_info(mixin_id id) const { return *_mixins[id]; }
     size_t mixin_index(mixin_id id) const { return _mixin_indices[id]; }
 

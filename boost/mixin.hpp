@@ -14,11 +14,23 @@
 // TODO: docs link
 //
 
+#if defined(_MSC_VER)
+// don't leave our warning disabled for the outside world
+#   pragma warning( push )
+#endif
+
+#include "mixin/config.hpp"
 #include "mixin/global.hpp"
 #include "mixin/domain.hpp"
+#include "mixin/mixin_type_info.hpp"
 #include "mixin/mixin.hpp"
 #include "mixin/object.hpp"
 #include "mixin/object_transformer.hpp"
 #include "mixin/object_type_info.hpp"
+#include "mixin/exception.hpp"
+
+#if defined(_MSC_VER)
+#   pragma warning( pop )
+#endif
 
 #endif // BOOST_MIXIN_HPP_INCLUDED

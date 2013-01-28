@@ -48,6 +48,12 @@
 #   define BOOST_MIXIN_USE_EXCEPTIONS 1
 #endif
 
+// msvc complains that template classes don't have a dll interface
+// can't deal with this right now
+#if defined(_MSC_VER)
+#   pragma warning (disable: 4251)
+#endif
+
 // dynamic link macros
 #if 1 // (defined BOOST_HAS_DECLSPEC)
 #   if 1 // defined(BOOST_ALL_DYN_LINK) || defined(BOOST_MIXIN_DYN_LINK)
@@ -60,7 +66,7 @@
 #endif  // BOOST_HAS_DECLSPEC
 
 #if !defined(BOOST_MIXIN_API)
-#   deine BOOST_MIXIN_API
+#   define BOOST_MIXIN_API
 #endif
 
 #endif // BOOST_MIXIN_CONFIG_HPP_INCLUDED
