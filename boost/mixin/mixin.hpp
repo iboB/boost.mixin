@@ -12,15 +12,9 @@
 #include "global.hpp"
 #include "domain.hpp"
 #include "mixin_type_info.hpp"
+#include "feature.hpp"
 
 #include <boost/preprocessor/empty.hpp>
-
-// metafunction that binds a mixin type to its domain tag
-// unfortunately it has to be global, because it's specialized by the macro that defines a mixin
-// it may or may not be placed in a namespace, and there's no way to make this work in all cases
-template <typename Mixin>
-struct _boost_mixin_domain {};
-
 
 namespace boost
 {
@@ -34,10 +28,20 @@ template <typename Mixin>
 mixin_type_info_instance<Mixin>::mixin_type_info_instance()
 {
     // register the mixin within its domain
-    get_domain_for_tag<typename _boost_mixin_domain<Mixin>::tag>().
-        // we use the function to get the data, to guarantee that an instantiation of the template from another module
-        // won't override the data
+    get_domain_for_tag<typename _boost_mixin_domain_for_type<Mixin>::tag>().
+        // we use the function to get the type info, to guarantee that an instantiation of the template
+        // from another module won't override if
         template register_mixin_type<Mixin>(_boost_get_mixin_type_info((Mixin*)nullptr));
+}
+
+template <typename Feature>
+feature_instance<Feature>::feature_instance()
+{
+    // register the feature within its domain
+    get_domain_for_tag<typename _boost_mixin_domain_for_type<Feature>::tag>().
+        // we use the function to get the feature, to guarantee that an instantiation of the template
+        // from another module won't override if
+        template register_feature(static_cast<Feature&>(_boost_get_mixin_feature((Feature*)nullptr)));
 }
 
 
@@ -56,9 +60,9 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
 
 // you must call one of the following two defines in a compilation unit to guarantee
 // the internal intializations for a mixin type
-#define BOOST_DEFINE_MIXIN_IN_DOMAIN(mixin_domain, mixin_type, mixin_features) \
-    /* specialize _boost_mixin_domain to bind this mixin's type to its domain tag */ \
-    template <> struct _boost_mixin_domain<mixin_type> { typedef mixin_domain tag; }; \
+#define BOOST_DEFINE_MIXIN_IN_DOMAIN(domain_tag, mixin_type, mixin_features) \
+    /* specialize _boost_mixin_domain_for_type to bind this mixin's type to its domain tag */ \
+    template <> struct _boost_mixin_domain_for_type<mixin_type> { typedef domain_tag tag; }; \
     /* create a function that will reference mixin_type_info_instance static registrator to guarantee its instantiation */ \
     inline void _boost_register_mixin(mixin_type*) { ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::registrator.unused = true; } \
     /* create a mixin_type_info getter for this type */ \

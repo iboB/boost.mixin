@@ -18,7 +18,7 @@
 
 #if BOOST_MIXIN_USING_CXX11
 #   define BOOST_MIXIN_CXX11_NAMESPACE std // some c++11 classes exist in boost use this namespace for them
-#else 
+#else
 #   define BOOST_MIXIN_CXX11_NAMESPACE boost
 #   define nullptr NULL
 #endif
@@ -58,6 +58,7 @@ namespace boost
 namespace mixin
 {
     typedef size_t mixin_id;
+    typedef size_t feature_id;
 
 namespace internal
 {

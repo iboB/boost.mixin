@@ -12,6 +12,7 @@
 #include <boost/mixin/global.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/object_type_info.hpp>
+#include <boost/mixin/feature.hpp>
 
 #include <boost/ptr_container/ptr_set.hpp>
 
@@ -77,6 +78,13 @@ public:
         _mixin_type_infos[_num_registered_mixins++] = &info;
     }
 
+    template <typename Feature>
+    void register_feature(Feature& feature)
+    {
+        BOOST_ASSERT(feature.id == INVALID_MIXIN_ID);
+
+    }
+
     // creates a new type info if needed
     const object_type_info* get_object_type_info(const mixin_type_info_vector& mixins);
 
@@ -115,5 +123,11 @@ domain& get_domain_for_tag()
 } // namespace internal
 } // namespace mixin
 } // namespace boost
+
+// metafunction that binds a mixin type to its domain tag
+// unfortunately it has to be global, because it's specialized by the macro that defines a mixin
+// it may or may not be placed in a namespace, and there's no way to make this work in all cases
+template <typename T>
+struct _boost_mixin_domain_for_type {};
 
 #endif //BOOST_MIXIN_DOMAIN_HPP_INCLUDED

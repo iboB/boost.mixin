@@ -53,9 +53,13 @@ public:
 
 };
 
+BOOST_MIXIN_MESSAGE_2(void, foo, int, bar, float, baz);
+
 BOOST_DEFINE_MIXIN(mixin_A, features not supported yet);
 BOOST_DEFINE_MIXIN(mixin_B, features not supported yet);
 BOOST_DEFINE_MIXIN(mixin_C, features not supported yet);
+
+BOOST_MIXIN_DEFINE_MESSAGE(foo);
 
 using namespace boost::mixin;
 

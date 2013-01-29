@@ -62,7 +62,7 @@ struct mixin_type_info_instance : public noncopyable
         return d;
     }
 
-    // this static member registers the mixin
+    // this static member registers the mixin in the domain
     // we need to reference it somewhere so as to call its constructor
     static mixin_type_info_instance registrator;
 
