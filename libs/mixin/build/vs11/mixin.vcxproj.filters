@@ -62,5 +62,11 @@
     <ClInclude Include="..\..\..\..\boost\mixin\mixin.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\feature.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\message.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

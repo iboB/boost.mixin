@@ -36,13 +36,13 @@ domain& domain::create(const char* domain_name)
     }
 
     // check if we haven't already created this domain
-    for(auto& r : domains)
+    for(domains_container::iterator r=domains.begin(); r!=domains.end(); ++r)
     {
         // domain re-registration
         // we have no guarantee that BOOST_MIXIN_TYPE_NAME returns the same address every time
         // that's why we use strcmp and not just ==
-        if(strcmp(r._name, domain_name) == 0)
-            return r;
+        if(strcmp(r->_name, domain_name) == 0)
+            return *r;
     }
 
     domain* new_domain = new domain(domains.size(), domain_name);

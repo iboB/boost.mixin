@@ -54,6 +54,25 @@ namespace internal
 
 typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
 
+#if !BOOST_MIXIN_USING_CXX11
+// we need to define a hash function for bitsets
+// curiously boost doesn's seem to have one
+struct hash_avaliable_mixins_bitset : std::unary_function<available_mixins_bitset, size_t>
+{
+    size_t operator()(const available_mixins_bitset& bs) const
+    {
+        const int bits = sizeof(size_t)*8;
+        size_t result = 0;
+        for(size_t i=0; i<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN; ++i)
+        {
+            // xor groups of bits 
+            result ^= size_t(bs[i]) << (i % bits);
+        }
+        return result;
+    }
+};
+#endif
+
 class BOOST_MIXIN_API domain : public noncopyable
 {
 public:
@@ -103,7 +122,11 @@ private:
     const mixin_type_info* _mixin_type_infos[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
     size_t _num_registered_mixins;
 
-    typedef BOOST_MIXIN_CXX11_NAMESPACE::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
+#if BOOST_MIXIN_USING_CXX11
+    typedef std::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
+#else
+    typedef boost::unordered_map<available_mixins_bitset, object_type_info*, hash_avaliable_mixins_bitset > object_type_info_map;
+#endif
 
     object_type_info_map _object_type_infos;
 };

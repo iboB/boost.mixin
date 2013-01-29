@@ -52,7 +52,13 @@
 		<Unit filename="../../../../boost/mixin/exception.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
+		<Unit filename="../../../../boost/mixin/feature.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
 		<Unit filename="../../../../boost/mixin/global.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/message.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
 		<Unit filename="../../../../boost/mixin/mixin.hpp">

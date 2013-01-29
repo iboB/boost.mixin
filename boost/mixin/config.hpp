@@ -28,7 +28,11 @@
 #endif
 
 // some features will compile faster when this is set to true
-#define BOOST_MIXIN_USING_CXX11 1
+#if defined(_MSC_VER) && _MSC_VER < 1700
+#   define BOOST_MIXIN_USING_CXX11 0
+#else
+#   define BOOST_MIXIN_USING_CXX11 1
+#endif
 
 // set this to true to make the library define "bm_this" as a shortcut to boost::mixin::get_object(this)
 // the pointer to the object owning the current mixin

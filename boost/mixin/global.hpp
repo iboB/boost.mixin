@@ -45,9 +45,9 @@
 // class X
 // {
 // public:
-//	<public stuff>
+//    <public stuff>
 // boost_mixin_internal:
-//	<actually public but logically private stuff>
+//    <actually public but logically private stuff>
 // };
 #define boost_mixin_internal public
 

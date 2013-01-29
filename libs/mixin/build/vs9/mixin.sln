@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mixin", "mixin.vcproj", "{C540FC12-7289-46BE-B546-71C958BF674D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "basic", "..\..\example\basic\basic.vcproj", "{25C67F8F-98B0-4547-81A7-7DD7CE746367}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C540FC12-7289-46BE-B546-71C958BF674D} = {C540FC12-7289-46BE-B546-71C958BF674D}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C540FC12-7289-46BE-B546-71C958BF674D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C540FC12-7289-46BE-B546-71C958BF674D}.Debug|Win32.Build.0 = Debug|Win32
+		{C540FC12-7289-46BE-B546-71C958BF674D}.Release|Win32.ActiveCfg = Release|Win32
+		{C540FC12-7289-46BE-B546-71C958BF674D}.Release|Win32.Build.0 = Release|Win32
+		{25C67F8F-98B0-4547-81A7-7DD7CE746367}.Debug|Win32.ActiveCfg = Debug|Win32
+		{25C67F8F-98B0-4547-81A7-7DD7CE746367}.Debug|Win32.Build.0 = Debug|Win32
+		{25C67F8F-98B0-4547-81A7-7DD7CE746367}.Release|Win32.ActiveCfg = Release|Win32
+		{25C67F8F-98B0-4547-81A7-7DD7CE746367}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

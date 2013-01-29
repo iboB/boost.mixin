@@ -41,7 +41,7 @@ feature_instance<Feature>::feature_instance()
     get_domain_for_tag<typename _boost_mixin_domain_for_type<Feature>::tag>().
         // we use the function to get the feature, to guarantee that an instantiation of the template
         // from another module won't override if
-        template register_feature(static_cast<Feature&>(_boost_get_mixin_feature((Feature*)nullptr)));
+        register_feature(static_cast<Feature&>(_boost_get_mixin_feature((Feature*)nullptr)));
 }
 
 
