@@ -10,7 +10,6 @@
 #include "system_messages.hpp"
 #include "transform_messages.hpp"
 #include "rendering_messages.hpp"
-#include "perf.hpp"
 
 // here we have only messages
 // no mixin info whatsoever
@@ -24,7 +23,7 @@ int main()
 
     m.create_objects();
 
-    object* o = m.objects()[1];
+    object* o = m.objects()[rand()%m.objects().size()];
 
     trace(o, cout);
 
@@ -35,13 +34,10 @@ int main()
     m.change_rendering_sytem();
 
     rotate(o, 0);
+    set_casts_shadows(o, false);
     trace(o, cout);
     rotate(o, 3);
     render(o, 2);
-
-    cout << endl << "======== small performance check ========" << endl << endl;
-
-    performance_test_object(o);
 
     return 0;
 }

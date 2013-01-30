@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="basic" />
+		<Option title="message_perf" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../../bin/basic_d" prefix_auto="1" extension_auto="1" />
+				<Option output="../../bin/message_perf_d" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -19,7 +19,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../bin/basic" prefix_auto="1" extension_auto="1" />
+				<Option output="../../bin/message_perf" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -38,28 +38,9 @@
 			<Add option="-fexceptions" />
 			<Add directory="../../../.." />
 		</Compiler>
-		<Unit filename="basic.hpp" />
-		<Unit filename="d3d_renderer.cpp" />
-		<Unit filename="d3d_renderer.hpp" />
-		<Unit filename="d3d_renderer_mixin.hpp" />
-		<Unit filename="gl_renderer.cpp" />
-		<Unit filename="gl_renderer.hpp" />
-		<Unit filename="gl_renderer_mixin.hpp" />
-		<Unit filename="has_id.cpp" />
-		<Unit filename="has_id.hpp" />
-		<Unit filename="has_id_mixin.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="object_manager.cpp" />
-		<Unit filename="object_manager.hpp" />
-		<Unit filename="rendering_messages.cpp" />
-		<Unit filename="rendering_messages.hpp" />
-		<Unit filename="system_messages.cpp" />
-		<Unit filename="system_messages.hpp" />
-		<Unit filename="transform.cpp" />
-		<Unit filename="transform.hpp" />
-		<Unit filename="transform_messages.cpp" />
-		<Unit filename="transform_messages.hpp" />
-		<Unit filename="transform_mixin.hpp" />
+		<Unit filename="perf.cpp" />
+		<Unit filename="perf.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
