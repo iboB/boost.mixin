@@ -10,6 +10,7 @@
 #define BOOST_MIXIN_OBJECT_TYPE_INFO_HPP_INCLUDED
 
 #include "global.hpp"
+#include "message.hpp"
 
 // object type info is an immutable class that represents the type information for a
 // group of objects

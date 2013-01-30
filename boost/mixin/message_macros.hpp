@@ -18,8 +18,9 @@
 #define _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) BOOST_PP_CAT(boost_mixin_msg_, message_name)
 #define _BOOST_MIXIN_MESSAGE_TAG(message_name) BOOST_PP_CAT(message_name, _msg)
 
-#define _BOOST_MIXIN_MESSAGE2(export, domain, message_name, method_name, return_type, arg1_type, a1, arg2_type, a2, constness, message_mechanism) \
-        /* mechanism shows whether it's a multicast or unicast */ \
+
+#define _BOOST_MIXIN_MESSAGE2_DECL(export, domain, message_name, method_name, return_type, arg1_type, a1, arg2_type, a2, constness, message_mechanism) \
+    /* mechanism shows whether it's a multicast or unicast */ \
     \
     /* step 1: define the message struct */ \
     struct export _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) : public ::boost::mixin::internal::message_t \
@@ -32,7 +33,7 @@
         return_type (Mixin::*get_method_pointer_for())(arg1_type, arg2_type) constness \
         { \
             /* use static_cast to show that we mean exactly the method with this signature and not some overload */ \
-            return static_cast<return_type (Mixin::*)(arg1_type, arg2_type)>(&Mixin::method_name); \
+            return static_cast<return_type (Mixin::*)(arg1_type, arg2_type) constness>(&Mixin::method_name); \
         } \
     }; \
     /* step 2: define a message tag, that will be used to identify the message in feature lists */ \
@@ -43,23 +44,58 @@
     /* step 3: declare the feature getter and manual registrator for the message */ \
     extern export ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*); \
     extern export void _boost_register_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*); \
+
+#define _BOOST_MIXIN_MESSAGE2_UNI(export, domain, message_name, method_name, return_type, arg1_type, a1, arg2_type, a2, constness) \
+    _BOOST_MIXIN_MESSAGE2_DECL(export, domain, message_name, method_name, return_type, arg1_type, a1, arg2_type, a2, constness, unicast) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
     inline return_type method_name(constness ::boost::mixin::object* obj, arg1_type a1, arg2_type a2) \
     {\
         ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::unicast); \
         const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         BOOST_ASSERT(msg_data->message == &self); \
-        BOOST_ASSERT(msg_data->message->mechanism == ::boost::mixin::internal::message_t::message_mechanism); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-        (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
+        return (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
             reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a1, a2); \
     }\
 
+#define _BOOST_MIXIN_MESSAGE2_MULTI(export, domain, message_name, method_name, return_type, arg1_type, a1, arg2_type, a2, constness) \
+    _BOOST_MIXIN_MESSAGE2_DECL(export, domain, message_name, method_name, return_type, arg1_type, a1, arg2_type, a2, constness, multicast) \
+    /* step 4: define the message function -> the one that will be called for the objects */ \
+    inline void method_name(constness ::boost::mixin::object* obj, arg1_type a1, arg2_type a2) \
+    {\
+        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
+        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
+        const call_table_entry* begin = call_entry.multicast_begin; \
+        const call_table_entry* end = call_entry.multicast_end; \
+        BOOST_ASSERT(begin); \
+        BOOST_ASSERT(end); \
+        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        { \
+            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
+            BOOST_ASSERT(msg_data); \
+            BOOST_ASSERT(msg_data->message == &self); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+            (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
+                reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a1, a2); \
+        }\
+    }
 
 #define BOOST_MIXIN_MESSAGE_2(return_type, message, arg1_type, a1, arg2_type, a2) \
-    _BOOST_MIXIN_MESSAGE2(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, arg1_type, a1, arg2_type, a2, BOOST_PP_EMPTY(), unicast)
+    _BOOST_MIXIN_MESSAGE2_UNI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, arg1_type, a1, arg2_type, a2, BOOST_PP_EMPTY())
+
+#define BOOST_MIXIN_CONST_MESSAGE_2(return_type, message, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE2_UNI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, arg1_type, a1, arg2_type, a2, const)
+
+#define BOOST_MIXIN_MULTICAST_MESSAGE_2(return_type, message, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, arg1_type, a1, arg2_type, a2, BOOST_PP_EMPTY())
+
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_2(return_type, message, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, arg1_type, a1, arg2_type, a2, const)
 
 
 /*#define BOOST_MIXIN_EXPORTED_MESSAGE_2_OVERLOAD_IN_DOMAIN(export, domain, message, return_type, method_name, arg1_type, a1, arg2_type, a2) \

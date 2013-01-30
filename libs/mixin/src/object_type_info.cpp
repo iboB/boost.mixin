@@ -121,8 +121,8 @@ void object_type_info::fill_call_table()
 
                     BOOST_ASSERT(table_entry.multicast_end);
                     // increase the pointer with the count from the previous pass
-                    multicast_buffer_ptr += reinterpret_cast<size_t>(table_entry.multicast_end);
-                    BOOST_ASSERT(multicast_buffer_ptr - _multicast_buffer < total_multicast_length);
+                    multicast_buffer_ptr += reinterpret_cast<size_t>(table_entry.multicast_end)/sizeof(call_table_entry);
+                    BOOST_ASSERT(multicast_buffer_ptr - _multicast_buffer <= total_multicast_length);
 
                     // set the end to its supposed value
                     table_entry.multicast_end = table_entry.multicast_begin;

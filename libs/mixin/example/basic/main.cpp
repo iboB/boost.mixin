@@ -19,6 +19,18 @@ public:
     {
         cout << "in a bar is: " << bar << " baz is: " << baz << endl;
     }
+
+    int fofo(int x, int y) const
+    {
+        cout << "in fofo now" << endl;
+        return 5;
+    }
+
+    bool multi(int a, int b)
+    {
+        cout << "i'm in multi AAAAA with " << b << endl;
+        return true;
+    }
 };
 
 class mixin_B
@@ -62,15 +74,26 @@ public:
         }
     }
 
+    bool multi(int a, int b)
+    {
+        cout << "multi c multi c" << a << endl;
+        return true;
+    }
+
 };
 
 BOOST_MIXIN_MESSAGE_2(void, foo, int, bar, float, baz)
+BOOST_MIXIN_CONST_MESSAGE_2(int, fofo, int, bar, int, baz)
 
-BOOST_DEFINE_MIXIN(mixin_A, foo_msg)
-BOOST_DEFINE_MIXIN(mixin_B, boost::mixin::priority(-5, foo_msg))
-BOOST_DEFINE_MIXIN(mixin_C, boost::mixin::none)
+BOOST_MIXIN_MULTICAST_MESSAGE_2(bool, multi, int, bar, int, baz)
+
+BOOST_DEFINE_MIXIN(mixin_A, foo_msg & fofo_msg & boost::mixin::priority(5, multi_msg))
+BOOST_DEFINE_MIXIN(mixin_B, boost::mixin::priority(5, foo_msg))
+BOOST_DEFINE_MIXIN(mixin_C, boost::mixin::priority(-5, multi_msg))
 
 BOOST_MIXIN_DEFINE_MESSAGE(foo)
+BOOST_MIXIN_DEFINE_MESSAGE(fofo)
+BOOST_MIXIN_DEFINE_MESSAGE(multi)
 
 using namespace boost::mixin;
 
@@ -105,7 +128,7 @@ int main()
 
     o2->get<mixin_B>()->bbb();
 
-    foo(o2, 1, 2);
+    multi(o1, 1, 2);
 
     delete o1;
     delete o2;
