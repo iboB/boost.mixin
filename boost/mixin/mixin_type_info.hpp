@@ -10,6 +10,7 @@
 #define BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED
 
 #include "global.hpp"
+#include "message.hpp"
 
 namespace boost
 {
@@ -42,6 +43,8 @@ public:
     mixin_destructor_proc destructor;
 
     bool is_valid() const { return id != INVALID_MIXIN_ID && dom; }
+
+    std::vector<message_for_mixin> message_infos;
 
     mixin_type_info()
         : id(INVALID_MIXIN_ID)

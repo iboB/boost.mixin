@@ -52,10 +52,13 @@ public:
         return reinterpret_cast<const Mixin*>(internal_get_mixin(info));
     }
 
+    void* get_raw_mixin(mixin_id id);
+    const void* get_raw_mixin(mixin_id id) const;
+
     // destroys all mixins and sets null type info
     void clear();
 
-private:
+boost_mixin_internal:
     friend class object_transformer;
 
     void* internal_get_mixin(const internal::mixin_type_info& mixin_info);

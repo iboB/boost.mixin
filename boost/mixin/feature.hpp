@@ -16,23 +16,37 @@ namespace boost
 namespace mixin
 {
 
+// used to indicate that there are no features for a mixin
+struct BOOST_MIXIN_API no_features_t {};
+extern BOOST_MIXIN_API no_features_t* none;
+
+namespace internal
+{
+    class domain;
+}
+
 static const feature_id INVALID_FEATURE_ID = ~feature_id(0);
 
 struct BOOST_MIXIN_API feature : public internal::noncopyable
 {
-    feature()
+    feature_id id;
+    internal::domain* dom;
+    const char* const name;
+
+protected:
+    feature(const char* name)
         : id(INVALID_FEATURE_ID)
+        , name(name)
     {
     }
-    feature_id id;
 };
 
 
 namespace internal
 {
 
-// much like the mixin_type_info_instance this class is used to register features and
-// also as a metafunction to bind feature types to their unique instances
+// like the mixin_type_info_instance this class is as a
+// metafunction to bind feature types to their unique instances
 template <typename Feature>
 struct feature_instance
 {
@@ -43,20 +57,12 @@ struct feature_instance
         return f;
     }
 
-    // this static member registers the feature with the domain
-    // we need to reference it somewhere so as to call its constructor
-    static feature_instance registrator;
-
-    // the constructor is defined in mixin.h because it refernces the domain object
-    feature_instance();
-
-    // to prevent warnings and optimizations that will say that we're not using
-    // feature_instance by simply referencing it
-    int unused;
+    // unfortunately we cannot do the mixin trick of clobal instantiation here
+    // there is no guarantee that the features will be instantiated before the mixins
+    // and their id's are needed
+    // instead we'll register the features manually when registering the mixin
+    // this will be at the cost of having features registered multiple times
 };
-
-template <typename Feature>
-feature_instance<Feature> feature_instance<Feature>::registrator;
 
 } // namespace internal
 } // namespace mixin

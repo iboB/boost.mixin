@@ -13,6 +13,9 @@ namespace boost
 {
 namespace mixin
 {
+
+no_features_t* none;
+
 namespace internal
 {
 
@@ -61,8 +64,10 @@ domain::domain(domain_id id, const char* name)
     : _id(id)
     , _name(name)
     , _num_registered_mixins(0)
+    , _num_registered_messages(0)
 {
     zero_memory(_mixin_type_infos, sizeof(_mixin_type_infos));
+    zero_memory(_messages, sizeof(_messages));
 }
 
 domain::~domain()
@@ -106,6 +111,8 @@ const object_type_info* domain::get_object_type_info(const mixin_type_info_vecto
             new_type->_mixins[mixins[i]->id] = mixins[i];
             new_type->_mixin_indices[mixins[i]->id] = i + 1; // reserve mixin index 0 for nullptr
         }
+
+        new_type->fill_call_table();
 
         _object_type_infos.insert(make_pair(query, new_type));
         return new_type;

@@ -48,15 +48,44 @@ public:
     char* alloc_mixin(mixin_id id) const;
     void dealloc_mixin(mixin_id id, char* mem) const;
 
+    void generate_call_table();
+
 boost_mixin_internal:
     domain* _domain; // owning domain
 
     // not available mixins are null
     size_t _mixin_indices[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
     const mixin_type_info* _mixins[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
-
     // only the mixins the objects of this type have
     mixin_type_info_vector _compact_mixins;
+
+    struct call_table_entry
+    {
+        union
+        {
+            // this view is for unicast messages
+            // it will contain the message with the highest priority
+            struct
+            {
+                const message_for_mixin* message_data;
+            };
+
+            // this view is used for multicast messages
+            // it will contain a dynamically allocated array of entries sorte by priority
+            struct
+            {
+                call_table_entry* multicast_begin;
+                call_table_entry* multicast_end;
+            };
+        };
+
+    };
+
+    call_table_entry* _multicast_buffer; // a single buffer for all multicast messages to save allocation calls
+    call_table_entry _call_table[BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN];
+
+    // this should be called after the mixins have been initialized
+    void fill_call_table();
 };
 
 // represents the mixin data in an object

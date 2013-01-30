@@ -6,14 +6,19 @@
 
 using namespace std;
 
-BOOST_DECLARE_MIXIN(mixin_A);
-BOOST_DECLARE_MIXIN(mixin_B);
-BOOST_DECLARE_MIXIN(mixin_C);
+BOOST_DECLARE_MIXIN(mixin_A)
+BOOST_DECLARE_MIXIN(mixin_B)
+BOOST_DECLARE_MIXIN(mixin_C)
 
 class mixin_A
 {
 public:
     void aaa() { cout << "im in AAA\n"; }
+
+    void foo(int bar, float baz)
+    {
+        cout << "in a bar is: " << bar << " baz is: " << baz << endl;
+    }
 };
 
 class mixin_B
@@ -26,6 +31,12 @@ public:
 
     void bbb() { cout << "im in b " << i << ' ' << j << ' ' << k << endl; }
     int i, j, k;
+
+    void foo(int bar, float baz)
+    {
+        i = bar;
+        cout << "whereas in b bar is: " << bar << " and baz is: " << baz << endl;
+    }
 };
 
 class mixin_C
@@ -53,13 +64,13 @@ public:
 
 };
 
-BOOST_MIXIN_MESSAGE_2(void, foo, int, bar, float, baz);
+BOOST_MIXIN_MESSAGE_2(void, foo, int, bar, float, baz)
 
-BOOST_DEFINE_MIXIN(mixin_A, features not supported yet);
-BOOST_DEFINE_MIXIN(mixin_B, features not supported yet);
-BOOST_DEFINE_MIXIN(mixin_C, features not supported yet);
+BOOST_DEFINE_MIXIN(mixin_A, foo_msg)
+BOOST_DEFINE_MIXIN(mixin_B, boost::mixin::priority(-5, foo_msg))
+BOOST_DEFINE_MIXIN(mixin_C, boost::mixin::none)
 
-BOOST_MIXIN_DEFINE_MESSAGE(foo);
+BOOST_MIXIN_DEFINE_MESSAGE(foo)
 
 using namespace boost::mixin;
 
@@ -93,6 +104,8 @@ int main()
         .add<mixin_A>();
 
     o2->get<mixin_B>()->bbb();
+
+    foo(o2, 1, 2);
 
     delete o1;
     delete o2;

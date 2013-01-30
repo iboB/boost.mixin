@@ -26,6 +26,7 @@
 #include "mixin/mixin_type_info.hpp"
 #include "mixin/mixin.hpp"
 #include "mixin/message.hpp"
+#include "mixin/message_macros.hpp"
 #include "mixin/object.hpp"
 #include "mixin/object_transformer.hpp"
 #include "mixin/object_type_info.hpp"

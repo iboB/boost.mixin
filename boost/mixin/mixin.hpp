@@ -34,16 +34,6 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
         template register_mixin_type<Mixin>(_boost_get_mixin_type_info((Mixin*)nullptr));
 }
 
-template <typename Feature>
-feature_instance<Feature>::feature_instance()
-{
-    // register the feature within its domain
-    get_domain_for_tag<typename _boost_mixin_domain_for_type<Feature>::tag>().
-        // we use the function to get the feature, to guarantee that an instantiation of the template
-        // from another module won't override if
-        register_feature(static_cast<Feature&>(_boost_get_mixin_feature((Feature*)nullptr)));
-}
-
 
 } // namespace internal
 
@@ -67,6 +57,11 @@ feature_instance<Feature>::feature_instance()
     inline void _boost_register_mixin(mixin_type*) { ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::registrator.unused = true; } \
     /* create a mixin_type_info getter for this type */ \
     ::boost::mixin::internal::mixin_type_info& _boost_get_mixin_type_info(const mixin_type*) { return ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::info(); } \
+    /* create a features parsing function */ \
+    /* features can be parsed multiple times by different parsers */ \
+    template <typename FeaturesParser> \
+    void _boost_parse_mixin_features(const mixin_type*, FeaturesParser& parser) { parser & mixin_features; } \
+
 
 // short version to define mixins in the default domain
 #define BOOST_DEFINE_MIXIN(mixin_type, mixin_features) \

@@ -13,6 +13,8 @@
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/mixin/feature.hpp>
+#include <boost/mixin/feature_parser.hpp>
+#include <boost/mixin/message.hpp>
 
 #include <boost/ptr_container/ptr_set.hpp>
 
@@ -48,6 +50,8 @@ public:
 };
 
 typedef size_t domain_id;
+
+class feature;
 
 namespace internal
 {
@@ -85,7 +89,8 @@ public:
     void register_mixin_type(mixin_type_info& info)
     {
         BOOST_ASSERT(info.id == INVALID_MIXIN_ID);
-        BOOST_ASSERT_MSG(_num_registered_mixins <= BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN, "you have to increase the maximal number of mixins");
+        BOOST_ASSERT_MSG(_num_registered_mixins < BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN,
+                         "you have to increase the maximum number of mixins");
 
         info.dom = this;
         info.id = _num_registered_mixins;
@@ -95,13 +100,27 @@ public:
         info.destructor = &call_mixin_destructor<Mixin>;
 
         _mixin_type_infos[_num_registered_mixins++] = &info;
+
+        // see comments in feature_instance on why this manual registration is needed
+        feature_registrator reg;
+        _boost_parse_mixin_features((Mixin*)nullptr, reg);
+
+        feature_parser<Mixin> parser;
+        _boost_parse_mixin_features((Mixin*)nullptr, parser);
     }
 
     template <typename Feature>
     void register_feature(Feature& feature)
     {
-        BOOST_ASSERT(feature.id == INVALID_MIXIN_ID);
+        // see comments in feature_instance on why features may be registered multiple times
+        if(feature.id != INVALID_FEATURE_ID)
+        {
+            return;
+        }
 
+        feature.dom = this;
+
+        internal_register_feature<Feature>(feature, typename Feature::feature_tag());
     }
 
     // creates a new type info if needed
@@ -122,6 +141,9 @@ private:
     const mixin_type_info* _mixin_type_infos[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
     size_t _num_registered_mixins;
 
+    const message_t* _messages[BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN];
+    size_t _num_registered_messages;
+
 #if BOOST_MIXIN_USING_CXX11
     typedef std::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
 #else
@@ -129,6 +151,19 @@ private:
 #endif
 
     object_type_info_map _object_type_infos;
+
+    // feature registration functions for the supported kinds of features
+    template <typename Message>
+    void internal_register_feature(Message& m, const message_feature_tag&)
+    {
+        BOOST_ASSERT_MSG(_num_registered_messages < BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN,
+                         "you have to increase the maximum number of features");
+
+
+        m.id = _num_registered_messages;
+
+        _messages[_num_registered_messages++] = &m;
+    }
 };
 
 BOOST_MIXIN_API domain& get_domain(domain_id id);
