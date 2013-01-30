@@ -22,6 +22,7 @@ mixin_inc = ../../../../boost/mixin
 
 HEADERS += \
     $${mixin_inc}/../mixin.hpp \
+    \
     $${mixin_inc}/config.hpp \
     $${mixin_inc}/global.hpp \
     $${mixin_inc}/domain.hpp \
@@ -35,6 +36,8 @@ HEADERS += \
     $${mixin_inc}/object.hpp \
     $${mixin_inc}/exception.hpp \
     $${mixin_inc}/object_transformer.hpp \
+    \
+    $${mixin_inc}/gen/message_macros.ipp \
     \
     $${mixin_inc}/third_party/fd_simplify_mem_func.hpp \
     \
