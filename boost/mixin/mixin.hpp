@@ -80,7 +80,8 @@ object* get_object(Mixin* mixin_addr)
 template <typename Mixin>
 const object* get_object(const Mixin* mixin_addr)
 {
-    return *reinterpret_cast<const object**>(reinterpret_cast<const char*>(mixin_addr) - sizeof(object*));
+    // casts away qualifiers??
+    return *(const object**)(reinterpret_cast<const char*>(mixin_addr) - sizeof(object*));
 }
 
 } // namespace mixin

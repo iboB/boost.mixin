@@ -37,7 +37,30 @@
 		<Linker>
 			<Add library="../../bin/libmixin_d.so" />
 		</Linker>
+		<Unit filename="basic.hpp" />
+		<Unit filename="d3d_renderer.cpp" />
+		<Unit filename="d3d_renderer.hpp" />
+		<Unit filename="d3d_renderer_mixin.hpp" />
+		<Unit filename="gl_renderer.cpp" />
+		<Unit filename="gl_renderer.hpp" />
+		<Unit filename="gl_renderer_mixin.hpp" />
+		<Unit filename="has_id.cpp" />
+		<Unit filename="has_id.hpp" />
+		<Unit filename="has_id_mixin.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="object_manager.cpp" />
+		<Unit filename="object_manager.hpp" />
+		<Unit filename="perf.cpp" />
+		<Unit filename="perf.hpp" />
+		<Unit filename="rendering_messages.cpp" />
+		<Unit filename="rendering_messages.hpp" />
+		<Unit filename="system_messages.cpp" />
+		<Unit filename="system_messages.hpp" />
+		<Unit filename="transform.cpp" />
+		<Unit filename="transform.hpp" />
+		<Unit filename="transform_messages.cpp" />
+		<Unit filename="transform_messages.hpp" />
+		<Unit filename="transform_mixin.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

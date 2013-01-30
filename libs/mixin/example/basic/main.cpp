@@ -1,139 +1,47 @@
-#include <iostream>
-#include <algorithm>
-#include <typeinfo>
+//
+// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+//
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
+//
+#include "basic.hpp"
+#include "object_manager.hpp"
+#include "system_messages.hpp"
+#include "transform_messages.hpp"
+#include "rendering_messages.hpp"
+#include "perf.hpp"
 
-#include <boost/mixin.hpp>
-
-using namespace std;
-
-BOOST_DECLARE_MIXIN(mixin_A)
-BOOST_DECLARE_MIXIN(mixin_B)
-BOOST_DECLARE_MIXIN(mixin_C)
-
-class mixin_A
-{
-public:
-    void aaa() { cout << "im in AAA\n"; }
-
-    void foo(int bar, float baz)
-    {
-        cout << "in a bar is: " << bar << " baz is: " << baz << endl;
-    }
-
-    int fofo(int x, int y) const
-    {
-        cout << "in fofo now" << endl;
-        return 5;
-    }
-
-    bool multi(int a, int b)
-    {
-        cout << "i'm in multi AAAAA with " << b << endl;
-        return true;
-    }
-};
-
-class mixin_B
-{
-public:
-    mixin_B()
-        : i(1), j(20), k(300)
-    {
-    }
-
-    void bbb() { cout << "im in b " << i << ' ' << j << ' ' << k << endl; }
-    int i, j, k;
-
-    void foo(int bar, float baz)
-    {
-        i = bar;
-        cout << "whereas in b bar is: " << bar << " and baz is: " << baz << endl;
-    }
-};
-
-class mixin_C
-{
-public:
-    mixin_C()
-    {
-        cout << "creating c\n";
-    }
-
-    ~mixin_C()
-    {
-        cout << "destroying c\n";
-    }
-
-    void ccc()
-    {
-        cout << "we're in c\n";
-        bm_this->get<mixin_A>()->aaa();
-        if(bm_this->get<mixin_B>())
-        {
-            bm_this->get<mixin_B>()->bbb();
-        }
-    }
-
-    bool multi(int a, int b)
-    {
-        cout << "multi c multi c" << a << endl;
-        return true;
-    }
-
-};
-
-BOOST_MIXIN_MESSAGE_2(void, foo, int, bar, float, baz)
-BOOST_MIXIN_CONST_MESSAGE_2(int, fofo, int, bar, int, baz)
-
-BOOST_MIXIN_MULTICAST_MESSAGE_2(bool, multi, int, bar, int, baz)
-
-BOOST_DEFINE_MIXIN(mixin_A, foo_msg & fofo_msg & boost::mixin::priority(5, multi_msg))
-BOOST_DEFINE_MIXIN(mixin_B, boost::mixin::priority(5, foo_msg))
-BOOST_DEFINE_MIXIN(mixin_C, boost::mixin::priority(-5, multi_msg))
-
-BOOST_MIXIN_DEFINE_MESSAGE(foo)
-BOOST_MIXIN_DEFINE_MESSAGE(fofo)
-BOOST_MIXIN_DEFINE_MESSAGE(multi)
+// here we have only messages
+// no mixin info whatsoever
 
 using namespace boost::mixin;
+using namespace std;
 
 int main()
 {
-    internal::domain& d = internal::get_domain(0);
-    cout << d._num_registered_mixins << endl;
+    object_manager m;
 
-    const internal::mixin_type_info& t1 = *d._mixin_type_infos[0];
-    cout << t1.name << ": " << t1.id << endl;
+    m.create_objects();
 
-    const internal::mixin_type_info& t2 = *d._mixin_type_infos[1];
-    cout << t2.name << ": " << t2.id << endl;
+    object* o = m.objects()[1];
 
-    const internal::mixin_type_info& t3 = *d._mixin_type_infos[2];
-    cout << t3.name << ": " << t3.id << endl;
+    trace(o, cout);
 
-    object* o1 = new object;
+    rotate(o, 5);
+    render(o, 7);
 
-    object_transformer(o1)
-        .add<mixin_A>()
-        .add<mixin_C>()
-        .add<mixin_B>();
+    cout << endl << "======== changing rendering system ========" << endl << endl;
+    m.change_rendering_sytem();
 
-    o1->get<mixin_C>()->ccc();
+    rotate(o, 0);
+    trace(o, cout);
+    rotate(o, 3);
+    render(o, 2);
 
-    object* o2 = new object;
-    object_transformer(o2)
-        .add<mixin_C>()
-        .add<mixin_B>()
-        .add<mixin_A>();
+    cout << endl << "======== small performance check ========" << endl << endl;
 
-    o2->get<mixin_B>()->bbb();
-
-    multi(o1, 1, 2);
-
-    delete o1;
-    delete o2;
-
-    cout << "type infos: " << d._object_type_infos.size() << endl;
+    performance_test_object(o);
 
     return 0;
 }

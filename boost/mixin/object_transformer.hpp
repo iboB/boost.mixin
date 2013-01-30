@@ -71,6 +71,8 @@ private:
     internal::mixin_type_info_vector _to_remove;
 };
 
+typedef object_transformer mutate;
+
 }
 }
 
