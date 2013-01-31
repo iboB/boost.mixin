@@ -6,8 +6,6 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #include "perf.hpp"
-#include <sys/time.h>
-
 using namespace std;
 
 // compare an unicast mixin message to
@@ -19,6 +17,30 @@ using namespace std;
 // gcc with no -flto
 // msvc with no link time code generation
 
+#if defined(_MSC_VER)
+#include <Windows.h>
+struct timer
+{
+    timer()
+    {
+        start = GetTickCount();
+    }
+
+    ~timer()
+    {
+        DWORD end = GetTickCount();;
+
+        int ms = end - start;
+
+        cout << ms << " ms " << endl;
+    }
+
+    DWORD start;
+};
+
+#else // _MSC_VER
+
+#include <sys/time.h>
 struct timer
 {
     timer()
@@ -41,9 +63,10 @@ struct timer
 
     timeval start;
 };
+#endif
 
 #define PERF(name, summer, getter) \
-    cout << #name << ":"; \
+    cout << #name << ": "; \
     { \
         timer t; \
         for(int i=0; i<A_LOT; ++i) \

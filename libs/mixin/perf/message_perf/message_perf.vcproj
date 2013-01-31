@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="mixin"
-	ProjectGUID="{C540FC12-7289-46BE-B546-71C958BF674D}"
-	RootNamespace="mixin"
+	Name="message_perf"
+	ProjectGUID="{C9248C24-28B0-4FA1-A237-F33F22BF5A15}"
+	RootNamespace="message_perf"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -19,8 +19,8 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(ProjectDir)..\..\bin\"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			IntermediateDirectory="vs9_build\$(ConfigurationName)"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..&quot;;C:\Libraries\boost_1_49_0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MIXIN_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,10 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\$(ProjectName)_vs9_debug.dll"
+				OutputFile="$(OutDir)\$(ProjectName)_vs9_d.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -92,8 +92,8 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(ProjectDir)..\..\bin\"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			IntermediateDirectory="vs9_build\$(ConfigurationName)"
+			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -117,7 +117,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..&quot;;C:\Libraries\boost_1_49_0"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MIXIN_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -135,12 +135,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\$(ProjectName)_vs9.dll"
+				OutputFile="$(OutDir)\$(ProjectName)_vs9.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				LinkTimeCodeGeneration="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -169,114 +170,18 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="boost"
+		<File
+			RelativePath=".\main.cpp"
 			>
-			<File
-				RelativePath="..\..\..\..\boost\mixin.hpp"
-				>
-			</File>
-			<Filter
-				Name="mixin"
-				>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\config.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\domain.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\exception.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\feature.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\feature_parser.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\global.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\message.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\message_macros.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\mixin.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\mixin_type_info.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\object.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\object_transformer.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\boost\mixin\object_type_info.hpp"
-					>
-				</File>
-				<Filter
-					Name="third_party"
-					>
-					<File
-						RelativePath="..\..\..\..\boost\mixin\third_party\fd_simplify_mem_func.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="gen"
-					>
-					<File
-						RelativePath="..\..\..\..\boost\mixin\gen\message_macros.ipp"
-						>
-					</File>
-				</Filter>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="src"
+		</File>
+		<File
+			RelativePath=".\perf.cpp"
 			>
-			<File
-				RelativePath="..\..\src\domain.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\global.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\internal.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\object.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\object_transformer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\object_type_info.cpp"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath=".\perf.hpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

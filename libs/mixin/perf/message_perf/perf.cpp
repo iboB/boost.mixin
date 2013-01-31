@@ -14,8 +14,8 @@ using namespace boost::mixin;
 using namespace std;
 
 abstract_class* ac_instance;
-std::function<void(int)> f_add;
-std::function<int()> f_sum;
+BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)> f_add;
+BOOST_MIXIN_CXX11_NAMESPACE::function<int()> f_sum;
 boost::mixin::object* bm_object;
 
 BOOST_DECLARE_MIXIN(regular_class)
@@ -44,9 +44,15 @@ extern void initialize_globals()
     // don't care about memory leaks
     ac_instance = new abstract_instance;
 
+#if BOOST_MIXIN_USING_CXX11
+#   define _1_NAMESPACE placeholders
+#else
+#   define _1_NAMESPACE boost
+#endif
+
     regular_class* c = new regular_class;
-    f_add = std::bind(&regular_class::add, c, placeholders::_1);
-    f_sum = std::bind(&regular_class::sum, c);
+    f_add = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, c, _1_NAMESPACE::_1);
+    f_sum = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, c);
 
     bm_object = new object;
 

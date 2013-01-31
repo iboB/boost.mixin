@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(ProjectDir)..\..\bin\"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="vs9_build\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -92,7 +92,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(ProjectDir)..\..\bin\"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="vs9_build\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -170,7 +170,91 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\basic.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\d3d_renderer.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\d3d_renderer.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\d3d_renderer_mixin.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\gl_renderer.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\gl_renderer.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\gl_renderer_mixin.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\has_id.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\has_id.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\has_id_mixin.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\main.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\object_manager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\object_manager.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\rendering_messages.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\rendering_messages.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\system_messages.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\system_messages.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\transform.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\transform.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\transform_messages.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\transform_messages.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\transform_mixin.hpp"
 			>
 		</File>
 	</Files>

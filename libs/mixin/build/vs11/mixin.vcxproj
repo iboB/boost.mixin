@@ -23,14 +23,20 @@
     <ClInclude Include="..\..\..\..\boost\mixin\domain.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\exception.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\feature.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\feature_parser.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\global.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\message.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\message_macros.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\mixin.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\mixin_type_info.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_transformer.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_info.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\third_party\fd_simplify_mem_func.hpp" />
     <ClInclude Include="..\..\src\internal.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\boost\mixin\gen\message_macros.ipp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{70D4D2E6-2947-4F77-B671-6500FB1E7DDB}</ProjectGuid>
@@ -65,11 +71,13 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)_vs11_debug</TargetName>
     <OutDir>$(SolutionDir)..\..\bin\</OutDir>
+    <IntDir>vs11_build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\bin\</OutDir>
     <TargetName>$(ProjectName)_vs11</TargetName>
+    <IntDir>vs11_build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

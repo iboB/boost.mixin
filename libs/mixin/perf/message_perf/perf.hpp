@@ -9,7 +9,15 @@
 
 #include <iostream>
 #include <boost/mixin.hpp>
-#include <functional>
+
+#if BOOST_MIXIN_USING_CXX11
+#    include <functional>
+#else
+#    include <boost/function.hpp>
+#    include <boost/bind.hpp>
+#endif
+
+
 
 extern int A_LOT; // intentionally not const
 
@@ -44,8 +52,8 @@ extern abstract_class* ac_instance;
 //////////////////////////////////
 // std function
 
-extern std::function<void(int)> f_add;
-extern std::function<int()> f_sum;
+extern BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)> f_add;
+extern BOOST_MIXIN_CXX11_NAMESPACE::function<int()> f_sum;
 
 //////////////////////////////////
 // boost mixin

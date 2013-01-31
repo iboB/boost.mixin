@@ -71,7 +71,7 @@ void object_type_info::fill_call_table()
 {
     // first pass
     // set unicast messages and determine total multicast length
-    size_t total_multicast_length = 0;
+    int total_multicast_length = 0;
 
     for(size_t i=0; i<_compact_mixins.size(); ++i)
     {

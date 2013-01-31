@@ -47,7 +47,7 @@
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         return (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-            reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(); \
+            reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE0_MULTI(export, domain, message_name, method_name, return_type, constness ) \
@@ -70,7 +70,7 @@
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-                reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(); \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(); \
         }\
     }
 
@@ -124,7 +124,7 @@
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         return (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-            reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0); \
+            reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE1_MULTI(export, domain, message_name, method_name, return_type, constness , arg0_type, a0) \
@@ -147,7 +147,7 @@
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-                reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0); \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0); \
         }\
     }
 
@@ -201,7 +201,7 @@
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         return (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-            reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1); \
+            reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE2_MULTI(export, domain, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1) \
@@ -224,7 +224,7 @@
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-                reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1); \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1); \
         }\
     }
 
@@ -278,7 +278,7 @@
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         return (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-            reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2); \
+            reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE3_MULTI(export, domain, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
@@ -301,7 +301,7 @@
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-                reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2); \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2); \
         }\
     }
 
@@ -355,7 +355,7 @@
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         return (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-            reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2, a3); \
+            reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2, a3); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE4_MULTI(export, domain, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
@@ -378,7 +378,7 @@
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-                reinterpret_cast<typename _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2, a3); \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(a0, a1, a2, a3); \
         }\
     }
 

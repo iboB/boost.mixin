@@ -43,11 +43,13 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)..\..\bin\</OutDir>
     <TargetName>$(ProjectName)_vs11_d</TargetName>
+    <IntDir>vs11_build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)..\..\bin\</OutDir>
     <TargetName>$(ProjectName)_vs11</TargetName>
+    <IntDir>vs11_build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,7 +88,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="d3d_renderer.cpp" />
+    <ClCompile Include="gl_renderer.cpp" />
+    <ClCompile Include="has_id.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="object_manager.cpp" />
+    <ClCompile Include="rendering_messages.cpp" />
+    <ClCompile Include="system_messages.cpp" />
+    <ClCompile Include="transform.cpp" />
+    <ClCompile Include="transform_messages.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="basic.hpp" />
+    <ClInclude Include="d3d_renderer.hpp" />
+    <ClInclude Include="d3d_renderer_mixin.hpp" />
+    <ClInclude Include="gl_renderer.hpp" />
+    <ClInclude Include="gl_renderer_mixin.hpp" />
+    <ClInclude Include="has_id.hpp" />
+    <ClInclude Include="has_id_mixin.hpp" />
+    <ClInclude Include="object_manager.hpp" />
+    <ClInclude Include="rendering_messages.hpp" />
+    <ClInclude Include="system_messages.hpp" />
+    <ClInclude Include="transform.hpp" />
+    <ClInclude Include="transform_messages.hpp" />
+    <ClInclude Include="transform_mixin.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

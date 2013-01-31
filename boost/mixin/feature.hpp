@@ -27,8 +27,9 @@ namespace internal
 
 static const feature_id INVALID_FEATURE_ID = ~feature_id(0);
 
-struct BOOST_MIXIN_API feature : public internal::noncopyable
+class BOOST_MIXIN_API feature : public internal::noncopyable
 {
+public:
     feature_id id;
     internal::domain* dom;
     const char* const name;
