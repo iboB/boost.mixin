@@ -47,7 +47,7 @@ extern void initialize_globals()
 #if BOOST_MIXIN_USING_CXX11
 #   define _1_NAMESPACE placeholders
 #else
-#   define _1_NAMESPACE boost
+#   define _1_NAMESPACE
 #endif
 
     regular_class* c = new regular_class;
