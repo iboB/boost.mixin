@@ -94,7 +94,7 @@ Ret caller0(void* mixin_ptr )
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-            return func(mixin_data ); \
+            func(mixin_data ); \
         }\
     }
 
@@ -196,7 +196,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-            return func(mixin_data , a0); \
+            func(mixin_data , a0); \
         }\
     }
 
@@ -298,7 +298,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-            return func(mixin_data , a0, a1); \
+            func(mixin_data , a0, a1); \
         }\
     }
 
@@ -400,7 +400,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-            return func(mixin_data , a0, a1, a2); \
+            func(mixin_data , a0, a1, a2); \
         }\
     }
 
@@ -502,7 +502,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-            return func(mixin_data , a0, a1, a2, a3); \
+            func(mixin_data , a0, a1, a2, a3); \
         }\
     }
 

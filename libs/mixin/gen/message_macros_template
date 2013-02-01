@@ -84,7 +84,7 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-            return func(mixin_data %{coma_args}); \
+            func(mixin_data %{coma_args}); \
         }\
     }
 
