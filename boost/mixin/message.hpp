@@ -45,12 +45,6 @@ protected:
     {}
 };
 
-#if defined(FASTDLGT_HASINHERITANCE_KEYWORDS)
-class __single_inheritance dummy_type;
-#else
-class dummy_type;
-#endif
-
 typedef void (*func_ptr)();
 
 template <typename Message>

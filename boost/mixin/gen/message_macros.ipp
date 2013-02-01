@@ -41,7 +41,7 @@ Ret caller0(void* mixin_ptr )
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
         { \
-            /* prevent the linker to optimize away the caller function */ \
+            /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = ::boost::mixin::internal::caller0<constness Mixin, return_type , &Mixin::method_name>; \
             /* cast the caller to a void (*)() - safe acoording to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
@@ -68,7 +68,8 @@ Ret caller0(void* mixin_ptr )
         BOOST_ASSERT(msg_data); \
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data ); \
     }\
 
@@ -91,7 +92,8 @@ Ret caller0(void* mixin_ptr )
             BOOST_ASSERT(msg_data); \
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             return func(mixin_data ); \
         }\
     }
@@ -141,7 +143,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
         { \
-            /* prevent the linker to optimize away the caller function */ \
+            /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = ::boost::mixin::internal::caller1<constness Mixin, return_type , arg0_type, &Mixin::method_name>; \
             /* cast the caller to a void (*)() - safe acoording to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
@@ -168,7 +170,8 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
         BOOST_ASSERT(msg_data); \
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0); \
     }\
 
@@ -191,7 +194,8 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
             BOOST_ASSERT(msg_data); \
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             return func(mixin_data , a0); \
         }\
     }
@@ -241,7 +245,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
         { \
-            /* prevent the linker to optimize away the caller function */ \
+            /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = ::boost::mixin::internal::caller2<constness Mixin, return_type , arg0_type, arg1_type, &Mixin::method_name>; \
             /* cast the caller to a void (*)() - safe acoording to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
@@ -268,7 +272,8 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
         BOOST_ASSERT(msg_data); \
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1); \
     }\
 
@@ -291,7 +296,8 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
             BOOST_ASSERT(msg_data); \
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             return func(mixin_data , a0, a1); \
         }\
     }
@@ -341,7 +347,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
         { \
-            /* prevent the linker to optimize away the caller function */ \
+            /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = ::boost::mixin::internal::caller3<constness Mixin, return_type , arg0_type, arg1_type, arg2_type, &Mixin::method_name>; \
             /* cast the caller to a void (*)() - safe acoording to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
@@ -368,7 +374,8 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
         BOOST_ASSERT(msg_data); \
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1, a2); \
     }\
 
@@ -391,7 +398,8 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
             BOOST_ASSERT(msg_data); \
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             return func(mixin_data , a0, a1, a2); \
         }\
     }
@@ -441,7 +449,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
         { \
-            /* prevent the linker to optimize away the caller function */ \
+            /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = ::boost::mixin::internal::caller4<constness Mixin, return_type , arg0_type, arg1_type, arg2_type, arg3_type, &Mixin::method_name>; \
             /* cast the caller to a void (*)() - safe acoording to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
@@ -468,7 +476,8 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
         BOOST_ASSERT(msg_data); \
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1, a2, a3); \
     }\
 
@@ -491,7 +500,8 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
             BOOST_ASSERT(msg_data); \
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             return func(mixin_data , a0, a1, a2, a3); \
         }\
     }
