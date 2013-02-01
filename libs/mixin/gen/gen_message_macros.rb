@@ -29,29 +29,38 @@ DECL = File.open('message_macros_template', 'r').read
 
 def params_for_arity(arity)
   
-  return { :arity => 0, :args => '', :arg_types => '', :args_coma => '', :args_signature => ''} if arity == 0
+  return {
+    :arity => 0, :args => '', :arg_types => '', :args_coma => '', :args_signature => '',
+    :typename_caller_args => '', :coma_args => '', :coma_arg_types => ''
+  } if arity == 0
   
   args = []
   arg_types = []
+  caller_args = []
+  caller_arg_types = []
   arity.times do |i|
     args << "a#{i}"
     arg_types << "arg#{i}_type"
   end
   
+  typename_caller_args = ', typename ' + arg_types.join(', typename ')
   args_coma = ', ' + arg_types.zip(args).flatten.join(', ')
   args_signature = ', ' + arg_types.zip(args).map { |tuple| tuple.join(' ') }. join(', ')
   args = args.join(', ')
   arg_types = arg_types.join(', ')
   
-  { :arity => arity, :args => args, :arg_types => arg_types, :args_coma => args_coma, :args_signature => args_signature }
+  {
+    :arity => arity, :args => args, :arg_types => arg_types, :args_coma => args_coma, :args_signature => args_signature,
+    :typename_caller_args => typename_caller_args, :coma_args => ', ' + args, :coma_arg_types => ', ' + arg_types
+  }
+  
 end
-
 
 File.open(OUT_FILE, 'w') do |f|
   f.write(HEADER)
-  MAX_ARITY.times do |i|  
+  MAX_ARITY.times do |i|
     params = params_for_arity(i)
-    f.write(DECL % params)    
+    f.write(DECL % params)
   end
 end
 

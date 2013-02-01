@@ -10,7 +10,6 @@
 #define BOOST_MIXIN_MESSAGE_HPP_INCLUDED
 
 #include "feature.hpp"
-#include "third_party/fd_simplify_mem_func.hpp" // code from fastdelegate by Don Clugston
 
 namespace boost
 {
@@ -52,8 +51,7 @@ class __single_inheritance dummy_type;
 class dummy_type;
 #endif
 
-typedef void (dummy_type::*method_ptr)();
-typedef ptrdiff_t method_offset;
+typedef void (*func_ptr)();
 
 template <typename Message>
 struct message_priority
@@ -61,39 +59,18 @@ struct message_priority
     int priority;
 };
 
-template <typename Mixin, typename MixinMethod>
-void get_method_and_method_offset(const Mixin*, const MixinMethod& actual_method, method_ptr& out_method, method_offset& out_method_offset)
-{
-    // crunch the method pointer through fastdelegate's SimplifyMemFunc to obtain
-    // a unified representation for all methods
-
-    // get some random address
-    // we only need it as an offset
-    Mixin* offset_base = reinterpret_cast<Mixin*>(0xBAD);
-
-    typedef void (fastdelegate::GenericClass::*fastdelegate_method)();
-    fastdelegate_method simplified_method; // output parameter from SimplifyMemFunc
-
-    typedef fastdelegate::GenericClass fastdelegate_class;
-    fastdelegate_class* offset_object = fastdelegate::SimplifyMemFunc<sizeof(MixinMethod)>::Convert(offset_base, actual_method, simplified_method);
-
-    // get offset in bytes
-    out_method_offset = reinterpret_cast<char*>(offset_object) - reinterpret_cast<char*>(offset_base);
-
-    // get new method location
-    out_method = reinterpret_cast<method_ptr>(simplified_method);
-}
-
 // a structure that describes a message with specific data for a concrete mixin
 struct BOOST_MIXIN_API message_for_mixin
 {
     message_t* message; // message object
     mixin_type_info* mixin_info; // mixin type information
 
-    // the following members are obtained via a special function that converts any methods
-    // to these two pointers
-    method_ptr func;
-    method_offset func_offset;
+    // the caller member is a pointer to a template function instantiated by the message macros
+    // this function takes the appropriate parameters as arguments and is instantiated to call
+    // the mixin method, even from void*
+    // code based on
+    // http://www.codeproject.com/Articles/11015/The-Impossibly-Fast-C-Delegates
+    func_ptr caller;
 
     // message perks
     int priority;

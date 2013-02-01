@@ -1,18 +1,40 @@
+
+namespace boost
+{
+namespace mixin
+{
+namespace internal
+{
+
+template <typename Mixin, typename Ret %{typename_caller_args}, Ret (Mixin::*Method)(%{arg_types})>
+Ret caller%{arity}(void* mixin_ptr %{args_signature})
+{
+    Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr);
+    return (m->*Method)(%{args});
+}
+
+}
+}
+}
+
+
 #define _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, domain, message_name, method_name, return_type, constness, message_mechanism %{args_coma}) \
     /* mechanism shows whether it's a multicast or unicast */ \
     \
     /* step 1: define the message struct */ \
     struct export _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) : public ::boost::mixin::internal::message_t \
     { \
-        typedef return_type (::boost::mixin::internal::dummy_type::*method_t)(%{arg_types}) constness;\
+        typedef return_type (*caller_func)(void* %{coma_arg_types}); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
             : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism) \
         {} \
         template <typename Mixin> \
-        return_type (Mixin::*get_method_pointer_for())(%{arg_types}) constness \
+        ::boost::mixin::internal::func_ptr get_caller_for() const \
         { \
-            /* use static_cast to show that we mean exactly the method with this signature and not some overload */ \
-            return static_cast<return_type (Mixin::*)(%{arg_types}) constness>(&Mixin::method_name); \
+            /* prevent the linker to optimize away the caller function */ \
+            static caller_func caller = ::boost::mixin::internal::caller%{arity}<constness Mixin, return_type %{coma_arg_types}, &Mixin::method_name>; \
+            /* cast the caller to a void (*)() - safe acoording to the standard */ \
+            return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
         } \
     }; \
     /* step 2: define a message tag, that will be used to identify the message in feature lists */ \
@@ -36,8 +58,8 @@
         BOOST_ASSERT(msg_data); \
         BOOST_ASSERT(msg_data->message == &self); \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-        return (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-            reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(%{args}); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        return func(mixin_data %{coma_args}); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, domain, message_name, method_name, return_type, constness %{args_coma}) \
@@ -59,8 +81,8 @@
             BOOST_ASSERT(msg_data); \
             BOOST_ASSERT(msg_data->message == &self); \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
-            (reinterpret_cast< ::boost::mixin::internal::dummy_type*>(mixin_data + msg_data->func_offset) ->* \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::method_t>(msg_data->func))(%{args}); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            return func(mixin_data %{coma_args}); \
         }\
     }
 
@@ -75,3 +97,4 @@
 
 #define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_%{arity}(return_type, message %{args_coma}) \
     _BOOST_MIXIN_MESSAGE%{arity}_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const %{args_coma})
+

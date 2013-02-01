@@ -101,10 +101,7 @@ private:
         mixin_info.message_infos.back().priority = priority;
         mixin_info.message_infos.back().mixin_info = &mixin_info;
 
-        get_method_and_method_offset((Mixin*)nullptr,
-                                     msg.template get_method_pointer_for<Mixin>(),
-                                     mixin_info.message_infos.back().func,
-                                     mixin_info.message_infos.back().func_offset);
+        mixin_info.message_infos.back().caller = msg.template get_caller_for<Mixin>();
     }
 };
 

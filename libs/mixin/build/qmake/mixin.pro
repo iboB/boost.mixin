@@ -39,7 +39,5 @@ HEADERS += \
     \
     $${mixin_inc}/gen/message_macros.ipp \
     \
-    $${mixin_inc}/third_party/fd_simplify_mem_func.hpp \
-    \
     $${mixin_src}/internal.hpp
 
