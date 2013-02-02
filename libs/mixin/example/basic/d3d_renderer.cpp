@@ -31,4 +31,4 @@ void d3d_renderer::trace(std::ostream& o) const
     o << "\twith a d3d renderer" << endl;
 }
 
-BOOST_DEFINE_MIXIN(d3d_renderer, all_rendering_messages & trace_msg)
+BOOST_DEFINE_MIXIN(d3d_renderer, all_rendering_messages & trace_msg);

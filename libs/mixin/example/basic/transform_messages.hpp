@@ -7,7 +7,7 @@
 //
 #pragma once
 
-BOOST_MIXIN_CONST_MESSAGE_0(int, get_combined_transform)
+BOOST_MIXIN_CONST_MESSAGE_0(int, get_combined_transform);
 
-BOOST_MIXIN_MESSAGE_1(void, translate, int, to)
-BOOST_MIXIN_MESSAGE_1(void, rotate, int, with)
+BOOST_MIXIN_MESSAGE_1(void, translate, int, to);
+BOOST_MIXIN_MESSAGE_1(void, rotate, int, with);

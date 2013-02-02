@@ -7,8 +7,8 @@
 //
 #pragma once
 
-BOOST_MIXIN_CONST_MESSAGE_0(int, get_id)
-BOOST_MIXIN_MESSAGE_1(void, set_id, int, id)
+BOOST_MIXIN_CONST_MESSAGE_0(int, get_id);
+BOOST_MIXIN_MESSAGE_1(void, set_id, int, id);
 
-BOOST_MIXIN_CONST_MULTICAST_MESSAGE_1(void, trace, std::ostream&, o)
+BOOST_MIXIN_CONST_MULTICAST_MESSAGE_1(void, trace, std::ostream&, o);
 

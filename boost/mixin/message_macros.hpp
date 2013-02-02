@@ -39,8 +39,6 @@
 #define BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN(domain_tag, message_name) \
     /* specialize _boost_mixin_domain_for_type to bind this message struct's type to its domain tag */ \
     template <> struct _boost_mixin_domain_for_type<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)> { typedef domain_tag tag; }; \
-    /* provide a tag instance */ \
-    _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) * _BOOST_MIXIN_MESSAGE_TAG(message_name); \
     /* create a feature getter for the message */ \
     ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
     { \
@@ -52,6 +50,8 @@
         ::boost::mixin::internal::get_domain_for_tag<domain_tag>(). \
             register_feature(::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature()); \
     } \
+    /* provide a tag instance */ \
+    _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) * _BOOST_MIXIN_MESSAGE_TAG(message_name)
 
 #define BOOST_MIXIN_DEFINE_MESSAGE(message_name) \
     BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN(::boost::mixin::default_domain, message_name)

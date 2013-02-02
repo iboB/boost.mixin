@@ -8,7 +8,7 @@
 #include "basic.hpp"
 #include "system_messages.hpp"
 
-BOOST_MIXIN_DEFINE_MESSAGE(get_id)
-BOOST_MIXIN_DEFINE_MESSAGE(set_id)
+BOOST_MIXIN_DEFINE_MESSAGE(get_id);
+BOOST_MIXIN_DEFINE_MESSAGE(set_id);
 
-BOOST_MIXIN_DEFINE_MESSAGE(trace)
+BOOST_MIXIN_DEFINE_MESSAGE(trace);

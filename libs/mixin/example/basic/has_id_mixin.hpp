@@ -7,4 +7,4 @@
 //
 #pragma once
 
-BOOST_DECLARE_MIXIN(has_id)
+BOOST_DECLARE_MIXIN(has_id);

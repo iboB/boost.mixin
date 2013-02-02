@@ -8,5 +8,5 @@
 #include "basic.hpp"
 #include "rendering_messages.hpp"
 
-BOOST_MIXIN_DEFINE_MESSAGE(render)
-BOOST_MIXIN_DEFINE_MESSAGE(set_casts_shadows)
+BOOST_MIXIN_DEFINE_MESSAGE(render);
+BOOST_MIXIN_DEFINE_MESSAGE(set_casts_shadows);

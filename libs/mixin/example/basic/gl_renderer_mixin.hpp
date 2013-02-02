@@ -7,4 +7,4 @@
 //
 #pragma once
 
-BOOST_DECLARE_MIXIN(gl_renderer)
+BOOST_DECLARE_MIXIN(gl_renderer);

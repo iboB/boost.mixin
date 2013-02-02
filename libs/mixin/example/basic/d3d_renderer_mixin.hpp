@@ -7,4 +7,4 @@
 //
 #pragma once
 
-BOOST_DECLARE_MIXIN(d3d_renderer)
+BOOST_DECLARE_MIXIN(d3d_renderer);

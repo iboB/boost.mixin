@@ -8,6 +8,6 @@
 #include "basic.hpp"
 #include "transform_messages.hpp"
 
-BOOST_MIXIN_DEFINE_MESSAGE(get_combined_transform)
-BOOST_MIXIN_DEFINE_MESSAGE(rotate)
-BOOST_MIXIN_DEFINE_MESSAGE(translate)
+BOOST_MIXIN_DEFINE_MESSAGE(get_combined_transform);
+BOOST_MIXIN_DEFINE_MESSAGE(rotate);
+BOOST_MIXIN_DEFINE_MESSAGE(translate);

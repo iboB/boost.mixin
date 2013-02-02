@@ -7,4 +7,4 @@
 //
 #pragma once
 
-BOOST_DECLARE_MIXIN(has_transform)
+BOOST_DECLARE_MIXIN(has_transform);

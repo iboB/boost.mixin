@@ -18,4 +18,4 @@ void has_id::trace(std::ostream& o) const
 }
 
 //                                                    set the priority of trace to a big number so it would be called first
-BOOST_DEFINE_MIXIN(has_id, get_id_msg & set_id_msg & priority(10, trace_msg))
+BOOST_DEFINE_MIXIN(has_id, get_id_msg & set_id_msg & priority(10, trace_msg));

@@ -41,7 +41,7 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
 // this may be included separately and doesn't need to be in the same header as the actual mixin class declaration
 #define BOOST_DECLARE_EXPORTED_MIXIN(export, mixin_type) \
     class mixin_type; \
-    extern export ::boost::mixin::internal::mixin_type_info& _boost_get_mixin_type_info(const mixin_type* m); \
+    extern export ::boost::mixin::internal::mixin_type_info& _boost_get_mixin_type_info(const mixin_type* m)
 
 // call this in header files to forward declare a mixin type
 // this may be included separately and doesn't need to be in the same header as the actual mixin class definition
@@ -51,8 +51,6 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
 // you must call one of the following two defines in a compilation unit to guarantee
 // the internal intializations for a mixin type
 #define BOOST_DEFINE_MIXIN_IN_DOMAIN(domain_tag, mixin_type, mixin_features) \
-    /* specialize _boost_mixin_domain_for_type to bind this mixin's type to its domain tag */ \
-    template <> struct _boost_mixin_domain_for_type<mixin_type> { typedef domain_tag tag; }; \
     /* create a function that will reference mixin_type_info_instance static registrator to guarantee its instantiation */ \
     inline void _boost_register_mixin(mixin_type*) { ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::registrator.unused = true; } \
     /* create a mixin_type_info getter for this type */ \
@@ -61,6 +59,8 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
     /* features can be parsed multiple times by different parsers */ \
     template <typename FeaturesParser> \
     void _boost_parse_mixin_features(const mixin_type*, FeaturesParser& parser) { parser & mixin_features; } \
+    /* specialize _boost_mixin_domain_for_type to bind this mixin's type to its domain tag */ \
+    template <> struct _boost_mixin_domain_for_type<mixin_type> { typedef domain_tag tag; }
 
 
 // short version to define mixins in the default domain

@@ -33,4 +33,4 @@ void has_transform::trace(std::ostream& o) const
     o << "\twith transform: " << _transform << endl;
 }
 
-BOOST_DEFINE_MIXIN(has_transform, translate_msg & rotate_msg & trace_msg & get_combined_transform_msg)
+BOOST_DEFINE_MIXIN(has_transform, translate_msg & rotate_msg & trace_msg & get_combined_transform_msg);

@@ -18,7 +18,7 @@ BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)> f_add;
 BOOST_MIXIN_CXX11_NAMESPACE::function<int()> f_sum;
 boost::mixin::object* bm_object;
 
-BOOST_DECLARE_MIXIN(regular_class)
+BOOST_DECLARE_MIXIN(regular_class);
 
 class abstract_instance : public abstract_class
 {
@@ -66,7 +66,7 @@ void regular_class::add(int i)
     _sum += i;
 }
 
-BOOST_DEFINE_MIXIN(regular_class, add_msg & sum_msg)
+BOOST_DEFINE_MIXIN(regular_class, add_msg & sum_msg);
 
-BOOST_MIXIN_DEFINE_MESSAGE(add)
-BOOST_MIXIN_DEFINE_MESSAGE(sum)
+BOOST_MIXIN_DEFINE_MESSAGE(add);
+BOOST_MIXIN_DEFINE_MESSAGE(sum);
