@@ -63,7 +63,7 @@ boost_mixin_internal:
 
     void* internal_get_mixin(const internal::mixin_type_info& mixin_info);
     const void* internal_get_mixin(const internal::mixin_type_info& mixin_info) const;
-    bool internal_has_mixin(const internal::mixin_type_info& mixin_info);
+    bool internal_has_mixin(const internal::mixin_type_info& mixin_info) const;
 
 
     // reorganizes the mixins for the new type

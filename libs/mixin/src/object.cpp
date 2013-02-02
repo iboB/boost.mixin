@@ -18,9 +18,14 @@ namespace mixin
 
 using namespace internal;
 
+// used by objects with no mixin data, so they would
+// return nullptr on get<Mixin>() without having to
+// check or crashing
+static mixin_data_in_object null_mixin_data;
+
 object::object()
     : _type_info(&object_type_info::null())
-    , _mixin_data(nullptr)
+    , _mixin_data(&null_mixin_data)
 {
 }
 
@@ -44,7 +49,7 @@ const void* object::internal_get_mixin(const internal::mixin_type_info& mixin_in
     return _mixin_data[_type_info->mixin_index(mixin_info.id)].mixin();
 }
 
-bool object::internal_has_mixin(const internal::mixin_type_info& mixin_info)
+bool object::internal_has_mixin(const internal::mixin_type_info& mixin_info) const
 {
     return _type_info->has_mixin(mixin_info.id);
 }
@@ -56,8 +61,11 @@ void object::clear()
         destroy_mixin(mixin_info->id);
     }
 
-    _type_info->dealloc_mixin_data(_mixin_data);
-    _mixin_data = nullptr;
+    if(_mixin_data != &null_mixin_data)
+    {
+        _type_info->dealloc_mixin_data(_mixin_data);
+        _mixin_data = &null_mixin_data;
+    }
 
     _type_info = &object_type_info::null();
 }
@@ -81,7 +89,10 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
         }
     }
 
-    old_type->dealloc_mixin_data(old_mixin_data);
+    if(old_mixin_data != &null_mixin_data)
+    {
+        old_type->dealloc_mixin_data(old_mixin_data);
+    }
 
     _type_info = new_type;
     _mixin_data = new_mixin_data;
