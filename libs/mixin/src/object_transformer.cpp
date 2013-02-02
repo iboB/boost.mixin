@@ -29,6 +29,12 @@ object_transformer::object_transformer(object* o)
     BOOST_ASSERT(o);
 }
 
+object_transformer::object_transformer(object& o)
+    : _object(&o)
+    , _domain(nullptr)
+{
+}
+
 object_transformer::~object_transformer()
 {
     apply();
@@ -63,6 +69,7 @@ void object_transformer::apply()
         // special case for new empty object
         // remove its domain too
         _object->clear();
+        return;
     }
 
     BOOST_ASSERT(_domain);

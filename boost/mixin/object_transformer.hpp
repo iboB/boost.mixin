@@ -34,6 +34,7 @@ class BOOST_MIXIN_API object_transformer : public internal::noncopyable
 {
 public:
     object_transformer(object* o);
+    object_transformer(object& o);
     ~object_transformer();
 
     template <typename Mixin>
