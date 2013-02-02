@@ -1,0 +1,29 @@
+#
+# Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+#
+# Distributed under the Boost Software License, Version 1.0.
+# See accompanying file LICENSE_1_0.txt or copy at
+# http:#www.boost.org/LICENSE_1_0.txt
+#
+
+project boost/mixin
+    : source-location ../src
+    : requirements
+        # not realy a requirement but for now it's easier this way
+        <toolset>gcc:<cxxflags>-std=c++0x
+    ;
+
+local SOURCES =
+    domain.cpp
+    object_transformer.cpp
+    global.cpp
+    object.cpp
+    object_type_info.cpp
+    ;
+
+lib boost_mixin
+    : ## sources ##
+        $(SOURCES)
+    ;
+
+boost-install boost_mixin ;
