@@ -1,0 +1,236 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Introduction</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="prev" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="next" href="roadmap.html" title="Roadmap">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="roadmap.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="mixin.intro"></a><a class="link" href="intro.html" title="Introduction">Introduction</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="intro.html#mixin.intro.intro_ecs">Introduction to entity component
+      systems</a></span></dt>
+<dt><span class="section"><a href="intro.html#mixin.intro.intro_mixins">Introduction to mixins</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mixin.intro.intro_ecs"></a><a class="link" href="intro.html#mixin.intro.intro_ecs" title="Introduction to entity component systems">Introduction to entity component
+      systems</a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="intro.html#mixin.intro.intro_ecs.whats_an_ecs">What is an entity-component
+        system?</a></span></dt>
+<dt><span class="section"><a href="intro.html#mixin.intro.intro_ecs.whats_good_in_ecs">Why are entity-component
+        systems good?</a></span></dt>
+<dt><span class="section"><a href="intro.html#mixin.intro.intro_ecs.who_uses_ecs">Who uses entity-component
+        systems</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mixin.intro.intro_ecs.whats_an_ecs"></a><a class="link" href="intro.html#mixin.intro.intro_ecs.whats_an_ecs" title="What is an entity-component system?">What is an entity-component
+        system?</a>
+</h4></div></div></div>
+<p>
+          An entity-component system (ECS) allows users to create entities which
+          consist of components. A simplified way of thinking about that is a container
+          of instances of unique types. Another way of thinking about said entities
+          is like they are objects produced from multiple inheritance only they are
+          constructed in runtime, as opposed to compile-time.
+        </p>
+<p>
+          Here's a piece of code that might be used in a simple hypothetical ECS:
+        </p>
+<pre class="programlisting"><span class="identifier">entity</span> <span class="identifier">e</span><span class="special">;</span>
+<span class="identifier">e</span><span class="special">.</span><span class="identifier">add_component</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">xml_serializer</span><span class="special">);</span>
+<span class="identifier">e</span><span class="special">.</span><span class="identifier">add_component</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">book_data</span><span class="special">);</span>
+<span class="comment">// now the entity contains data and a way to serialize this data    </span>
+<span class="comment">// ... </span>
+<span class="comment">// here we can test if an entity has the components we need</span>
+<span class="keyword">if</span><span class="special">(</span><span class="identifier">e</span><span class="special">.</span><span class="identifier">has_component</span><span class="special">&lt;</span><span class="identifier">xml_serializer</span><span class="special">&gt;())</span>
+<span class="special">{</span>
+    <span class="identifier">e</span><span class="special">.</span><span class="identifier">get_component</span><span class="special">&lt;</span><span class="identifier">xml_serializer</span><span class="special">&gt;()-&gt;</span><span class="identifier">serialize</span><span class="special">();</span>
+<span class="special">}</span>
+</pre>
+<p>
+          See how we can think of <code class="computeroutput"><span class="identifier">e</span></code>
+          as a container of various objects, or as a class derived from both <code class="computeroutput"><span class="identifier">serializer</span></code> and <code class="computeroutput"><span class="identifier">data</span></code>.
+          However it is not exactly a container as it cannot have two instances of
+          the same class, and it is not exactly a class with multiple inheritance
+          as its contents cannot be statically analyzed.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mixin.intro.intro_ecs.whats_good_in_ecs"></a><a class="link" href="intro.html#mixin.intro.intro_ecs.whats_good_in_ecs" title="Why are entity-component systems good?">Why are entity-component
+        systems good?</a>
+</h4></div></div></div>
+<p>
+          They allow the users to achieve true decoupling of their subsystems. For
+          example if we extend the above example to have a registered component of
+          type <code class="computeroutput"><span class="identifier">serializer</span></code>, which
+          is a pure virtual class with a method <code class="computeroutput"><span class="keyword">virtual</span>
+          <span class="keyword">void</span> <span class="identifier">serialize</span><span class="special">()</span> <span class="special">=</span> <span class="number">0</span></code>,
+          the code example from above would still work, but we would be able to change
+          the last part to something a bit more useful:
+        </p>
+<pre class="programlisting"><span class="keyword">if</span><span class="special">(</span><span class="identifier">e</span><span class="special">.</span><span class="identifier">has_component</span><span class="special">&lt;</span><span class="identifier">serializer</span><span class="special">&gt;())</span>
+<span class="special">{</span>
+    <span class="identifier">e</span><span class="special">.</span><span class="identifier">get_component</span><span class="special">&lt;</span><span class="identifier">serializer</span><span class="special">&gt;()-&gt;</span><span class="identifier">serialize</span><span class="special">();</span>
+<span class="special">}</span>
+</pre>
+<p>
+          Now all functions that want to call <code class="computeroutput"><span class="identifier">serialize</span></code>
+          for an object may as well be oblivious to what the <span class="emphasis"><em>actual</em></span>
+          serializer within the entity. Keep in mind that this is nearly impossible
+          to achieve with plain multiple inheritance as users would have to handle
+          the combinatorial explosion of different <code class="computeroutput"><span class="identifier">serializer</span></code>'s,
+          <code class="computeroutput"><span class="identifier">data</span></code>'s and other possible
+          super-classes.
+        </p>
+<p>
+          The above example shows that an ECS is, in most cases, a better choice
+          than multiple inheritance. But what about composition?
+        </p>
+<p>
+          Well, an ECS is a type of composition, with one difference. An entity has
+          no idea what kind of components may be a part of it.
+        </p>
+<p>
+          Imagine a the straight-forward way to composition. An object from our system
+          will have methods like <code class="computeroutput"><span class="identifier">get_serializer</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">get_data</span><span class="special">()</span></code>, and more. This means that every time
+          we add a new sub-system, we'll have to change the object type to "enrich"
+          it with its new components. Removing the aforementioned limitation allows
+          independent sub-system development &#8211; without chaing the code of
+          the original product. I also allows the introduction of entire subsystems
+          with dynamic libraries, which don't change the binary. For example, writing
+          an entirely new serialization mechanism &#8211; say encrypted serialization
+          &#8211; for a product and introdusing it as an optional plugin becomes
+          a breeze.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mixin.intro.intro_ecs.who_uses_ecs"></a><a class="link" href="intro.html#mixin.intro.intro_ecs.who_uses_ecs" title="Who uses entity-component systems">Who uses entity-component
+        systems</a>
+</h4></div></div></div>
+<p>
+          They are very popular in game development, as most objects in a game have
+          many different aspects for different sub-systems. Still, being as powerful
+          as they are, they find their place in many other pieces of software developed
+          in C++, Java or C#.
+        </p>
+<p>
+          Most script-language objects natively support a form of these systems,
+          called <span class="emphasis"><em>Mixins</em></span>. Here's where Boost.Mixin comes into
+          play.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mixin.intro.intro_mixins"></a><a class="link" href="intro.html#mixin.intro.intro_mixins" title="Introduction to mixins">Introduction to mixins</a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="intro.html#mixin.intro.intro_mixins.whats_a_mixin">What is a mixin?</a></span></dt>
+<dt><span class="section"><a href="intro.html#mixin.intro.intro_mixins.boost_mixin">Boost.Mixin</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mixin.intro.intro_mixins.whats_a_mixin"></a><a class="link" href="intro.html#mixin.intro.intro_mixins.whats_a_mixin" title="What is a mixin?">What is a mixin?</a>
+</h4></div></div></div>
+<p>
+          Speaking generally a mixin is a class that provides a certain functionality
+          to be reused by other classes. This general definiton applies to almost
+          everything. One could say that all forms of composition and inheritance
+          are uses of mixins.
+        </p>
+<p>
+          Many C++ users are familiar with the word mixin as a form of <a href="http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>
+          and this is indeed an appropriate name for some cases.
+        </p>
+<p>
+          In most languages that explicitly say that they natively support mixins,
+          a mixin is a runtime idiom, much like the components from an entity-component
+          system.
+        </p>
+<p>
+          For more details you check <a href="http://en.wikipedia.org/wiki/Mixin" target="_top">Wikipedia's
+          article on Mixin</a>, but speaking generally is probably more confusing
+          than helpful. Let's focus on the particular case of Boost.Mixin.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mixin.intro.intro_mixins.boost_mixin"></a><a class="link" href="intro.html#mixin.intro.intro_mixins.boost_mixin" title="Boost.Mixin">Boost.Mixin</a>
+</h4></div></div></div>
+<p>
+          Boost.Mixin is a new type of an entity-component system. As an ECS it has
+          entities of type <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+          and components, called mixins. Its components are the library user's classes,
+          and don't have a specific type. From now on, unless explicitly specified,
+          the term <span class="bold"><strong>mixin</strong></span> will be used to refer to
+          the concept of mixin in Boost.Mixin.
+        </p>
+<p>
+          As we've seen an ECS allows an object to receive different interfaces,
+          while remaining oblivious to the actual components that may comprise it.
+          In contrast to regular ECS components, mixins do not share parents to provide
+          their interface. They just have methods that have provide different functionalities.
+          To call these methods Boost.Mixin introduces messages. Messages are nothing
+          more than global functions whose first parameter is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+          (If C++ allowed extension methods, like C# does, this would have been the
+          preferred way to implement them).
+        </p>
+<p>
+          The basic ECS example from above would look like this with Boost.Mixin:
+        </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">;</span>
+<span class="identifier">object</span><span class="special">*</span> <span class="identifier">o</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">object</span><span class="special">;</span>
+<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">xml_serializer</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">book_data</span><span class="special">&gt;();</span>
+<span class="comment">// ...</span>
+<span class="identifier">serialize</span><span class="special">(</span><span class="identifier">o</span><span class="special">);</span>
+</pre>
+<p>
+          Here <code class="computeroutput"><span class="identifier">serialize</span></code> is a message,
+          implemented by the mixin <code class="computeroutput"><span class="identifier">serializer</span></code>.
+          Unlike in a typical ECS implementation, here the code, calling messages
+          doesn't need to "see" the declaration of the objects that implement
+          them. They need only see that such messages exist.
+        </p>
+<p>
+          A unique ECS feature of Boost.Mixin, are <span class="emphasis"><em>multicast</em></span>
+          messages. This lacks in most mixin implementations even when mixins are
+          a built-in part of the language. Multicasts allow a single messsage to
+          be handled by all the mixins in an object.
+        </p>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="roadmap.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

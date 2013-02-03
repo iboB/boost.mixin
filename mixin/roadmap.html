@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Roadmap</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="prev" href="intro.html" title="Introduction">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="intro.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="mixin.roadmap"></a><a class="link" href="roadmap.html" title="Roadmap">Roadmap</a>
+</h2></div></div></div>
+<p>
+      Here is a list of planned features and events for the library: (The authors
+      write it in their own free time, so concrete dates are hard to estimate)
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          Soon (probably by the end of May 2013)
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                Overloaded messages - messages that call overloaded functions. The
+                message's name is different for each overload but the calling function
+                remains the same
+              </li>
+<li class="listitem">
+                Work on more sensible (and helpful) runtime and compile-time errors.
+                Missing messages, ambiguous message priority, etc.
+              </li>
+<li class="listitem">
+                Add multicast result collectors. Like <code class="computeroutput"><span class="keyword">and</span></code>
+                or <code class="computeroutput"><span class="keyword">or</span></code> for boolean return
+                values. Like <code class="computeroutput"><span class="identifier">sum</span></code>
+                for numeric values. Sample usage some_multicast_message(obj, p1,
+                p2, boost::mixin::sum). User-defined result collectors will be possible.
+              </li>
+<li class="listitem">
+                Add a new mixin feature <code class="computeroutput"><span class="identifier">fact</span></code>.
+                Facts are static const variables in a mixin. No multicasts. No virtual
+                tables.
+              </li>
+<li class="listitem">
+                Add object type templates. Instead of manually transforming each
+                object, you would be able to call <code class="computeroutput"><span class="identifier">type_template</span><span class="special">::</span><span class="identifier">new_object</span><span class="special">()</span></code>
+              </li>
+<li class="listitem">
+                Add more graceful runtime error handling: default message implementations
+                (if none is provided), more specific non-breaking exceptions
+              </li>
+<li class="listitem">
+                Unit tests
+              </li>
+<li class="listitem">
+                Performance tests
+              </li>
+<li class="listitem">
+                <span class="strikethrough">Boost.Jam build files</span>
+              </li>
+<li class="listitem">
+                Tutorials
+              </li>
+<li class="listitem">
+                Object mutation injections. Automatically add some mixins when others
+                are present. Substitute a mentioned mixin with another. Ban a mixin
+                from being added to an object.
+              </li>
+</ul></div>
+        </li>
+<li class="listitem">
+          Not soon (hopefully by the end of 2013)
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                Full reference documentation
+              </li>
+<li class="listitem">
+                Formal submission to Boost ??
+              </li>
+<li class="listitem">
+                Call mixin constructors when mutating object or constructing them
+                via object type templates. Sample usage: <code class="computeroutput"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj</span><span class="special">).</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">mixin</span><span class="special">&gt;(</span><span class="string">"foo"</span><span class="special">,</span> <span class="identifier">param2</span><span class="special">).</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">other_mixin</span><span class="special">&gt;(</span><span class="number">42</span><span class="special">)</span></code>
+              </li>
+<li class="listitem">
+                Reduce library memory footprint
+              </li>
+<li class="listitem">
+                Optional external allocators per domain. Every memory allocation
+                should pass through them.
+              </li>
+<li class="listitem">
+                Make use of the fact that a BIG execution time improvement can be
+                made if a user has no mixins or messages defined in a dynamic library
+                (and has no plans to add such)
+              </li>
+<li class="listitem">
+                Integration with Boost.Serialization. As long as the mixins of an
+                object are serializable, the object will be, too.
+              </li>
+<li class="listitem">
+                "Static" mixins. As long as they're not mutated in or out,
+                it provides a faster message execution.
+              </li>
+<li class="listitem">
+                Reflection. Create objects with mixins by string. Call messages by
+                string.
+              </li>
+</ul></div>
+        </li>
+<li class="listitem">
+          When humankind becomes a Kardashev type two civilization:
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                Integration with Boost.Thread. Call messages for a specific thread.
+              </li>
+<li class="listitem">
+                User-defined message hooks. Sample implementation with messages called
+                on objects on another device through Boost.Asio.
+              </li>
+<li class="listitem">
+                A way to mutate static mixins in and out. Slight mutation execution
+                penalty.
+              </li>
+<li class="listitem">
+                Some magic to make it work even faster.
+              </li>
+<li class="listitem">
+                Integration with Boost.Python and luabind.
+              </li>
+<li class="listitem">
+                Remove C++03 backward compatibility????
+              </li>
+<li class="listitem">
+                Library being accepted in Boost????
+              </li>
+</ul></div>
+        </li>
+</ul></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="intro.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a>
+</div>
+</body>
+</html>
