@@ -11,6 +11,13 @@ using boostbook ;
 
 xml mixin_doc : mixin.qbk ;
 
-boostbook mixin : mixin_doc ;
+boostbook mixin
+    :
+        mixin_doc
+    :
+        <xsl:param>generate.section.toc.level=1
+        <xsl:param>toc.section.depth=2
+        <xsl:param>toc.max.depth=3
+    ;
 
 install html ;

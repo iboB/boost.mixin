@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE library PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN" "/usr/share/boostbook/dtd/boostbook.dtd">
+
+<!--
+ Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+
+ Distributed under the Boost Software License, Version 1.0.
+ See accompanying file LICENSE_1_0.txt or copy at
+ http:#www.boost.org/LICENSE_1_0.txt
+-->
+
+<section id="boost_mixin.book_index">
+    <title><link linkend="boost_mixin.book_index">Book-style index</link></title>
+    <para>
+        A book-style index of the Boost.Mixin documentation
+    </para>
+    <index/>
+</section>

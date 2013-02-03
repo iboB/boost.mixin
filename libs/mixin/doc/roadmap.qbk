@@ -1,0 +1,64 @@
+[/
+ Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+
+ Distributed under the Boost Software License, Version 1.0.
+ See accompanying file LICENSE_1_0.txt or copy at
+ http:#www.boost.org/LICENSE_1_0.txt
+/]
+
+[section:roadmap Roadmap]
+
+Here is a list of planned features and events for the library: (The authors
+write it in their own free time, so concrete dates are hard to estimate)
+
+* Soon (probably by the end of May 2013)
+    * Overloaded messages - messages that call overloaded functions. The
+    message's name is different for each overload but the calling function
+    remains the same
+    * Work on more sensible (and helpful) runtime and compile-time errors.
+    Missing messages, ambiguous message priority, etc.
+    * Add multicast result collectors. Like `and` or `or` for boolean return
+    values. Like `sum` for numeric values. Sample usage
+    `some_multicast_message(obj, p1, p2, boost::mixin::sum)`.
+    User-defined result collectors will be possible.
+    * Add a new mixin feature `fact`. Facts are static const variables in a
+    mixin. No multicasts. No virtual tables.
+    * Add object type templates. Instead of manually transforming each object,
+    you would be able to call `type_template::new_object()`
+    * Add more graceful runtime error handling: default message implementations
+    (if none is provided), more specific non-breaking exceptions
+    * Unit tests
+    * Performance tests
+    * [-Boost.Jam build files] Done
+    * Tutorials
+    * Object mutation injections. Automatically add some mixins when others are
+    present. Substitute a mentioned mixin with another. Ban a mixin from being
+    added to an object.
+* Not soon (hopefully by the end of 2013)
+    * Full reference documentation
+    * Formal submission to Boost ??
+    * Call mixin constructors when mutating object or constructing them via
+    object type templates. Sample usage:
+    `mutate(obj).add<mixin>("foo", param2).add<other_mixin>(42)`
+    * Reduce library memory footprint
+    * Optional external allocators per domain. Every memory allocation should
+    pass through them.
+    * Make use of the fact that a BIG execution time improvement can be made if
+    a user has no mixins or messages defined in a dynamic library (and has no
+    plans to add such)
+    * Integration with Boost.Serialization. As long as the mixins of an object
+    are serializable, the object will be, too.
+    * "Static" mixins. As long as they're not mutated in or out, it provides a
+    faster message execution.
+    * Reflection. Create objects with mixins by string. Call messages by string.
+* When humankind becomes a Kardashev type two civilization:
+    * Integration with Boost.Thread. Call messages for a specific thread.
+    * User-defined message hooks. Sample implementation with messages called on
+    objects on another device through Boost.Asio.
+    * A way to mutate static mixins in and out. Slight mutation execution penalty.
+    * Some magic to make it work even faster.
+    * Integration with Boost.Python and luabind.
+    * Remove C++03 backward compatibility????
+    * Library being accepted in Boost????
+
+[endsect]
