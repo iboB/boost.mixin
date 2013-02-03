@@ -42,8 +42,39 @@ object_transformer::~object_transformer()
 
 void object_transformer::apply()
 {
+    // normalize _to_add and _to_remove
+    // that is, if an element is in both arrays it will be removed from them
+
+    // intentionally not sorting both containers and not using set_intersection
+    // they should be small so this o(a*b) algorithm should be fine
+
+    for(mixin_type_info_vector::iterator add = _to_add.begin(); add!=_to_add.end(); ++add)
+    {
+        for(mixin_type_info_vector::iterator rem = _to_remove.begin(); rem!=_to_remove.end(); ++rem)
+        {
+            if(*add == *rem)
+            {
+                add = _to_add.erase(add);
+                _to_remove.erase(rem);
+
+                // the for ++ will increase add, so decrement it here
+                if(add == _to_add.end())
+                {
+                    goto break2;
+                }
+
+                break;
+            }
+        }
+    }
+
+break2:
+
     if(_to_add.empty() && _to_remove.empty())
+    {
+        cancel();
         return; // nothing to do
+    }
 
     mixin_type_info_vector new_type_mixins;
     const mixin_type_info_vector& object_mixins = _object->_type_info->_compact_mixins;
@@ -69,6 +100,7 @@ void object_transformer::apply()
         // special case for new empty object
         // remove its domain too
         _object->clear();
+        cancel();
         return;
     }
 
@@ -78,10 +110,20 @@ void object_transformer::apply()
 
     for(size_t i=0; i<_to_remove.size(); ++i)
     {
-        _object->destroy_mixin(_to_remove[i]->id);
+        if(_object->internal_has_mixin(*_to_remove[i]))
+            _object->destroy_mixin(_to_remove[i]->id);
     }
 
     const object_type_info* new_type = _domain->get_object_type_info(new_type_mixins);
+
+    // since we allow adding of existing mixins it could be that this new type is
+    // actually the object's current type
+    if(_object->_type_info == new_type)
+    {
+        cancel();
+        return;
+    }
+
     _object->change_type(new_type);
 
     for(size_t i=0; i<_to_add.size(); ++i)
@@ -121,10 +163,7 @@ void object_transformer::internal_add(const internal::mixin_type_info& mixin_inf
 {
     check_valid_mutation(mixin_info);
 
-    if(_object->_type_info->has_mixin(mixin_info.id))
-    {
-        return; // nothing to add
-    }
+    // intentionally not checking if the object already has this mixin
 
     // intentionally using linear search instead of binary
     // cache locality makes it faster for small arrays
@@ -133,8 +172,6 @@ void object_transformer::internal_add(const internal::mixin_type_info& mixin_inf
         return; // already adding
     }
 
-    BOOST_MIXIN_THROW_UNLESS(!has_elem(_to_remove, &mixin_info), invalid_transform);
-
     _to_add.push_back(&mixin_info);
 }
 
@@ -142,10 +179,7 @@ void object_transformer::internal_remove(const internal::mixin_type_info& mixin_
 {
     check_valid_mutation(mixin_info);
 
-    if(!_object->_type_info->has_mixin(mixin_info.id))
-    {
-        return; // nothing to remove
-    }
+    // intentionally not checking if the object even has this mixin
 
     // intentionally using linear search instead of binary
     // cache locality makes it faster for small arrays
@@ -153,8 +187,6 @@ void object_transformer::internal_remove(const internal::mixin_type_info& mixin_
     {
         return;  // already removing
     }
-
-    BOOST_MIXIN_THROW_UNLESS(!has_elem(_to_add, &mixin_info), invalid_transform);
 
     _to_remove.push_back(&mixin_info);
 }
