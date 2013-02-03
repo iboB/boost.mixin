@@ -1,0 +1,164 @@
+[/
+ Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+
+ Distributed under the Boost Software License, Version 1.0.
+ See accompanying file LICENSE_1_0.txt or copy at
+ http:#www.boost.org/LICENSE_1_0.txt
+/]
+
+[library Boost.Mixin
+    [quickbook 1.5]
+    [version 0.1]
+    [authors [Stanimirov, Borislav] [Karadjov, Zahary]]
+    [copyright 2013 Borislav Stanimirov, Zahary Karadjov]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt]).
+    ]
+    [id mixin]
+    [source-mode c++]
+    [/ why doesn't $Date$ work? ]
+    [last-revision $Date: 2013-02-03 16:00 UTC $]
+]
+
+[/ ===== user macros ====== ]
+
+[def -- \u2013]
+
+[/ ======================== ]
+
+[section Disclaimer]
+
+This library is *not* an official part of [@http://www.boost.org the Boost libraries collection]. It will be submitted for review somewhere in late 2013.
+
+[endsect]
+
+[section:intro Introduction]
+
+[section:intro_ecs Introduction to entity component systems]
+
+[section:whats_an_ecs What is an entity-component system?]
+
+An entity-component system (ECS) allows users to create entities which consist of components. A simplified way of thinking about that is a container of instances of unique types. Another way of thinking about said entities is like they are objects produced from multiple inheritance only they are constructed in runtime, as opposed to compile-time.
+
+Here's a piece of code that might be used in a simple hypothetical ECS:
+
+    entity e;
+    e.add_component(new xml_serializer);
+    e.add_component(new book_data);
+    // now the entity contains data and a way to serialize this data    
+    // ... 
+    // here we can test if an entity has the components we need
+    if(e.has_component<xml_serializer>())
+    {
+        e.get_component<xml_serializer>()->serialize();
+    }
+    
+See how we can think of `e` as a container of various objects, or as a class derived from both `serializer` and `data`. However it is not exactly a container as it cannot have two instances of the same class, and it is not exactly a class with multiple inheritance as its contents cannot be statically analyzed.
+
+[endsect]
+
+[section:whats_good_in_ecs Why are entity-component systems good?]
+
+They allow the users to achieve true decoupling of their subsystems. For example if we extend the above example to have a registered component of type `serializer`, which is a pure virtual class with a method `virtual void serialize() = 0`, the code example from above would still work, but we would be able to change the last part to something a bit more useful:
+
+    if(e.has_component<serializer>())
+    {
+        e.get_component<serializer>()->serialize();
+    }
+
+Now all functions that want to call `serialize` for an object may as well be oblivious to what the /actual/ serializer within the entity. Keep in mind that this is nearly impossible to achieve with plain multiple inheritance as users would have to handle the combinatorial explosion of different `serializer`'s, `data`'s and other possible super-classes.
+
+The above example shows that an ECS is, in most cases, a better choice than multiple inheritance. But what about composition?
+
+Well, an ECS is a type of composition, with one difference. An entity has no idea what kind of components may be a part of it.
+
+Imagine a the straight-forward way to composition. An object from our system will have methods like `get_serializer()`, `get_data()`, and more. This means that every time we add a new sub-system, we'll have to change the object type to "enrich" it with its new components. Removing the aforementioned limitation allows independent sub-system development -- without chaing the code of the original product. I also allows the introduction of entire subsystems with dynamic libraries, which don't change the binary. For example, writing an entirely new serialization mechanism -- say encrypted serialization -- for a product and introdusing it as an optional plugin becomes a breeze. 
+
+[endsect]
+
+[section:who_uses_ecs Who uses entity-component systems]
+
+They are very popular in game development, as most objects in a game have many different aspects for different sub-systems. Still, being as powerful as they are, they find their place in many other pieces of software developed in C++, Java or C#. 
+
+Most script-language objects natively support a form of these systems, called /Mixins/. Here's where Boost.Mixin comes into play.
+
+[endsect]
+
+[endsect]
+
+[section:intro_mixins Introduction to mixins]
+[section:whats_a_mixin What is a mixin?]
+
+Speaking generally a mixin is a class that provides a certain functionality to be reused by other classes. This general definiton applies to almost everything. One could say that all forms of composition and inheritance are uses of mixins.
+
+Many C++ users are familiar with the word mixin as a form of [@http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern CRTP] and this is indeed an appropriate name for some cases. 
+
+In most languages that explicitly say that they natively support mixins, a mixin is a runtime idiom, much like the components from an entity-component system.
+
+For more details you check [@http://en.wikipedia.org/wiki/Mixin Wikipedia's article on Mixin], but speaking generally is probably more confusing than helpful. Let's focus on the particular case of Boost.Mixin.
+
+[endsect]
+
+[section:boost_mixin Boost.Mixin]
+Boost.Mixin is a new type of an entity-component system. As an ECS it has entities of type `boost::mixin::object` and components, called mixins. Its components are the library user's classes, and don't have a specific type. From now on, unless explicitly specified, the term *mixin* will be used to refer to the concept of mixin in Boost.Mixin.
+
+As we've seen an ECS allows an object to receive different interfaces, while remaining oblivious to the actual components that may comprise it. In contrast to regular ECS components, mixins do not share parents to provide their interface. They just have methods that have provide different functionalities. To call these methods Boost.Mixin introduces messages. Messages are nothing more than global functions whose first parameter is `boost::mixin::object` (If C++ allowed extension methods, like C# does, this would have been the preferred way to implement them).
+
+The basic ECS example from above would look like this with Boost.Mixin:
+
+    using namespace boost::mixin;
+    object* o = new object;
+    mutate(o)
+        .add<xml_serializer>()
+        .add<book_data>();
+    // ...
+    serialize(o);
+
+Here `serialize` is a message, implemented by the mixin `serializer`. Unlike in a typical ECS implementation, here the code, calling messages doesn't need to "see" the declaration of the objects that implement them. They need only see that such messages exist.
+
+A unique ECS feature of Boost.Mixin, are /multicast/ messages. This lacks in most mixin implementations even when mixins are a built-in part of the language. Multicasts allow a single messsage to be handled by all the mixins in an object.
+
+[endsect]
+
+[endsect]
+
+[endsect]
+
+[section Roadmap]
+
+Here is a list of planned features and events for the library: (The authors write it in their own free time, so concrete dates are hard to estimate)
+
+* Soon (probably by the end of May 2013)
+    * Overloaded messages - messages that call overloaded functions. The message's name is different for each overload but the calling function remains the same
+    * Work on more sensible (and helpful) runtime and compile-time errors. Missing messages, ambiguous message priority, etc.
+    * Add multicast result collectors. Like `and` or `or` for boolean return values. Like `sum` for numeric values. Sample usage some_multicast_message(obj, p1, p2, boost::mixin::sum). User-defined result collectors will be possible.
+    * Add a new mixin feature `fact`. Facts are static const variables in a mixin. No multicasts. No virtual tables.
+    * Add object type templates. Instead of manually transforming each object, you would be able to call `type_template::new_object()`
+    * Add more graceful runtime error handling: default message implementations (if none is provided), more specific non-breaking exceptions
+    * Unit tests
+    * Performance tests
+    * [-Boost.Jam build files]
+    * Tutorials 
+    * Object mutation injections. Automatically add some mixins when others are present. Substitute a mentioned mixin with another. Ban a mixin from being added to an object. 
+* Not soon (hopefully by the end of 2013)    
+    * Full reference documentation
+    * Formal submission to Boost ??
+    * Call mixin constructors when mutating object or constructing them via object type templates. Sample usage: `mutate(obj).add<mixin>("foo", param2).add<other_mixin>(42)`
+    * Reduce library memory footprint
+    * Optional external allocators per domain. Every memory allocation should pass through them.
+    * Make use of the fact that a BIG execution time improvement can be made if a user has no mixins or messages defined in a dynamic library (and has no plans to add such)
+    * Integration with Boost.Serialization. As long as the mixins of an object are serializable, the object will be, too.
+    * "Static" mixins. As long as they're not mutated in or out, it provides a faster message execution.
+    * Reflection. Create objects with mixins by string. Call messages by string.
+* When humankind becomes a Kardashev type two civilization:
+    * Integration with Boost.Thread. Call messages for a specific thread.
+    * User-defined message hooks. Sample implementation with messages called on objects on another device through Boost.Asio.
+    * A way to mutate static mixins in and out. Slight mutation execution penalty.
+    * Some magic to make it work even faster.
+    * Integration with Boost.Python and luabind.
+    * Remove C++03 backward compatibility????
+    * Library being accepted in Boost???? 
+
+[endsect]

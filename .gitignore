@@ -1,3 +1,9 @@
+# website repo
+site/
+
+# generated docs
+*html/
+
 # linux temp files
 *~
 
