@@ -10,6 +10,7 @@
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/foreach.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
+#include <boost/mixin/message.hpp>
 
 namespace boost
 {
@@ -132,6 +133,11 @@ void object::destroy_mixin(mixin_id id)
     _type_info->dealloc_mixin(id, data.buffer());
 
     data.clear();
+}
+
+bool object::implements_message(const internal::message_t& m) const
+{
+	return !!_type_info->_call_table[m.id].message_data;
 }
 
 }

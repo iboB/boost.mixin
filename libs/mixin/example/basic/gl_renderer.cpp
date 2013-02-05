@@ -31,4 +31,4 @@ void gl_renderer::trace(std::ostream& o) const
     o << "\twith a OpenGL renderer" << endl;
 }
 
-BOOST_DEFINE_MIXIN(gl_renderer, all_rendering_messages & trace_msg);
+BOOST_DEFINE_MIXIN(gl_renderer, all_rendering_messages & trace_msg & opengl_specific_msg);
