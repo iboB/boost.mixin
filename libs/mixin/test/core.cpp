@@ -20,14 +20,23 @@ class other_domain {};
 
 // some mixins and messages
 BOOST_DECLARE_MIXIN(counter);
+BOOST_DECLARE_MIXIN(no_messages);
 //BOOST_DECLARE_MIXIN(overrider);
 //BOOST_DECLARE_MIXIN(foo);
 //BOOST_DECLARE_MIXIN(bar);
+
+BOOST_MIXIN_MESSAGE_0(void, dummy);
+
+class no_messages
+{
+};
 
 class counter
 {
 public:
     counter() {}
+
+    void dummy() {}
 
     void count_uni();
     int get_count();
@@ -39,18 +48,18 @@ BOOST_AUTO_TEST_CASE(simple_inline_mutation)
 {
     object o;
 
-    BOOST_CHECK(!o.has<counter>());
-    BOOST_CHECK_NULL(o.get<counter>());
+    BOOST_CHECK(!o.has<no_messages>());
+    BOOST_CHECK_NULL(o.get<no_messages>());
 
-    mutate(o).add<counter>();
+    mutate(o).add<no_messages>();
 
-    BOOST_CHECK(o.has<counter>());
-    BOOST_CHECK_NOT_NULL(o.get<counter>());
+    BOOST_CHECK(o.has<no_messages>());
+    BOOST_CHECK_NOT_NULL(o.get<no_messages>());
 
-    mutate(o).remove<counter>();
+    mutate(o).remove<no_messages>();
 
-    BOOST_CHECK(!o.has<counter>());
-    BOOST_CHECK_NULL(o.get<counter>());
+    BOOST_CHECK(!o.has<no_messages>());
+    BOOST_CHECK_NULL(o.get<no_messages>());
 }
 
 BOOST_AUTO_TEST_CASE(complex_apply_mutation)
@@ -59,14 +68,22 @@ BOOST_AUTO_TEST_CASE(complex_apply_mutation)
 
     BOOST_CHECK(!o.has<counter>());
     BOOST_CHECK_NULL(o.get<counter>());
+    BOOST_CHECK(!o.implements(dummy_msg));
 
     object_transformer mutation(o);
+
+    mutation.add<no_messages>();
+    mutation.apply();
+    BOOST_CHECK(o.has<no_messages>());
+    BOOST_CHECK_NOT_NULL(o.get<no_messages>());
+    BOOST_CHECK(!o.implements(dummy_msg));
 
     mutation.add<counter>();
     mutation.apply();
 
     BOOST_CHECK(o.has<counter>());
     BOOST_CHECK_NOT_NULL(o.get<counter>());
+    BOOST_CHECK(o.implements(dummy_msg));
 
     mutation.remove<counter>();
     mutation.cancel();
@@ -86,7 +103,13 @@ BOOST_AUTO_TEST_CASE(complex_apply_mutation)
     mutation.apply();
     BOOST_CHECK(!o.has<counter>());
     BOOST_CHECK_NULL(o.get<counter>());
+
+    BOOST_CHECK(!o.implements(dummy_msg));
+    
 }
 
 
-BOOST_DEFINE_MIXIN(counter, none);
+BOOST_DEFINE_MIXIN(no_messages, none);
+BOOST_DEFINE_MIXIN(counter, dummy_msg);
+
+BOOST_MIXIN_DEFINE_MESSAGE(dummy);
