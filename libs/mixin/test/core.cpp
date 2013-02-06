@@ -12,7 +12,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/included/unit_test.hpp>
 
-#include <common/common.hpp>
+#include "common/common.hpp"
 
 using namespace boost::mixin;
 

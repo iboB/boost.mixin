@@ -46,7 +46,7 @@ public:
 
 // parse mixin features and apply them to the mixin type info
 template <typename Mixin>
-class BOOST_MIXIN_API feature_parser
+class feature_parser
 {
 public:
     template <typename Feature>
