@@ -137,7 +137,7 @@ void object::destroy_mixin(mixin_id id)
 
 bool object::implements_message(const internal::message_t& m) const
 {
-	return !!_type_info->_call_table[m.id].message_data;
+    return !!_type_info->_call_table[m.id].message_data;
 }
 
 }

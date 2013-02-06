@@ -10,9 +10,6 @@
     <Filter Include="boost\mixin">
       <UniqueIdentifier>{48d2c6f1-d209-4302-8515-cb8fb94b19a1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boost\mixin\third_party">
-      <UniqueIdentifier>{4020cefc-ca25-4499-a058-5e2c4c08455e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="boost\mixin\gen">
       <UniqueIdentifier>{6bd46cdf-9eb7-4894-bd8b-2b7482cd3836}</UniqueIdentifier>
     </Filter>
@@ -73,9 +70,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\message.hpp">
       <Filter>boost\mixin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\boost\mixin\third_party\fd_simplify_mem_func.hpp">
-      <Filter>boost\mixin\third_party</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\message_macros.hpp">
       <Filter>boost\mixin</Filter>

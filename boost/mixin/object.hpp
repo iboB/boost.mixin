@@ -21,8 +21,8 @@ namespace internal
     class object_type_info;
     class mixin_data_in_object;
     class domain;
-	struct message_t;
-	struct message_feature_tag;
+    struct message_t;
+    struct message_feature_tag;
 }
 
 // main object class
@@ -54,13 +54,13 @@ public:
         return reinterpret_cast<const Mixin*>(internal_get_mixin(info));
     }
 
-	template <typename Feature>
-	bool implements(const Feature*) const
-	{
-		const Feature& f = static_cast<Feature&>(_boost_get_mixin_feature((Feature*)nullptr));
+    template <typename Feature>
+    bool implements(const Feature*) const
+    {
+        const Feature& f = static_cast<Feature&>(_boost_get_mixin_feature((Feature*)nullptr));
         BOOST_ASSERT(f.id != INVALID_FEATURE_ID);
-		return internal_implements(f, typename Feature::feature_tag());
-	}
+        return internal_implements(f, typename Feature::feature_tag());
+    }
 
     void* get_raw_mixin(mixin_id id);
     const void* get_raw_mixin(mixin_id id) const;
@@ -92,13 +92,13 @@ boost_mixin_internal:
     // thus each mixin can get its own object
     internal::mixin_data_in_object* _mixin_data;
 
-	template <typename Feature>
-	bool internal_implements(const Feature& f, const internal::message_feature_tag&) const
-	{
-		return implements_message(f);
-	}
+    template <typename Feature>
+    bool internal_implements(const Feature& f, const internal::message_feature_tag&) const
+    {
+        return implements_message(f);
+    }
 
-	bool implements_message(const internal::message_t& m) const;
+    bool implements_message(const internal::message_t& m) const;
 };
 
 } // namespace mixin
