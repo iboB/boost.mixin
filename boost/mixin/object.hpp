@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_OBJECTL_HPP_INCLUDED)
-#define BOOST_MIXIN_OBJECT_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_OBJECTL_HPP_INCLUDED)
+#define _BOOST_MIXIN_OBJECT_HPP_INCLUDED
 
 #include "global.hpp"
 
@@ -33,6 +33,9 @@ public:
     object();
     ~object();
 
+
+    /////////////////////////////////////////////////////////////////
+    // mixin info
     template <typename Mixin>
     bool has() const
     {
@@ -53,7 +56,10 @@ public:
         const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
         return reinterpret_cast<const Mixin*>(internal_get_mixin(info));
     }
+    /////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////////////////////
+    // feature info
     template <typename Feature>
     bool implements(const Feature*) const
     {
@@ -61,6 +67,7 @@ public:
         BOOST_ASSERT(f.id != INVALID_FEATURE_ID);
         return internal_implements(f, typename Feature::feature_tag());
     }
+    /////////////////////////////////////////////////////////////////
 
     void* get_raw_mixin(mixin_id id);
     const void* get_raw_mixin(mixin_id id) const;
@@ -104,4 +111,4 @@ boost_mixin_internal:
 } // namespace mixin
 } // namespace boost
 
-#endif // BOOST_MIXIN_OBJECT_HPP_INCLUDED
+#endif // _BOOST_MIXIN_OBJECT_HPP_INCLUDED

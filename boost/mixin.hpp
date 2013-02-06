@@ -1,6 +1,6 @@
 #pragma once
-#if !defined(BOOST_MIXIN_HPP_INCLUDED)
-#define BOOST_MIXIN_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_HPP_INCLUDED)
+#define _BOOST_MIXIN_HPP_INCLUDED
 
 //
 // mixin.hpp - support for compound dynamic objects, using mixins
@@ -36,4 +36,4 @@
 #   pragma warning( pop )
 #endif
 
-#endif // BOOST_MIXIN_HPP_INCLUDED
+#endif // _BOOST_MIXIN_HPP_INCLUDED

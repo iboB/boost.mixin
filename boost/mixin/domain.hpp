@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_DOMAIN_HPP_INCLUDED)
-#define BOOST_MIXIN_DOMAIN_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_DOMAIN_HPP_INCLUDED)
+#define _BOOST_MIXIN_DOMAIN_HPP_INCLUDED
 
 #include <boost/mixin/global.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
@@ -188,4 +188,4 @@ domain& get_domain_for_tag()
 template <typename T>
 struct _boost_mixin_domain_for_type {};
 
-#endif //BOOST_MIXIN_DOMAIN_HPP_INCLUDED
+#endif // _BOOST_MIXIN_DOMAIN_HPP_INCLUDED

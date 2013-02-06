@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_MIXIN_HPP_INCLUDED)
-#define BOOST_MIXIN_MIXIN_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_MIXIN_HPP_INCLUDED)
+#define _BOOST_MIXIN_MIXIN_HPP_INCLUDED
 
 #include "global.hpp"
 #include "domain.hpp"
@@ -92,4 +92,4 @@ const object* get_object(const Mixin* mixin_addr)
 #   define bm_this ::boost::mixin::get_object(this)
 #endif
 
-#endif // BOOST_MIXIN_MIXIN_HPP_INCLUDED
+#endif // _BOOST_MIXIN_MIXIN_HPP_INCLUDED

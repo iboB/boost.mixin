@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_OBJECT_TRANSFORMER_HPP_INCLUDED)
-#define BOOST_MIXIN_OBJECT_TRANSFORMER_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_OBJECT_TRANSFORMER_HPP_INCLUDED)
+#define _BOOST_MIXIN_OBJECT_TRANSFORMER_HPP_INCLUDED
 
 // the object transformer mutates objects
 // ie it adds and removes mixins while synchronizing the object's
@@ -77,4 +77,4 @@ typedef object_transformer mutate;
 }
 }
 
-#endif // BOOST_MIXIN_OBJECT_TRANSFORMER_HPP_INCLUDED
+#endif // _BOOST_MIXIN_OBJECT_TRANSFORMER_HPP_INCLUDED
