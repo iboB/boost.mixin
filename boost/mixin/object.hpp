@@ -40,21 +40,24 @@ public:
     bool has() const
     {
         const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
-        return internal_has_mixin(info);
+        // intentionally disregarding the actual info
+        return internal_has_mixin(info.id);
     }
 
     template <typename Mixin>
     Mixin* get()
     {
         const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
-        return reinterpret_cast<Mixin*>(internal_get_mixin(info));
+        // intentionally disregarding the actual info
+        return reinterpret_cast<Mixin*>(internal_get_mixin(info.id));
     }
 
     template <typename Mixin>
     const Mixin* get() const
     {
         const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
-        return reinterpret_cast<const Mixin*>(internal_get_mixin(info));
+        // intentionally disregarding the actual info
+        return reinterpret_cast<const Mixin*>(internal_get_mixin(info.id));
     }
     /////////////////////////////////////////////////////////////////
 
@@ -65,7 +68,8 @@ public:
     {
         const Feature& f = static_cast<Feature&>(_boost_get_mixin_feature((Feature*)nullptr));
         BOOST_ASSERT(f.id != INVALID_FEATURE_ID);
-        return internal_implements(f, typename Feature::feature_tag());
+        // intentionally disregarding the actual feature
+        return internal_implements(f.id, typename Feature::feature_tag());
     }
     /////////////////////////////////////////////////////////////////
 
@@ -78,9 +82,9 @@ public:
 boost_mixin_internal:
     friend class object_transformer;
 
-    void* internal_get_mixin(const internal::mixin_type_info& mixin_info);
-    const void* internal_get_mixin(const internal::mixin_type_info& mixin_info) const;
-    bool internal_has_mixin(const internal::mixin_type_info& mixin_info) const;
+    void* internal_get_mixin(mixin_id id);
+    const void* internal_get_mixin(mixin_id id) const;
+    bool internal_has_mixin(mixin_id id) const;
 
 
     // reorganizes the mixins for the new type
@@ -100,12 +104,12 @@ boost_mixin_internal:
     internal::mixin_data_in_object* _mixin_data;
 
     template <typename Feature>
-    bool internal_implements(const Feature& f, const internal::message_feature_tag&) const
+    bool internal_implements(feature_id id, const internal::message_feature_tag&) const
     {
-        return implements_message(f);
+        return implements_message(id);
     }
 
-    bool implements_message(const internal::message_t& m) const;
+    bool implements_message(feature_id id) const;
 };
 
 } // namespace mixin

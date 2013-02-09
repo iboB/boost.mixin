@@ -67,7 +67,7 @@ Ret caller0(void* mixin_ptr )
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data ); \
@@ -91,7 +91,7 @@ Ret caller0(void* mixin_ptr )
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data ); \
@@ -109,6 +109,18 @@ Ret caller0(void* mixin_ptr )
 
 #define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_0(return_type, message ) \
     _BOOST_MIXIN_MESSAGE0_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const )
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_0(export, return_type, message ) \
+    _BOOST_MIXIN_MESSAGE0_UNI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() )
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_0(export, return_type, message ) \
+    _BOOST_MIXIN_MESSAGE0_UNI(export, ::boost::mixin::default_domain, message, message, return_type, const )
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_0(export, return_type, message ) \
+    _BOOST_MIXIN_MESSAGE0_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() )
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_0(export, return_type, message ) \
+    _BOOST_MIXIN_MESSAGE0_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, const )
 
 
 namespace boost
@@ -169,7 +181,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0); \
@@ -193,7 +205,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0); \
@@ -211,6 +223,18 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
 
 #define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_1(return_type, message , arg0_type, a0) \
     _BOOST_MIXIN_MESSAGE1_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_1(export, return_type, message , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_UNI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_1(export, return_type, message , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_UNI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_1(export, return_type, message , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_1(export, return_type, message , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0)
 
 
 namespace boost
@@ -271,7 +295,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1); \
@@ -295,7 +319,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0, a1); \
@@ -313,6 +337,18 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
 
 #define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_2(return_type, message , arg0_type, a0, arg1_type, a1) \
     _BOOST_MIXIN_MESSAGE2_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_2(export, return_type, message , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_UNI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_2(export, return_type, message , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_UNI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_2(export, return_type, message , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_2(export, return_type, message , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1)
 
 
 namespace boost
@@ -373,7 +409,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1, a2); \
@@ -397,7 +433,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0, a1, a2); \
@@ -415,6 +451,18 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
 
 #define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_3(return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
     _BOOST_MIXIN_MESSAGE3_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_3(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_UNI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_3(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_UNI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_3(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_3(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
 
 
 namespace boost
@@ -475,7 +523,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1, a2, a3); \
@@ -499,7 +547,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0, a1, a2, a3); \
@@ -517,4 +565,16 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
 
 #define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_4(return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
     _BOOST_MIXIN_MESSAGE4_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_4(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_UNI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_4(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_UNI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_4(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_4(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
 

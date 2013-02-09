@@ -99,7 +99,7 @@ private:
         mixin_info.message_infos.resize(mixin_info.message_infos.size()+1);
         mixin_info.message_infos.back().message = &msg;
         mixin_info.message_infos.back().priority = priority;
-        mixin_info.message_infos.back().mixin_info = &mixin_info;
+        mixin_info.message_infos.back().mixin_id = mixin_info.id;
 
         mixin_info.message_infos.back().caller = msg.template get_caller_for<Mixin>();
     }
