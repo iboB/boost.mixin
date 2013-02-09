@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="dynlib_pch.hpp" />
+    <ClInclude Include="dynlib_mixin.hpp" />
+    <ClInclude Include="dynlib_mixin_fwd.hpp" />
+    <ClInclude Include="internal.hpp" />
+    <ClInclude Include="config.hpp" />
+    <ClInclude Include="dynlib_messages.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dynlib_mixin.cpp" />
+    <ClCompile Include="dynlib_messages.cpp" />
+  </ItemGroup>
+</Project>

@@ -12,6 +12,7 @@ site/
 *.sdf
 *.opensdf
 *.user
+*.lib
 
 *Debug/
 *Release/
