@@ -10,6 +10,7 @@
 #define _BOOST_MIXIN_OBJECT_HPP_INCLUDED
 
 #include "global.hpp"
+#include "mixin_type_info.hpp"
 
 namespace boost
 {

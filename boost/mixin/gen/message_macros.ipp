@@ -67,7 +67,7 @@ Ret caller0(void* mixin_ptr )
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data ); \
@@ -91,7 +91,7 @@ Ret caller0(void* mixin_ptr )
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data ); \
@@ -181,7 +181,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0); \
@@ -205,7 +205,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0); \
@@ -295,7 +295,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1); \
@@ -319,7 +319,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0, a1); \
@@ -409,7 +409,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1, a2); \
@@ -433,7 +433,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0, a1, a2); \
@@ -523,7 +523,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
         /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+        char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
         return func(mixin_data , a0, a1, a2, a3); \
@@ -547,7 +547,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
             /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->mixin_id))); \
+            char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(msg_data->_mixin_id))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
             func(mixin_data , a0, a1, a2, a3); \

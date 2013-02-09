@@ -57,7 +57,7 @@ struct message_priority
 struct BOOST_MIXIN_API message_for_mixin
 {
     message_t* message; // message object
-    mixin_id mixin_id; // mixin type information
+    mixin_id _mixin_id; // id of the handling mixin type information
 
     // the caller member is a pointer to a template function instantiated by the message macros
     // this function takes the appropriate parameters as arguments and is instantiated to call
