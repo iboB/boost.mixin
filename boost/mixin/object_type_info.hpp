@@ -39,8 +39,7 @@ public:
 
     domain* dom() const { return _domain; }
 
-    bool has_mixin(mixin_id id) const { return !!_mixins[id]; }
-    const mixin_type_info& mixin_info(mixin_id id) const { return *_mixins[id]; }
+    bool has_mixin(mixin_id id) const { return _mixins[id]; }
     size_t mixin_index(mixin_id id) const { return _mixin_indices[id]; }
 
     mixin_data_in_object* alloc_mixin_data() const;
@@ -56,7 +55,7 @@ boost_mixin_internal:
 
     // not available mixins are null
     size_t _mixin_indices[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
-    const mixin_type_info* _mixins[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
+    available_mixins_bitset _mixins;
     // only the mixins the objects of this type have
     mixin_type_info_vector _compact_mixins;
 

@@ -37,7 +37,7 @@
 #       error "getting typenames with typeid hasn't been tested on compilers other than gcc and msvc"
 #   endif
 #else // safer but more inconvinient way
-#   define BOOST_MIXIN_TYPE_NAME(type) type::get_boost_mixin_name()
+#   define BOOST_MIXIN_TYPE_NAME(type) type::boost_mixin_name()
 #endif
 
 // logically internal data within classes that cannot be private or protected
@@ -83,6 +83,8 @@ namespace internal
 
     class mixin_type_info;
     typedef std::vector<const mixin_type_info*> mixin_type_info_vector;
+
+    typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
 
     // msvc complains that boost::noncopyable doesn't have a dll interface
     // instead of disabling the warning, use our own noncopyable

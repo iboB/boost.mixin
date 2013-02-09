@@ -19,8 +19,8 @@
 // boost::mixin hevily relies on type names
 // setting the BOOST_MIXIN_USE_TYPEID to true will cause it to obtain said names with type_info via typeid.
 // setting it to false will require the following extra steps:
-//     * domain tags must add static const char* get_boost_mixin_name() { return <domain tag class name>; }
-//     * mixins must add static const char* get_boost_mixin_name() { return <mixin class name>; }
+//     * domain tags must add static const char* boost_mixin_name() { return <domain tag class name>; }
+//     * mixins must add static const char* boost_mixin_name() { return <mixin class name>; }
 #define BOOST_MIXIN_USE_TYPEID 1
 
 #if !defined(NDEBUG)

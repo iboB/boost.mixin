@@ -32,7 +32,7 @@
 
 // to create a domain simply define an empty class (this is the domain tag)
 // and pass it to BOOST_DEFINE_MIXIN_IN_DOMAIN
-// if BOOST_MIXIN_USE_TYPEID is false you need to add the static method get_boost_mixin_name
+// if BOOST_MIXIN_USE_TYPEID is false you need to add the static method boost_mixin_name
 
 namespace boost
 {
@@ -45,7 +45,7 @@ class default_domain
 {
 #if !BOOST_MIXIN_USE_TYPEID
 public:
-    static const char* get_boost_mixin_name() { return "default_domain"; }
+    static const char* boost_mixin_name() { return "default_domain"; }
 #endif
 };
 
@@ -55,8 +55,6 @@ namespace internal
 {
 
 struct message_t;
-
-typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
 
 #if !BOOST_MIXIN_USING_CXX11
 // we need to define a hash function for bitsets
@@ -125,7 +123,7 @@ public:
     // creates a new type info if needed
     const object_type_info* get_object_type_info(const mixin_type_info_vector& mixins);
 
-    const mixin_type_info& get_mixin_type_info(mixin_id id) const
+    const mixin_type_info& mixin_info(mixin_id id) const
     {
         BOOST_ASSERT(id != INVALID_MIXIN_ID);
         BOOST_ASSERT(id <= _num_registered_mixins);

@@ -72,15 +72,14 @@ class object;
 // functions that get the object of a mixin by its address
 // most commonly used within a mixin class
 template <typename Mixin>
-object* get_object(Mixin* mixin_addr)
+object* object_of(Mixin* mixin_addr)
 {
     return *reinterpret_cast<object**>(reinterpret_cast<char*>(mixin_addr) - sizeof(object*));
 }
 
 template <typename Mixin>
-const object* get_object(const Mixin* mixin_addr)
+const object* object_of(const Mixin* mixin_addr)
 {
-
     return *reinterpret_cast<const object*const*>(reinterpret_cast<const char*>(mixin_addr) - sizeof(object*));
 }
 
@@ -89,7 +88,7 @@ const object* get_object(const Mixin* mixin_addr)
 
 // this macro makes writing code within mixins nicer
 #if BOOST_MIXIN_DEFINE_BM_THIS
-#   define bm_this ::boost::mixin::get_object(this)
+#   define bm_this ::boost::mixin::object_of(this)
 #endif
 
 #endif // _BOOST_MIXIN_MIXIN_HPP_INCLUDED
