@@ -86,6 +86,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>mixin_vs11.lib;dynlib_vs11.lib;$(ProjectDir)..\common\lib\common_vs11.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\bin</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>plugin.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

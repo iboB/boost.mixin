@@ -21,8 +21,12 @@ plugin_modify_object_proc plugin_modify_object;
 
 void load_plugin()
 {
+#if defined(NDEBUG)
+    HMODULE hmod = LoadLibrary(_T("plugin_vs11.dll"));
+#else
     HMODULE hmod = LoadLibrary(_T("plugin_vs11_d.dll"));
     BOOST_ASSERT(hmod);
+#endif
 
     FARPROC fp = GetProcAddress(hmod, "modify_object");
     BOOST_ASSERT(fp);
