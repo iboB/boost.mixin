@@ -39,8 +39,8 @@ struct BOOST_MIXIN_API message_t : public feature
     typedef message_feature_tag feature_tag;
 
 protected:
-    message_t(const char* name, e_mechanism mecha)
-        : feature(name)
+    message_t(const char* name, e_mechanism mecha, bool is_private)
+        : feature(name, is_private)
         , mechanism(mecha)
     {}
 };

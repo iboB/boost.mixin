@@ -36,7 +36,7 @@ Ret caller0(void* mixin_ptr )
     { \
         typedef return_type (*caller_func)(void* ); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
-            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism) \
+            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism, false) \
         {} \
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
@@ -66,7 +66,7 @@ Ret caller0(void* mixin_ptr )
         const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
-        BOOST_ASSERT(msg_data->message == &self); \
+        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -90,7 +90,7 @@ Ret caller0(void* mixin_ptr )
         { \
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
-            BOOST_ASSERT(msg_data->message == &self); \
+            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -138,7 +138,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
     { \
         typedef return_type (*caller_func)(void* , arg0_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
-            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism) \
+            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism, false) \
         {} \
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
@@ -168,7 +168,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
         const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
-        BOOST_ASSERT(msg_data->message == &self); \
+        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -192,7 +192,7 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
         { \
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
-            BOOST_ASSERT(msg_data->message == &self); \
+            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -240,7 +240,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
     { \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
-            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism) \
+            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism, false) \
         {} \
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
@@ -270,7 +270,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
         const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
-        BOOST_ASSERT(msg_data->message == &self); \
+        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -294,7 +294,7 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
         { \
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
-            BOOST_ASSERT(msg_data->message == &self); \
+            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -342,7 +342,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
     { \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
-            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism) \
+            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism, false) \
         {} \
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
@@ -372,7 +372,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
         const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
-        BOOST_ASSERT(msg_data->message == &self); \
+        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -396,7 +396,7 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
         { \
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
-            BOOST_ASSERT(msg_data->message == &self); \
+            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -444,7 +444,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
     { \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type, arg3_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
-            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism) \
+            : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism, false) \
         {} \
         template <typename Mixin> \
         ::boost::mixin::internal::func_ptr get_caller_for() const \
@@ -474,7 +474,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
         const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
         const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
         BOOST_ASSERT(msg_data); \
-        BOOST_ASSERT(msg_data->message == &self); \
+        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
         char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
@@ -498,7 +498,7 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
         { \
             const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
             BOOST_ASSERT(msg_data); \
-            BOOST_ASSERT(msg_data->message == &self); \
+            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
             char* mixin_data = reinterpret_cast<char*>(const_cast<void*>(obj->internal_get_mixin(*msg_data->mixin_info))); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \

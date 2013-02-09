@@ -159,6 +159,47 @@ private:
         BOOST_ASSERT_MSG(_num_registered_messages < BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN,
                          "you have to increase the maximum number of features");
 
+        // the messages can be instantiated from different modules
+        // for example if different modules use the same static library
+        //
+        // we need see if we don't already have a message by that name
+        // if we do we'll set this instantiation's id to the already existing one
+        // and disregard this instantiation
+        //
+        // HERE IT GETS DANGEROUS
+        // there is a possiblity to have messages of the same name, but for totally different methods
+        // if this happened in the same module, the linker wouldn't allow it
+        // the PRIVATE_MESSAGE macro will define the messages that are used within a single module
+        // however if one misses it
+        // and there happen to be messages of the same name, but for different methids,
+        // registered within a single domain from different modules
+        // crashes may ensue (as a message gets called, for objects that can't actually handle it)
+
+        if(!m.is_private)
+        {
+            // check for message of the same name
+            for(size_t i=0; i<_num_registered_messages; ++i)
+            {
+                const message_t& registered_message = *_messages[i];
+
+                BOOST_ASSERT(registered_message.id != INVALID_FEATURE_ID); // how could this happen?
+                if(strcmp(m.name, registered_message.name) == 0)
+                {
+                    // already registered from a different module
+
+                    // at least check if the mechanism is the same
+                    BOOST_ASSERT_MSG(m.mechanism == registered_message.mechanism,
+                        "Attempting to register a message that has already been registered "
+                        "from a different module with a different mechanism");
+
+                    // here we'll have to assume that's the same message
+                    m.id = registered_message.id;
+                    return;
+                }
+            }
+        }
+        // if the message is private treat it as an unrelated different message
+        // although it has the same name
 
         m.id = _num_registered_messages;
 
