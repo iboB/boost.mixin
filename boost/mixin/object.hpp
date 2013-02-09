@@ -103,7 +103,6 @@ boost_mixin_internal:
     // thus each mixin can get its own object
     internal::mixin_data_in_object* _mixin_data;
 
-    template <typename Feature>
     bool internal_implements(feature_id id, const internal::message_feature_tag&) const
     {
         return implements_message(id);
