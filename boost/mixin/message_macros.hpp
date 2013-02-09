@@ -18,6 +18,11 @@
 #define _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) BOOST_PP_CAT(boost_mixin_msg_, message_name)
 #define _BOOST_MIXIN_MESSAGE_TAG(message_name) BOOST_PP_CAT(message_name, _msg)
 
+// a macro used in messages to get the mixin data directly, skipping function calls
+// GREATLY improves message call time
+#define _BOOST_MIXIN_GET_MIXIN_DATA(obj, id) \
+    reinterpret_cast<char*>(const_cast<void*>(obj->_mixin_data[obj->_type_info->_mixin_indices[id]].mixin()))
+
 #include "gen/message_macros.ipp"
 
 /*#define BOOST_MIXIN_EXPORTED_MESSAGE_2_OVERLOAD_IN_DOMAIN(export, domain, message, return_type, method_name, arg1_type, a1, arg2_type, a2) \

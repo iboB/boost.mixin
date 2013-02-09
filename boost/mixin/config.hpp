@@ -42,7 +42,7 @@
 // an assertion will occur if this limit is reached in a program
 // *    the object type creation and the object mutation are proportional
 //      to this value by a factor of o(n log(word, n)) where word is the bit size of size_t
-// *    the object type's size is 2 * word * <value>
+// *    the object type's size is 2 * <value> / 8 (a bit for each possible mixin)
 //      the more global object of different types you have the more type memory they'll consume
 // ie: minor cost for increase
 #define BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN 256
