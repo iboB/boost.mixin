@@ -110,7 +110,7 @@ break2:
 
     for(size_t i=0; i<_to_remove.size(); ++i)
     {
-        if(_object->internal_has_mixin(*_to_remove[i]))
+        if(_object->internal_has_mixin(_to_remove[i]->id))
             _object->destroy_mixin(_to_remove[i]->id);
     }
 
@@ -163,32 +163,42 @@ void object_transformer::internal_add(const internal::mixin_type_info& mixin_inf
 {
     check_valid_mutation(mixin_info);
 
+    BOOST_ASSERT(_domain);
+    // could be that the input parameter has been instantiated from a different module
+    // that's why get the info that's actually in our domain
+    const internal::mixin_type_info& domain_info = _domain->mixin_info(mixin_info.id);
+
     // intentionally not checking if the object already has this mixin
 
     // intentionally using linear search instead of binary
     // cache locality makes it faster for small arrays
-    if(has_elem(_to_add, &mixin_info))
+    if(has_elem(_to_add, &domain_info))
     {
         return; // already adding
     }
 
-    _to_add.push_back(&mixin_info);
+    _to_add.push_back(&domain_info);
 }
 
 void object_transformer::internal_remove(const internal::mixin_type_info& mixin_info)
 {
     check_valid_mutation(mixin_info);
 
+    BOOST_ASSERT(_domain);
+    // could be that the input parameter has been instantiated from a different module
+    // that's why get the info that's actually in our domain
+    const internal::mixin_type_info& domain_info = _domain->mixin_info(mixin_info.id);
+
     // intentionally not checking if the object even has this mixin
 
     // intentionally using linear search instead of binary
     // cache locality makes it faster for small arrays
-    if(has_elem(_to_remove, &mixin_info))
+    if(has_elem(_to_remove, &domain_info))
     {
         return;  // already removing
     }
 
-    _to_remove.push_back(&mixin_info);
+    _to_remove.push_back(&domain_info);
 }
 
 

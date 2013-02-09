@@ -11,6 +11,7 @@
 #include <boost/foreach.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/message.hpp>
+#include <boost/mixin/domain.hpp>
 
 namespace boost
 {
@@ -40,19 +41,19 @@ domain* object::dom() const
     return _type_info->dom();
 }
 
-void* object::internal_get_mixin(const internal::mixin_type_info& mixin_info)
+void* object::internal_get_mixin(mixin_id id)
 {
-    return _mixin_data[_type_info->mixin_index(mixin_info.id)].mixin();
+    return _mixin_data[_type_info->mixin_index(id)].mixin();
 }
 
-const void* object::internal_get_mixin(const internal::mixin_type_info& mixin_info) const
+const void* object::internal_get_mixin(mixin_id id) const
 {
-    return _mixin_data[_type_info->mixin_index(mixin_info.id)].mixin();
+    return _mixin_data[_type_info->mixin_index(id)].mixin();
 }
 
-bool object::internal_has_mixin(const internal::mixin_type_info& mixin_info) const
+bool object::internal_has_mixin(mixin_id id) const
 {
-    return _type_info->has_mixin(mixin_info.id);
+    return _type_info->has_mixin(id);
 }
 
 void object::clear()
@@ -121,7 +122,7 @@ void object::construct_mixin(mixin_id id)
     data.set_buffer(buffer);
     data.set_object(this);
 
-    _type_info->mixin_info(id).constructor(data.mixin());
+    dom()->mixin_info(id).constructor(data.mixin());
 }
 
 void object::destroy_mixin(mixin_id id)
@@ -129,15 +130,15 @@ void object::destroy_mixin(mixin_id id)
     BOOST_ASSERT(_type_info->has_mixin(id));
     mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
 
-    _type_info->mixin_info(id).destructor(data.mixin());
+    dom()->mixin_info(id).destructor(data.mixin());
     _type_info->dealloc_mixin(id, data.buffer());
 
     data.clear();
 }
 
-bool object::implements_message(const internal::message_t& m) const
+bool object::implements_message(feature_id id) const
 {
-    return !!_type_info->_call_table[m.id].message_data;
+    return !!_type_info->_call_table[id].message_data;
 }
 
 }

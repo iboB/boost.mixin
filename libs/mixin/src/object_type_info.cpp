@@ -21,7 +21,6 @@ object_type_info::object_type_info()
     : _domain(nullptr)
     , _multicast_buffer(nullptr)
 {
-    zero_memory(_mixins, sizeof(_mixins));
     zero_memory(_mixin_indices, sizeof(_mixin_indices));
     zero_memory(_call_table, sizeof(_call_table));
 }
@@ -50,7 +49,7 @@ void object_type_info::dealloc_mixin_data(mixin_data_in_object* data) const
 char* object_type_info::alloc_mixin(mixin_id id) const
 {
     BOOST_ASSERT(has_mixin(id));
-    return new char[sizeof(object*) + mixin_info(id).size];
+    return new char[sizeof(object*) + _domain->mixin_info(id).size];
 }
 
 void object_type_info::dealloc_mixin(mixin_id id, char* mem) const
