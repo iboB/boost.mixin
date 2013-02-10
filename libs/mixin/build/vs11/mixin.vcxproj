@@ -16,6 +16,7 @@
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\object_mutator.cpp" />
     <ClCompile Include="..\..\src\object_type_info.cpp" />
+    <ClCompile Include="..\..\src\single_object_mutator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\boost\mixin.hpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="..\..\..\..\boost\mixin\object_mutator.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_template.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_info.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\single_object_mutator.hpp" />
     <ClInclude Include="..\..\src\internal.hpp" />
   </ItemGroup>
   <ItemGroup>

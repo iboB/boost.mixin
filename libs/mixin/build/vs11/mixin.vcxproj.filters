@@ -30,6 +30,9 @@
     <ClCompile Include="..\..\src\object_mutator.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\single_object_mutator.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\internal.hpp">
@@ -78,6 +81,9 @@
       <Filter>boost\mixin</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\object_mutator.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\single_object_mutator.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
   </ItemGroup>
