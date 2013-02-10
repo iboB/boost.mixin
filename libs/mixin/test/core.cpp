@@ -34,13 +34,18 @@ class no_messages
 class counter
 {
 public:
-    counter() {}
+    counter()
+        : _count(0)
+    {}
 
     void dummy() {}
 
-    void count_uni();
-    int get_count();
+    void count_uni() { ++_count; }
     void count_multi();
+
+    int get_count() const { return _count; }
+private:
+    int _count;
 };
 
 
@@ -84,6 +89,9 @@ BOOST_AUTO_TEST_CASE(complex_apply_mutation)
     BOOST_CHECK(o.has<counter>());
     BOOST_CHECK_NOT_NULL(o.get<counter>());
     BOOST_CHECK(o.implements(dummy_msg));
+    BOOST_CHECK_EQUAL(o.get<counter>()->get_count(), 0);
+    o.get<counter>()->count_uni();
+    BOOST_CHECK_EQUAL(o.get<counter>()->get_count(), 1);
 
     mutation.remove<counter>();
     mutation.cancel();
@@ -91,6 +99,7 @@ BOOST_AUTO_TEST_CASE(complex_apply_mutation)
     // cancelled mutations should do nothing
     BOOST_CHECK(o.has<counter>());
     BOOST_CHECK_NOT_NULL(o.get<counter>());
+    BOOST_CHECK_EQUAL(o.get<counter>()->get_count(), 1);
 
     mutation.add<counter>();
     mutation.remove<counter>();
@@ -98,6 +107,15 @@ BOOST_AUTO_TEST_CASE(complex_apply_mutation)
     // adding and removing the same thing should do nothing
     BOOST_CHECK(o.has<counter>());
     BOOST_CHECK_NOT_NULL(o.get<counter>());
+    BOOST_CHECK_EQUAL(o.get<counter>()->get_count(), 1);
+
+    mutation.add<counter>();
+    mutation.apply();
+    // adding something that's there should be fine
+    BOOST_CHECK(o.has<counter>());
+    BOOST_CHECK_NOT_NULL(o.get<counter>());
+    // adding something that's already there shouldn't recreate the mixin
+    BOOST_CHECK_EQUAL(o.get<counter>()->get_count(), 1);
 
     mutation.remove<counter>();
     mutation.apply();
@@ -105,9 +123,41 @@ BOOST_AUTO_TEST_CASE(complex_apply_mutation)
     BOOST_CHECK_NULL(o.get<counter>());
 
     BOOST_CHECK(!o.implements(dummy_msg));
-    
 }
 
+BOOST_AUTO_TEST_CASE(type_template)
+{
+    object_type_template type;
+
+    type
+        .add<counter>()
+        .add<no_messages>()
+        .create();
+
+    object o1(type);
+    BOOST_CHECK(o1.has<no_messages>());
+    BOOST_CHECK_NOT_NULL(o1.get<no_messages>());
+    BOOST_CHECK(o1.has<counter>());
+    BOOST_CHECK_NOT_NULL(o1.get<counter>());
+    BOOST_CHECK(o1.implements(dummy_msg));
+
+    object o2;
+    type.apply_to(&o2);
+    BOOST_CHECK(o2.has<no_messages>());
+    BOOST_CHECK_NOT_NULL(o2.get<no_messages>());
+    BOOST_CHECK(o2.has<counter>());
+    BOOST_CHECK_NOT_NULL(o2.get<counter>());
+    BOOST_CHECK(o2.implements(dummy_msg));
+
+    object o3;
+    mutate(o3)
+        .add<counter>();
+    o3.get<counter>()->count_uni();
+    BOOST_CHECK_EQUAL(o3.get<counter>()->get_count(), 1);
+    type.apply_to(&o3);
+    // applying a type template should reset the object
+    BOOST_CHECK_EQUAL(o3.get<counter>()->get_count(), 0);
+}
 
 BOOST_DEFINE_MIXIN(no_messages, none);
 BOOST_DEFINE_MIXIN(counter, dummy_msg);
