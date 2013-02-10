@@ -18,9 +18,6 @@
     <ClCompile Include="..\..\src\object.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\object_transformer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\object_type_info.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -28,6 +25,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\global.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\object_mutator.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,9 +56,6 @@
     <ClInclude Include="..\..\..\..\boost\mixin\object.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\boost\mixin\object_transformer.hpp">
-      <Filter>boost\mixin</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_info.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
@@ -75,6 +72,12 @@
       <Filter>boost\mixin</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\feature_parser.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_type_template.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_mutator.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
   </ItemGroup>

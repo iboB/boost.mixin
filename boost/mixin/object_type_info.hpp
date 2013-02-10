@@ -20,7 +20,7 @@ namespace boost
 namespace mixin
 {
 
-class object_transformer;
+class object_mutator;
 class object;
 
 namespace internal

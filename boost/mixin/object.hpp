@@ -81,7 +81,7 @@ public:
     void clear();
 
 boost_mixin_internal:
-    friend class object_transformer;
+    friend class object_mutator;
 
     void* internal_get_mixin(mixin_id id);
     const void* internal_get_mixin(mixin_id id) const;

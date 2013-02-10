@@ -6,7 +6,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #include "internal.hpp"
-#include <boost/mixin/object_transformer.hpp>
+#include <boost/mixin/object_mutator.hpp>
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/exception.hpp>
@@ -22,25 +22,25 @@ namespace mixin
 
 using namespace internal;
 
-object_transformer::object_transformer(object* o)
+object_mutator::object_mutator(object* o)
     : _object(o)
     , _domain(nullptr)
 {
     BOOST_ASSERT(o);
 }
 
-object_transformer::object_transformer(object& o)
+object_mutator::object_mutator(object& o)
     : _object(&o)
     , _domain(nullptr)
 {
 }
 
-object_transformer::~object_transformer()
+object_mutator::~object_mutator()
 {
     apply();
 }
 
-void object_transformer::apply()
+void object_mutator::apply()
 {
     // normalize _to_add and _to_remove
     // that is, if an element is in both arrays it will be removed from them
@@ -134,13 +134,13 @@ break2:
     cancel(); // to go back to initial state
 }
 
-void object_transformer::cancel()
+void object_mutator::cancel()
 {
     _to_add.clear();
     _to_remove.clear();
 }
 
-void object_transformer::check_valid_mutation(const internal::mixin_type_info& mixin_info)
+void object_mutator::check_valid_mutation(const internal::mixin_type_info& mixin_info)
 {
     BOOST_ASSERT(mixin_info.is_valid());
     if(_object->dom())
@@ -159,7 +159,7 @@ void object_transformer::check_valid_mutation(const internal::mixin_type_info& m
     }
 }
 
-void object_transformer::internal_add(const internal::mixin_type_info& mixin_info)
+void object_mutator::internal_add(const internal::mixin_type_info& mixin_info)
 {
     check_valid_mutation(mixin_info);
 
@@ -180,7 +180,7 @@ void object_transformer::internal_add(const internal::mixin_type_info& mixin_inf
     _to_add.push_back(&domain_info);
 }
 
-void object_transformer::internal_remove(const internal::mixin_type_info& mixin_info)
+void object_mutator::internal_remove(const internal::mixin_type_info& mixin_info)
 {
     check_valid_mutation(mixin_info);
 

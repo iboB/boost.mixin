@@ -15,7 +15,7 @@ project boost/mixin
 
 local SOURCES =
     domain.cpp
-    object_transformer.cpp
+    object_mutator.cpp
     global.cpp
     object.cpp
     object_type_info.cpp

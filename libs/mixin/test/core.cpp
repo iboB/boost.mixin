@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(complex_apply_mutation)
     BOOST_CHECK_NULL(o.get<counter>());
     BOOST_CHECK(!o.implements(dummy_msg));
 
-    object_transformer mutation(o);
+    object_mutator mutation(o);
 
     mutation.add<no_messages>();
     mutation.apply();
