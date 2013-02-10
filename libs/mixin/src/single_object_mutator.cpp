@@ -76,10 +76,7 @@ break2:
         return; // nothing to do
     }
 
-    if(_object->dom())
-    {
-        BOOST_MIXIN_THROW_UNLESS(_object->dom() == _domain, invalid_domain);
-    }
+    BOOST_ASSERT(!_object->dom() || _object->dom() == _domain);
 
     mixin_type_info_vector new_type_mixins;
     const mixin_type_info_vector& object_mixins = _object->_type_info->_compact_mixins;
