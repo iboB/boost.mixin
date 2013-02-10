@@ -80,7 +80,7 @@ void object::clear()
     _type_info = &object_type_info::null();
 }
 
-void object::change_type(const object_type_info* new_type, bool manage_mixins /*= false*/)
+void object::change_type(const object_type_info* new_type, bool manage_mixins /*= true*/)
 {
     const object_type_info* old_type = _type_info;
     mixin_data_in_object* old_mixin_data = _mixin_data;

@@ -94,7 +94,9 @@ boost_mixin_internal:
 
     // reorganizes the mixins for the new type
     // if manage_mixins is true the object will destroy all mixins removed and construct all new ones
-    void change_type(const internal::object_type_info* new_type, bool manage_mixins = false);
+    // we have the manage_mixins argument because its a lot faster to manage from the outside
+    // if we know exactly what's added and removed
+    void change_type(const internal::object_type_info* new_type, bool manage_mixins/* = true*/);
 
     void construct_mixin(mixin_id id);
     void destroy_mixin(mixin_id id);

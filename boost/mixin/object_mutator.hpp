@@ -23,6 +23,7 @@ class object;
 namespace internal
 {
 
+class object_type_info;
 class domain;
 
 class BOOST_MIXIN_API object_mutator : public internal::noncopyable
@@ -55,10 +56,10 @@ protected:
     void internal_add(const internal::mixin_type_info& mixin_info);
     void internal_remove(const internal::mixin_type_info& mixin_info);
 
-    internal::domain* _domain;
+    domain* _domain;
 
-    internal::mixin_type_info_vector _to_add;
-    internal::mixin_type_info_vector _to_remove;
+    mixin_type_info_vector _to_add;
+    mixin_type_info_vector _to_remove;
 };
 
 }

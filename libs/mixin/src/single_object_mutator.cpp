@@ -126,7 +126,7 @@ break2:
         return;
     }
 
-    _object->change_type(new_type);
+    _object->change_type(new_type, false);
 
     for(size_t i=0; i<_to_add.size(); ++i)
     {
