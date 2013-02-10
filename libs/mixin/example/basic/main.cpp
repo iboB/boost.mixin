@@ -30,6 +30,8 @@ int main()
     rotate(o, 5);
     render(o, 7);
 
+    cout << "object implements opengl_specific_msg: " << boolalpha << o->implements(opengl_specific_msg) << endl;
+
     cout << endl << "======== changing rendering system ========" << endl << endl;
     m.change_rendering_sytem();
 
@@ -38,6 +40,8 @@ int main()
     trace(o, cout);
     rotate(o, 3);
     render(o, 2);
+
+    cout << "object implements opengl_specific_msg: " << boolalpha << o->implements(opengl_specific_msg) << endl;
 
     return 0;
 }

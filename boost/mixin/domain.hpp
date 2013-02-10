@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_DOMAIN_HPP_INCLUDED)
-#define BOOST_MIXIN_DOMAIN_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_DOMAIN_HPP_INCLUDED)
+#define _BOOST_MIXIN_DOMAIN_HPP_INCLUDED
 
 #include <boost/mixin/global.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
@@ -32,7 +32,7 @@
 
 // to create a domain simply define an empty class (this is the domain tag)
 // and pass it to BOOST_DEFINE_MIXIN_IN_DOMAIN
-// if BOOST_MIXIN_USE_TYPEID is false you need to add the static method get_boost_mixin_name
+// if BOOST_MIXIN_USE_TYPEID is false you need to add the static method boost_mixin_name
 
 namespace boost
 {
@@ -45,18 +45,16 @@ class default_domain
 {
 #if !BOOST_MIXIN_USE_TYPEID
 public:
-    static const char* get_boost_mixin_name() { return "default_domain"; }
+    static const char* boost_mixin_name() { return "default_domain"; }
 #endif
 };
 
 typedef size_t domain_id;
 
-class feature;
-
 namespace internal
 {
 
-typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
+struct message_t;
 
 #if !BOOST_MIXIN_USING_CXX11
 // we need to define a hash function for bitsets
@@ -93,13 +91,12 @@ public:
                          "you have to increase the maximum number of mixins");
 
         info.dom = this;
-        info.id = _num_registered_mixins;
         info.name = BOOST_MIXIN_TYPE_NAME(Mixin);
         info.size = sizeof(Mixin);
         info.constructor = &call_mixin_constructor<Mixin>;
         info.destructor = &call_mixin_destructor<Mixin>;
 
-        _mixin_type_infos[_num_registered_mixins++] = &info;
+        internal_register_mixin_type(info);
 
         // see comments in feature_instance on why this manual registration is needed
         feature_registrator reg;
@@ -120,11 +117,20 @@ public:
 
         feature.dom = this;
 
-        internal_register_feature<Feature>(feature, typename Feature::feature_tag());
+        internal_register_feature(feature);
     }
 
     // creates a new type info if needed
     const object_type_info* get_object_type_info(const mixin_type_info_vector& mixins);
+
+    const mixin_type_info& mixin_info(mixin_id id) const
+    {
+        BOOST_ASSERT(id != INVALID_MIXIN_ID);
+        BOOST_ASSERT(id <= _num_registered_mixins);
+        BOOST_ASSERT(_mixin_type_infos[id]);
+
+        return *_mixin_type_infos[id];
+    }
 
 boost_mixin_internal:
     ~domain(); // should be private but making ptr_vector<domain> a friend is kind of a hassle
@@ -141,6 +147,8 @@ private:
     const mixin_type_info* _mixin_type_infos[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
     size_t _num_registered_mixins;
 
+    void internal_register_mixin_type(mixin_type_info& info);
+
     const message_t* _messages[BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN];
     size_t _num_registered_messages;
 
@@ -153,17 +161,7 @@ private:
     object_type_info_map _object_type_infos;
 
     // feature registration functions for the supported kinds of features
-    template <typename Message>
-    void internal_register_feature(Message& m, const message_feature_tag&)
-    {
-        BOOST_ASSERT_MSG(_num_registered_messages < BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN,
-                         "you have to increase the maximum number of features");
-
-
-        m.id = _num_registered_messages;
-
-        _messages[_num_registered_messages++] = &m;
-    }
+    void internal_register_feature(message_t& m);
 };
 
 BOOST_MIXIN_API domain& get_domain(domain_id id);
@@ -188,4 +186,4 @@ domain& get_domain_for_tag()
 template <typename T>
 struct _boost_mixin_domain_for_type {};
 
-#endif //BOOST_MIXIN_DOMAIN_HPP_INCLUDED
+#endif // _BOOST_MIXIN_DOMAIN_HPP_INCLUDED

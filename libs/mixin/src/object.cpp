@@ -10,6 +10,9 @@
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/foreach.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
+#include <boost/mixin/message.hpp>
+#include <boost/mixin/domain.hpp>
+#include <boost/mixin/object_type_template.hpp>
 
 namespace boost
 {
@@ -29,6 +32,13 @@ object::object()
 {
 }
 
+object::object(const object_type_template& type)
+    : _type_info(&object_type_info::null())
+    , _mixin_data(&null_mixin_data)
+{
+    type.apply_to(this);
+}
+
 object::~object()
 {
     clear();
@@ -39,19 +49,19 @@ domain* object::dom() const
     return _type_info->dom();
 }
 
-void* object::internal_get_mixin(const internal::mixin_type_info& mixin_info)
+void* object::internal_get_mixin(mixin_id id)
 {
-    return _mixin_data[_type_info->mixin_index(mixin_info.id)].mixin();
+    return _mixin_data[_type_info->mixin_index(id)].mixin();
 }
 
-const void* object::internal_get_mixin(const internal::mixin_type_info& mixin_info) const
+const void* object::internal_get_mixin(mixin_id id) const
 {
-    return _mixin_data[_type_info->mixin_index(mixin_info.id)].mixin();
+    return _mixin_data[_type_info->mixin_index(id)].mixin();
 }
 
-bool object::internal_has_mixin(const internal::mixin_type_info& mixin_info) const
+bool object::internal_has_mixin(mixin_id id) const
 {
-    return _type_info->has_mixin(mixin_info.id);
+    return _type_info->has(id);
 }
 
 void object::clear()
@@ -70,7 +80,7 @@ void object::clear()
     _type_info = &object_type_info::null();
 }
 
-void object::change_type(const object_type_info* new_type, bool manage_mixins /*= false*/)
+void object::change_type(const object_type_info* new_type, bool manage_mixins /*= true*/)
 {
     const object_type_info* old_type = _type_info;
     mixin_data_in_object* old_mixin_data = _mixin_data;
@@ -79,7 +89,7 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
     BOOST_FOREACH(const mixin_type_info* mixin_info, old_type->_compact_mixins)
     {
         mixin_id id = mixin_info->id;
-        if(new_type->has_mixin(id))
+        if(new_type->has(id))
         {
             new_mixin_data[new_type->mixin_index(id)].set_buffer(old_mixin_data[old_type->mixin_index(id)].buffer());
         }
@@ -112,7 +122,7 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
 
 void object::construct_mixin(mixin_id id)
 {
-    BOOST_ASSERT(_type_info->has_mixin(id));
+    BOOST_ASSERT(_type_info->has(id));
     mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
     BOOST_ASSERT(!data.buffer());
 
@@ -120,18 +130,23 @@ void object::construct_mixin(mixin_id id)
     data.set_buffer(buffer);
     data.set_object(this);
 
-    _type_info->mixin_info(id).constructor(data.mixin());
+    dom()->mixin_info(id).constructor(data.mixin());
 }
 
 void object::destroy_mixin(mixin_id id)
 {
-    BOOST_ASSERT(_type_info->has_mixin(id));
+    BOOST_ASSERT(_type_info->has(id));
     mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
 
-    _type_info->mixin_info(id).destructor(data.mixin());
+    dom()->mixin_info(id).destructor(data.mixin());
     _type_info->dealloc_mixin(id, data.buffer());
 
     data.clear();
+}
+
+bool object::implements_message(feature_id id) const
+{
+    return !!_type_info->_call_table[id].message_data;
 }
 
 }

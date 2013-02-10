@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_EXCEPTION_HPP_INCLUDED)
-#define BOOST_MIXIN_EXCEPTION_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_EXCEPTION_HPP_INCLUDED)
+#define _BOOST_MIXIN_EXCEPTION_HPP_INCLUDED
 
 #include "global.hpp"
 #include <boost/preprocessor/stringize.hpp>
@@ -38,4 +38,4 @@ class invalid_transform : public exception {};
 
 #endif // BOOST_MIXIN_USE_EXCEPTIONS
 
-#endif // BOOST_MIXIN_EXCEPTION_HPP_INCLUDED
+#endif // _BOOST_MIXIN_EXCEPTION_HPP_INCLUDED

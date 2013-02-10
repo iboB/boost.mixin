@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_MESSAGE_HPP_INCLUDED)
-#define BOOST_MIXIN_MESSAGE_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_MESSAGE_HPP_INCLUDED)
+#define _BOOST_MIXIN_MESSAGE_HPP_INCLUDED
 
 #include "feature.hpp"
 
@@ -21,7 +21,7 @@ namespace internal
 
 // feature tags are used by feature parsers and domains to distinguish between feature types
 // and register them appropriately
-struct message_feature_tag {};
+struct BOOST_MIXIN_API message_feature_tag {};
 
 struct BOOST_MIXIN_API message_t : public feature
 {
@@ -39,8 +39,8 @@ struct BOOST_MIXIN_API message_t : public feature
     typedef message_feature_tag feature_tag;
 
 protected:
-    message_t(const char* name, e_mechanism mecha)
-        : feature(name)
+    message_t(const char* name, e_mechanism mecha, bool is_private)
+        : feature(name, is_private)
         , mechanism(mecha)
     {}
 };
@@ -57,7 +57,7 @@ struct message_priority
 struct BOOST_MIXIN_API message_for_mixin
 {
     message_t* message; // message object
-    mixin_type_info* mixin_info; // mixin type information
+    mixin_id _mixin_id; // id of the handling mixin type information
 
     // the caller member is a pointer to a template function instantiated by the message macros
     // this function takes the appropriate parameters as arguments and is instantiated to call
@@ -85,4 +85,4 @@ internal::message_priority<Message> priority(int p, Message*)
 }
 
 
-#endif // BOOST_MIXIN_MESSAGE_HPP_INCLUDED
+#endif // _BOOST_MIXIN_MESSAGE_HPP_INCLUDED

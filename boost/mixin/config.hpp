@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_CONFIG_HPP_INCLUDED)
-#define BOOST_MIXIN_CONFIG_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_CONFIG_HPP_INCLUDED)
+#define _BOOST_MIXIN_CONFIG_HPP_INCLUDED
 
 #include <boost/config.hpp>
 
@@ -19,8 +19,8 @@
 // boost::mixin hevily relies on type names
 // setting the BOOST_MIXIN_USE_TYPEID to true will cause it to obtain said names with type_info via typeid.
 // setting it to false will require the following extra steps:
-//     * domain tags must add static const char* get_boost_mixin_name() { return <domain tag class name>; }
-//     * mixins must add static const char* get_boost_mixin_name() { return <mixin class name>; }
+//     * domain tags must add static const char* boost_mixin_name() { return <domain tag class name>; }
+//     * mixins must add static const char* boost_mixin_name() { return <mixin class name>; }
 #define BOOST_MIXIN_USE_TYPEID 1
 
 #if !defined(NDEBUG)
@@ -42,7 +42,7 @@
 // an assertion will occur if this limit is reached in a program
 // *    the object type creation and the object mutation are proportional
 //      to this value by a factor of o(n log(word, n)) where word is the bit size of size_t
-// *    the object type's size is 2 * word * <value>
+// *    the object type's size is 2 * <value> / 8 (a bit for each possible mixin)
 //      the more global object of different types you have the more type memory they'll consume
 // ie: minor cost for increase
 #define BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN 256
@@ -80,4 +80,4 @@
 #   define BOOST_MIXIN_API
 #endif
 
-#endif // BOOST_MIXIN_CONFIG_HPP_INCLUDED
+#endif // _BOOST_MIXIN_CONFIG_HPP_INCLUDED

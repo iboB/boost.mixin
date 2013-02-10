@@ -15,10 +15,15 @@ project boost/mixin
 
 local SOURCES =
     domain.cpp
-    object_transformer.cpp
+    object_mutator.cpp
+    single_object_mutator.cpp
+    same_type_mutator.cpp
     global.cpp
     object.cpp
     object_type_info.cpp
+    object_type_template.cpp
+    object_type_mutation.cpp
+    mixin_collection.cpp
     ;
 
 lib boost_mixin

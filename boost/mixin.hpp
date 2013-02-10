@@ -1,6 +1,6 @@
 #pragma once
-#if !defined(BOOST_MIXIN_HPP_INCLUDED)
-#define BOOST_MIXIN_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_HPP_INCLUDED)
+#define _BOOST_MIXIN_HPP_INCLUDED
 
 //
 // mixin.hpp - support for compound dynamic objects, using mixins
@@ -28,7 +28,9 @@
 #include "mixin/message.hpp"
 #include "mixin/message_macros.hpp"
 #include "mixin/object.hpp"
-#include "mixin/object_transformer.hpp"
+#include "mixin/single_object_mutator.hpp"
+#include "mixin/same_type_mutator.hpp"
+#include "mixin/object_type_template.hpp"
 #include "mixin/object_type_info.hpp"
 #include "mixin/exception.hpp"
 
@@ -36,4 +38,4 @@
 #   pragma warning( pop )
 #endif
 
-#endif // BOOST_MIXIN_HPP_INCLUDED
+#endif // _BOOST_MIXIN_HPP_INCLUDED

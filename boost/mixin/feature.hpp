@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_FEATURE_HPP_INCLUDED)
-#define BOOST_MIXIN_FEATURE_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_FEATURE_HPP_INCLUDED)
+#define _BOOST_MIXIN_FEATURE_HPP_INCLUDED
 
 #include "global.hpp"
 
@@ -34,10 +34,17 @@ public:
     internal::domain* dom;
     const char* const name;
 
+    bool is_private; // true when it's never used outised a single module
+    // registrators will register features of the same name as the same feature
+    // if they're not private
+    // having different features with the same name in different modules
+    // may cause dangerous crashes if they're not private
+
 protected:
-    feature(const char* name)
+    feature(const char* name, bool is_private)
         : id(INVALID_FEATURE_ID)
         , name(name)
+        , is_private(is_private)
     {
     }
 };
@@ -69,4 +76,4 @@ struct feature_instance
 } // namespace mixin
 } // namespace boost
 
-#endif // BOOST_MIXIN_FEATURE_HPP_INCLUDED
+#endif // _BOOST_MIXIN_FEATURE_HPP_INCLUDED

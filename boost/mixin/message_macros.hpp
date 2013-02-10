@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED)
-#define BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED)
+#define _BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED
 
 #include "message.hpp"
 
@@ -17,6 +17,11 @@
 
 #define _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) BOOST_PP_CAT(boost_mixin_msg_, message_name)
 #define _BOOST_MIXIN_MESSAGE_TAG(message_name) BOOST_PP_CAT(message_name, _msg)
+
+// a macro used in messages to get the mixin data directly, skipping function calls
+// GREATLY improves message call time
+#define _BOOST_MIXIN_GET_MIXIN_DATA(obj, id) \
+    reinterpret_cast<char*>(const_cast<void*>(obj->_mixin_data[obj->_type_info->_mixin_indices[id]].mixin()))
 
 #include "gen/message_macros.ipp"
 
@@ -57,4 +62,4 @@
     BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN(::boost::mixin::default_domain, message_name)
 
 
-#endif // BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED
+#endif // _BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED

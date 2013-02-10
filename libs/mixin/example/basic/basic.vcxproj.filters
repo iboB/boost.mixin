@@ -10,6 +10,7 @@
     <ClCompile Include="system_messages.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="transform_messages.cpp" />
+    <ClCompile Include="basic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic.hpp" />

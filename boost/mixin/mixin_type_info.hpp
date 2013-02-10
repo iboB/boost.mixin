@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED)
-#define BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED)
+#define _BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED
 
 #include "global.hpp"
 #include "message.hpp"
@@ -96,4 +96,4 @@ void call_mixin_destructor(void* memory)
 } // namespace mixin
 } // namespace boost
 
-#endif // BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED
+#endif // _BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED

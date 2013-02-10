@@ -6,8 +6,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #pragma once
-#if !defined(BOOST_MIXIN_FEATURE_PARSER_HPP_INCLUDED)
-#define BOOST_MIXIN_FEATURE_PARSER_HPP_INCLUDED
+#if !defined(_BOOST_MIXIN_FEATURE_PARSER_HPP_INCLUDED)
+#define _BOOST_MIXIN_FEATURE_PARSER_HPP_INCLUDED
 
 #include "global.hpp"
 #include "message.hpp"
@@ -46,7 +46,7 @@ public:
 
 // parse mixin features and apply them to the mixin type info
 template <typename Mixin>
-class BOOST_MIXIN_API feature_parser
+class feature_parser
 {
 public:
     template <typename Feature>
@@ -99,7 +99,7 @@ private:
         mixin_info.message_infos.resize(mixin_info.message_infos.size()+1);
         mixin_info.message_infos.back().message = &msg;
         mixin_info.message_infos.back().priority = priority;
-        mixin_info.message_infos.back().mixin_info = &mixin_info;
+        mixin_info.message_infos.back()._mixin_id = mixin_info.id;
 
         mixin_info.message_infos.back().caller = msg.template get_caller_for<Mixin>();
     }
@@ -109,4 +109,4 @@ private:
 }
 }
 
-#endif
+#endif // _BOOST_MIXIN_FEATURE_PARSER_HPP_INCLUDED

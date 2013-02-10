@@ -10,18 +10,12 @@
     <Filter Include="boost\mixin">
       <UniqueIdentifier>{48d2c6f1-d209-4302-8515-cb8fb94b19a1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boost\mixin\third_party">
-      <UniqueIdentifier>{4020cefc-ca25-4499-a058-5e2c4c08455e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="boost\mixin\gen">
       <UniqueIdentifier>{6bd46cdf-9eb7-4894-bd8b-2b7482cd3836}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\object.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\object_transformer.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\object_type_info.cpp">
@@ -31,6 +25,24 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\global.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\object_mutator.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\single_object_mutator.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\object_type_template.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\same_type_mutator.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\object_type_mutation.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mixin_collection.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,9 +71,6 @@
     <ClInclude Include="..\..\..\..\boost\mixin\object.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\boost\mixin\object_transformer.hpp">
-      <Filter>boost\mixin</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_info.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
@@ -74,13 +83,28 @@
     <ClInclude Include="..\..\..\..\boost\mixin\message.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\boost\mixin\third_party\fd_simplify_mem_func.hpp">
-      <Filter>boost\mixin\third_party</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\message_macros.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\feature_parser.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_type_template.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_mutator.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\single_object_mutator.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\same_type_mutator.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_type_mutation.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\mixin_collection.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,3 +11,5 @@ BOOST_MIXIN_CONST_MESSAGE_1(void, render, int, target);
 BOOST_MIXIN_MESSAGE_1(void, set_casts_shadows, bool, set);
 
 #define all_rendering_messages render_msg & set_casts_shadows_msg
+
+BOOST_MIXIN_MESSAGE_0(void, opengl_specific);
