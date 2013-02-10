@@ -18,7 +18,7 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
 }
 
 
-#define _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, domain, message_name, method_name, return_type, constness, message_mechanism %{args_coma}) \
+#define _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, message_name, method_name, return_type, constness, message_mechanism %{args_coma}) \
     /* mechanism shows whether it's a multicast or unicast */ \
     \
     /* step 1: define the message struct */ \
@@ -46,8 +46,8 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
     extern export ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*); \
     extern export void _boost_register_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*); \
 
-#define _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, domain, message_name, method_name, return_type, constness %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, domain, message_name, method_name, return_type, constness, unicast %{args_coma}) \
+#define _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, message_name, method_name, return_type, constness %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, message_name, method_name, return_type, constness, unicast %{args_coma}) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
     inline return_type method_name(constness ::boost::mixin::object* obj %{args_signature}) \
     {\
@@ -63,8 +63,8 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
         return func(mixin_data %{coma_args}); \
     }\
 
-#define _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, domain, message_name, method_name, return_type, constness %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, domain, message_name, method_name, return_type, constness, multicast %{args_coma}) \
+#define _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, message_name, method_name, return_type, constness %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, message_name, method_name, return_type, constness, multicast %{args_coma}) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
     inline void method_name(constness ::boost::mixin::object* obj %{args_signature}) \
     {\
@@ -89,26 +89,26 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
     }
 
 #define BOOST_MIXIN_MESSAGE_%{arity}(return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_UNI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(BOOST_PP_EMPTY(), message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
 
 #define BOOST_MIXIN_CONST_MESSAGE_%{arity}(return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_UNI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(BOOST_PP_EMPTY(), message, message, return_type, const %{args_coma})
 
 #define BOOST_MIXIN_MULTICAST_MESSAGE_%{arity}(return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(BOOST_PP_EMPTY(), message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
 
 #define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_%{arity}(return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(BOOST_PP_EMPTY(), ::boost::mixin::default_domain, message, message, return_type, const %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(BOOST_PP_EMPTY(), message, message, return_type, const %{args_coma})
 
 #define BOOST_MIXIN_EXPORTED_MESSAGE_%{arity}(export, return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
 
 #define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_%{arity}(export, return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, ::boost::mixin::default_domain, message, message, return_type, const %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, message, message, return_type, const %{args_coma})
 
 #define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_%{arity}(export, return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, message, message, return_type, BOOST_PP_EMPTY() %{args_coma})
 
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_%{arity}(export, return_type, message %{args_coma}) \
-    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, ::boost::mixin::default_domain, message, message, return_type, const %{args_coma})
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, message, message, return_type, const %{args_coma})
 
