@@ -8,7 +8,6 @@
 #include "internal.hpp"
 #include <boost/mixin/object_type_template.hpp>
 #include <boost/mixin/object_type_info.hpp>
-#include <boost/mixin/domain.hpp>
 #include <boost/mixin/object.hpp>
 
 using namespace std;
@@ -21,24 +20,15 @@ namespace mixin
 using namespace internal;
 
 object_type_template::object_type_template()
-    : _type_info(nullptr)
+    : object_mutator(object_type_info::null().as_mixin_collection())
 {
-}
-
-void object_type_template::create()
-{
-    BOOST_ASSERT(!_type_info);
-    BOOST_ASSERT(_to_remove.empty());
-
-    sort(_to_add.begin(), _to_add.end());
-    _type_info = _domain->get_object_type_info(_to_add);
 }
 
 void object_type_template::apply_to(object* o) const
 {
-    BOOST_ASSERT(_type_info);
+    BOOST_ASSERT(o);
     o->clear();
-    o->change_type(_type_info, true);
+    object_mutator::apply_to(o);
 }
 
 } // namespace mixin

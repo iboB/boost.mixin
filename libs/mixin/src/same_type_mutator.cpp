@@ -6,7 +6,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #include "internal.hpp"
-#include <boost/mixin/single_object_mutator.hpp>
+#include <boost/mixin/same_type_mutator.hpp>
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/exception.hpp>
@@ -22,29 +22,25 @@ namespace mixin
 
 using namespace internal;
 
-single_object_mutator::single_object_mutator(object* o)
-    : _object(o)
-{
-    BOOST_ASSERT(o);
-}
-
-single_object_mutator::single_object_mutator(object& o)
-    : _object(&o)
+same_type_mutator::same_type_mutator()
 {
 }
 
-single_object_mutator::~single_object_mutator()
+same_type_mutator::same_type_mutator(const internal::object_type_info* info)
+    : object_mutator(info->as_mixin_collection())
 {
-    apply();
 }
 
-void single_object_mutator::apply()
+
+void same_type_mutator::apply_to(object* o)
 {
-    _mutation.set_source(_object->_type_info->as_mixin_collection());
-    create();
-    apply_to(_object);
-    cancel(); // to go back to empty state
-    _mutation.set_source(nullptr); // really empty
+    if(!_is_created)
+    {
+        _mutation.set_source(o->_type_info->as_mixin_collection());
+        create();
+    }
+
+    internal::object_mutator::apply_to(o);
 }
 
 } // namespace mixin

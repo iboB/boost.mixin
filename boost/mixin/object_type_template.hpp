@@ -30,14 +30,11 @@ public:
     object_type_template();
 
     using internal::object_mutator::add;
-
     // does the actual creation of the type template
-    void create();
+    using internal::object_mutator::create;
 
+    // hiding the parent function, not using it
     void apply_to(object* o) const;
-
-private:
-    const internal::object_type_info* _type_info;
 };
 
 }

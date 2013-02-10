@@ -61,7 +61,7 @@ const void* object::internal_get_mixin(mixin_id id) const
 
 bool object::internal_has_mixin(mixin_id id) const
 {
-    return _type_info->has_mixin(id);
+    return _type_info->has(id);
 }
 
 void object::clear()
@@ -89,7 +89,7 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
     BOOST_FOREACH(const mixin_type_info* mixin_info, old_type->_compact_mixins)
     {
         mixin_id id = mixin_info->id;
-        if(new_type->has_mixin(id))
+        if(new_type->has(id))
         {
             new_mixin_data[new_type->mixin_index(id)].set_buffer(old_mixin_data[old_type->mixin_index(id)].buffer());
         }
@@ -122,7 +122,7 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
 
 void object::construct_mixin(mixin_id id)
 {
-    BOOST_ASSERT(_type_info->has_mixin(id));
+    BOOST_ASSERT(_type_info->has(id));
     mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
     BOOST_ASSERT(!data.buffer());
 
@@ -135,7 +135,7 @@ void object::construct_mixin(mixin_id id)
 
 void object::destroy_mixin(mixin_id id)
 {
-    BOOST_ASSERT(_type_info->has_mixin(id));
+    BOOST_ASSERT(_type_info->has(id));
     mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
 
     dom()->mixin_info(id).destructor(data.mixin());

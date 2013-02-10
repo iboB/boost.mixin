@@ -36,6 +36,15 @@
     <ClCompile Include="..\..\src\object_type_template.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\same_type_mutator.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\object_type_mutation.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mixin_collection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\internal.hpp">
@@ -87,6 +96,15 @@
       <Filter>boost\mixin</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\single_object_mutator.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\same_type_mutator.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\object_type_mutation.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\mixin_collection.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
   </ItemGroup>

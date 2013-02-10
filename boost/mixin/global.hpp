@@ -86,6 +86,8 @@ namespace internal
 
     typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
 
+    extern BOOST_MIXIN_API available_mixins_bitset build_available_mixins_from(const mixin_type_info_vector& mixins);
+
     // msvc complains that boost::noncopyable doesn't have a dll interface
     // instead of disabling the warning, use our own noncopyable
     class BOOST_MIXIN_API noncopyable

@@ -12,6 +12,7 @@
 // this class is a parent to various concrete types that deal with object mutataion
 
 #include "global.hpp"
+#include "object_type_mutation.hpp"
 
 namespace boost
 {
@@ -29,37 +30,36 @@ class domain;
 class BOOST_MIXIN_API object_mutator : public internal::noncopyable
 {
 public:
+    object_mutator();
+    object_mutator(const mixin_collection* source_mixins);
+
     template <typename Mixin>
     object_mutator& add()
     {
-        const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
-        internal_add(info);
+        _mutation.start_adding<Mixin>();
         return *this;
     }
 
     template <typename Mixin>
     object_mutator& remove()
     {
-        const internal::mixin_type_info& info = _boost_get_mixin_type_info((Mixin*)nullptr);
-        internal_remove(info);
+        _mutation.start_removing<Mixin>();
         return *this;
     }
 
     // todo: add operators + and -
 
     void cancel();
+
+    void create();
 protected:
-    object_mutator();
-    object_mutator(domain* dom);
 
-    void check_valid_mutation(const internal::mixin_type_info& mixin_info);
-    void internal_add(const internal::mixin_type_info& mixin_info);
-    void internal_remove(const internal::mixin_type_info& mixin_info);
+    void apply_to(object* obj) const;
 
-    domain* _domain;
+    object_type_mutation _mutation;
+    const object_type_info* _target_type_info;
 
-    mixin_type_info_vector _to_add;
-    mixin_type_info_vector _to_remove;
+    bool _is_created;
 };
 
 }

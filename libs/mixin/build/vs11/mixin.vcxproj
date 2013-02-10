@@ -13,10 +13,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\domain.cpp" />
     <ClCompile Include="..\..\src\global.cpp" />
+    <ClCompile Include="..\..\src\mixin_collection.cpp" />
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\object_mutator.cpp" />
     <ClCompile Include="..\..\src\object_type_info.cpp" />
+    <ClCompile Include="..\..\src\object_type_mutation.cpp" />
     <ClCompile Include="..\..\src\object_type_template.cpp" />
+    <ClCompile Include="..\..\src\same_type_mutator.cpp" />
     <ClCompile Include="..\..\src\single_object_mutator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -30,11 +33,14 @@
     <ClInclude Include="..\..\..\..\boost\mixin\message.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\message_macros.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\mixin.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\mixin_collection.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\mixin_type_info.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_mutator.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\object_type_mutation.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_template.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_info.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\same_type_mutator.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\single_object_mutator.hpp" />
     <ClInclude Include="..\..\src\internal.hpp" />
   </ItemGroup>

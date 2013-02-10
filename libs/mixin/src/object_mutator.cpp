@@ -11,6 +11,8 @@
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/exception.hpp>
 #include <boost/mixin/domain.hpp>
+#include <boost/mixin/object.hpp>
+#include <boost/foreach.hpp>
 
 namespace boost
 {
@@ -20,74 +22,122 @@ namespace internal
 {
 
 object_mutator::object_mutator()
-    : _domain(nullptr)
+    : _target_type_info(nullptr)
+    , _is_created(false)
 {
 }
 
-object_mutator::object_mutator(domain* dom)
-    : _domain(dom)
+object_mutator::object_mutator(const mixin_collection* source_mixins)
+    : _mutation(source_mixins)
+    , _target_type_info(nullptr)
+    , _is_created(false)
 {
 }
 
 void object_mutator::cancel()
 {
-    _to_add.clear();
-    _to_remove.clear();
-
-    // intentionally not setting the domain to nullptr
-    // once a mutator is bound to a domain it should stay bound
+    _mutation.clear();
+    _is_created = false;
 }
 
-void object_mutator::check_valid_mutation(const internal::mixin_type_info& mixin_info)
+void object_mutator::create()
 {
-    BOOST_ASSERT(mixin_info.is_valid());
+    BOOST_ASSERT(_mutation._source);
 
-    if(_domain)
+    if(_is_created)
     {
-        BOOST_MIXIN_THROW_UNLESS(_domain == mixin_info.dom, invalid_domain);
+        return;
     }
-    else
+    _is_created = true;
+
+    _mutation.normalize();
+
+    // pass the mutation through all the mutation rules here
+
+    // in case the rules broke it somehow
+    _mutation.normalize();
+
+    if(_mutation.empty())
     {
-        _domain = mixin_info.dom;
+        // nothing to do
+        return;
+    }
+
+    mixin_type_info_vector new_type_mixins;
+    const mixin_type_info_vector& old_mixins = _mutation._source->_compact_mixins;
+    new_type_mixins.reserve(_mutation._adding._compact_mixins.size() + old_mixins.size());
+
+    new_type_mixins = _mutation._adding._compact_mixins;
+
+    for(size_t i=0; i<old_mixins.size(); ++i)
+    {
+        const mixin_type_info* mixin_info = old_mixins[i];
+
+        // intentionally using linear search instead of binary
+        // cache locality makes it faster for small arrays
+        if(!has_elem(_mutation._removing._compact_mixins, mixin_info))
+        {
+            // elements are part of the new type only if they're not removed
+            new_type_mixins.push_back(mixin_info);
+        }
+    }
+
+    if(new_type_mixins.empty())
+    {
+        _target_type_info = &object_type_info::null();
+        return;
+    }
+
+    sort(new_type_mixins.begin(), new_type_mixins.end());
+
+    domain* dom = new_type_mixins.front()->dom;
+    _target_type_info = dom->get_object_type_info(new_type_mixins);
+
+    if(_target_type_info->as_mixin_collection() == _mutation._source)
+    {
+        // since we allow adding of existing mixins it could be that this new type is
+        // actually the mutatee's type
+        _target_type_info = nullptr;
+        return;
     }
 }
 
-void object_mutator::internal_add(const internal::mixin_type_info& mixin_info)
+void object_mutator::apply_to(object* obj) const
 {
-    check_valid_mutation(mixin_info);
+    BOOST_ASSERT(_is_created);
+    BOOST_ASSERT(_mutation._source);
+    // we need to mudate only objects of the same type
+    BOOST_ASSERT(obj->_type_info->as_mixin_collection() == _mutation._source);
+    // shouldn't be trying to set the same type info
+    BOOST_ASSERT(obj->_type_info != _target_type_info);
 
-    BOOST_ASSERT(_domain);
-    // could be that the input parameter has been instantiated from a different module
-    // that's why get the info that's actually in our domain
-    const internal::mixin_type_info& domain_info = _domain->mixin_info(mixin_info.id);
-
-    // intentionally using linear search instead of binary
-    // cache locality makes it faster for small arrays
-    if(has_elem(_to_add, &domain_info))
+    if(!_target_type_info)
     {
-        return; // already adding
+        // this is an empty mutation
+        return;
     }
 
-    _to_add.push_back(&domain_info);
-}
-
-void object_mutator::internal_remove(const internal::mixin_type_info& mixin_info)
-{
-    check_valid_mutation(mixin_info);
-
-    BOOST_ASSERT(_domain);
-    // could be that the input parameter has been instantiated from a different module
-    // that's why get the info that's actually in our domain
-    const internal::mixin_type_info& domain_info = _domain->mixin_info(mixin_info.id);
-
-    // intentionally using linear search instead of binary
-    // cache locality makes it faster for small arrays
-    if(has_elem(_to_remove, &domain_info))
+    if(_target_type_info == &object_type_info::null())
     {
-        return;  // already removing
+        obj->clear();
+        return;
     }
 
-    _to_remove.push_back(&domain_info);
+    BOOST_FOREACH(const mixin_type_info* rem, _mutation._removing._compact_mixins)
+    {
+        // we allow removing of mixins that aren't even there
+        if(obj->internal_has_mixin(rem->id))
+            obj->destroy_mixin(rem->id);
+    }
+
+    obj->change_type(_target_type_info, false);
+
+    BOOST_FOREACH(const mixin_type_info* add, _mutation._adding._compact_mixins)
+    {
+        // we allow adding mixins that are already there
+        if(!obj->internal_get_mixin(add->id))
+            obj->construct_mixin(add->id);
+    }
 }
 
 }

@@ -7,6 +7,8 @@
 //
 #include "internal.hpp"
 #include <boost/mixin/global.hpp>
+#include <boost/mixin/mixin_type_info.hpp>
+#include <boost/foreach.hpp>
 
 namespace boost
 {
@@ -17,6 +19,18 @@ namespace internal
 #if BOOST_MIXIN_USE_TYPEID && defined(__GNUC__)
     int cxa_demangle_status; // for getting unmangled types
 #endif
+
+    available_mixins_bitset build_available_mixins_from(const mixin_type_info_vector& mixins)
+    {
+        available_mixins_bitset result;
+
+        BOOST_FOREACH(const mixin_type_info* mixin_info, mixins)
+        {
+            result[mixin_info->id] = true;
+        }
+
+        return result;
+    }
 }
 }
 }

@@ -78,19 +78,13 @@ public:
     }
     /////////////////////////////////////////////////////////////////
 
-    void* get_raw_mixin(mixin_id id);
-    const void* get_raw_mixin(mixin_id id) const;
-
     // destroys all mixins and sets null type info
     void clear();
 
 boost_mixin_internal:
-    friend class object_mutator;
-
     void* internal_get_mixin(mixin_id id);
     const void* internal_get_mixin(mixin_id id) const;
     bool internal_has_mixin(mixin_id id) const;
-
 
     // reorganizes the mixins for the new type
     // if manage_mixins is true the object will destroy all mixins removed and construct all new ones

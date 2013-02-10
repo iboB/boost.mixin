@@ -24,9 +24,8 @@ void object_manager::create_objects()
     type
         .add<has_id>()
         .add<has_transform>()
-        .add<d3d_renderer>();
-
-    type.create();
+        .add<d3d_renderer>()
+        .create();
 
     for(int i=0; i<10; ++i)
     {
@@ -39,12 +38,16 @@ void object_manager::create_objects()
 
 void object_manager::change_rendering_sytem()
 {
+    same_type_mutator mutator;
+
+    mutator
+        .remove<d3d_renderer>()
+        .add<gl_renderer>();
+
     for(size_t i=0; i<_objects.size(); ++i)
     {
         object* o = _objects[i];
 
-        mutate(o)
-                .remove<d3d_renderer>()
-                .add<gl_renderer>();
+        mutator.apply_to(o);
     }
 }

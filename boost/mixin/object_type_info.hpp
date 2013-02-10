@@ -10,6 +10,7 @@
 #define _BOOST_MIXIN_OBJECT_TYPE_INFO_HPP_INCLUDED
 
 #include "global.hpp"
+#include "mixin_collection.hpp"
 #include "message.hpp"
 
 // object type info is an immutable class that represents the type information for a
@@ -29,18 +30,20 @@ namespace internal
 class domain;
 class mixin_data_in_object;
 
-class BOOST_MIXIN_API object_type_info : public noncopyable
+class BOOST_MIXIN_API object_type_info : private mixin_collection
 {
 public:
     object_type_info();
     ~object_type_info();
 
-    static const object_type_info& null();
+    using mixin_collection::dom;
+    using mixin_collection::has;
 
-    domain* dom() const { return _domain; }
+    const mixin_collection* as_mixin_collection() const { return this; }
 
-    bool has_mixin(mixin_id id) const { return _mixins[id]; }
     size_t mixin_index(mixin_id id) const { return _mixin_indices[id]; }
+
+    static const object_type_info& null();
 
     mixin_data_in_object* alloc_mixin_data() const;
     void dealloc_mixin_data(mixin_data_in_object* data) const;
@@ -51,13 +54,12 @@ public:
     void generate_call_table();
 
 boost_mixin_internal:
-    domain* _domain; // owning domain
+    using mixin_collection::_domain;
+    using mixin_collection::_mixins;
+    using mixin_collection::_compact_mixins;
 
-    // not available mixins are null
+    // indices in the _compact_mixins member
     size_t _mixin_indices[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
-    available_mixins_bitset _mixins;
-    // only the mixins the objects of this type have
-    mixin_type_info_vector _compact_mixins;
 
     struct call_table_entry
     {
