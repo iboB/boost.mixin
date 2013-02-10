@@ -16,6 +16,7 @@
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\object_mutator.cpp" />
     <ClCompile Include="..\..\src\object_type_info.cpp" />
+    <ClCompile Include="..\..\src\object_type_template.cpp" />
     <ClCompile Include="..\..\src\single_object_mutator.cpp" />
   </ItemGroup>
   <ItemGroup>

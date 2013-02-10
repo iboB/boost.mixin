@@ -81,6 +81,9 @@ domain::~domain()
 
 const object_type_info* domain::get_object_type_info(const mixin_type_info_vector& mixins)
 {
+    // the mixin type infos need to be sorted
+    // so as to guarantee that two object type infos of the same mixins
+    // will have the exact same content
     BOOST_ASSERT(is_sorted(mixins));
 
     available_mixins_bitset query;

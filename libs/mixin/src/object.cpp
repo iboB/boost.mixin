@@ -12,6 +12,7 @@
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/message.hpp>
 #include <boost/mixin/domain.hpp>
+#include <boost/mixin/object_type_template.hpp>
 
 namespace boost
 {
@@ -29,6 +30,13 @@ object::object()
     : _type_info(&object_type_info::null())
     , _mixin_data(&null_mixin_data)
 {
+}
+
+object::object(const object_type_template& type)
+    : _type_info(&object_type_info::null())
+    , _mixin_data(&null_mixin_data)
+{
+    type.apply_to(this);
 }
 
 object::~object()

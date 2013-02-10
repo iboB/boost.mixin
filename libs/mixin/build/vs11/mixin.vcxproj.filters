@@ -33,6 +33,9 @@
     <ClCompile Include="..\..\src\single_object_mutator.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\object_type_template.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\internal.hpp">

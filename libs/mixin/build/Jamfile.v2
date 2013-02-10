@@ -20,6 +20,7 @@ local SOURCES =
     global.cpp
     object.cpp
     object_type_info.cpp
+    object_type_template.cpp
     ;
 
 lib boost_mixin

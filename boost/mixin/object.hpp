@@ -26,12 +26,16 @@ namespace internal
     struct message_feature_tag;
 }
 
+class object_type_template;
+
 // main object class
 class BOOST_MIXIN_API object : public internal::noncopyable
 {
 public:
     // constructs an empty object - no mixins
     object();
+    // constructs an object from a specific type
+    object(const object_type_template& type_template);
     ~object();
 
 

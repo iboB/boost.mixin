@@ -20,13 +20,17 @@ using namespace boost::mixin;
 // of the mixin classes
 void object_manager::create_objects()
 {
+    object_type_template type;
+    type
+        .add<has_id>()
+        .add<has_transform>()
+        .add<d3d_renderer>();
+
+    type.create();
+
     for(int i=0; i<10; ++i)
     {
-        object* o = new object;
-        mutate(o)
-                .add<has_id>()
-                .add<has_transform>()
-                .add<d3d_renderer>();
+        object* o = new object(type);
 
         set_id(o, i);
         _objects.push_back(o);

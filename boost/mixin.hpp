@@ -29,6 +29,7 @@
 #include "mixin/message_macros.hpp"
 #include "mixin/object.hpp"
 #include "mixin/single_object_mutator.hpp"
+#include "mixin/object_type_template.hpp"
 #include "mixin/object_type_info.hpp"
 #include "mixin/exception.hpp"
 
