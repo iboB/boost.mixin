@@ -1,0 +1,179 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Appendix</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="prev" href="roadmap.html" title="Roadmap">
+<link rel="next" href="book_index.html" title="Book-style index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="roadmap.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="book_index.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_mixin.appendix"></a><a class="link" href="appendix.html" title="Appendix">Appendix</a>
+</h2></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="appendix.html#boost_mixin.appendix.app_ecs">Appendix A. Entity-component
+      systems</a></span></dt></dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.appendix.app_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs" title="Appendix A. Entity-component systems">Appendix A. Entity-component
+      systems</a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_ecs.what_is_an_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs.what_is_an_ecs" title="What is an entity-component system?">What is
+        an entity-component system?</a>
+</h4></div></div></div>
+<p>
+          An entity-component system (ECS) allows users to create entities which
+          consist of components. A simplified way of thinking about that is a container
+          of instances of unique types. Another way of thinking about said entities
+          is like they are objects produced from multiple inheritance only they are
+          constructed in runtime, as opposed to compile-time.
+        </p>
+<p>
+          Here's a piece of code that might be used in a simple hypothetical ECS:
+        </p>
+<pre class="programlisting"><span class="identifier">entity</span> <span class="identifier">e</span><span class="special">;</span>
+<span class="identifier">e</span><span class="special">.</span><span class="identifier">add_component</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">xml_serializer</span><span class="special">);</span>
+<span class="identifier">e</span><span class="special">.</span><span class="identifier">add_component</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">book_data</span><span class="special">);</span>
+<span class="comment">// now the entity contains data and a way to serialize this data</span>
+<span class="comment">// ...</span>
+<span class="comment">// here we can test if an entity has the components we need</span>
+<span class="keyword">if</span><span class="special">(</span><span class="identifier">e</span><span class="special">.</span><span class="identifier">has_component</span><span class="special">&lt;</span><span class="identifier">xml_serializer</span><span class="special">&gt;())</span>
+<span class="special">{</span>
+    <span class="identifier">e</span><span class="special">.</span><span class="identifier">get_component</span><span class="special">&lt;</span><span class="identifier">xml_serializer</span><span class="special">&gt;()-&gt;</span><span class="identifier">serialize</span><span class="special">();</span>
+<span class="special">}</span>
+</pre>
+<p>
+          See how we can think of <code class="computeroutput"><span class="identifier">e</span></code>
+          as a container of various objects, or as a class derived from both <code class="computeroutput"><span class="identifier">serializer</span></code> and <code class="computeroutput"><span class="identifier">data</span></code>.
+          However it is not exactly a container as it cannot have two instances of
+          the same class, and it is not exactly a class with multiple inheritance
+          as its contents cannot be statically analyzed.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_ecs.whats_good_in_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs.whats_good_in_ecs" title="Why are entity-component systems good?">Why
+        are entity-component systems good?</a>
+</h4></div></div></div>
+<p>
+          They allow the users to achieve true decoupling of their subsystems. For
+          example if we extend the above example to have a registered component of
+          type <code class="computeroutput"><span class="identifier">serializer</span></code>, which
+          is a pure virtual class with a method <code class="computeroutput"><span class="keyword">virtual</span>
+          <span class="keyword">void</span> <span class="identifier">serialize</span><span class="special">()</span> <span class="special">=</span> <span class="number">0</span></code>,
+          the code example from above would still work, but we would be able to change
+          the last part to something a bit more useful:
+        </p>
+<pre class="programlisting"><span class="keyword">if</span><span class="special">(</span><span class="identifier">e</span><span class="special">.</span><span class="identifier">has_component</span><span class="special">&lt;</span><span class="identifier">serializer</span><span class="special">&gt;())</span>
+<span class="special">{</span>
+    <span class="identifier">e</span><span class="special">.</span><span class="identifier">get_component</span><span class="special">&lt;</span><span class="identifier">serializer</span><span class="special">&gt;()-&gt;</span><span class="identifier">serialize</span><span class="special">();</span>
+<span class="special">}</span>
+</pre>
+<p>
+          Now all functions that want to call <code class="computeroutput"><span class="identifier">serialize</span></code>
+          for an object may as well be oblivious to what the <span class="emphasis"><em>actual</em></span>
+          serializer within the entity. Keep in mind that this is nearly impossible
+          to achieve with plain multiple inheritance as users would have to handle
+          the combinatorial explosion of different <code class="computeroutput"><span class="identifier">serializer</span></code>'s,
+          <code class="computeroutput"><span class="identifier">data</span></code>'s and other possible
+          super-classes.
+        </p>
+<p>
+          The above example shows that an ECS is, in most cases, a better choice
+          than multiple inheritance. But what about composition?
+        </p>
+<p>
+          Well, an ECS is a type of composition, with one difference. An entity has
+          no idea what kind of components may be a part of it.
+        </p>
+<p>
+          Imagine a the straight-forward way to composition. An object from our system
+          will have methods like <code class="computeroutput"><span class="identifier">get_serializer</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">get_data</span><span class="special">()</span></code>, and more. This means that every time
+          we add a new sub-system, we'll have to change the object type to "enrich"
+          it with its new components. Removing the aforementioned limitation allows
+          independent sub-system development &#8211; without changing the code of
+          the original product. I also allows the introduction of entire subsystems
+          with dynamic libraries, which don't change the binary. For example, writing
+          an entirely new serialization mechanism &#8211; say encrypted serialization
+          &#8211; for a product and introducing it as an optional plug-in becomes
+          a breeze.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_ecs.who_uses_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs.who_uses_ecs" title="Who uses entity-component systems?">Who uses
+        entity-component systems?</a>
+</h4></div></div></div>
+<p>
+          They are very popular in game development, as most objects in a game have
+          many different aspects for different sub-systems. Still, being as powerful
+          as they are, they find their place in many other pieces of software developed
+          in C++, Java or C#.
+        </p>
+<p>
+          It is the author's oppinion that any big project with complex objects could
+          benefit from using an ECS. Indeed games and game engines are a prime example
+          of such a project, but there are many others. Any software that has optional
+          dynamic library plug-ins, most CAD systems, graph editors, project management
+          tools, and many others.
+        </p>
+<p>
+          Most script-language objects natively support a form of these systems,
+          and most of them call it <span class="emphasis"><em>Mixins</em></span>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_ecs.more_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs.more_ecs" title="Further reading">Further reading</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Adam Martin has a great <a href="http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/" target="_top">series
+              of articles</a> on the subject. Especially on how such systems
+              are related to game and MMOG development.
+            </li>
+<li class="listitem">
+              An existing simple classic entity-component system is <a href="http://code.google.com/p/cistron/" target="_top">cistron</a>
+              by Karel Crombecq. You can also check out the <a href="http://www.codeximperium.be/stuff/Component-based%20programming.pdf" target="_top">slides</a>
+              from his presentation on the subject.
+            </li>
+<li class="listitem">
+              Building Object Systems is a talk by Alex Duran. The slides are available
+              <a href="http://wenku.baidu.com/view/7917fe26ccbff121dd3683b6.html" target="_top">here</a>.
+            </li>
+<li class="listitem">
+              Chris Granger has an <a href="http://www.chris-granger.com/2012/12/11/anatomy-of-a-knockout/" target="_top">article</a>
+              on the benefits of using an entity-component system in ClojureScript
+              for game development
+            </li>
+<li class="listitem">
+              An interesting discussion on the subject can be found at the <a href="http://forums.xkcd.com/viewtopic.php?f=11&amp;t=81459" target="_top">xkcd forums</a>.
+            </li>
+</ul></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="roadmap.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="book_index.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
