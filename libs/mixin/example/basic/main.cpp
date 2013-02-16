@@ -28,7 +28,7 @@ int main()
     trace(o, cout);
 
     rotate(o, 5);
-    render(o, 7);
+    render(o, 7); // overload with target
 
     cout << "object implements opengl_specific_msg: " << boolalpha << o->implements(opengl_specific_msg) << endl;
 
@@ -39,7 +39,7 @@ int main()
     set_casts_shadows(o, false);
     trace(o, cout);
     rotate(o, 3);
-    render(o, 2);
+    render(o); // overload with no specified target
 
     cout << "object implements opengl_specific_msg: " << boolalpha << o->implements(opengl_specific_msg) << endl;
 

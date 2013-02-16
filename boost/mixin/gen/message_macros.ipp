@@ -122,7 +122,29 @@ Ret caller0(void* mixin_ptr )
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_0(export, return_type, message ) \
     _BOOST_MIXIN_MESSAGE0_MULTI(export, message, message, return_type, const )
 
+#define BOOST_MIXIN_MESSAGE_0_OVERLOAD(message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() )
 
+#define BOOST_MIXIN_CONST_MESSAGE_0_OVERLOAD(message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const )
+
+#define BOOST_MIXIN_MULTICAST_MESSAGE_0_OVERLOAD(message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() )
+
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_0_OVERLOAD(message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const )
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_0_OVERLOAD(export, message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_UNI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() )
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_0_OVERLOAD(export, message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_UNI(export, message_name, method_name, return_type, const )
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_0_OVERLOAD(export, message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_MULTI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() )
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_0_OVERLOAD(export, message_name, return_type, method_name ) \
+    _BOOST_MIXIN_MESSAGE0_MULTI(export, message_name, method_name, return_type, const )
 namespace boost
 {
 namespace mixin
@@ -236,7 +258,29 @@ Ret caller1(void* mixin_ptr , arg0_type a0)
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_1(export, return_type, message , arg0_type, a0) \
     _BOOST_MIXIN_MESSAGE1_MULTI(export, message, message, return_type, const , arg0_type, a0)
 
+#define BOOST_MIXIN_MESSAGE_1_OVERLOAD(message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0)
 
+#define BOOST_MIXIN_CONST_MESSAGE_1_OVERLOAD(message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0)
+
+#define BOOST_MIXIN_MULTICAST_MESSAGE_1_OVERLOAD(message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0)
+
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_1_OVERLOAD(message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_1_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_UNI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_1_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_UNI(export, message_name, method_name, return_type, const , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_1_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_MULTI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_1_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0) \
+    _BOOST_MIXIN_MESSAGE1_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0)
 namespace boost
 {
 namespace mixin
@@ -350,7 +394,29 @@ Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1)
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_2(export, return_type, message , arg0_type, a0, arg1_type, a1) \
     _BOOST_MIXIN_MESSAGE2_MULTI(export, message, message, return_type, const , arg0_type, a0, arg1_type, a1)
 
+#define BOOST_MIXIN_MESSAGE_2_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1)
 
+#define BOOST_MIXIN_CONST_MESSAGE_2_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_MULTICAST_MESSAGE_2_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_2_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_2_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_UNI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_2_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_UNI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_2_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_2_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
+    _BOOST_MIXIN_MESSAGE2_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1)
 namespace boost
 {
 namespace mixin
@@ -464,7 +530,29 @@ Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2)
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_3(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
     _BOOST_MIXIN_MESSAGE3_MULTI(export, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
 
+#define BOOST_MIXIN_MESSAGE_3_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2)
 
+#define BOOST_MIXIN_CONST_MESSAGE_3_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_MULTICAST_MESSAGE_3_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_3_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_3_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_UNI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_3_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_UNI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_3_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_MULTI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_3_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    _BOOST_MIXIN_MESSAGE3_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
 namespace boost
 {
 namespace mixin
@@ -578,3 +666,26 @@ Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_typ
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_4(export, return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
     _BOOST_MIXIN_MESSAGE4_MULTI(export, message, message, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
 
+#define BOOST_MIXIN_MESSAGE_4_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_CONST_MESSAGE_4_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_MULTICAST_MESSAGE_4_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_4_OVERLOAD(message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_4_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_UNI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_4_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_UNI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_4_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_MULTI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_4_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    _BOOST_MIXIN_MESSAGE4_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)

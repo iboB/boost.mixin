@@ -13,6 +13,10 @@
 
 using namespace std;
 
+void gl_renderer::render() const
+{
+    render(0);
+}
 
 void gl_renderer::render(int render_target) const
 {

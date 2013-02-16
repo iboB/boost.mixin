@@ -112,3 +112,26 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_%{arity}(export, return_type, message %{args_coma}) \
     _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, message, message, return_type, const %{args_coma})
 
+#define BOOST_MIXIN_MESSAGE_%{arity}_OVERLOAD(message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() %{args_coma})
+
+#define BOOST_MIXIN_CONST_MESSAGE_%{arity}_OVERLOAD(message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const %{args_coma})
+
+#define BOOST_MIXIN_MULTICAST_MESSAGE_%{arity}_OVERLOAD(message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, BOOST_PP_EMPTY() %{args_coma})
+
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_%{arity}_OVERLOAD(message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(BOOST_PP_EMPTY(), message_name, method_name, return_type, const %{args_coma})
+
+#define BOOST_MIXIN_EXPORTED_MESSAGE_%{arity}_OVERLOAD(export, message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() %{args_coma})
+
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_%{arity}_OVERLOAD(export, message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_UNI(export, message_name, method_name, return_type, const %{args_coma})
+
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_%{arity}_OVERLOAD(export, message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, message_name, method_name, return_type, BOOST_PP_EMPTY() %{args_coma})
+
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_%{arity}_OVERLOAD(export, message_name, return_type, method_name %{args_coma}) \
+    _BOOST_MIXIN_MESSAGE%{arity}_MULTI(export, message_name, method_name, return_type, const %{args_coma})
