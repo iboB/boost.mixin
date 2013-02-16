@@ -29,7 +29,7 @@
 
 [/ =========================================================================== ]
 
-Boost.Mixin is an entity-component system library for C++.
+Boost.Mixin is a C++ implementation of the *Mixin* concept.
 
 [section Disclaimer]
 
@@ -44,4 +44,5 @@ libraries collection]. It will be submitted for review somewhere in late 2013.
 [include examples.qbk]
 [include reference.qbk]
 [include roadmap.qbk]
+[include appendix.qbk]
 [xinclude index.xml]
