@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\boost\mixin.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\combinators.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\common_mutation_rules.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\config.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\domain.hpp" />
