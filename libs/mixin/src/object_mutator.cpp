@@ -109,14 +109,16 @@ void object_mutator::apply_to(object* obj) const
     BOOST_ASSERT(_mutation._source);
     // we need to mudate only objects of the same type
     BOOST_ASSERT(obj->_type_info->as_mixin_collection() == _mutation._source);
-    // shouldn't be trying to set the same type info
-    BOOST_ASSERT(obj->_type_info != _target_type_info);
 
     if(!_target_type_info)
     {
         // this is an empty mutation
         return;
     }
+
+    // shouldn't be trying to set the same type info
+    // unless they're both null, which is covereted by the previous if
+    BOOST_ASSERT(obj->_type_info != _target_type_info);
 
     if(_target_type_info == &object_type_info::null())
     {
