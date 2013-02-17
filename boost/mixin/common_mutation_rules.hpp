@@ -31,12 +31,13 @@ public:
     virtual void apply_to(object_type_mutation& mutation); // override
 };
 
-class BOOST_MIXIN_API mandatory_mixin : public mutation_rule
+namespace internal
+{
+class BOOST_MIXIN_API mandatory_mixin_impl : public mutation_rule
 {
 public:
-    template <typename Mixin>
-    mandatory_mixin()
-        : _id(_boost_get_mixin_type_info((Mixin*)nullptr).id)
+    mandatory_mixin_impl(mixin_id id)
+        : _id(id)
     {
     }
 
@@ -46,12 +47,11 @@ protected:
     const mixin_id _id;
 };
 
-class BOOST_MIXIN_API deprecated_mixin : public mutation_rule
+class BOOST_MIXIN_API deprecated_mixin_impl : public mutation_rule
 {
 public:
-    template <typename Mixin>
-    deprecated_mixin()
-        : _id(_boost_get_mixin_type_info((Mixin*)nullptr).id)
+    deprecated_mixin_impl(mixin_id id)
+        : _id(id)
     {
     }
 
@@ -59,6 +59,52 @@ public:
 
 protected:
     const mixin_id _id;
+};
+
+class BOOST_MIXIN_API substitute_mixin_impl : public mutation_rule
+{
+public:
+    substitute_mixin_impl(mixin_id src, mixin_id target)
+        : _source_id(src)
+        , _target_id(target)
+    {
+    }
+
+    virtual void apply_to(object_type_mutation& mutation); // override
+
+protected:
+    const mixin_id _source_id;
+    const mixin_id _target_id;
+};
+}
+
+template <typename Mixin>
+class mandatory_mixin : public internal::mandatory_mixin_impl
+{
+public:
+    mandatory_mixin()
+        : mandatory_mixin_impl(_boost_get_mixin_type_info((Mixin*)nullptr).id)
+    {}
+};
+
+template <typename Mixin>
+class deprecated_mixin : public internal::deprecated_mixin_impl
+{
+public:
+    deprecated_mixin()
+        : deprecated_mixin_impl(_boost_get_mixin_type_info((Mixin*)nullptr).id)
+    {}
+};
+
+template <typename SourceMixin, typename TargetMixin>
+class substitute_mixin : public internal::substitute_mixin_impl
+{
+public:
+    substitute_mixin()
+        : substitute_mixin_impl(
+            _boost_get_mixin_type_info((SourceMixin*)nullptr).id,
+            _boost_get_mixin_type_info((TargetMixin*)nullptr).id)
+    {}
 };
 
 } // namespace mixin
