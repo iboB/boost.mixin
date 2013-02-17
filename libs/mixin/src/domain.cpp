@@ -7,6 +7,7 @@
 //
 #include "internal.hpp"
 #include <boost/mixin/domain.hpp>
+#include <boost/mixin/mutation_rule.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace boost
@@ -76,6 +77,24 @@ domain::~domain()
     for(object_type_info_map::iterator i=_object_type_infos.begin(); i!=_object_type_infos.end(); ++i)
     {
         delete i->second;
+    }
+
+    for(size_t i=0; i<_mutation_rules.size(); ++i)
+    {
+        delete _mutation_rules[i];
+    }
+}
+
+void domain::add_new_mutation_rule(mutation_rule* rule)
+{
+    _mutation_rules.push_back(rule);
+}
+
+void domain::apply_mutation_rules(object_type_mutation& mutation)
+{
+    for(size_t i=0; i<_mutation_rules.size(); ++i)
+    {
+        _mutation_rules[i]->apply_to(mutation);
     }
 }
 
@@ -203,6 +222,12 @@ void domain::internal_register_mixin_type(mixin_type_info& info)
     _mixin_type_infos[_num_registered_mixins++] = &info;
 }
 
+} // namespace internal
+
+void add_new_mutation_rule(mutation_rule* rule)
+{
+    internal::get_domain(0).add_new_mutation_rule(rule);
 }
+
 }
 }

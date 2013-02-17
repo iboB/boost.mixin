@@ -143,9 +143,11 @@ public:
     void normalize();
 
     void clear();
+
 private:
     friend class internal::object_mutator;
     void check_valid();
+    internal::domain* dom() const;
 
     mixin_collection _adding;
     mixin_collection _removing;

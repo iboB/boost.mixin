@@ -34,6 +34,10 @@
 #include "mixin/object_type_info.hpp"
 #include "mixin/exception.hpp"
 
+// possibly leave those to be included separately ?
+#include "mixin/mutation_rule.hpp"
+#include "mixin/common_mutation_rules.hpp"
+
 #if defined(_MSC_VER)
 #   pragma warning( pop )
 #endif

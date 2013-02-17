@@ -87,7 +87,14 @@ void mixin_collection::remove(mixin_id id)
 
 void mixin_collection::rebuild_from_compact_mixins()
 {
-    _domain = _compact_mixins.empty() ? nullptr : _compact_mixins.front()->dom;
+    if(!_domain && !_compact_mixins.empty())
+    {
+        _domain = _compact_mixins.front()->dom;
+    }
+
+    // the mixin collection is a part of a domain
+    // you cannot change it
+    BOOST_ASSERT(_compact_mixins.empty() || _domain == _compact_mixins.front()->dom);
 
     _mixins.reset();
     BOOST_FOREACH(const mixin_type_info* info, _compact_mixins)

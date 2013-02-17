@@ -52,7 +52,8 @@ void object_mutator::create()
 
     _mutation.normalize();
 
-    // pass the mutation through all the mutation rules here
+    BOOST_ASSERT(_mutation.dom());
+    _mutation.dom()->apply_mutation_rules(_mutation);
 
     // in case the rules broke it somehow
     _mutation.normalize();

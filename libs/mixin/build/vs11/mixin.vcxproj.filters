@@ -45,6 +45,9 @@
     <ClCompile Include="..\..\src\mixin_collection.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\common_mutation_rules.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\internal.hpp">
@@ -105,6 +108,12 @@
       <Filter>boost\mixin</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\boost\mixin\mixin_collection.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\mutation_rule.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\boost\mixin\common_mutation_rules.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
   </ItemGroup>

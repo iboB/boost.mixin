@@ -14,6 +14,7 @@
     <ClCompile Include="..\..\src\domain.cpp" />
     <ClCompile Include="..\..\src\global.cpp" />
     <ClCompile Include="..\..\src\mixin_collection.cpp" />
+    <ClCompile Include="..\..\src\common_mutation_rules.cpp" />
     <ClCompile Include="..\..\src\object.cpp" />
     <ClCompile Include="..\..\src\object_mutator.cpp" />
     <ClCompile Include="..\..\src\object_type_info.cpp" />
@@ -24,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\boost\mixin.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\common_mutation_rules.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\config.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\domain.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\exception.hpp" />
@@ -35,6 +37,7 @@
     <ClInclude Include="..\..\..\..\boost\mixin\mixin.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\mixin_collection.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\mixin_type_info.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\mutation_rule.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_mutator.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\object_type_mutation.hpp" />
