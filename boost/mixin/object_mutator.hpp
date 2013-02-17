@@ -36,6 +36,7 @@ public:
     template <typename Mixin>
     object_mutator& add()
     {
+        BOOST_ASSERT(!_is_created); // once a mutator is created, you cannot change its mutation
         _mutation.start_adding<Mixin>();
         return *this;
     }
@@ -43,6 +44,7 @@ public:
     template <typename Mixin>
     object_mutator& remove()
     {
+        BOOST_ASSERT(!_is_created); // once a mutator is created, you cannot change its mutation
         _mutation.start_removing<Mixin>();
         return *this;
     }
