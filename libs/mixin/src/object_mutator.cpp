@@ -92,6 +92,10 @@ void object_mutator::create()
 
     sort(new_type_mixins.begin(), new_type_mixins.end());
 
+    // erase duplicates
+    // there could be duplicates if we're adding something that's already there
+    new_type_mixins.erase(std::unique(new_type_mixins.begin(), new_type_mixins.end()), new_type_mixins.end());
+
     domain* dom = new_type_mixins.front()->dom;
     _target_type_info = dom->get_object_type_info(new_type_mixins);
 
