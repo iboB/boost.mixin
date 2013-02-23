@@ -36,8 +36,8 @@ public:
     void apply();
 
 private:
-    bool _is_manually_applied;
     object* _object;
+    bool _is_manually_applied;
 };
 
 typedef single_object_mutator mutate;

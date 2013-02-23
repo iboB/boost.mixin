@@ -11,6 +11,7 @@
 
 #include "global.hpp"
 #include "mixin_collection.hpp"
+#include "domain.hpp"
 
 // base class for all mutation rules
 
