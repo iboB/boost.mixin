@@ -24,18 +24,24 @@ using namespace internal;
 
 single_object_mutator::single_object_mutator(object* o)
     : _object(o)
+    , _is_manually_applied(false)
 {
     BOOST_ASSERT(o);
 }
 
 single_object_mutator::single_object_mutator(object& o)
     : _object(&o)
+    , _is_manually_applied(false)
 {
 }
 
 single_object_mutator::~single_object_mutator()
 {
-    apply();
+    if(!_is_manually_applied)
+    {
+        // allow single line mutations
+        apply();
+    }
 }
 
 void single_object_mutator::apply()
@@ -45,6 +51,7 @@ void single_object_mutator::apply()
     apply_to(_object);
     cancel(); // to go back to empty state
     _mutation.set_source(nullptr); // really empty
+    _is_manually_applied = true;
 }
 
 } // namespace mixin

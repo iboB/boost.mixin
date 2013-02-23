@@ -70,24 +70,45 @@ void object_type_mutation::clear()
 
 void object_type_mutation::check_valid()
 {
-    domain* adom = _adding.dom();
-    domain* rdom = _removing.dom();
+    domain*& adom = _adding._domain;
+    domain*& rdom = _removing._domain;
     domain* src_dom = _source ? _source->dom() : nullptr;
 
-    if(adom && rdom)
-    {
-        BOOST_ASSERT(adom == rdom);
-    }
+    // if one of the domains is set, set the others
 
-    if(adom && src_dom)
+    if(src_dom)
     {
+        if(!adom)
+        {
+            adom = src_dom;
+        }
         BOOST_ASSERT(adom == src_dom);
-    }
 
-    if(rdom && src_dom)
-    {
+        if(!rdom)
+        {
+            rdom = src_dom;
+        }
         BOOST_ASSERT(rdom == src_dom);
     }
+    else if(adom && !rdom)
+    {
+        rdom = adom;
+    }
+    else if(rdom && !adom)
+    {
+        adom = rdom;
+    }
+
+    BOOST_ASSERT(adom == rdom);
+}
+
+domain* object_type_mutation::dom() const
+{
+    if(_adding.dom()) return _adding.dom();
+    if(_removing.dom()) return _adding.dom();
+    if(_source) return _source->dom();
+
+    return nullptr;
 }
 
 }

@@ -51,6 +51,9 @@ public:
 
 typedef size_t domain_id;
 
+class mutation_rule;
+class object_type_mutation;
+
 namespace internal
 {
 
@@ -80,6 +83,9 @@ class BOOST_MIXIN_API domain : public noncopyable
 public:
     domain_id id() const { return _id; }
     const char* name() const { return _name; }
+
+    void add_new_mutation_rule(mutation_rule* rule);
+    void apply_mutation_rules(object_type_mutation& mutation);
 
     size_t num_registered_mixins() const { return _num_registered_mixins; }
 
@@ -160,6 +166,8 @@ private:
 
     object_type_info_map _object_type_infos;
 
+    std::vector<mutation_rule*> _mutation_rules;
+
     // feature registration functions for the supported kinds of features
     void internal_register_feature(message_t& m);
 };
@@ -167,12 +175,12 @@ private:
 BOOST_MIXIN_API domain& get_domain(domain_id id);
 
 // bind the domain tag to the actual domain
-template <typename domainTag>
+template <typename DomainTag>
 domain& get_domain_for_tag()
 {
     // bind the domain per name (instead of per type) because
     // this may be instantiated from different modules
-    static domain_id id = domain::create(BOOST_MIXIN_TYPE_NAME(domainTag)).id();
+    static domain_id id = domain::create(BOOST_MIXIN_TYPE_NAME(DomainTag)).id();
     return get_domain(id);
 }
 

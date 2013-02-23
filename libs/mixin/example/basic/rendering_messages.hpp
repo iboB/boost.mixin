@@ -7,9 +7,11 @@
 //
 #pragma once
 
-BOOST_MIXIN_CONST_MESSAGE_1(void, render, int, target);
+BOOST_MIXIN_CONST_MESSAGE_1_OVERLOAD(render_on_target, void, render, int, target);
+BOOST_MIXIN_CONST_MESSAGE_0_OVERLOAD(render_on_backbuffer, void, render);
+
 BOOST_MIXIN_MESSAGE_1(void, set_casts_shadows, bool, set);
 
-#define all_rendering_messages render_msg & set_casts_shadows_msg
+#define all_rendering_messages render_on_target_msg & render_on_backbuffer_msg & set_casts_shadows_msg
 
 BOOST_MIXIN_MESSAGE_0(void, opengl_specific);

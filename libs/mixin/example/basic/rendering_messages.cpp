@@ -8,7 +8,8 @@
 #include "basic.hpp"
 #include "rendering_messages.hpp"
 
-BOOST_MIXIN_DEFINE_MESSAGE(render);
+BOOST_MIXIN_DEFINE_MESSAGE(render_on_target);
+BOOST_MIXIN_DEFINE_MESSAGE(render_on_backbuffer);
 BOOST_MIXIN_DEFINE_MESSAGE(set_casts_shadows);
 
 BOOST_MIXIN_DEFINE_MESSAGE(opengl_specific);

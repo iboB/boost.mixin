@@ -13,6 +13,10 @@
 
 using namespace std;
 
+void d3d_renderer::render() const
+{
+    render(0);
+}
 
 void d3d_renderer::render(int render_target) const
 {

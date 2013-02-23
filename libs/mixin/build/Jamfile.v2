@@ -24,6 +24,7 @@ local SOURCES =
     object_type_template.cpp
     object_type_mutation.cpp
     mixin_collection.cpp
+    common_mutation_rules.cpp
     ;
 
 lib boost_mixin

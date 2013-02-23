@@ -37,6 +37,7 @@ object_mutator::object_mutator(const mixin_collection* source_mixins)
 void object_mutator::cancel()
 {
     _mutation.clear();
+    _target_type_info = nullptr;
     _is_created = false;
 }
 
@@ -52,7 +53,8 @@ void object_mutator::create()
 
     _mutation.normalize();
 
-    // pass the mutation through all the mutation rules here
+    BOOST_ASSERT(_mutation.dom());
+    _mutation.dom()->apply_mutation_rules(_mutation);
 
     // in case the rules broke it somehow
     _mutation.normalize();
@@ -90,6 +92,10 @@ void object_mutator::create()
 
     sort(new_type_mixins.begin(), new_type_mixins.end());
 
+    // erase duplicates
+    // there could be duplicates if we're adding something that's already there
+    new_type_mixins.erase(std::unique(new_type_mixins.begin(), new_type_mixins.end()), new_type_mixins.end());
+
     domain* dom = new_type_mixins.front()->dom;
     _target_type_info = dom->get_object_type_info(new_type_mixins);
 
@@ -106,16 +112,18 @@ void object_mutator::apply_to(object* obj) const
 {
     BOOST_ASSERT(_is_created);
     BOOST_ASSERT(_mutation._source);
-    // we need to mudate only objects of the same type
+    // we need to mutate only objects of the same type
     BOOST_ASSERT(obj->_type_info->as_mixin_collection() == _mutation._source);
-    // shouldn't be trying to set the same type info
-    BOOST_ASSERT(obj->_type_info != _target_type_info);
 
     if(!_target_type_info)
     {
         // this is an empty mutation
         return;
     }
+
+    // shouldn't be trying to set the same type info
+    // unless they're both null, which is covereted by the previous if
+    BOOST_ASSERT(obj->_type_info != _target_type_info);
 
     if(_target_type_info == &object_type_info::null())
     {

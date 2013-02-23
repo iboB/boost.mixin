@@ -14,6 +14,7 @@ class gl_renderer
 public:
     gl_renderer() : _casts_shadows(true) {}
 
+    void render() const;
     void render(int render_target) const;
 
     void set_casts_shadows(bool set) { _casts_shadows = set; }

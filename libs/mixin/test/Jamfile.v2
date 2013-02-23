@@ -19,7 +19,22 @@ project boost/mixin/test
         <target-os>linux:<file>/usr/lib/libboost_unit_test_framework.so
     ;
 
+rule test_all
+{
+    local all_tests = ;
+
+    all_tests += [ run core.cpp ] ;
+    all_tests += [ run combinators.cpp ] ;
+
+    for local mutation_rule_test in [ glob mutation_rules/*.cpp ]
+    {
+        all_tests += [ run $(mutation_rule_test) ] ;
+    }
+
+    return $(all_tests) ;
+}
+
 test-suite mixin
     :
-        [ run core.cpp ]
+        [ test_all r ]
     ;
