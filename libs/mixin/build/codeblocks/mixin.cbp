@@ -43,6 +43,12 @@
 		<Unit filename="../../../../boost/mixin.hpp">
 			<Option virtualFolder="includes/" />
 		</Unit>
+		<Unit filename="../../../../boost/mixin/combinators.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/common_mutation_rules.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
 		<Unit filename="../../../../boost/mixin/config.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
@@ -73,17 +79,38 @@
 		<Unit filename="../../../../boost/mixin/mixin.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
+		<Unit filename="../../../../boost/mixin/mixin_collection.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
 		<Unit filename="../../../../boost/mixin/mixin_type_info.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/mutation_rule.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
 		<Unit filename="../../../../boost/mixin/object.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/object_transformer.hpp">
+		<Unit filename="../../../../boost/mixin/object_mutator.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
 		<Unit filename="../../../../boost/mixin/object_type_info.hpp">
 			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/object_type_mutation.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/object_type_template.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/same_type_mutator.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../../../boost/mixin/single_object_mutator.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../src/common_mutation_rules.cpp">
+			<Option virtualFolder="sources/" />
 		</Unit>
 		<Unit filename="../../src/domain.cpp">
 			<Option virtualFolder="sources/" />
@@ -94,13 +121,28 @@
 		<Unit filename="../../src/internal.hpp">
 			<Option virtualFolder="sources/" />
 		</Unit>
+		<Unit filename="../../src/mixin_collection.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
 		<Unit filename="../../src/object.cpp">
 			<Option virtualFolder="sources/" />
 		</Unit>
-		<Unit filename="../../src/object_transformer.cpp">
+		<Unit filename="../../src/object_mutator.cpp">
 			<Option virtualFolder="sources/" />
 		</Unit>
 		<Unit filename="../../src/object_type_info.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="../../src/object_type_mutation.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="../../src/object_type_template.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="../../src/same_type_mutator.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="../../src/single_object_mutator.cpp">
 			<Option virtualFolder="sources/" />
 		</Unit>
 		<Extensions>
