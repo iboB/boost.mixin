@@ -8,7 +8,45 @@
 
 [section:overview Overview]
 
-TODO: add an overiview of the library. What its features are. What are objects,
-mixins, messages.
+Here is a list of the major idioms, introduced by Boost.Mixin.
+
+[section:object Objects]
+[indexterm object]
+
+An object in terms of Boost.Mixin is an instance of the class `boost::mixin::object`.
+By itself it's not much more than an empty class. Its main purpose is to be a
+"container" of mixin instances. You can construct an empty object and then add
+or remove mixins from it via the object mutators.
+
+The particular set of mixins in an object defines its type. An object mutation
+(adding or removing mixins) changes the objects type.
+
+Now, "type", as mentioned above has nothing to do with the concept of type in
+C++. A `boost::mixin::object` naturally always is a `boost::mixin:object`.
+
+[endsect]
+
+[section:mixin Mixins]
+[indexterm2 mixin..boost::mixin]
+
+A mixin is a class used as a "building block" for an object. In Boost.Mixin a
+mixin doesn't have a specified type. It's the job of the library's users to
+define their own mixin types. There are several macros that you need to use in
+order to "tell" the library that one of your classes should be accepted as a
+mixin. The macros are non-intrusive and you don't need to change anything in
+existing code, to which you want to add Boost.Mixin.
+
+[endsect]
+
+[section:message Messages]
+[indexterm message]
+
+Messages in Boost.Mixin are a way of calling the methods of the mixins that
+comprise an object. You can think of messages as the methods of an object.
+Unfortunately C++ doesn't allow extension methods (as for example C# does) and
+to call an object's message you need to write `message(object, param)`, instead
+of the much nicer `object->message(param)`
+
+[endsect]
 
 [endsect]

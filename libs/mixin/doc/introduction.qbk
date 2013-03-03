@@ -9,6 +9,7 @@
 [section:introduction Introduction]
 
 [section:intro_ecs Introduction to Mixins]
+[indexterm2 mixin..introduction]
 
 Speaking generally a mixin is a class that provides a certain functionality to
 be reused by other classes. This general definition applies to almost
