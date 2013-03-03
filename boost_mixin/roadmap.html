@@ -28,20 +28,20 @@
           Soon (probably by the end of May 2013)
           <div class="itemizedlist"><ul class="itemizedlist" type="circle">
 <li class="listitem">
-                Overloaded messages - messages that call overloaded functions. The
-                message's name is different for each overload but the calling function
-                remains the same
+                <span class="strikethrough">Overloaded messages - messages that
+                call overloaded functions. The message's name is different for each
+                overload but the calling function remains the same</span> Done
               </li>
 <li class="listitem">
                 Work on more sensible (and helpful) runtime and compile-time errors.
                 Missing messages, ambiguous message priority, etc.
               </li>
 <li class="listitem">
-                Add multicast result collectors. Like <code class="computeroutput"><span class="keyword">and</span></code>
-                or <code class="computeroutput"><span class="keyword">or</span></code> for boolean return
-                values. Like <code class="computeroutput"><span class="identifier">sum</span></code>
-                for numeric values. Sample usage <code class="computeroutput"><span class="identifier">some_multicast_message</span><span class="special">(</span><span class="identifier">obj</span><span class="special">,</span> <span class="identifier">p1</span><span class="special">,</span> <span class="identifier">p2</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">sum</span><span class="special">)</span></code>. User-defined result collectors
-                will be possible.
+                <span class="strikethrough">Add multicast result collectors. Like
+                <code class="computeroutput"><span class="keyword">and</span></code> or <code class="computeroutput"><span class="keyword">or</span></code> for boolean return values. Like
+                <code class="computeroutput"><span class="identifier">sum</span></code> for numeric values.
+                Sample usage <code class="computeroutput"><span class="identifier">some_multicast_message</span><span class="special">(</span><span class="identifier">obj</span><span class="special">,</span> <span class="identifier">p1</span><span class="special">,</span> <span class="identifier">p2</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">sum</span><span class="special">)</span></code>. User-defined result collectors
+                will be possible.</span> Done: Result combinators
               </li>
 <li class="listitem">
                 Add a new mixin feature <code class="computeroutput"><span class="identifier">fact</span></code>.
@@ -49,8 +49,10 @@
                 tables.
               </li>
 <li class="listitem">
-                Add object type templates. Instead of manually transforming each
-                object, you would be able to call <code class="computeroutput"><span class="identifier">type_template</span><span class="special">::</span><span class="identifier">new_object</span><span class="special">()</span></code>
+                <span class="strikethrough">Add object type templates. Instead
+                of manually transforming each object, you would be able to call
+                <code class="computeroutput"><span class="identifier">type_template</span><span class="special">::</span><span class="identifier">new_object</span><span class="special">()</span></code></span>
+                Done. Not exactly like that: added as an argument to object costructors.
               </li>
 <li class="listitem">
                 Add more graceful runtime error handling: default message implementations
@@ -69,9 +71,10 @@
                 Tutorials
               </li>
 <li class="listitem">
-                Object mutation injections. Automatically add some mixins when others
-                are present. Substitute a mentioned mixin with another. Ban a mixin
-                from being added to an object.
+                <span class="strikethrough">Object mutation injections. Automatically
+                add some mixins when others are present. Substitute a mentioned mixin
+                with another. Ban a mixin from being added to an object.</span>
+                Done: Mutation rules.
               </li>
 </ul></div>
         </li>

@@ -19,10 +19,66 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_mixin.overview"></a><a class="link" href="overview.html" title="Overview">Overview</a>
 </h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.object">Objects</a></span></dt>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.mixin">Mixins</a></span></dt>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.message">Messages</a></span></dt>
+</dl></div>
 <p>
-      TODO: add an overiview of the library. What its features are. What are objects,
-      mixins, messages.
+      Here is a list of the major idioms, introduced by Boost.Mixin.
     </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.object"></a><a class="link" href="overview.html#boost_mixin.overview.object" title="Objects">Objects</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp5082896"></a>
+      </p>
+<p>
+        An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
+        an empty class. Its main purpose is to be a "container" of mixin
+        instances. You can construct an empty object and then add or remove mixins
+        from it via the object mutators.
+      </p>
+<p>
+        The particular set of mixins in an object defines its type. An object mutation
+        (adding or removing mixins) changes the objects type.
+      </p>
+<p>
+        Now, "type", as mentioned above has nothing to do with the concept
+        of type in C++. A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> naturally always is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">:</span><span class="identifier">object</span></code>.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.mixin"></a><a class="link" href="overview.html#boost_mixin.overview.mixin" title="Mixins">Mixins</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp5096032"></a>
+      </p>
+<p>
+        A mixin is a class used as a "building block" for an object. In
+        Boost.Mixin a mixin doesn't have a specified type. It's the job of the library's
+        users to define their own mixin types. There are several macros that you
+        need to use in order to "tell" the library that one of your classes
+        should be accepted as a mixin. The macros are non-intrusive and you don't
+        need to change anything in existing code, to which you want to add Boost.Mixin.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.message"></a><a class="link" href="overview.html#boost_mixin.overview.message" title="Messages">Messages</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp5099696"></a>
+      </p>
+<p>
+        Messages in Boost.Mixin are a way of calling the methods of the mixins that
+        comprise an object. You can think of messages as the methods of an object.
+        Unfortunately C++ doesn't allow extension methods (as for example C# does)
+        and to call an object's message you need to write <code class="computeroutput"><span class="identifier">message</span><span class="special">(</span><span class="identifier">object</span><span class="special">,</span> <span class="identifier">param</span><span class="special">)</span></code>, instead of the much nicer <code class="computeroutput"><span class="identifier">object</span><span class="special">-&gt;</span><span class="identifier">message</span><span class="special">(</span><span class="identifier">param</span><span class="special">)</span></code>
+      </p>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

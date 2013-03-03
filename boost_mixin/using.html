@@ -19,9 +19,178 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_mixin.using"></a><a class="link" href="using.html" title="Using Boost.Mixin">Using Boost.Mixin</a>
 </h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="using.html#boost_mixin.using.quickstart">Quickstart</a></span></dt>
+<dt><span class="section"><a href="using.html#boost_mixin.using.tips_tricks">Tips and tricks</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.using.quickstart"></a><a class="link" href="using.html#boost_mixin.using.quickstart" title="Quickstart">Quickstart</a>
+</h3></div></div></div>
 <p>
-      TODO: describe how one uses the library. Give some tips and tricks.
-    </p>
+        To make use of the most basic features of Boost.Mixin you need to create
+        an object add some mixins to it and then call some messages.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.using.quickstart.create_object"></a><a class="link" href="using.html#boost_mixin.using.quickstart.create_object" title="Creating an object">Creating
+        an object</a>
+</h4></div></div></div>
+<p>
+          Creating an object is pretty straightforward. You can just instantiate
+          a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> as you would any other class:
+        </p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">a</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">*</span> <span class="identifier">b</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">;</span>
+</pre>
+<p>
+          Both <code class="computeroutput"><span class="identifier">a</span></code> and <code class="computeroutput"><span class="identifier">b</span></code> will be plain empty objects.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.using.quickstart.add_mixin"></a><a class="link" href="using.html#boost_mixin.using.quickstart.add_mixin" title="Adding mixins to an object">Adding mixins
+        to an object</a>
+</h4></div></div></div>
+<p>
+          To add mixins to an object, you first need to have some mixin classes.
+          Any class can be turned into a mixin with the following two macros.
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">someclass</span><span class="special">)</span></code> - declares that <code class="computeroutput"><span class="identifier">someclass</span></code>
+              is a mixin type. The best place for this macro is in some header. The
+              header needs to be included in places where this mixin is mentioned.
+              Such a place would be where we add the mixin to an object.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">someclass</span><span class="special">,</span> <span class="identifier">features</span><span class="special">)</span></code> - defines the mixin type. Place this
+              macro in a compiled unit (like a .cpp file). The features of a mixin
+              are an ampersand separated list of the mixin's specific characteristics.
+              There are various possible features for a mixin type, but for now we'll
+              focus on the messages. If a mixin has no features you should use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span></code>
+            </li>
+</ul></div>
+<p>
+          So, lets see how we can define a mixin that gives a name to our object.
+        </p>
+<p>
+          <span class="emphasis"><em>named_mixin.hpp</em></span>
+        </p>
+<pre class="programlisting"><span class="preprocessor">#pragma</span> <span class="identifier">once</span>
+
+<span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">named</span><span class="special">);</span>
+</pre>
+<p>
+          <span class="emphasis"><em>named.hpp</em></span>
+        </p>
+<pre class="programlisting"><span class="preprocessor">#pragma</span> <span class="identifier">once</span>
+
+<span class="keyword">class</span> <span class="identifier">named</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">name</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="identifier">set_name</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">new_name</span><span class="special">);</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">_name</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<p>
+          <span class="emphasis"><em>named.cpp</em></span>
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="string">"named_mixin.hpp"</span>
+<span class="preprocessor">#include</span> <span class="string">"named.hpp"</span>
+
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">std</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">;</span>
+
+<span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">named</span><span class="special">::</span><span class="identifier">name</span><span class="special">()</span> <span class="keyword">const</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">_name</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">void</span> <span class="identifier">named</span><span class="special">::</span><span class="identifier">set_name</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">new_name</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">_name</span> <span class="special">=</span> <span class="identifier">new_name</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">named</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+</pre>
+<p>
+          That's it. Now we can add the <code class="computeroutput"><span class="identifier">named</span></code>
+          mixin to an object of ours.
+        </p>
+<p>
+          The simplest way of adding mixins to object is with the <code class="computeroutput"><span class="identifier">mutate</span></code>
+          class. If we include <code class="computeroutput"><span class="identifier">named_mixin</span><span class="special">.</span><span class="identifier">hpp</span></code>
+          somewhere in our code, we could write this:
+        </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">;</span>
+<span class="identifier">object</span> <span class="identifier">obj</span><span class="special">;</span>
+<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj</span><span class="special">).</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">named</span><span class="special">&gt;();</span>
+</pre>
+<p>
+          And now the object <code class="computeroutput"><span class="identifier">obj</span></code>
+          has a mixin of type <code class="computeroutput"><span class="identifier">named</span></code>
+          in it.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.using.quickstart.add_message"></a><a class="link" href="using.html#boost_mixin.using.quickstart.add_message" title="Adding and calling messages">Adding and
+        calling messages</a>
+</h4></div></div></div>
+<p>
+          Using the code from above we could get an objects name like this:
+        </p>
+<pre class="programlisting"><span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">n</span> <span class="special">=</span> <span class="identifier">obj</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">named</span><span class="special">&gt;().</span><span class="identifier">name</span><span class="special">();</span>
+</pre>
+<p>
+          This is not very useful, because not only do we have to include <code class="computeroutput"><span class="identifier">named</span><span class="special">.</span><span class="identifier">hpp</span></code>, but we also have to be sure (or
+          at least check) that the object has a mixin of type <code class="computeroutput"><span class="identifier">named</span></code>.
+          Here's where the messages come into play.
+        </p>
+<p>
+          Using messages, you would be able to write code like this:
+        </p>
+<pre class="programlisting"><span class="identifier">set_name</span><span class="special">(</span><span class="identifier">obj</span><span class="special">,</span> <span class="string">"John"</span><span class="special">);</span>
+<span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">n</span> <span class="special">=</span> <span class="identifier">name</span><span class="special">(</span><span class="identifier">obj</span><span class="special">);</span>
+</pre>
+<p>
+          First we have to declare what messages are there. There are macros to declare
+          and define messages.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.using.tips_tricks"></a><a class="link" href="using.html#boost_mixin.using.tips_tricks" title="Tips and tricks">Tips and tricks</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            When adding the same set of messages to multiple mixins, create a define
+            of them all. Like: <code class="computeroutput"><span class="preprocessor">#define</span>
+            <span class="identifier">transform_messages</span> <span class="identifier">set_position_msg</span>
+            <span class="special">&amp;</span> <span class="identifier">set_orientation_msg</span></code>.
+            Then use it like this <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">some_messages</span>
+            <span class="special">&amp;</span> <span class="identifier">transform_messages</span><span class="special">);</span></code>
+          </li>
+<li class="listitem">
+            Instead of using the long message declaration macros, consider defining
+            your own. Maybe something like <code class="computeroutput"><span class="preprocessor">#define</span>
+            <span class="identifier">BM_C_MSG_1</span> <span class="identifier">BOOST_MIXIN_CONST_MESSAGE_1</span></code>
+          </li>
+<li class="listitem">
+            Prefer using <code class="computeroutput"><span class="identifier">object_type_template</span></code>-s
+            instead of mutating each new object.
+          </li>
+<li class="listitem">
+            Prefer using <code class="computeroutput"><span class="identifier">same_type_mutator</span></code>
+            when mutating multiple objects of the same type.
+          </li>
+</ul></div>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
