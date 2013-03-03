@@ -180,6 +180,14 @@
 				Name="mixin"
 				>
 				<File
+					RelativePath="..\..\..\..\boost\mixin\combinators.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\boost\mixin\common_mutation_rules.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\boost\mixin\config.hpp"
 					>
 				</File>
@@ -224,7 +232,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\boost\mixin\mutation_rule.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\boost\mixin\object.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\boost\mixin\object_mutator.hpp"
 					>
 				</File>
 				<File
@@ -260,6 +276,10 @@
 		<Filter
 			Name="src"
 			>
+			<File
+				RelativePath="..\..\src\common_mutation_rules.cpp"
+				>
+			</File>
 			<File
 				RelativePath="..\..\src\domain.cpp"
 				>
