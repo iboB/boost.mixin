@@ -12,28 +12,30 @@ Here is a list of planned features and events for the library: (The authors
 write it in their own free time, so concrete dates are hard to estimate)
 
 * Soon (probably by the end of May 2013)
-    * Overloaded messages - messages that call overloaded functions. The
+    * [-Overloaded messages - messages that call overloaded functions. The
     message's name is different for each overload but the calling function
-    remains the same
+    remains the same] Done
     * Work on more sensible (and helpful) runtime and compile-time errors.
     Missing messages, ambiguous message priority, etc.
-    * Add multicast result collectors. Like `and` or `or` for boolean return
+    * [-Add multicast result collectors. Like `and` or `or` for boolean return
     values. Like `sum` for numeric values. Sample usage
     `some_multicast_message(obj, p1, p2, boost::mixin::sum)`.
-    User-defined result collectors will be possible.
+    User-defined result collectors will be possible.] Done: Result
+    combinators
     * Add a new mixin feature `fact`. Facts are static const variables in a
     mixin. No multicasts. No virtual tables.
-    * Add object type templates. Instead of manually transforming each object,
-    you would be able to call `type_template::new_object()`
+    * [-Add object type templates. Instead of manually transforming each object,
+    you would be able to call `type_template::new_object()`] Done. Not exactly
+    like that: added as an argument to object costructors.
     * Add more graceful runtime error handling: default message implementations
     (if none is provided), more specific non-breaking exceptions
     * Unit tests
     * Performance tests
     * [-Boost.Jam build files] Done
     * Tutorials
-    * Object mutation injections. Automatically add some mixins when others are
+    * [-Object mutation injections. Automatically add some mixins when others are
     present. Substitute a mentioned mixin with another. Ban a mixin from being
-    added to an object.
+    added to an object.] Done: Mutation rules.
 * Not soon (hopefully by the end of 2013)
     * Full reference documentation
     * Formal submission to Boost ??
