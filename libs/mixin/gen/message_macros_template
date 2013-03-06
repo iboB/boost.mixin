@@ -1,21 +1,3 @@
-namespace boost
-{
-namespace mixin
-{
-namespace internal
-{
-
-template <typename Mixin, typename Ret %{typename_caller_args}, Ret (Mixin::*Method)(%{arg_types})>
-Ret caller%{arity}(void* mixin_ptr %{args_signature})
-{
-    Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr);
-    return (m->*Method)(%{args});
-}
-
-}
-}
-}
-
 
 #define _BOOST_MIXIN_MESSAGE%{arity}_DECL(export, message_name, method_name, return_type, constness, message_mechanism %{args_coma}) \
     /* mechanism shows whether it's a multicast or unicast */ \
@@ -23,6 +5,13 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
     /* step 1: define the message struct */ \
     struct export _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) : public ::boost::mixin::internal::message_t \
     { \
+        /* define the actual caller func */ \
+        template <typename Mixin, typename Ret, Ret (Mixin::*Method)(%{arg_types}) constness> \
+        static Ret caller%{arity}(void* mixin_ptr %{args_signature}) \
+        { \
+            Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
+            return (m->*Method)(%{args}); \
+        } \
         typedef return_type (*caller_func)(void* %{coma_arg_types}); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
             : ::boost::mixin::internal::message_t(BOOST_PP_STRINGIZE(message_name), message_mechanism, false) \
@@ -31,7 +20,7 @@ Ret caller%{arity}(void* mixin_ptr %{args_signature})
         ::boost::mixin::internal::func_ptr get_caller_for() const \
         { \
             /* prevent the linker from optimizing away the caller function */ \
-            static caller_func caller = ::boost::mixin::internal::caller%{arity}<constness Mixin, return_type %{coma_arg_types}, &Mixin::method_name>; \
+            static caller_func caller = caller%{arity}<constness Mixin, return_type, &Mixin::method_name>; \
             /* cast the caller to a void (*)() - safe acoording to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
         } \
