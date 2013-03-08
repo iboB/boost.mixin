@@ -7,6 +7,11 @@ site/
 # linux temp files
 *~
 
+# apple and Xcode
+.DS_Store
+*.xcuserstate
+*DerivedData/
+
 # visual studio specific
 *.suo
 *.sdf
@@ -18,7 +23,7 @@ site/
 *Release/
 *ipch/
 
-#code blocks stuff
+# code blocks stuff
 *.depend
 *.layout
 *.gch
