@@ -164,6 +164,13 @@ void object_type_info::fill_call_table()
         if(_domain->_messages[i]->mechanism == message_t::multicast)
         {
             call_table_entry& table_entry = _call_table[i];
+
+            if(!table_entry.message_data)
+            {
+                // we dont implement it so we don't care
+                continue;
+            }
+
             BOOST_ASSERT(table_entry.multicast_begin);
             BOOST_ASSERT(table_entry.multicast_end);
 

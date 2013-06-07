@@ -22,6 +22,7 @@ public:
     void trace(std::ostream& o) const;
 
     void opengl_specific() {}
+    void opengl_specific_multicast() {}
 
 private:
     bool _casts_shadows;
