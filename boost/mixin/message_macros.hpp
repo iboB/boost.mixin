@@ -23,6 +23,13 @@
 #define _BOOST_MIXIN_GET_MIXIN_DATA(obj, id) \
     reinterpret_cast<char*>(const_cast<void*>(obj->_mixin_data[obj->_type_info->_mixin_indices[id]].mixin()))
 
+// a macro that forwards rvalue references message arguments in c++11
+#if BOOST_MIXIN_USING_CXX11
+#   define BOOST_MIXIN_FWD(arg_type, arg) std::forward<arg_type>(arg)
+#else
+#   define BOOST_MIXIN_FWD(arg_type, arg) arg
+#endif
+
 #include "gen/message_macros.ipp"
 
 /*#define BOOST_MIXIN_EXPORTED_MESSAGE_2_OVERLOAD_IN_DOMAIN(export, domain, message, return_type, method_name, arg1_type, a1, arg2_type, a2) \

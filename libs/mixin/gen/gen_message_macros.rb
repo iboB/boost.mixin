@@ -31,7 +31,7 @@ def params_for_arity(arity)
 
   return {
     :arity => 0, :args => '', :arg_types => '', :args_coma => '', :args_signature => '',
-    :coma_args => '', :coma_arg_types => ''
+    :coma_args => '', :coma_arg_types => '', :fwd_args => '', :coma_fwd_args => ''
   } if arity == 0
 
   args = []
@@ -45,12 +45,14 @@ def params_for_arity(arity)
 
   args_coma = ', ' + arg_types.zip(args).flatten.join(', ')
   args_signature = ', ' + arg_types.zip(args).map { |tuple| tuple.join(' ') }. join(', ')
+  fwd_args = arg_types.zip(args).map { |type, arg| "BOOST_MIXIN_FWD(#{type}, #{arg})" }. join(', ')
   args = args.join(', ')
   arg_types = arg_types.join(', ')
 
   {
     :arity => arity, :args => args, :arg_types => arg_types, :args_coma => args_coma, :args_signature => args_signature,
-    :coma_args => ', ' + args, :coma_arg_types => ', ' + arg_types
+    :coma_args => ', ' + args, :coma_arg_types => ', ' + arg_types,
+    :fwd_args => fwd_args, :coma_fwd_args => ', ' + fwd_args
   }
 
 end

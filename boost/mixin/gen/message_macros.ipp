@@ -58,6 +58,7 @@
         char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        /* forward unicast arguments since some of them might be rvalue references */ \
         return func(mixin_data ); \
     }\
 
@@ -84,6 +85,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             if(!combinator.add_result(func(mixin_data ))) \
             { \
                 return; \
@@ -95,6 +97,7 @@
     typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj ) \
     { \
         Combinator<return_type> combinator; \
+        /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
         method_name(obj , combinator); \
         return combinator.result(); \
     } \
@@ -117,6 +120,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             func(mixin_data ); \
         } \
     }
@@ -180,7 +184,7 @@
         static Ret caller1(void* mixin_ptr , arg0_type a0) \
         { \
             Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(a0); \
+            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -218,7 +222,8 @@
         char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-        return func(mixin_data , a0); \
+        /* forward unicast arguments since some of them might be rvalue references */ \
+        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE1_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0) \
@@ -244,6 +249,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             if(!combinator.add_result(func(mixin_data , a0))) \
             { \
                 return; \
@@ -255,6 +261,7 @@
     typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0) \
     { \
         Combinator<return_type> combinator; \
+        /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
         method_name(obj , a0, combinator); \
         return combinator.result(); \
     } \
@@ -277,6 +284,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             func(mixin_data , a0); \
         } \
     }
@@ -340,7 +348,7 @@
         static Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1) \
         { \
             Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(a0, a1); \
+            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -378,7 +386,8 @@
         char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-        return func(mixin_data , a0, a1); \
+        /* forward unicast arguments since some of them might be rvalue references */ \
+        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE2_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1) \
@@ -404,6 +413,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             if(!combinator.add_result(func(mixin_data , a0, a1))) \
             { \
                 return; \
@@ -415,6 +425,7 @@
     typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1) \
     { \
         Combinator<return_type> combinator; \
+        /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
         method_name(obj , a0, a1, combinator); \
         return combinator.result(); \
     } \
@@ -437,6 +448,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             func(mixin_data , a0, a1); \
         } \
     }
@@ -500,7 +512,7 @@
         static Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2) \
         { \
             Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(a0, a1, a2); \
+            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -538,7 +550,8 @@
         char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-        return func(mixin_data , a0, a1, a2); \
+        /* forward unicast arguments since some of them might be rvalue references */ \
+        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE3_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
@@ -564,6 +577,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             if(!combinator.add_result(func(mixin_data , a0, a1, a2))) \
             { \
                 return; \
@@ -575,6 +589,7 @@
     typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2) \
     { \
         Combinator<return_type> combinator; \
+        /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
         method_name(obj , a0, a1, a2, combinator); \
         return combinator.result(); \
     } \
@@ -597,6 +612,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             func(mixin_data , a0, a1, a2); \
         } \
     }
@@ -660,7 +676,7 @@
         static Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
         { \
             Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(a0, a1, a2, a3); \
+            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type, arg3_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -698,7 +714,8 @@
         char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
-        return func(mixin_data , a0, a1, a2, a3); \
+        /* forward unicast arguments since some of them might be rvalue references */ \
+        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE4_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
@@ -724,6 +741,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             if(!combinator.add_result(func(mixin_data , a0, a1, a2, a3))) \
             { \
                 return; \
@@ -735,6 +753,7 @@
     typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
     { \
         Combinator<return_type> combinator; \
+        /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
         method_name(obj , a0, a1, a2, a3, combinator); \
         return combinator.result(); \
     } \
@@ -757,6 +776,7 @@
             char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
             _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
             func(mixin_data , a0, a1, a2, a3); \
         } \
     }
