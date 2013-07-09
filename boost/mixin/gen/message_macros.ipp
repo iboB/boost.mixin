@@ -17,10 +17,10 @@
     { \
         /* define the actual caller func */ \
         template <typename Mixin, typename Ret, Ret (Mixin::*Method)() constness> \
-        static Ret caller0(void* mixin_ptr ) \
+        static Ret caller0(void* _b_m_ptr ) \
         { \
-            Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(); \
+            Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
+            return (_b_m_m->*Method)(); \
         } \
         typedef return_type (*caller_func)(void* ); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -47,19 +47,19 @@
 #define _BOOST_MIXIN_MESSAGE0_UNI(export, message_name, method_name, return_type, constness ) \
     _BOOST_MIXIN_MESSAGE0_DECL(export, message_name, method_name, return_type, constness, unicast ) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
-    inline return_type method_name(constness ::boost::mixin::object* obj ) \
+    inline return_type method_name(constness ::boost::mixin::object* _b_m_obj ) \
     {\
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::unicast); \
-        const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
-        BOOST_ASSERT(msg_data); \
-        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
+        const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
+        BOOST_ASSERT(_b_m_msg_data); \
+        /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+        char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return func(mixin_data ); \
+        return _b_m_func(_b_m_mixin_data ); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE0_MULTI(export, message_name, method_name, return_type, constness ) \
@@ -67,26 +67,26 @@
     /* step 4: define the message functions -> the one that will be called for the objects */ \
     /* function A: concrete combinator */ \
     template <typename Combinator> \
-    void method_name(constness ::boost::mixin::object* obj , Combinator& combinator) \
+    void method_name(constness ::boost::mixin::object* _b_m_obj , Combinator& _b_m_combinator) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            if(!combinator.add_result(func(mixin_data ))) \
+            if(!_b_m_combinator.add_result(_b_m_func(_b_m_mixin_data ))) \
             { \
                 return; \
             } \
@@ -94,34 +94,34 @@
     } \
     /* function B: template combinator -> can be called on a single line */ \
     template <template <typename> class Combinator> \
-    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj ) \
+    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* _b_m_obj ) \
     { \
-        Combinator<return_type> combinator; \
+        Combinator<return_type> _b_m_combinator; \
         /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-        method_name(obj , combinator); \
-        return combinator.result(); \
+        method_name(_b_m_obj , _b_m_combinator); \
+        return _b_m_combinator.result(); \
     } \
     /* function C: no combinator */ \
-    inline void method_name(constness ::boost::mixin::object* obj ) \
+    inline void method_name(constness ::boost::mixin::object* _b_m_obj ) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            func(mixin_data ); \
+            _b_m_func(_b_m_mixin_data ); \
         } \
     }
 
@@ -181,10 +181,10 @@
     { \
         /* define the actual caller func */ \
         template <typename Mixin, typename Ret, Ret (Mixin::*Method)(arg0_type) constness> \
-        static Ret caller1(void* mixin_ptr , arg0_type a0) \
+        static Ret caller1(void* _b_m_ptr , arg0_type a0) \
         { \
-            Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0)); \
+            Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
+            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -211,19 +211,19 @@
 #define _BOOST_MIXIN_MESSAGE1_UNI(export, message_name, method_name, return_type, constness , arg0_type, a0) \
     _BOOST_MIXIN_MESSAGE1_DECL(export, message_name, method_name, return_type, constness, unicast , arg0_type, a0) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
-    inline return_type method_name(constness ::boost::mixin::object* obj , arg0_type a0) \
+    inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0) \
     {\
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::unicast); \
-        const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
-        BOOST_ASSERT(msg_data); \
-        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
+        const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
+        BOOST_ASSERT(_b_m_msg_data); \
+        /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+        char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0)); \
+        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE1_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0) \
@@ -231,26 +231,26 @@
     /* step 4: define the message functions -> the one that will be called for the objects */ \
     /* function A: concrete combinator */ \
     template <typename Combinator> \
-    void method_name(constness ::boost::mixin::object* obj , arg0_type a0, Combinator& combinator) \
+    void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, Combinator& _b_m_combinator) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            if(!combinator.add_result(func(mixin_data , a0))) \
+            if(!_b_m_combinator.add_result(_b_m_func(_b_m_mixin_data , a0))) \
             { \
                 return; \
             } \
@@ -258,34 +258,34 @@
     } \
     /* function B: template combinator -> can be called on a single line */ \
     template <template <typename> class Combinator> \
-    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0) \
+    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0) \
     { \
-        Combinator<return_type> combinator; \
+        Combinator<return_type> _b_m_combinator; \
         /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-        method_name(obj , a0, combinator); \
-        return combinator.result(); \
+        method_name(_b_m_obj , a0, _b_m_combinator); \
+        return _b_m_combinator.result(); \
     } \
     /* function C: no combinator */ \
-    inline void method_name(constness ::boost::mixin::object* obj , arg0_type a0) \
+    inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            func(mixin_data , a0); \
+            _b_m_func(_b_m_mixin_data , a0); \
         } \
     }
 
@@ -345,10 +345,10 @@
     { \
         /* define the actual caller func */ \
         template <typename Mixin, typename Ret, Ret (Mixin::*Method)(arg0_type, arg1_type) constness> \
-        static Ret caller2(void* mixin_ptr , arg0_type a0, arg1_type a1) \
+        static Ret caller2(void* _b_m_ptr , arg0_type a0, arg1_type a1) \
         { \
-            Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+            Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
+            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -375,19 +375,19 @@
 #define _BOOST_MIXIN_MESSAGE2_UNI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1) \
     _BOOST_MIXIN_MESSAGE2_DECL(export, message_name, method_name, return_type, constness, unicast , arg0_type, a0, arg1_type, a1) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
-    inline return_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1) \
+    inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1) \
     {\
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::unicast); \
-        const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
-        BOOST_ASSERT(msg_data); \
-        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
+        const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
+        BOOST_ASSERT(_b_m_msg_data); \
+        /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+        char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE2_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1) \
@@ -395,26 +395,26 @@
     /* step 4: define the message functions -> the one that will be called for the objects */ \
     /* function A: concrete combinator */ \
     template <typename Combinator> \
-    void method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, Combinator& combinator) \
+    void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, Combinator& _b_m_combinator) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            if(!combinator.add_result(func(mixin_data , a0, a1))) \
+            if(!_b_m_combinator.add_result(_b_m_func(_b_m_mixin_data , a0, a1))) \
             { \
                 return; \
             } \
@@ -422,34 +422,34 @@
     } \
     /* function B: template combinator -> can be called on a single line */ \
     template <template <typename> class Combinator> \
-    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1) \
+    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1) \
     { \
-        Combinator<return_type> combinator; \
+        Combinator<return_type> _b_m_combinator; \
         /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-        method_name(obj , a0, a1, combinator); \
-        return combinator.result(); \
+        method_name(_b_m_obj , a0, a1, _b_m_combinator); \
+        return _b_m_combinator.result(); \
     } \
     /* function C: no combinator */ \
-    inline void method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1) \
+    inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            func(mixin_data , a0, a1); \
+            _b_m_func(_b_m_mixin_data , a0, a1); \
         } \
     }
 
@@ -509,10 +509,10 @@
     { \
         /* define the actual caller func */ \
         template <typename Mixin, typename Ret, Ret (Mixin::*Method)(arg0_type, arg1_type, arg2_type) constness> \
-        static Ret caller3(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2) \
+        static Ret caller3(void* _b_m_ptr , arg0_type a0, arg1_type a1, arg2_type a2) \
         { \
-            Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+            Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
+            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -539,19 +539,19 @@
 #define _BOOST_MIXIN_MESSAGE3_UNI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
     _BOOST_MIXIN_MESSAGE3_DECL(export, message_name, method_name, return_type, constness, unicast , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
-    inline return_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2) \
+    inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2) \
     {\
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::unicast); \
-        const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
-        BOOST_ASSERT(msg_data); \
-        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
+        const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
+        BOOST_ASSERT(_b_m_msg_data); \
+        /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+        char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE3_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
@@ -559,26 +559,26 @@
     /* step 4: define the message functions -> the one that will be called for the objects */ \
     /* function A: concrete combinator */ \
     template <typename Combinator> \
-    void method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2, Combinator& combinator) \
+    void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2, Combinator& _b_m_combinator) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            if(!combinator.add_result(func(mixin_data , a0, a1, a2))) \
+            if(!_b_m_combinator.add_result(_b_m_func(_b_m_mixin_data , a0, a1, a2))) \
             { \
                 return; \
             } \
@@ -586,34 +586,34 @@
     } \
     /* function B: template combinator -> can be called on a single line */ \
     template <template <typename> class Combinator> \
-    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2) \
+    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2) \
     { \
-        Combinator<return_type> combinator; \
+        Combinator<return_type> _b_m_combinator; \
         /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-        method_name(obj , a0, a1, a2, combinator); \
-        return combinator.result(); \
+        method_name(_b_m_obj , a0, a1, a2, _b_m_combinator); \
+        return _b_m_combinator.result(); \
     } \
     /* function C: no combinator */ \
-    inline void method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2) \
+    inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            func(mixin_data , a0, a1, a2); \
+            _b_m_func(_b_m_mixin_data , a0, a1, a2); \
         } \
     }
 
@@ -673,10 +673,10 @@
     { \
         /* define the actual caller func */ \
         template <typename Mixin, typename Ret, Ret (Mixin::*Method)(arg0_type, arg1_type, arg2_type, arg3_type) constness> \
-        static Ret caller4(void* mixin_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
+        static Ret caller4(void* _b_m_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
         { \
-            Mixin* m = reinterpret_cast<Mixin*>(mixin_ptr); \
-            return (m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+            Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
+            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type, arg3_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -703,19 +703,19 @@
 #define _BOOST_MIXIN_MESSAGE4_UNI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
     _BOOST_MIXIN_MESSAGE4_DECL(export, message_name, method_name, return_type, constness, unicast , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
     /* step 4: define the message function -> the one that will be called for the objects */ \
-    inline return_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
+    inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
     {\
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::unicast); \
-        const ::boost::mixin::internal::object_type_info::call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const ::boost::mixin::internal::message_for_mixin* msg_data = call_entry.message_data; \
-        BOOST_ASSERT(msg_data); \
-        /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-        char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
+        const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
+        BOOST_ASSERT(_b_m_msg_data); \
+        /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+        char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return func(mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE4_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
@@ -723,26 +723,26 @@
     /* step 4: define the message functions -> the one that will be called for the objects */ \
     /* function A: concrete combinator */ \
     template <typename Combinator> \
-    void method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3, Combinator& combinator) \
+    void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3, Combinator& _b_m_combinator) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            if(!combinator.add_result(func(mixin_data , a0, a1, a2, a3))) \
+            if(!_b_m_combinator.add_result(_b_m_func(_b_m_mixin_data , a0, a1, a2, a3))) \
             { \
                 return; \
             } \
@@ -750,34 +750,34 @@
     } \
     /* function B: template combinator -> can be called on a single line */ \
     template <template <typename> class Combinator> \
-    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
+    typename Combinator<return_type>::result_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
     { \
-        Combinator<return_type> combinator; \
+        Combinator<return_type> _b_m_combinator; \
         /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-        method_name(obj , a0, a1, a2, a3, combinator); \
-        return combinator.result(); \
+        method_name(_b_m_obj , a0, a1, a2, a3, _b_m_combinator); \
+        return _b_m_combinator.result(); \
     } \
     /* function C: no combinator */ \
-    inline void method_name(constness ::boost::mixin::object* obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
+    inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
     { \
-        ::boost::mixin::feature& self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
-        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(self).mechanism == ::boost::mixin::internal::message_t::multicast); \
+        ::boost::mixin::feature& _b_m_self = _boost_get_mixin_feature((_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*)nullptr); \
+        BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::multicast); \
         typedef ::boost::mixin::internal::object_type_info::call_table_entry call_table_entry; \
-        const call_table_entry& call_entry = obj->_type_info->_call_table[self.id]; \
-        const call_table_entry* begin = call_entry.multicast_begin; \
-        const call_table_entry* end = call_entry.multicast_end; \
-        BOOST_ASSERT(begin); \
-        BOOST_ASSERT(end); \
-        for(const call_table_entry* iter = begin; iter!=end; ++iter) \
+        const call_table_entry& _b_m_call_entry = _b_m_obj->_type_info->_call_table[_b_m_self.id]; \
+        const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
+        const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
+        BOOST_ASSERT(_b_m_begin); \
+        BOOST_ASSERT(_b_m_end); \
+        for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
-            const ::boost::mixin::internal::message_for_mixin* msg_data = iter->message_data; \
-            BOOST_ASSERT(msg_data); \
-            /* unfortunately we can't assert(msg_data->message == &self); since the data might come from a different module */ \
-            char* mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(obj, msg_data->_mixin_id); \
-            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func func = \
-                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(msg_data->caller); \
+            const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_iter->message_data; \
+            BOOST_ASSERT(_b_m_msg_data); \
+            /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
+            char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
+            _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
+                reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
             /* not forwarded arguments. We DO want an error if some of them are rvalue references */ \
-            func(mixin_data , a0, a1, a2, a3); \
+            _b_m_func(_b_m_mixin_data , a0, a1, a2, a3); \
         } \
     }
 
