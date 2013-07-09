@@ -26,6 +26,7 @@ rule test_all
 
     all_tests += [ run core.cpp ] ;
     all_tests += [ run combinators.cpp ] ;
+    all_tests += [ run cxx11.cpp ] ;
 
     for local mutation_rule_test in [ glob mutation_rules/*.cpp ]
     {
