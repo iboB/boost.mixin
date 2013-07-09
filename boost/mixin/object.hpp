@@ -35,7 +35,7 @@ public:
     // constructs an empty object - no mixins
     object();
     // constructs an object from a specific type
-    object(const object_type_template& type_template);
+    explicit object(const object_type_template& type_template);
     ~object();
 
 
