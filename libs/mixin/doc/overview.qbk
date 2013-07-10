@@ -22,7 +22,15 @@ The particular set of mixins in an object defines its type. An object mutation
 (adding or removing mixins) changes the objects type.
 
 Now, "type", as mentioned above has nothing to do with the concept of type in
-C++. A `boost::mixin::object` naturally always is a `boost::mixin:object`.
+C++. A `boost::mixin::object` naturally always is a `boost::mixin:object`. The
+object's type is a runtime concept, which is rarely (or never) used in a program.
+Instead, what's relevant for objects is their interface: which messages they
+implement.
+
+The purpose of the object is not much different from the objects in the regular
+OOP style, you're probably used to. If you're developing a game, every "thing"
+in the game's world could be a `boost::mixin::object`. If you're developing a
+CAD system, every graphical element from a document, could be one.
 
 [endsect]
 
@@ -36,6 +44,17 @@ order to "tell" the library that one of your classes should be accepted as a
 mixin. The macros are non-intrusive and you don't need to change anything in
 existing code, to which you want to add Boost.Mixin.
 
+Once you have mixins, you can combine them into objects. Adding or removing
+mixins to an object will internally instantiate them (via their default
+constructor) or destroy them. This means that a mixin instance is bound to an
+object instance. While it can be accessed via `object::get`, the mixin instance
+cannot be "removed" from an object, while also preserving it. Objects cannot
+share mixin instances.
+
+You can think of mixins as the multiple parents of a class, when using multiple
+inheritance. Only in the case of Boost.Mixin, they can be added and removed
+dynamically, while preserving the state of the rest.
+
 [endsect]
 
 [section:message Messages]
@@ -44,9 +63,59 @@ existing code, to which you want to add Boost.Mixin.
 Messages in Boost.Mixin are a way of calling the methods of the mixins that
 comprise an object. You can think of messages as the methods of an object.
 Unfortunately C++ doesn't allow extension methods (as for example C# does) and
-to call an object's message you need to write `message(object, param)`, instead
-of the much nicer `object->message(param)`
+to call an object's message, you need to write `message(object, params...)`,
+instead of the much nicer `object->message(params...)`.
 
+The methods from your mixins, that will also become messages, cannot be inferred
+from the mixin class. There are macros that let you define a message's name
+and signature. Then, when defining the mixin (with its macro), you need to
+specify which messages it will implement. You will get a compilation error if
+the class, you've made into a mixin, doesn't have the method with the
+appropriate name and signature.
+
+[section:multicast Multicast messages]
+[indexterm2 message..multicast message]
+
+One key difference between messages and methods is the multicast mechanism,
+introduced by Boost.Mixin. For example conside the case when you add several
+mixins that implement the same message to an object and then call this message.
+
+In the regular case one (at random) of those mixin will handle it. But if you
+define the message as a /multicast/, all of them will. This is very useful for
+cases such as information gathering (say with a message like `trace
+(std::ostream& out)`)
+
+[endsect]
+
+[endsect]
+
+[section:priority Message priority]
+[indexterm priority]
+[indexterm2 message..message priority]
+
+A message priority can be used for both unicast and multicast messages. In both
+cases it's only relevant when multiple mixins in an object implement the same
+message. The priority is a signed integer with default value: 0.
+
+For a unicast (regular) message, the mixin with the highest message priority
+will handle it. If multiple mixins have the same priority it cannot be
+determined which one of the it will be. It will be the same issue as the order
+of global object initializaton.
+
+For a multicast message, the order of the mixins that handle it will be
+/descending/ by priority. The order between mixins with the same priority cannot
+be defined. It's related to both global object initialization and how the
+unstable `std::sort` handles equal values.
+
+[endsect]
+
+[section:mutators Mutators]
+[endsect]
+
+[section:mrules Mutation rules]
+[endsect]
+
+[section:combinators Result combinators]
 [endsect]
 
 [endsect]

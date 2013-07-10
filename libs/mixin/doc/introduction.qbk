@@ -101,7 +101,7 @@ objects, as you use components to build entities.
 However, Boost.Mixin is not strictly an ECS. Here's a list of the differences.
 
 * It is non-intrusive: Mixins don't need to inherit from a common parent, nor do
-you need to the code of a class to "turn it into" a mixin.
+you need to change the code of a class to "turn it into" a mixin.
 * Instead of classes with pure virtual methods, messages are used to represent
 the functional interface of mixins, and through that of objects.
 * Some entity-component systems allow serveral entities to point to the same
@@ -113,7 +113,7 @@ is bound to an object instance
 [section:ruby_smalltalk Comparison to Ruby and Smalltalk mixins]
 
 If you're familiar with the mixins in Ruby, Groovy, Smalltalk, Squeak and many
-other languages you might find them similar to Boost.Mixin. They all allow
+other languages, you might find them similar to Boost.Mixin. They all allow
 runtime modifincation of the object's interface, with the cost of
 having runtime (as opposed to compile-time) errors when a message is called for
 an object that doesn't implement it. However, unlike the mixins in the
