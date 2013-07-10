@@ -21,6 +21,7 @@
 </h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="using.html#boost_mixin.using.quickstart">Quickstart</a></span></dt>
+<dt><span class="section"><a href="using.html#boost_mixin.using.faq">Frequently asked questions</a></span></dt>
 <dt><span class="section"><a href="using.html#boost_mixin.using.tips_tricks">Tips and tricks</a></span></dt>
 </dl></div>
 <div class="section">
@@ -58,15 +59,15 @@
         </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">someclass</span><span class="special">)</span></code> - declares that <code class="computeroutput"><span class="identifier">someclass</span></code>
-              is a mixin type. The best place for this macro is in some header. The
-              header needs to be included in places where this mixin is mentioned.
-              Such a place would be where we add the mixin to an object.
+              <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">someclass</span><span class="special">)</span></code> &#8211; declares that <code class="computeroutput"><span class="identifier">someclass</span></code> is a mixin type. The best
+              place for this macro is in some header. The header needs to be included
+              in places where this mixin is mentioned. Such a place would be where
+              we add the mixin to an object.
             </li>
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">someclass</span><span class="special">,</span> <span class="identifier">features</span><span class="special">)</span></code> - defines the mixin type. Place this
-              macro in a compiled unit (like a .cpp file). The features of a mixin
-              are an ampersand separated list of the mixin's specific characteristics.
+              <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">someclass</span><span class="special">,</span> <span class="identifier">features</span><span class="special">)</span></code> &#8211; defines the mixin type. Place
+              this macro in a compiled unit (like a .cpp file). The features of a
+              mixin are an ampersand separated list of the mixin's specific characteristics.
               There are various possible features for a mixin type, but for now we'll
               focus on the messages. If a mixin has no features you should use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span></code>
             </li>
@@ -159,10 +160,77 @@
 </pre>
 <p>
           First we have to declare what messages are there. There are macros to declare
-          and define messages.
+          and define messages. For these particular ones, the could would be:
         </p>
+<p>
+          <span class="emphasis"><em>naming_messages.hpp</em></span>
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_MIXIN_MESSAGE_1</span><span class="special">(</span><span class="keyword">void</span><span class="special">,</span> <span class="identifier">set_name</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;,</span> <span class="identifier">name</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_CONST_MESSAGE_0</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;,</span> <span class="identifier">name</span><span class="special">);</span>
+</pre>
+<p>
+          <span class="emphasis"><em>naming_messages.cpp</em></span>
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">set_name</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">name</span><span class="special">);</span>
+</pre>
+<p>
+          The second step would be to tell Boost.Mixin that the <code class="computeroutput"><span class="identifier">named</span></code>
+          mixin implements those messages. This is done by modifying the second argument
+          of the macro <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>.
+          (Remember that in that line <code class="computeroutput"><span class="identifier">none</span></code>
+          means that the mixin has no features).
+        </p>
+<p>
+          We need to first include <code class="computeroutput"><span class="identifier">naming_messages</span><span class="special">.</span><span class="identifier">hpp</span></code>
+          and then change the line to be:
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">named</span><span class="special">,</span> <span class="identifier">set_name_msg</span> <span class="special">&amp;</span> <span class="identifier">name_msg</span><span class="special">);</span>
+</pre>
+<p>
+          and now, after including <code class="computeroutput"><span class="identifier">naming_messages</span><span class="special">.</span><span class="identifier">hpp</span></code>
+          in our other source file, we can safely use the code from above.
+        </p>
+<p>
+          Notice how the feature names are the same as the message names, but suffixed
+          with <code class="computeroutput"><span class="identifier">_msg</span></code>. This is the
+          suffix for message features. When referring to the message as a mixin feature,
+          you should always add this suffix, or you'll get a compilation error. Another
+          place, where it's used, for example, is when checking whether an object
+          implements a feature:
+        </p>
+<pre class="programlisting"><span class="identifier">o</span><span class="special">.</span><span class="identifier">implements</span><span class="special">(</span><span class="identifier">name_msg</span><span class="special">)</span> <span class="comment">// will return true, since o has the `named` mixin</span>
+</pre>
+<p>
+          The macros, used to create messages we met here are:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_MIXIN_</span><span class="special">&lt;</span><span class="identifier">CONST</span><span class="special">&gt;</span><span class="identifier">_MESSAGE_</span><span class="special">{</span><span class="identifier">arity</span><span class="special">}(</span><span class="identifier">return_value</span><span class="special">,</span>
+              <span class="identifier">message_name</span><span class="special">,</span>
+              <span class="identifier">arg_type</span><span class="special">,</span>
+              <span class="identifier">arg_name</span><span class="special">...)</span></code>
+              &#8211; declares a message. You should add this macro to header files
+              that declare messages and should be included whenever the message is
+              mentioned or used. The optional part <code class="computeroutput"><span class="identifier">CONST</span></code>
+              will make the message work with <code class="computeroutput"><span class="keyword">const</span>
+              <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">*</span></code>
+              and refer to const methods in the mixin class. The part <code class="computeroutput"><span class="special">{</span><span class="identifier">arity</span><span class="special">}</span></code> is a number that shows how many arguments
+              the message takes, and the message should have a list of <code class="computeroutput"><span class="special">{</span><span class="identifier">arity</span><span class="special">}</span></code> pairs of argument type and argument
+              as macro parameters.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">message_name</span><span class="special">)</span></code> &#8211; defines the message. It works
+              for messages of all types and arities. Should be added in some compiled
+              unit (like a .cpp file). Usually a dedicated compiled unit for each
+              message group is appropriate in order to avoid needless include dependencies.
+            </li>
+</ul></div>
 </div>
 </div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.using.faq"></a><a class="link" href="using.html#boost_mixin.using.faq" title="Frequently asked questions">Frequently asked questions</a>
+</h3></div></div></div></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.using.tips_tricks"></a><a class="link" href="using.html#boost_mixin.using.tips_tricks" title="Tips and tricks">Tips and tricks</a>
@@ -190,6 +258,10 @@
             when mutating multiple objects of the same type.
           </li>
 </ul></div>
+<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.using.tips_tricks.common_mixin_parent"></a><a class="link" href="using.html#boost_mixin.using.tips_tricks.common_mixin_parent" title="Mixins with a common parent">Mixins
+        with a common parent</a>
+</h4></div></div></div></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

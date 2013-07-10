@@ -23,6 +23,10 @@
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.object">Objects</a></span></dt>
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.mixin">Mixins</a></span></dt>
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.message">Messages</a></span></dt>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.priority">Message priority</a></span></dt>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.mutators">Mutators</a></span></dt>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.mrules">Mutation rules</a></span></dt>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.combinators">Result combinators</a></span></dt>
 </dl></div>
 <p>
       Here is a list of the major idioms, introduced by Boost.Mixin.
@@ -32,7 +36,7 @@
 <a name="boost_mixin.overview.object"></a><a class="link" href="overview.html#boost_mixin.overview.object" title="Objects">Objects</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5082896"></a>
+        <a class="indexterm" name="idp34450800"></a>
       </p>
 <p>
         An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
@@ -46,7 +50,16 @@
       </p>
 <p>
         Now, "type", as mentioned above has nothing to do with the concept
-        of type in C++. A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> naturally always is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">:</span><span class="identifier">object</span></code>.
+        of type in C++. A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> naturally always is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">:</span><span class="identifier">object</span></code>. The object's type is a runtime
+        concept, which is rarely (or never) used in a program. Instead, what's relevant
+        for objects is their interface: which messages they implement.
+      </p>
+<p>
+        The purpose of the object is not much different from the objects in the regular
+        OOP style, you're probably used to. If you're developing a game, every "thing"
+        in the game's world could be a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>.
+        If you're developing a CAD system, every graphical element from a document,
+        could be one.
       </p>
 </div>
 <div class="section">
@@ -54,7 +67,7 @@
 <a name="boost_mixin.overview.mixin"></a><a class="link" href="overview.html#boost_mixin.overview.mixin" title="Mixins">Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5096032"></a>
+        <a class="indexterm" name="idp34468032"></a>
       </p>
 <p>
         A mixin is a class used as a "building block" for an object. In
@@ -64,21 +77,98 @@
         should be accepted as a mixin. The macros are non-intrusive and you don't
         need to change anything in existing code, to which you want to add Boost.Mixin.
       </p>
+<p>
+        Once you have mixins, you can combine them into objects. Adding or removing
+        mixins to an object will internally instantiate them (via their default constructor)
+        or destroy them. This means that a mixin instance is bound to an object instance.
+        While it can be accessed via <code class="computeroutput"><span class="identifier">object</span><span class="special">::</span><span class="identifier">get</span></code>,
+        the mixin instance cannot be "removed" from an object, while also
+        preserving it. Objects cannot share mixin instances.
+      </p>
+<p>
+        You can think of mixins as the multiple parents of a class, when using multiple
+        inheritance. Only in the case of Boost.Mixin, they can be added and removed
+        dynamically, while preserving the state of the rest.
+      </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.overview.message"></a><a class="link" href="overview.html#boost_mixin.overview.message" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5099696"></a>
+        <a class="indexterm" name="idp34475184"></a>
       </p>
 <p>
         Messages in Boost.Mixin are a way of calling the methods of the mixins that
         comprise an object. You can think of messages as the methods of an object.
         Unfortunately C++ doesn't allow extension methods (as for example C# does)
-        and to call an object's message you need to write <code class="computeroutput"><span class="identifier">message</span><span class="special">(</span><span class="identifier">object</span><span class="special">,</span> <span class="identifier">param</span><span class="special">)</span></code>, instead of the much nicer <code class="computeroutput"><span class="identifier">object</span><span class="special">-&gt;</span><span class="identifier">message</span><span class="special">(</span><span class="identifier">param</span><span class="special">)</span></code>
+        and to call an object's message, you need to write <code class="computeroutput"><span class="identifier">message</span><span class="special">(</span><span class="identifier">object</span><span class="special">,</span> <span class="identifier">params</span><span class="special">...)</span></code>, instead of the much nicer <code class="computeroutput"><span class="identifier">object</span><span class="special">-&gt;</span><span class="identifier">message</span><span class="special">(</span><span class="identifier">params</span><span class="special">...)</span></code>.
+      </p>
+<p>
+        The methods from your mixins, that will also become messages, cannot be inferred
+        from the mixin class. There are macros that let you define a message's name
+        and signature. Then, when defining the mixin (with its macro), you need to
+        specify which messages it will implement. You will get a compilation error
+        if the class, you've made into a mixin, doesn't have the method with the
+        appropriate name and signature.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.overview.message.multicast"></a><a class="link" href="overview.html#boost_mixin.overview.message.multicast" title="Multicast messages">Multicast messages</a>
+</h4></div></div></div>
+<p>
+          <a class="indexterm" name="idp34486208"></a>
+        </p>
+<p>
+          One key difference between messages and methods is the multicast mechanism,
+          introduced by Boost.Mixin. For example conside the case when you add several
+          mixins that implement the same message to an object and then call this
+          message.
+        </p>
+<p>
+          In the regular case one (at random) of those mixin will handle it. But
+          if you define the message as a <span class="emphasis"><em>multicast</em></span>, all of them
+          will. This is very useful for cases such as information gathering (say
+          with a message like <code class="computeroutput"><span class="identifier">trace</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">)</span></code>)
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.priority"></a><a class="link" href="overview.html#boost_mixin.overview.priority" title="Message priority">Message priority</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp34495568"></a>
+ <a class="indexterm" name="idp34496320"></a>
+      </p>
+<p>
+        A message priority can be used for both unicast and multicast messages. In
+        both cases it's only relevant when multiple mixins in an object implement
+        the same message. The priority is a signed integer with default value: 0.
+      </p>
+<p>
+        For a unicast (regular) message, the mixin with the highest message priority
+        will handle it. If multiple mixins have the same priority it cannot be determined
+        which one of the it will be. It will be the same issue as the order of global
+        object initializaton.
+      </p>
+<p>
+        For a multicast message, the order of the mixins that handle it will be
+        <span class="emphasis"><em>descending</em></span> by priority. The order between mixins with
+        the same priority cannot be defined. It's related to both global object initialization
+        and how the unstable <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">sort</span></code>
+        handles equal values.
       </p>
 </div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.mutators"></a><a class="link" href="overview.html#boost_mixin.overview.mutators" title="Mutators">Mutators</a>
+</h3></div></div></div></div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.mrules"></a><a class="link" href="overview.html#boost_mixin.overview.mrules" title="Mutation rules">Mutation rules</a>
+</h3></div></div></div></div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.combinators"></a><a class="link" href="overview.html#boost_mixin.overview.combinators" title="Result combinators">Result combinators</a>
+</h3></div></div></div></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
