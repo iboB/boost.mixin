@@ -54,7 +54,7 @@ Boost.Mixin is about:
 
     // ...
     set_title(o, "The Three Musketeers"); // this will internally call
-                                          // book_data::serialize
+                                          // book_data::set_title
     serialize(o); // this will internally call xml_serialier::serialize
 
     mutate(o)
@@ -75,7 +75,7 @@ When calling messages only the message declaration is needed.
 
 In the aforementioned example the code works without the need to include the
 definiton of the serializer classes or data classes. The mutation parts of the
-code, require only the the to see the macro `BOOST_DECLARE_MIXIN(type_name)` for
+code, require only to see the macro `BOOST_DECLARE_MIXIN(type_name)` for
 the mixins used. The message calls require only the message declarations, thus
 making their compilation units completely oblivious to what minxins might
 actually comprise this object.

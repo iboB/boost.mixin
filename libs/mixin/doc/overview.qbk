@@ -30,7 +30,7 @@ implement.
 The purpose of the object is not much different from the objects in the regular
 OOP style, you're probably used to. If you're developing a game, every "thing"
 in the game's world could be a `boost::mixin::object`. If you're developing a
-CAD system, every graphical element from a document, could be one.
+CAD system, every graphical element from a document could be one.
 
 [endsect]
 
@@ -98,7 +98,7 @@ cases it's only relevant when multiple mixins in an object implement the same
 message. The priority is a signed integer with default value: 0.
 
 For a unicast (regular) message, the mixin with the highest message priority
-will handle it. If multiple mixins have the same priority it cannot be
+will handle it. If multiple mixins have the same priority, it cannot be
 determined which one of the it will be. It will be the same issue as the order
 of global object initializaton.
 

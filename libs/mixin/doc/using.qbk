@@ -10,7 +10,7 @@
 
 [section:quickstart Quickstart]
 
-To make use of the most basic features of Boost.Mixin you need to create an
+To make use of the most basic features of Boost.Mixin, you need to create an
 object add some mixins to it and then call some messages.
 
 [section:create_object Creating an object]
@@ -141,7 +141,7 @@ message as a mixin feature, you should always add this suffix, or you'll get
 a compilation error. Another place, where it's used, for example, is when
 checking whether an object implements a feature:
 
-    o.implements(name_msg) // will return true, since o has the `named` mixin
+    obj.implements(name_msg) // will return true, since o has the `named` mixin
 
 The macros, used to create messages we met here are:
 
