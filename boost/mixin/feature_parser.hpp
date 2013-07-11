@@ -12,6 +12,7 @@
 #include "global.hpp"
 #include "message.hpp"
 #include "object_type_info.hpp"
+#include "allocators.hpp" // clang needs this to assign mixin_allocator to domain_allocator :(
 
 namespace boost
 {

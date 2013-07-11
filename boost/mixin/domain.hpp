@@ -194,6 +194,22 @@ domain& get_domain_for_tag()
 }
 
 } // namespace internal
+
+// allocator functions
+
+// set allocator to all domains
+void BOOST_MIXIN_API set_global_domain_allocator(domain_allocator* allocator);
+
+// set allocator to default domain
+void BOOST_MIXIN_API set_default_domain_allocator(domain_allocator* allocator);
+
+// add allocator to specific domain
+template <typename DomainTag>
+void set_allocator_for_domain(domain_allocator* allocator)
+{
+    internal::get_domain_for_tag<DomainTag>().set_allocator(allocator);
+}
+
 } // namespace mixin
 } // namespace boost
 

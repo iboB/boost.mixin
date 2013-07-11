@@ -10,7 +10,6 @@
 #define _BOOST_MIXIN_ALLOCATORS_HPP_INCLUDED
 
 #include "global.hpp"
-#include "domain.hpp"
 
 namespace boost
 {
@@ -71,20 +70,8 @@ public:
     virtual void dealloc_mixin(char* ptr);
 };
 
+
 } // namespace internal
-
-// set allocator to all domains
-void BOOST_MIXIN_API set_global_domain_allocator(domain_allocator* allocator);
-
-// set allocator to default domain
-void BOOST_MIXIN_API set_default_domain_allocator(domain_allocator* allocator);
-
-// add mutation rule to specific domain
-template <typename DomainTag>
-void set_allocator_for_domain(mutation_rule* allocator)
-{
-    internal::get_domain_for_tag<DomainTag>().set_allocator(allocator);
-}
 
 // feature list entry for custom mixin allocators
 template <typename CusomAllocator>

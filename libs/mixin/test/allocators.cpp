@@ -46,26 +46,26 @@ struct custom_allocator : public mixin_allocator, public alloc_counter<T>
     // allocate memory for count mixin_data_in_object instances
     virtual char* alloc_mixin_data(size_t count)
     {
-        ++data_allocations;
+        ++alloc_counter<T>::data_allocations;
         return new char[count * mixin_data_size];
     }
 
     virtual void dealloc_mixin_data(char* ptr)
     {
-        ++data_deallocations;
+        ++alloc_counter<T>::data_deallocations;
         delete[] ptr;
     }
 
     // allocate memory for a mixin instance
     virtual char* alloc_mixin(size_t size)
     {
-        ++mixin_allocations;
+        ++alloc_counter<T>::mixin_allocations;
         return new char[size];
     }
 
     virtual void dealloc_mixin(char* ptr)
     {
-        ++mixin_deallocations;
+        ++alloc_counter<T>::mixin_deallocations;
         delete[] ptr;
     }
 };
