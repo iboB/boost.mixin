@@ -23,6 +23,7 @@ SOURCES += \
     $${mixin_src}/object_type_template.cpp \
     $${mixin_src}/same_type_mutator.cpp \
     $${mixin_src}/single_object_mutator.cpp \
+    $${mixin_src}/allocators.cpp \
 
 mixin_inc = ../../../../boost/mixin
 
@@ -50,6 +51,7 @@ HEADERS += \
     $${mixin_inc}/object_type_template.hpp \
     $${mixin_inc}/same_type_mutator.hpp \
     $${mixin_inc}/single_object_mutator.hpp \
+    $${mixin_inc}/allocators.hpp \
     \
     $${mixin_inc}/gen/message_macros.ipp \
     \

@@ -43,6 +43,9 @@
 		<Unit filename="../../../../boost/mixin.hpp">
 			<Option virtualFolder="includes/" />
 		</Unit>
+		<Unit filename="../../../../boost/mixin/allocators.hpp">
+			<Option virtualFolder="includes/boost/" />
+		</Unit>
 		<Unit filename="../../../../boost/mixin/combinators.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
@@ -108,6 +111,9 @@
 		</Unit>
 		<Unit filename="../../../../boost/mixin/single_object_mutator.hpp">
 			<Option virtualFolder="includes/boost/" />
+		</Unit>
+		<Unit filename="../../src/allocators.cpp">
+			<Option virtualFolder="sources/" />
 		</Unit>
 		<Unit filename="../../src/common_mutation_rules.cpp">
 			<Option virtualFolder="sources/" />
