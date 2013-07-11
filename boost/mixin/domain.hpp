@@ -53,6 +53,7 @@ typedef size_t domain_id;
 
 class mutation_rule;
 class object_type_mutation;
+class domain_allocator;
 
 namespace internal
 {
@@ -101,6 +102,7 @@ public:
         info.size = sizeof(Mixin);
         info.constructor = &call_mixin_constructor<Mixin>;
         info.destructor = &call_mixin_destructor<Mixin>;
+        info.allocator = _own_allocator;
 
         internal_register_mixin_type(info);
 
@@ -138,6 +140,10 @@ public:
         return *_mixin_type_infos[id];
     }
 
+    // sets the current domain allocator
+    void set_allocator(domain_allocator* allocator);
+    domain_allocator* allocator() const { return _own_allocator; }
+
 boost_mixin_internal:
     ~domain(); // should be private but making ptr_vector<domain> a friend is kind of a hassle
 #if !BOOST_MIXIN_TEST // we want to access these when testing
@@ -150,7 +156,7 @@ private:
     domain_id _id;
     const char* _name;
 
-    const mixin_type_info* _mixin_type_infos[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
+    mixin_type_info* _mixin_type_infos[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
     size_t _num_registered_mixins;
 
     void internal_register_mixin_type(mixin_type_info& info);
@@ -170,6 +176,9 @@ private:
 
     // feature registration functions for the supported kinds of features
     void internal_register_feature(message_t& m);
+
+    // allocators
+    domain_allocator* _own_allocator; // domain-specific allocator (usually equal to global_allocator
 };
 
 BOOST_MIXIN_API domain& get_domain(domain_id id);

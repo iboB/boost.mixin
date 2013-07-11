@@ -8,6 +8,7 @@
 #include "internal.hpp"
 #include <boost/mixin/domain.hpp>
 #include <boost/mixin/mutation_rule.hpp>
+#include <boost/mixin/allocators.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace boost
@@ -21,6 +22,9 @@ namespace internal
 {
 
 typedef ptr_vector<domain> domains_container;
+
+BOOST_MIXIN_API default_domain_allocator default_allocator;
+BOOST_MIXIN_API domain_allocator* global_allocator; // used to be set to all domains
 
 // using a function instead of a simple global variable because this guarantees that the container
 // is constructed when the function is called
@@ -37,19 +41,29 @@ domain& domain::create(const char* domain_name)
     {
         // make sure that the default_domain is registered first
         domains.push_back(new domain(0, BOOST_MIXIN_TYPE_NAME(default_domain)));
+
+        // if the global allocator is not set use the default
+        if(!global_allocator)
+        {
+            global_allocator = &default_allocator;
+        }
+        domains.back().set_allocator(global_allocator);
     }
 
     // check if we haven't already created this domain
-    for(domains_container::iterator r=domains.begin(); r!=domains.end(); ++r)
+    for(domains_container::iterator d=domains.begin(); d!=domains.end(); ++d)
     {
         // domain re-registration
         // we have no guarantee that BOOST_MIXIN_TYPE_NAME returns the same address every time
         // that's why we use strcmp and not just ==
-        if(strcmp(r->_name, domain_name) == 0)
-            return *r;
+        if(strcmp(d->_name, domain_name) == 0)
+        {
+            return *d;
+        }
     }
 
     domain* new_domain = new domain(domains.size(), domain_name);
+    new_domain->set_allocator(global_allocator);
     domains.push_back(new_domain);
 
     return domains.back();
@@ -66,6 +80,7 @@ domain::domain(domain_id id, const char* name)
     , _name(name)
     , _num_registered_mixins(0)
     , _num_registered_messages(0)
+    , _own_allocator(nullptr)
 {
     zero_memory(_mixin_type_infos, sizeof(_mixin_type_infos));
     zero_memory(_messages, sizeof(_messages));
@@ -145,7 +160,7 @@ const object_type_info* domain::get_object_type_info(const mixin_type_info_vecto
 void domain::internal_register_feature(message_t& m)
 {
     BOOST_ASSERT_MSG(_num_registered_messages < BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN,
-                        "you have to increase the maximum number of features");
+                        "you have to increase the maximum number of messages");
 
     // the messages can be instantiated from different modules
     // for example if different modules use the same static library
@@ -222,11 +237,47 @@ void domain::internal_register_mixin_type(mixin_type_info& info)
     _mixin_type_infos[_num_registered_mixins++] = &info;
 }
 
+void domain::set_allocator(domain_allocator* allocator)
+{
+    BOOST_ASSERT(!_own_allocator || !_own_allocator->has_allocated());
+
+    for(size_t i=0; i<_num_registered_mixins; ++i)
+    {
+        mixin_type_info& registered = *_mixin_type_infos[i];
+        if(registered.allocator == _own_allocator)
+        {
+            // set the new domain allocator to all mixins that don't
+            // have a specific one of their own
+            registered.allocator = allocator;
+        }
+    }
+
+    _own_allocator = allocator;
+}
+
 } // namespace internal
 
 void add_new_mutation_rule(mutation_rule* rule)
 {
     internal::get_domain(0).add_new_mutation_rule(rule);
+}
+
+// set allocator to all domains
+void set_global_domain_allocator(domain_allocator* allocator)
+{
+    internal::domains_container& domains = internal::all_domains();
+    for(internal::domains_container::iterator d=domains.begin(); d!=domains.end(); ++d)
+    {
+        d->set_allocator(allocator);
+    }
+
+    internal::global_allocator = allocator;
+}
+
+// set allocator to default domain
+void set_default_domain_allocator(domain_allocator* allocator)
+{
+    internal::get_domain(0).set_allocator(allocator);
 }
 
 }

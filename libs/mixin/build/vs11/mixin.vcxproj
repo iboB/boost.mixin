@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\allocators.cpp" />
     <ClCompile Include="..\..\src\domain.cpp" />
     <ClCompile Include="..\..\src\global.cpp" />
     <ClCompile Include="..\..\src\mixin_collection.cpp" />
@@ -25,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\boost\mixin.hpp" />
+    <ClInclude Include="..\..\..\..\boost\mixin\allocators.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\combinators.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\common_mutation_rules.hpp" />
     <ClInclude Include="..\..\..\..\boost\mixin\config.hpp" />

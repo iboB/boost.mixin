@@ -16,6 +16,9 @@ namespace boost
 {
 namespace mixin
 {
+
+class domain_allocator;
+
 namespace internal
 {
 
@@ -42,13 +45,19 @@ public:
     mixin_constructor_proc constructor;
     mixin_destructor_proc destructor;
 
+    // shows whether this is as initialized mixin
     bool is_valid() const { return id != INVALID_MIXIN_ID && dom; }
 
+    // list of all the message infos for the messages this mixin supports
     std::vector<message_for_mixin> message_infos;
+
+    // used to allocate memory for instances of this mixin
+    // usually equal to the allocator of its domain
+    domain_allocator* allocator;
 
     mixin_type_info()
         : id(INVALID_MIXIN_ID)
-        // since this is always static, other member will be initialized with 0
+        // since this is always static, other members will be initialized with 0
     {
     }
 };

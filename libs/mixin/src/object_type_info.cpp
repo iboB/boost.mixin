@@ -9,6 +9,7 @@
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/mixin/domain.hpp>
+#include <boost/mixin/allocators.hpp>
 
 namespace boost
 {
@@ -37,24 +38,37 @@ const object_type_info& object_type_info::null()
 
 mixin_data_in_object* object_type_info::alloc_mixin_data() const
 {
-    return new mixin_data_in_object[_compact_mixins.size() + 1]; //reserve idnex 0 for nullptr
+    BOOST_ASSERT(_domain);
+
+    size_t num_to_allocate = _compact_mixins.size() + 1; //reserve idnex 0 for nullptr
+
+    char* memory = _domain->allocator()->alloc_mixin_data(num_to_allocate);
+    mixin_data_in_object* ret = new (memory) mixin_data_in_object[num_to_allocate];
+
+    return ret;
 }
 
 void object_type_info::dealloc_mixin_data(mixin_data_in_object* data) const
 {
-    delete[] data;
+    for(size_t i=0; i<_compact_mixins.size() + 1; ++i)
+    {
+        data[i].~mixin_data_in_object();
+    }
+
+    BOOST_ASSERT(_domain);
+    _domain->allocator()->dealloc_mixin_data(reinterpret_cast<char*>(data));
 }
 
 char* object_type_info::alloc_mixin(mixin_id id) const
 {
     BOOST_ASSERT(has(id));
-    return new char[sizeof(object*) + _domain->mixin_info(id).size];
+    return _domain->mixin_info(id).allocator->alloc_mixin(sizeof(object*) + _domain->mixin_info(id).size);
 }
 
 void object_type_info::dealloc_mixin(mixin_id id, char* mem) const
 {
     BOOST_ASSERT(has(id));
-    delete[] mem;
+    return _domain->mixin_info(id).allocator->dealloc_mixin(mem);
 }
 
 struct bigger_message_priority

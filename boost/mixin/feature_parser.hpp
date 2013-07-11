@@ -17,6 +17,9 @@ namespace boost
 {
 namespace mixin
 {
+
+class mixin_allocator;
+
 namespace internal
 {
 
@@ -35,6 +38,12 @@ public:
     feature_registrator& operator & (message_priority<Message>)
     {
         _boost_register_mixin_feature((Message*)nullptr);
+        return *this;
+    }
+
+    feature_registrator& operator & (mixin_allocator&)
+    {
+        // nothing special to do here
         return *this;
     }
 
@@ -73,6 +82,14 @@ public:
         return *this;
     }
 
+    feature_parser& operator & (mixin_allocator& allocator)
+    {
+        mixin_type_info& mixin_info = _boost_get_mixin_type_info((Mixin*)nullptr);
+        mixin_info.allocator = &allocator;
+
+        return *this;
+    }
+
     void operator & (const no_features_t*)
     {
     }
@@ -92,8 +109,8 @@ private:
         for(size_t i=0; i<mixin_info.message_infos.size(); ++i)
         {
             const message_for_mixin& msg_info = mixin_info.message_infos[i];
-            BOOST_ASSERT(msg_info.message);
-            BOOST_ASSERT(msg_info.message != &msg);
+            BOOST_ASSERT(msg_info.message); // null message ???
+            BOOST_ASSERT(msg_info.message != &msg); // duplicate message. You have "x_msg & ... & x_msg"
         }
 #endif
         mixin_info.message_infos.resize(mixin_info.message_infos.size()+1);
