@@ -32,7 +32,7 @@
 <a name="boost_mixin.introduction.intro_ecs"></a><a class="link" href="introduction.html#boost_mixin.introduction.intro_ecs" title="Introduction to Mixins">Introduction to Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp29808000"></a>
+        <a class="indexterm" name="idp3962624"></a>
       </p>
 <p>
         Speaking generally a mixin is a class that provides a certain functionality
@@ -84,7 +84,7 @@
 
 <span class="comment">// ...</span>
 <span class="identifier">set_title</span><span class="special">(</span><span class="identifier">o</span><span class="special">,</span> <span class="string">"The Three Musketeers"</span><span class="special">);</span> <span class="comment">// this will internally call</span>
-                                      <span class="comment">// book_data::serialize</span>
+                                      <span class="comment">// book_data::set_title</span>
 <span class="identifier">serialize</span><span class="special">(</span><span class="identifier">o</span><span class="special">);</span> <span class="comment">// this will internally call xml_serialier::serialize</span>
 
 <span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
@@ -106,7 +106,7 @@
 <p>
         In the aforementioned example the code works without the need to include
         the definiton of the serializer classes or data classes. The mutation parts
-        of the code, require only the the to see the macro <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">type_name</span><span class="special">)</span></code> for the mixins used. The message calls require
+        of the code, require only to see the macro <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">type_name</span><span class="special">)</span></code> for the mixins used. The message calls require
         only the message declarations, thus making their compilation units completely
         oblivious to what minxins might actually comprise this object.
       </p>

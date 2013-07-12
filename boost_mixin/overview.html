@@ -36,7 +36,7 @@
 <a name="boost_mixin.overview.object"></a><a class="link" href="overview.html#boost_mixin.overview.object" title="Objects">Objects</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34450800"></a>
+        <a class="indexterm" name="idp5084128"></a>
       </p>
 <p>
         An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
@@ -58,7 +58,7 @@
         The purpose of the object is not much different from the objects in the regular
         OOP style, you're probably used to. If you're developing a game, every "thing"
         in the game's world could be a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>.
-        If you're developing a CAD system, every graphical element from a document,
+        If you're developing a CAD system, every graphical element from a document
         could be one.
       </p>
 </div>
@@ -67,7 +67,7 @@
 <a name="boost_mixin.overview.mixin"></a><a class="link" href="overview.html#boost_mixin.overview.mixin" title="Mixins">Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34468032"></a>
+        <a class="indexterm" name="idp5101360"></a>
       </p>
 <p>
         A mixin is a class used as a "building block" for an object. In
@@ -96,7 +96,7 @@
 <a name="boost_mixin.overview.message"></a><a class="link" href="overview.html#boost_mixin.overview.message" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34475184"></a>
+        <a class="indexterm" name="idp5108512"></a>
       </p>
 <p>
         Messages in Boost.Mixin are a way of calling the methods of the mixins that
@@ -117,7 +117,7 @@
 <a name="boost_mixin.overview.message.multicast"></a><a class="link" href="overview.html#boost_mixin.overview.message.multicast" title="Multicast messages">Multicast messages</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34486208"></a>
+          <a class="indexterm" name="idp5119536"></a>
         </p>
 <p>
           One key difference between messages and methods is the multicast mechanism,
@@ -138,8 +138,8 @@
 <a name="boost_mixin.overview.priority"></a><a class="link" href="overview.html#boost_mixin.overview.priority" title="Message priority">Message priority</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34495568"></a>
- <a class="indexterm" name="idp34496320"></a>
+        <a class="indexterm" name="idp5128896"></a>
+ <a class="indexterm" name="idp5129648"></a>
       </p>
 <p>
         A message priority can be used for both unicast and multicast messages. In
@@ -148,7 +148,7 @@
       </p>
 <p>
         For a unicast (regular) message, the mixin with the highest message priority
-        will handle it. If multiple mixins have the same priority it cannot be determined
+        will handle it. If multiple mixins have the same priority, it cannot be determined
         which one of the it will be. It will be the same issue as the order of global
         object initializaton.
       </p>
