@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="mixin dev">
-		<Project filename="../../example/basic/basic.cbp" active="1">
+		<Project filename="../../example/basic/basic.cbp">
 			<Depends filename="mixin.cbp" />
 		</Project>
 		<Project filename="mixin.cbp" />
-		<Project filename="../../perf/message_perf/message_perf.cbp" />
+		<Project filename="../../perf/message_perf/message_perf.cbp" active="1">
+			<Depends filename="mixin.cbp" />
+		</Project>
 	</Workspace>
 </CodeBlocks_workspace_file>

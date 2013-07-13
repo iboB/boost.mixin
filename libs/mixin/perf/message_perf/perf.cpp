@@ -38,11 +38,35 @@ public:
     int _sum;
 };
 
+class abstract_instance2 : public abstract_class
+{
+public:
+    abstract_instance2() : _sum(0) {}
+
+    void add(int i)
+    {
+        _sum+=i;
+    }
+
+    int sum() const
+    {
+        return _sum;
+    }
+
+    int _sum;
+};
+
 
 extern void initialize_globals()
 {
     // don't care about memory leaks
-    ac_instance = new abstract_instance;
+
+    // we use this trick to prevent a smart compiler from optimizing away
+    // the virtual calls
+    if(rand()%2)
+        ac_instance = new abstract_instance2;
+    else
+        ac_instance = new abstract_instance;
 
 #if BOOST_MIXIN_USING_CXX11
 #   define _1_NAMESPACE placeholders
