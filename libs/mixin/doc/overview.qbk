@@ -8,6 +8,31 @@
 
 [section:overview Overview]
 
+[section:lib_features Library features]
+This is a list of all library features. Don't worry if you don't understand some
+of them. After you've familiarized yourself with the library, return to this
+list and check it out again.
+
+[*Main features:]
+
+* Lets you compose of objects from mixins
+* Allows physical separation between interface and implementation in your code
+* Allows live mutation of objects: changing their composition at runtime
+* Multicast messages
+* Small to negligible call overhead. Message calls are almost as fast as
+`std::function` calls
+
+[*Internal features:]
+
+* Domains of mixins and messages that don't mix
+* Message priority handle multiple mixins handling the same message
+* Object mutators to allow you to mutate arrays of objects faster
+* Mutation rules to allow you to handle mutations object-wide
+* Result combinators for multicast messages
+* Allocators to help managing the memory, used by the library
+
+[endsect]
+
 Here is a list of the major idioms, introduced by Boost.Mixin.
 
 [section:object Objects]
@@ -24,7 +49,7 @@ The particular set of mixins in an object defines its type. An object mutation
 Now, "type", as mentioned above has nothing to do with the concept of type in
 C++. A `boost::mixin::object` naturally always is a `boost::mixin:object`. The
 object's type is a runtime concept, which is rarely (or never) used in a program.
-Instead, what's relevant for objects is their interface: which messages they
+Instead, what's relevant for objects is their interface -- which messages they
 implement.
 
 The purpose of the object is not much different from the objects in the regular

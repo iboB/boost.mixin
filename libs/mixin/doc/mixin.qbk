@@ -42,6 +42,7 @@ libraries collection]. It will be submitted for review somewhere in late 2013.
 [include overview.qbk]
 [include using.qbk]
 [include examples.qbk]
+[include tutorials.qbk]
 [include reference.qbk]
 [include roadmap.qbk]
 [include appendix.qbk]

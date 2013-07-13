@@ -18,11 +18,12 @@ of mixins.
 
 Many C++ users are familiar with the word mixin as a form of
 [@http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern CRTP] and
-this is indeed an appropriate name for some cases, although probably a the term
+this is indeed an appropriate name for some cases, although probably the term
 "trait" (as in PHP's traits) would have been even better.
 
-In most languages that explicitly say that they natively support mixins, a mixin
-is a runtime idiom, much like the components from an entity-component system.
+In most languages for which it is explicitly stated that they natively support
+mixins, a mixin is a runtime idiom, much like the components from an
+entity-component system.
 
 For more details you can check [@http://en.wikipedia.org/wiki/Mixin Wikipedia's
 article on Mixin], but speaking generally may be more confusing than
@@ -32,14 +33,14 @@ helpful. Let's focus on the particular case of Boost.Mixin.
 
 [section:boost_mixin Boost.Mixin]
 
-In short Boost.Mixin is a way of allowing the construction and modification of
+In short Boost.Mixin is a way of allowing the composition and modification of
 types at runtime.
 
 Here's some code, which probably is the fastest way of understanding what
 Boost.Mixin is about:
 
     using namespace boost::mixin;
-    object* o = new object; // just an empty object
+    object* o = new object; // just an empty boost::mixin::object
 
     // xml_serializer and book_data are some classes in the project
     // there are external macros you need to call, to make them available as
@@ -53,6 +54,11 @@ Boost.Mixin is about:
     // multiple inheritance
 
     // ...
+
+    // set_title and serialize are messages
+    // you can think of them as methods to the class
+    // there are macros that let you define messages
+
     set_title(o, "The Three Musketeers"); // this will internally call
                                           // book_data::set_title
     serialize(o); // this will internally call xml_serialier::serialize
@@ -68,14 +74,14 @@ Boost.Mixin is about:
 
 
 This is given, while also having full abstraction between the interface
-and the definition of types - a problem often given as the motivation for the
+and the definition of types -- a problem often given as the motivation for the
 [@http://www.drdobbs.com/cpp/making-pimpl-easy/205918714 PIMPL idiom]. When
-constructing objects from mixin, only the forward declaration is needed.
-When calling messages only the message declaration is needed.
+constructing objects from mixins, only the forward declaration is needed.
+When calling messages, only the message declaration is needed.
 
-In the aforementioned example the code works without the need to include the
+In the example above the code works without the need to include the
 definiton of the serializer classes or data classes. The mutation parts of the
-code, require only to see the macro `BOOST_DECLARE_MIXIN(type_name)` for
+code require only to see the macro `BOOST_DECLARE_MIXIN(type_name)` for
 the mixins used. The message calls require only the message declarations, thus
 making their compilation units completely oblivious to what minxins might
 actually comprise this object.
@@ -95,15 +101,18 @@ Here's how Boost.Mixin is like an ECS:
 
 * `boost::mixin::object` can be interpreted as an entity in an ECS. It's just an
 empty class, that needs to be "built" from mixins.
-* consequently mixins can be thought of as a component. You use mixins to build
-objects, as you use components to build entities.
+* consequently mixins can be thought of as components. You use mixins to build
+objects just as you use components to build entities.
 
 However, Boost.Mixin is not strictly an ECS. Here's a list of the differences.
 
 * It is non-intrusive: Mixins don't need to inherit from a common parent, nor do
 you need to change the code of a class to "turn it into" a mixin.
 * Instead of classes with pure virtual methods, messages are used to represent
-the functional interface of mixins, and through that of objects.
+the functional interface of mixins, and through that -- of objects.
+* Because of the previous two differences, `boost::mixin::object`-s can be (and
+are) completely oblivious to what kinds of mixins there may be, allowing you
+to truly, physically separate a program's subsystems.
 * Some entity-component systems allow serveral entities to point to the same
 instance of a component. This is not possible in Boost.Mixin. An mixin instance
 is bound to an object instance
@@ -112,7 +121,7 @@ is bound to an object instance
 
 [section:ruby_smalltalk Comparison to Ruby and Smalltalk mixins]
 
-If you're familiar with the mixins in Ruby, Groovy, Smalltalk, Squeak and many
+If you're familiar with the mixins in Ruby, Groovy, Smalltalk, Squeak, and many
 other languages, you might find them similar to Boost.Mixin. They all allow
 runtime modifincation of the object's interface, with the cost of
 having runtime (as opposed to compile-time) errors when a message is called for
