@@ -9,14 +9,16 @@
 #include <boost/bind.hpp>
 
 int A_LOT = 100000000;
+int OBJ_NUM = 1000;
 
 using namespace boost::mixin;
 using namespace std;
 
-abstract_class* ac_instance;
-BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)> f_add;
-BOOST_MIXIN_CXX11_NAMESPACE::function<int()> f_sum;
-boost::mixin::object* bm_object;
+abstract_class** ac_instances;
+BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)>* f_add;
+BOOST_MIXIN_CXX11_NAMESPACE::function<int()>* f_sum;
+boost::mixin::object** bm_objects;
+regular_class* regular_objects;
 
 BOOST_DECLARE_MIXIN(regular_class);
 
@@ -61,12 +63,26 @@ extern void initialize_globals()
 {
     // don't care about memory leaks
 
-    // we use this trick to prevent a smart compiler from optimizing away
-    // the virtual calls
-    if(rand()%2)
-        ac_instance = new abstract_instance2;
-    else
-        ac_instance = new abstract_instance;
+    regular_objects = new regular_class[OBJ_NUM];
+
+    ac_instances = new abstract_class*[OBJ_NUM];
+
+    for(int i=0; i<OBJ_NUM; ++i)
+    {
+        abstract_class* c;
+
+        if(rand()%2)
+        {
+            c = new abstract_instance;
+        }
+        else
+        {
+            c = new abstract_instance2;
+        }
+
+        ac_instances[i] = c;
+    }
+
 
 #if BOOST_MIXIN_USING_CXX11
 #   define _1_NAMESPACE placeholders
@@ -74,13 +90,23 @@ extern void initialize_globals()
 #   define _1_NAMESPACE
 #endif
 
-    regular_class* c = new regular_class;
-    f_add = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, c, _1_NAMESPACE::_1);
-    f_sum = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, c);
+    f_add = new BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)>[OBJ_NUM];
+    f_sum = new BOOST_MIXIN_CXX11_NAMESPACE::function<int()>[OBJ_NUM];
 
-    bm_object = new object;
+    regular_class* objs = new regular_class[OBJ_NUM];
+    for(int i=0; i<OBJ_NUM; ++i)
+    {
+        f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs[i], _1_NAMESPACE::_1);
+        f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs[i]);
+    }
 
-    mutate(bm_object).add<regular_class>();
+    bm_objects = new object*[OBJ_NUM];
+
+    for(int i=0; i<OBJ_NUM; ++i)
+    {
+        bm_objects[i] = new object;
+        mutate(bm_objects[i]).add<regular_class>();
+    }
 }
 
 //////////////////////////////////////////////////////

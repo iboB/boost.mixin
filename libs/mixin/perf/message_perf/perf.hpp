@@ -20,6 +20,7 @@
 
 
 extern int A_LOT; // intentionally not const
+extern int OBJ_NUM; // number of objects
 
 //////////////////////////////////
 // regular method
@@ -37,6 +38,8 @@ private:
     int _sum;
 };
 
+extern regular_class* regular_objects;
+
 //////////////////////////////////
 // virtual dispatch
 
@@ -47,18 +50,18 @@ public:
     virtual int sum() const = 0;
 };
 
-extern abstract_class* ac_instance;
+extern abstract_class** ac_instances;
 
 //////////////////////////////////
 // std function
 
-extern BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)> f_add;
-extern BOOST_MIXIN_CXX11_NAMESPACE::function<int()> f_sum;
+extern BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)>* f_add;
+extern BOOST_MIXIN_CXX11_NAMESPACE::function<int()>* f_sum;
 
 //////////////////////////////////
 // boost mixin
 
-extern boost::mixin::object* bm_object;
+extern boost::mixin::object** bm_objects;
 
 BOOST_MIXIN_MESSAGE_1(void, add, int, val);
 BOOST_MIXIN_CONST_MESSAGE_0(int, sum);

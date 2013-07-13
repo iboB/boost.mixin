@@ -73,22 +73,27 @@ struct timer
         { \
             summer; \
         } \
+        thesum = 0; \
+        for(int i=0; i<OBJ_NUM; ++i) \
+        { \
+            thesum += getter; \
+        } \
     } \
-    cout << getter << endl \
+    cout << thesum << endl \
 
 
 int main(int argc, char**)
 {
     initialize_globals();
+    int thesum = 0;
 
-    regular_class rgc;
-    PERF(simple, rgc.add(argc), rgc.sum());
+    PERF(simple, regular_objects[rand()%OBJ_NUM].add(argc), regular_objects[i].sum());
 
-    PERF(virtual, ac_instance->add(argc), ac_instance->sum());
+    PERF(virtual, ac_instances[rand()%OBJ_NUM]->add(argc), ac_instances[i]->sum());
 
-    PERF(std_func, f_add(argc), f_sum());
+    PERF(std_func, f_add[rand()%OBJ_NUM](argc), f_sum[i]());
 
-    PERF(mixin, add(bm_object, argc), sum(bm_object));
+    PERF(mixin, add(bm_objects[rand()%OBJ_NUM], argc), sum(bm_objects[i]));
 
     return 0;
 }
