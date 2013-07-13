@@ -32,7 +32,7 @@
 <a name="boost_mixin.introduction.intro_ecs"></a><a class="link" href="introduction.html#boost_mixin.introduction.intro_ecs" title="Introduction to Mixins">Introduction to Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp4074512"></a>
+        <a class="indexterm" name="idp118112"></a>
       </p>
 <p>
         Speaking generally a mixin is a class that provides a certain functionality
@@ -43,11 +43,11 @@
 <p>
         Many C++ users are familiar with the word mixin as a form of <a href="http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>
         and this is indeed an appropriate name for some cases, although probably
-        a the term "trait" (as in PHP's traits) would have been even better.
+        the term "trait" (as in PHP's traits) would have been even better.
       </p>
 <p>
-        In most languages that explicitly say that they natively support mixins,
-        a mixin is a runtime idiom, much like the components from an entity-component
+        In most languages for which it is explicitly stated that they natively support
+        mixins, a mixin is a runtime idiom, much like the components from an entity-component
         system.
       </p>
 <p>
@@ -61,7 +61,7 @@
 <a name="boost_mixin.introduction.boost_mixin"></a><a class="link" href="introduction.html#boost_mixin.introduction.boost_mixin" title="Boost.Mixin">Boost.Mixin</a>
 </h3></div></div></div>
 <p>
-        In short Boost.Mixin is a way of allowing the construction and modification
+        In short Boost.Mixin is a way of allowing the composition and modification
         of types at runtime.
       </p>
 <p>
@@ -69,7 +69,7 @@
         Boost.Mixin is about:
       </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">;</span>
-<span class="identifier">object</span><span class="special">*</span> <span class="identifier">o</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">object</span><span class="special">;</span> <span class="comment">// just an empty object</span>
+<span class="identifier">object</span><span class="special">*</span> <span class="identifier">o</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">object</span><span class="special">;</span> <span class="comment">// just an empty boost::mixin::object</span>
 
 <span class="comment">// xml_serializer and book_data are some classes in the project</span>
 <span class="comment">// there are external macros you need to call, to make them available as</span>
@@ -83,6 +83,11 @@
 <span class="comment">// multiple inheritance</span>
 
 <span class="comment">// ...</span>
+
+<span class="comment">// set_title and serialize are messages</span>
+<span class="comment">// you can think of them as methods to the class</span>
+<span class="comment">// there are macros that let you define messages</span>
+
 <span class="identifier">set_title</span><span class="special">(</span><span class="identifier">o</span><span class="special">,</span> <span class="string">"The Three Musketeers"</span><span class="special">);</span> <span class="comment">// this will internally call</span>
                                       <span class="comment">// book_data::set_title</span>
 <span class="identifier">serialize</span><span class="special">(</span><span class="identifier">o</span><span class="special">);</span> <span class="comment">// this will internally call xml_serialier::serialize</span>
@@ -98,15 +103,15 @@
 </pre>
 <p>
         This is given, while also having full abstraction between the interface and
-        the definition of types - a problem often given as the motivation for the
-        <a href="http://www.drdobbs.com/cpp/making-pimpl-easy/205918714" target="_top">PIMPL
-        idiom</a>. When constructing objects from mixin, only the forward declaration
-        is needed. When calling messages only the message declaration is needed.
+        the definition of types &#8211; a problem often given as the motivation
+        for the <a href="http://www.drdobbs.com/cpp/making-pimpl-easy/205918714" target="_top">PIMPL
+        idiom</a>. When constructing objects from mixins, only the forward declaration
+        is needed. When calling messages, only the message declaration is needed.
       </p>
 <p>
-        In the aforementioned example the code works without the need to include
-        the definiton of the serializer classes or data classes. The mutation parts
-        of the code, require only to see the macro <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">type_name</span><span class="special">)</span></code> for the mixins used. The message calls require
+        In the example above the code works without the need to include the definiton
+        of the serializer classes or data classes. The mutation parts of the code
+        require only to see the macro <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">type_name</span><span class="special">)</span></code> for the mixins used. The message calls require
         only the message declarations, thus making their compilation units completely
         oblivious to what minxins might actually comprise this object.
       </p>
@@ -136,8 +141,8 @@
             from mixins.
           </li>
 <li class="listitem">
-            consequently mixins can be thought of as a component. You use mixins
-            to build objects, as you use components to build entities.
+            consequently mixins can be thought of as components. You use mixins to
+            build objects just as you use components to build entities.
           </li>
 </ul></div>
 <p>
@@ -151,7 +156,12 @@
           </li>
 <li class="listitem">
             Instead of classes with pure virtual methods, messages are used to represent
-            the functional interface of mixins, and through that of objects.
+            the functional interface of mixins, and through that &#8211; of objects.
+          </li>
+<li class="listitem">
+            Because of the previous two differences, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>-s
+            can be (and are) completely oblivious to what kinds of mixins there may
+            be, allowing you to truly, physically separate a program's subsystems.
           </li>
 <li class="listitem">
             Some entity-component systems allow serveral entities to point to the
@@ -166,7 +176,7 @@
       Ruby and Smalltalk mixins</a>
 </h3></div></div></div>
 <p>
-        If you're familiar with the mixins in Ruby, Groovy, Smalltalk, Squeak and
+        If you're familiar with the mixins in Ruby, Groovy, Smalltalk, Squeak, and
         many other languages, you might find them similar to Boost.Mixin. They all
         allow runtime modifincation of the object's interface, with the cost of having
         runtime (as opposed to compile-time) errors when a message is called for

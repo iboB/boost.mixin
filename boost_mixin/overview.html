@@ -20,6 +20,7 @@
 <a name="boost_mixin.overview"></a><a class="link" href="overview.html" title="Overview">Overview</a>
 </h2></div></div></div>
 <div class="toc"><dl>
+<dt><span class="section"><a href="overview.html#boost_mixin.overview.lib_features">Library features</a></span></dt>
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.object">Objects</a></span></dt>
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.mixin">Mixins</a></span></dt>
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.message">Messages</a></span></dt>
@@ -28,6 +29,61 @@
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.mrules">Mutation rules</a></span></dt>
 <dt><span class="section"><a href="overview.html#boost_mixin.overview.combinators">Result combinators</a></span></dt>
 </dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.overview.lib_features"></a><a class="link" href="overview.html#boost_mixin.overview.lib_features" title="Library features">Library features</a>
+</h3></div></div></div>
+<p>
+        This is a list of all library features. Don't worry if you don't understand
+        some of them. After you've familiarized yourself with the library, return
+        to this list and check it out again.
+      </p>
+<p>
+        <span class="bold"><strong>Main features:</strong></span>
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            Lets you compose of objects from mixins
+          </li>
+<li class="listitem">
+            Allows physical separation between interface and implementation in your
+            code
+          </li>
+<li class="listitem">
+            Allows live mutation of objects: changing their composition at runtime
+          </li>
+<li class="listitem">
+            Multicast messages
+          </li>
+<li class="listitem">
+            Small to negligible call overhead. Message calls are almost as fast as
+            <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code> calls
+          </li>
+</ul></div>
+<p>
+        <span class="bold"><strong>Internal features:</strong></span>
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            Domains of mixins and messages that don't mix
+          </li>
+<li class="listitem">
+            Message priority handle multiple mixins handling the same message
+          </li>
+<li class="listitem">
+            Object mutators to allow you to mutate arrays of objects faster
+          </li>
+<li class="listitem">
+            Mutation rules to allow you to handle mutations object-wide
+          </li>
+<li class="listitem">
+            Result combinators for multicast messages
+          </li>
+<li class="listitem">
+            Allocators to help managing the memory, used by the library
+          </li>
+</ul></div>
+</div>
 <p>
       Here is a list of the major idioms, introduced by Boost.Mixin.
     </p>
@@ -36,7 +92,7 @@
 <a name="boost_mixin.overview.object"></a><a class="link" href="overview.html#boost_mixin.overview.object" title="Objects">Objects</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp4251152"></a>
+        <a class="indexterm" name="idp4768224"></a>
       </p>
 <p>
         An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
@@ -52,7 +108,7 @@
         Now, "type", as mentioned above has nothing to do with the concept
         of type in C++. A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> naturally always is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">:</span><span class="identifier">object</span></code>. The object's type is a runtime
         concept, which is rarely (or never) used in a program. Instead, what's relevant
-        for objects is their interface: which messages they implement.
+        for objects is their interface &#8211; which messages they implement.
       </p>
 <p>
         The purpose of the object is not much different from the objects in the regular
@@ -67,7 +123,7 @@
 <a name="boost_mixin.overview.mixin"></a><a class="link" href="overview.html#boost_mixin.overview.mixin" title="Mixins">Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp4014784"></a>
+        <a class="indexterm" name="idp4785664"></a>
       </p>
 <p>
         A mixin is a class used as a "building block" for an object. In
@@ -96,7 +152,7 @@
 <a name="boost_mixin.overview.message"></a><a class="link" href="overview.html#boost_mixin.overview.message" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp3153024"></a>
+        <a class="indexterm" name="idp4792816"></a>
       </p>
 <p>
         Messages in Boost.Mixin are a way of calling the methods of the mixins that
@@ -117,7 +173,7 @@
 <a name="boost_mixin.overview.message.multicast"></a><a class="link" href="overview.html#boost_mixin.overview.message.multicast" title="Multicast messages">Multicast messages</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp1891728"></a>
+          <a class="indexterm" name="idp4803840"></a>
         </p>
 <p>
           One key difference between messages and methods is the multicast mechanism,
@@ -138,8 +194,8 @@
 <a name="boost_mixin.overview.priority"></a><a class="link" href="overview.html#boost_mixin.overview.priority" title="Message priority">Message priority</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp4320976"></a>
- <a class="indexterm" name="idp4982272"></a>
+        <a class="indexterm" name="idp4813200"></a>
+ <a class="indexterm" name="idp4813952"></a>
       </p>
 <p>
         A message priority can be used for both unicast and multicast messages. In
