@@ -30,6 +30,9 @@ list and check it out again.
 * Mutation rules to allow you to handle mutations object-wide
 * Result combinators for multicast messages
 * Allocators to help managing the memory, used by the library
+* Message overloads
+* Lets you have dynamic libraries that enrich objects without modifying the
+executable source
 
 [endsect]
 
@@ -109,6 +112,40 @@ In the regular case one (at random) of those mixin will handle it. But if you
 define the message as a /multicast/, all of them will. This is very useful for
 cases such as information gathering (say with a message like `trace
 (std::ostream& out)`)
+
+[endsect]
+
+[section:performance Message performance]
+[indexterm2 message..performance]
+
+The performance of messages is indeed slower than regular message calls and even
+virtual function calls. Even though a call's algorithmic complexity is still
+O(1), a number of memory indirections happen in order to call the actual method
+behind the message.
+
+Unfortunately it's hard to estimate exactly how much slower the message call is.
+With perfect cache locality and compiler optimizations a message call will take
+about 15 cycles, compared to about 5-7 cycles for a vritual call and 10-12
+cycles for a std::function call. 15 cycles on a modern 2.8 GHz processor take
+about 5 nanoseconds to execute, which is a negligible cost for a call.
+
+Unfortunately perfect cache locality is hard to come by, and especially hard in
+the case of Boost.Mixin because of the internal memory indirections, and
+potential cache misses in a message call. In an amortized test with cache misses
+for all calls, Boost.Mixin messages take on average about 120 cycles (40
+nanoseconds on the same processor), compared to 90 cycles on average for virtual
+calls.
+
+So, generally speaking if the programmer doesn't take special care to achieve
+cache locality for their object lists, a message call is about 2 times slower
+than a regular method call and about 1.3 times slower than a virtual call, which
+again can be called negligible. If, however, cache locality is an absolutely
+critical feature for the desired performance, the mixin messages will probably
+be detrimental for this code, and the programmers are advised to do something
+else.
+
+Some advice about performance can be found in the
+[link boost_mixin.tutorials.tips_tricks Tips and tricks] section of this book.
 
 [endsect]
 

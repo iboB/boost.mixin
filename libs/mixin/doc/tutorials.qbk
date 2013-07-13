@@ -1,4 +1,4 @@
-[section:tutorials Tutorals]
+[section:tutorials Tutorials]
 
 [section:quickstart Quickstart]
 
@@ -152,6 +152,33 @@ appropriate in order to avoid needless include dependencies.
 
 [endsect]
 
+[endsect]
+
+[section:mutation Object mutations]
+[endsect]
+
+[section:multicast Multicast messages]
+[endsect]
+
+[section:priority Adding priorities to messages]
+[endsect]
+
+[section:overloading Overloading messages]
+[endsect]
+
+[section:mutation_rules Mutation rules]
+[endsect]
+
+[section:combinators Multicast combinators]
+[endsect]
+
+[section:allocators Using custom allocators]
+[endsect]
+
+[section:domain Using different domains]
+[endsect]
+
+[section:dynlib Dynamic libraries and program plugins]
 [endsect]
 
 [section:tips_tricks Tips and tricks]
