@@ -28,6 +28,9 @@ public:
     virtual void dealloc_mixin_data(char* ptr) = 0;
 
     // allocate memory for a mixin instance
+    // the library will requiest a buffer in which to put the mixin
+    // the buffer size will be sizeof(int_ptr_t) + sizeof(actual_mixin_type)
+    // the memory will be used like this: |owning_object*...mixin|
     virtual char* alloc_mixin(size_t size) = 0;
     virtual void dealloc_mixin(char* ptr) = 0;
 
