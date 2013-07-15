@@ -180,6 +180,10 @@
 				Name="mixin"
 				>
 				<File
+					RelativePath="..\..\..\..\boost\mixin\allocators.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\boost\mixin\combinators.hpp"
 					>
 				</File>
@@ -276,6 +280,10 @@
 		<Filter
 			Name="src"
 			>
+			<File
+				RelativePath="..\..\src\allocators.cpp"
+				>
+			</File>
 			<File
 				RelativePath="..\..\src\common_mutation_rules.cpp"
 				>
