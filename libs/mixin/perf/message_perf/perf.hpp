@@ -32,7 +32,7 @@ public:
 
     void add(int i);
 
-    int sum() const { return _sum; }
+    int sum() const;
 
 private:
     int _sum;

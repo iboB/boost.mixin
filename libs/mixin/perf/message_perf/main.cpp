@@ -73,11 +73,11 @@ struct timer
         { \
             summer; \
         } \
-        thesum = 0; \
-        for(int i=0; i<OBJ_NUM; ++i) \
-        { \
-            thesum += getter; \
-        } \
+    } \
+    thesum = 0; \
+    for(int i=0; i<OBJ_NUM; ++i) \
+    { \
+        thesum += getter; \
     } \
     cout << thesum << endl \
 

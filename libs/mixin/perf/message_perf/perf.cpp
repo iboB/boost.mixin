@@ -96,8 +96,8 @@ extern void initialize_globals()
     regular_class* objs = new regular_class[OBJ_NUM];
     for(int i=0; i<OBJ_NUM; ++i)
     {
-        f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs[i], _1_NAMESPACE::_1);
-        f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs[i]);
+        f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs + i, _1_NAMESPACE::_1);
+        f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs + i);
     }
 
     bm_objects = new object*[OBJ_NUM];
@@ -114,6 +114,11 @@ extern void initialize_globals()
 void regular_class::add(int i)
 {
     _sum += i;
+}
+
+int  regular_class::sum() const
+{
+    return _sum;
 }
 
 BOOST_DEFINE_MIXIN(regular_class, add_msg & sum_msg);
