@@ -25,6 +25,7 @@ rule test_all
     local all_tests = ;
 
     all_tests += [ run core.cpp ] ;
+    all_tests += [ run multicast.cpp ] ;
     all_tests += [ run combinators.cpp ] ;
     all_tests += [ run cxx11.cpp ] ;
     all_tests += [ run allocators.cpp ] ;

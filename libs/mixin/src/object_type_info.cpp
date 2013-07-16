@@ -63,7 +63,20 @@ struct bigger_message_priority
 {
     bool operator()(const object_type_info::call_table_entry& a, const object_type_info::call_table_entry& b)
     {
-        return b.message_data->priority < a.message_data->priority;
+        if(b.message_data->priority == a.message_data->priority)
+        {
+            // on the same priority sort by name of mixin
+            // this will guarantee that different compilations of the same mixins sets
+            // will always have the same order of multicast execution
+            const char* name_a = a.message_data->message->dom->mixin_info(a.message_data->_mixin_id).name;
+            const char* name_b = b.message_data->message->dom->mixin_info(b.message_data->_mixin_id).name;
+
+            return strcmp(name_a, name_b) < 0;
+        }
+        else
+        {
+            return b.message_data->priority < a.message_data->priority;
+        }
     }
 };
 

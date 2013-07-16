@@ -7,78 +7,75 @@
 //
 
 #include <boost/mixin.hpp>
+#include <iostream>
 
 using namespace boost::mixin;
+using namespace std;
 
-BOOST_DECLARE_MIXIN(align_default);
-BOOST_DECLARE_MIXIN(align_8);
-BOOST_DECLARE_MIXIN(align_16);
-BOOST_DECLARE_MIXIN(align_32);
+BOOST_DECLARE_MIXIN(a);
+BOOST_DECLARE_MIXIN(b);
+BOOST_DECLARE_MIXIN(c);
+BOOST_DECLARE_MIXIN(d);
 
-BOOST_MIXIN_MULTICAST_MESSAGE_0(void, check_alignment);
+BOOST_MIXIN_MULTICAST_MESSAGE_1(void, trace, std::ostream&, out);
 
 int main()
 {
     object o;
 
     mutate(o)
-        .add<align_default>()
-        .add<align_8>()
-        .add<align_16>()
-        .add<align_32>();
+        .add<a>()
+        .add<b>()
+        .add<c>()
+        .add<d>();
 
-    check_alignment(&o);
+    trace(&o, cout);
+    
+    cout << endl;
 
     return 0;
 }
 
-class align_default
+class a
 {
 public:
-    void check_alignment()
+    void trace(std::ostream& out)
     {
-        BOOST_ASSERT(intptr_t(this) % boost::alignment_of<align_default>::value == 0);
+        out << "a";
     }
 };
 
-#if defined _MSC_VER
-#   define ALIGN(n) __declspec(align(n))
-#else
-#   define ALIGN(n) __attribute__(__aligned__(n))
-#endif
-
-
-class ALIGN(16) align_8
+class b
 {
 public:
-    void check_alignment()
+    void trace(std::ostream& out)
     {
-        BOOST_ASSERT(intptr_t(this) % 8 == 0);
+        out << "b";
     }
 };
 
-class ALIGN(16) align_16
+class c
 {
 public:
-    void check_alignment()
+    void trace(std::ostream& out)
     {
-        BOOST_ASSERT(intptr_t(this) % 16 == 0);
+        out << "c";
     }
 };
 
-class ALIGN(32) align_32
+class d
 {
 public:
-    void check_alignment()
+    void trace(std::ostream& out)
     {
-        BOOST_ASSERT(intptr_t(this) % 32 == 0);
+        out << "d";
     }
 };
 
+// this order should be important if the messages aren't sorted by mixin name
+BOOST_DEFINE_MIXIN(b, trace_msg);
+BOOST_DEFINE_MIXIN(a, trace_msg);
+BOOST_DEFINE_MIXIN(c, trace_msg);
+BOOST_DEFINE_MIXIN(d, trace_msg);
 
-BOOST_DEFINE_MIXIN(align_default, check_alignment_msg);
-BOOST_DEFINE_MIXIN(align_8, check_alignment_msg);
-BOOST_DEFINE_MIXIN(align_16, check_alignment_msg);
-BOOST_DEFINE_MIXIN(align_32, check_alignment_msg);
-
-BOOST_MIXIN_DEFINE_MESSAGE(check_alignment);
+BOOST_MIXIN_DEFINE_MESSAGE(trace);
