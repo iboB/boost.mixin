@@ -59,18 +59,6 @@ void object_type_info::dealloc_mixin_data(mixin_data_in_object* data) const
     _domain->allocator()->dealloc_mixin_data(reinterpret_cast<char*>(data));
 }
 
-char* object_type_info::alloc_mixin(mixin_id id) const
-{
-    BOOST_ASSERT(has(id));
-    return _domain->mixin_info(id).allocator->alloc_mixin(sizeof(object*) + _domain->mixin_info(id).size);
-}
-
-void object_type_info::dealloc_mixin(mixin_id id, char* mem) const
-{
-    BOOST_ASSERT(has(id));
-    return _domain->mixin_info(id).allocator->dealloc_mixin(mem);
-}
-
 struct bigger_message_priority
 {
     bool operator()(const object_type_info::call_table_entry& a, const object_type_info::call_table_entry& b)

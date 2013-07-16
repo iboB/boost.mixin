@@ -39,6 +39,7 @@ public:
     const char* name; // mixin name = name of the actual class
 
     size_t size; // size of the mixin object
+    size_t alignment; // alignment of the mixin type
 
     // procedures, obtained from the mixin definition that makes the actual
     // construction and destruction

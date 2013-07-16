@@ -48,9 +48,6 @@ public:
     mixin_data_in_object* alloc_mixin_data() const;
     void dealloc_mixin_data(mixin_data_in_object* data) const;
 
-    char* alloc_mixin(mixin_id id) const;
-    void dealloc_mixin(mixin_id id, char* mem) const;
-
     void generate_call_table();
 
 boost_mixin_internal:
@@ -100,18 +97,19 @@ public:
     {
     }
 
-    void set_buffer(char* buffer)
+    void set_buffer(char* buffer, size_t mixin_offset)
     {
         BOOST_ASSERT(buffer);
+        BOOST_ASSERT(mixin_offset >= sizeof(object*));
         _buffer = buffer;
-        _mixin = buffer + sizeof(object*);
+        _mixin = buffer + mixin_offset;
     }
 
     void set_object(object* o)
     {
         BOOST_ASSERT(o);
         BOOST_ASSERT(_buffer);
-        object** data_as_objec_ptr = reinterpret_cast<object**>(_buffer);
+        object** data_as_objec_ptr = reinterpret_cast<object**>(_mixin - sizeof(object*));
         *data_as_objec_ptr = o;
     }
 
@@ -127,7 +125,7 @@ public:
     const void* mixin() const { return _mixin; }
 private:
     char* _buffer;
-    void* _mixin;
+    char* _mixin;
 };
 
 }

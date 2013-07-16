@@ -56,18 +56,19 @@ struct custom_allocator : public mixin_allocator, public alloc_counter<T>
         delete[] ptr;
     }
 
-    // allocate memory for a mixin instance
-    virtual char* alloc_mixin(size_t size)
+    virtual void alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset)
     {
         ++alloc_counter<T>::mixin_allocations;
-        return new char[size];
+        _dda.alloc_mixin(mixin_size, mixin_alignment, out_buffer, out_mixin_offset);
     }
 
     virtual void dealloc_mixin(char* ptr)
     {
         ++alloc_counter<T>::mixin_deallocations;
-        delete[] ptr;
+        _dda.dealloc_mixin(ptr);
     }
+
+    internal::default_domain_allocator _dda;
 };
 
 class global_alloc : public custom_allocator<global_alloc> {};

@@ -17,6 +17,7 @@
 #include <boost/mixin/message.hpp>
 
 #include <boost/ptr_container/ptr_set.hpp>
+#include <boost/type_traits/alignment_of.hpp>
 
 #if BOOST_MIXIN_USING_CXX11
 #   include <unordered_map>
@@ -100,6 +101,7 @@ public:
         info.dom = this;
         info.name = BOOST_MIXIN_TYPE_NAME(Mixin);
         info.size = sizeof(Mixin);
+        info.alignment = alignment_of<Mixin>::value;
         info.constructor = &call_mixin_constructor<Mixin>;
         info.destructor = &call_mixin_destructor<Mixin>;
         info.allocator = _own_allocator;

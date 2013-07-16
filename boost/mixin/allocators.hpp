@@ -27,11 +27,23 @@ public:
     virtual char* alloc_mixin_data(size_t count) = 0;
     virtual void dealloc_mixin_data(char* ptr) = 0;
 
+    // calulcates appropriate size for a mixin buffer
+    // so as to satisfy the requirements of mixin size and alignment
+    // AND leave a room for its owning object in front
+    static size_t calculate_mem_size_for_mixin(size_t mixin_size, size_t mixin_alignment);
+
+    // calculates the appropriate offset of the mixin in the buffer
+    // so as to satisfy the requirements of its alignment
+    // AND leave a room for its owning object in front
+    static size_t calculate_mixin_offset(const char* buffer, size_t mixin_alignment);
+
     // allocate memory for a mixin instance
     // the library will requiest a buffer in which to put the mixin
-    // the buffer size will be sizeof(int_ptr_t) + sizeof(actual_mixin_type)
-    // the memory will be used like this: |owning_object*...mixin|
-    virtual char* alloc_mixin(size_t size) = 0;
+    // it should fill the output parameters with the address of the allocated memory
+    // and the offset of the mixin (according to the alignment)
+    // BUT IN SUCH A WAY AS TO ALLOW A POINTER TO BE PLACED IN FRONT
+    // you may use calculate_mem_size_for_mixin and calculate_mixin_offset if you're not sure what to do
+    virtual void alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset) = 0;
     virtual void dealloc_mixin(char* ptr) = 0;
 
     // use this to determine how many bytes you'll allocate for single mixin data
@@ -69,7 +81,7 @@ class BOOST_MIXIN_API default_domain_allocator : public domain_allocator
 public:
     virtual char* alloc_mixin_data(size_t count);
     virtual void dealloc_mixin_data(char* ptr);
-    virtual char* alloc_mixin(size_t size);
+    virtual void alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset);
     virtual void dealloc_mixin(char* ptr);
 };
 

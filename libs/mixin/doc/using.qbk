@@ -32,10 +32,11 @@ Boost.Mixin:
 * Boost.Foreach
 * BOOST_ASSERT from Boost utility libraries
 * Boost.Exception if you choose to have exceptions enabled
+* Boost.Type Traits
 
 For non-C++11 builds the following libraries must be also available:
 
-* Boost.Unordered - used internally
+* Boost.Unordered -- used internally
 
 [endsect]
 
