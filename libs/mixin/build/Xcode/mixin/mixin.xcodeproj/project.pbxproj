@@ -41,6 +41,8 @@
 		1F2A5B9116E7AEF600CD32E1 /* object.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1F2A5B7C16E7AEF600CD32E1 /* object.hpp */; };
 		1F2A5B9216E7AEF600CD32E1 /* same_type_mutator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1F2A5B7D16E7AEF600CD32E1 /* same_type_mutator.hpp */; };
 		1F2A5B9316E7AEF600CD32E1 /* single_object_mutator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1F2A5B7E16E7AEF600CD32E1 /* single_object_mutator.hpp */; };
+		1F4E7D8017996CD400EFBC49 /* allocators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1F4E7D7F17996CD400EFBC49 /* allocators.hpp */; };
+		1F4E7D8217996CEA00EFBC49 /* allocators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E7D8117996CEA00EFBC49 /* allocators.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		1F2A5B7D16E7AEF600CD32E1 /* same_type_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = same_type_mutator.hpp; path = ../../../../../boost/mixin/same_type_mutator.hpp; sourceTree = "<group>"; };
 		1F2A5B7E16E7AEF600CD32E1 /* single_object_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = single_object_mutator.hpp; path = ../../../../../boost/mixin/single_object_mutator.hpp; sourceTree = "<group>"; };
 		1F2A5B9416E7AF1000CD32E1 /* message_macros.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = message_macros.ipp; path = ../../../../../boost/mixin/gen/message_macros.ipp; sourceTree = "<group>"; };
+		1F4E7D7F17996CD400EFBC49 /* allocators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = allocators.hpp; path = ../../../../../boost/mixin/allocators.hpp; sourceTree = "<group>"; };
+		1F4E7D8117996CEA00EFBC49 /* allocators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = allocators.cpp; path = ../../../src/allocators.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,7 @@
 		1F2A5B6416E7AEB000CD32E1 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				1F4E7D8117996CEA00EFBC49 /* allocators.cpp */,
 				1F2A5B4C16E7AEA500CD32E1 /* common_mutation_rules.cpp */,
 				1F2A5B4D16E7AEA500CD32E1 /* domain.cpp */,
 				1F2A5B4E16E7AEA500CD32E1 /* global.cpp */,
@@ -141,6 +146,7 @@
 		1F2A5B6816E7AED900CD32E1 /* mixin */ = {
 			isa = PBXGroup;
 			children = (
+				1F4E7D7F17996CD400EFBC49 /* allocators.hpp */,
 				1F2A5B6916E7AEE100CD32E1 /* gen */,
 				1F2A5B6A16E7AEF600CD32E1 /* combinators.hpp */,
 				1F2A5B6B16E7AEF600CD32E1 /* common_mutation_rules.hpp */,
@@ -205,6 +211,7 @@
 				1F2A5B9116E7AEF600CD32E1 /* object.hpp in Headers */,
 				1F2A5B9216E7AEF600CD32E1 /* same_type_mutator.hpp in Headers */,
 				1F2A5B9316E7AEF600CD32E1 /* single_object_mutator.hpp in Headers */,
+				1F4E7D8017996CD400EFBC49 /* allocators.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +277,7 @@
 				1F2A5B6116E7AEA500CD32E1 /* object.cpp in Sources */,
 				1F2A5B6216E7AEA500CD32E1 /* same_type_mutator.cpp in Sources */,
 				1F2A5B6316E7AEA500CD32E1 /* single_object_mutator.cpp in Sources */,
+				1F4E7D8217996CEA00EFBC49 /* allocators.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +386,7 @@
 				1F2A5B4B16E7AE8000CD32E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
