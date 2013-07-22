@@ -56,7 +56,7 @@ public:
     void create();
 protected:
 
-    void apply_to(object* obj) const;
+    void apply_to(object& obj) const;
 
     object_type_mutation _mutation;
     const object_type_info* _target_type_info;

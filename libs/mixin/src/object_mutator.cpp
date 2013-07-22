@@ -108,12 +108,12 @@ void object_mutator::create()
     }
 }
 
-void object_mutator::apply_to(object* obj) const
+void object_mutator::apply_to(object& obj) const
 {
     BOOST_ASSERT(_is_created);
     BOOST_ASSERT(_mutation._source);
     // we need to mutate only objects of the same type
-    BOOST_ASSERT(obj->_type_info->as_mixin_collection() == _mutation._source);
+    BOOST_ASSERT(obj._type_info->as_mixin_collection() == _mutation._source);
 
     if(!_target_type_info)
     {
@@ -123,28 +123,28 @@ void object_mutator::apply_to(object* obj) const
 
     // shouldn't be trying to set the same type info
     // unless they're both null, which is covereted by the previous if
-    BOOST_ASSERT(obj->_type_info != _target_type_info);
+    BOOST_ASSERT(obj._type_info != _target_type_info);
 
     if(_target_type_info == &object_type_info::null())
     {
-        obj->clear();
+        obj.clear();
         return;
     }
 
     BOOST_FOREACH(const mixin_type_info* rem, _mutation._removing._compact_mixins)
     {
         // we allow removing of mixins that aren't even there
-        if(obj->internal_has_mixin(rem->id))
-            obj->destroy_mixin(rem->id);
+        if(obj.internal_has_mixin(rem->id))
+            obj.destroy_mixin(rem->id);
     }
 
-    obj->change_type(_target_type_info, false);
+    obj.change_type(_target_type_info, false);
 
     BOOST_FOREACH(const mixin_type_info* add, _mutation._adding._compact_mixins)
     {
         // we allow adding mixins that are already there
-        if(!obj->internal_get_mixin(add->id))
-            obj->construct_mixin(add->id);
+        if(!obj.internal_get_mixin(add->id))
+            obj.construct_mixin(add->id);
     }
 }
 

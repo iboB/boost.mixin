@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(message_move_semantics)
 
     movable it(17);
 
-    i_like(&to, std::move(it));
+    i_like(to, std::move(it));
 
     BOOST_CHECK_EQUAL(it.var, 0);
 }

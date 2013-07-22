@@ -15,11 +15,11 @@ public:
 
     void change_rendering_sytem();
 
-    std::vector<boost::mixin::object*>& objects()
+    boost::ptr_vector<boost::mixin::object>& objects()
     {
         return _objects;
     }
 
 private:
-    std::vector<boost::mixin::object*> _objects;
+    boost::ptr_vector<boost::mixin::object> _objects;
 };

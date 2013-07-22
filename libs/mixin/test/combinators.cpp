@@ -90,7 +90,7 @@ private:
 
 BOOST_AUTO_TEST_CASE(the_test)
 {
-    object* o = new object;
+    object o;
     mutate(o)
         .add<a>()
         .add<b>()
@@ -157,8 +157,6 @@ BOOST_AUTO_TEST_CASE(the_test)
     count_smaller.set_compare_value(1);
     dval(o, count_smaller);
     BOOST_CHECK_EQUAL(count_smaller.count(), 3);
-
-    delete o;
 };
 
 

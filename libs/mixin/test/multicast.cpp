@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(different_priority)
         .add<d>();
 
     ostringstream sout;
-    priority_trace(&o, sout);
+    priority_trace(o, sout);
     BOOST_CHECK_EQUAL(sout.str(), "210-1");
 }
 
@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(same_priority)
         .add<d>();
 
     ostringstream sout;
-    trace(&o, sout);
+    trace(o, sout);
     BOOST_CHECK_EQUAL(sout.str(), "abcd");
 }
 

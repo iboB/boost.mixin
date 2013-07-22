@@ -29,7 +29,7 @@ public:
     same_type_mutator(const internal::object_type_info* info);
 
     // not using but hiding parent's function
-    void apply_to(object* o);
+    void apply_to(object& o);
 };
 
 }

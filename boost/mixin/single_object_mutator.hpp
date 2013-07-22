@@ -36,7 +36,7 @@ public:
     void apply();
 
 private:
-    object* _object;
+    object& _object;
     bool _is_manually_applied;
 };
 

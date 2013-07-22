@@ -23,14 +23,14 @@ int main()
 
     m.create_objects();
 
-    object* o = m.objects()[rand()%m.objects().size()];
+    object& o = m.objects()[rand()%m.objects().size()];
 
     trace(o, cout);
 
     rotate(o, 5);
     render(o, 7); // overload with target
 
-    cout << "object implements opengl_specific_msg: " << boolalpha << o->implements(opengl_specific_msg) << endl;
+    cout << "object implements opengl_specific_msg: " << boolalpha << o.implements(opengl_specific_msg) << endl;
 
     cout << endl << "======== changing rendering system ========" << endl << endl;
     m.change_rendering_sytem();
@@ -41,7 +41,7 @@ int main()
     rotate(o, 3);
     render(o); // overload with no specified target
 
-    cout << "object implements opengl_specific_msg: " << boolalpha << o->implements(opengl_specific_msg) << endl;
+    cout << "object implements opengl_specific_msg: " << boolalpha << o.implements(opengl_specific_msg) << endl;
 
     return 0;
 }

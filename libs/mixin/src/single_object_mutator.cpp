@@ -23,14 +23,14 @@ namespace mixin
 using namespace internal;
 
 single_object_mutator::single_object_mutator(object* o)
-    : _object(o)
+    : _object(*o)
     , _is_manually_applied(false)
 {
     BOOST_ASSERT(o);
 }
 
 single_object_mutator::single_object_mutator(object& o)
-    : _object(&o)
+    : _object(o)
     , _is_manually_applied(false)
 {
 }
@@ -46,7 +46,7 @@ single_object_mutator::~single_object_mutator()
 
 void single_object_mutator::apply()
 {
-    _mutation.set_source(_object->_type_info->as_mixin_collection());
+    _mutation.set_source(_object._type_info->as_mixin_collection());
     create();
     apply_to(_object);
     cancel(); // to go back to empty state

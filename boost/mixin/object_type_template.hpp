@@ -34,7 +34,7 @@ public:
     using internal::object_mutator::create;
 
     // hiding the parent function, not using it
-    void apply_to(object* o) const;
+    void apply_to(object& o) const;
 };
 
 }

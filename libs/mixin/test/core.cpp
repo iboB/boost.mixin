@@ -80,12 +80,13 @@ BOOST_AUTO_TEST_CASE(simple_inline_mutation)
 
 BOOST_AUTO_TEST_CASE(basic_message)
 {
-    object* o = new object;
+    object o;
     mutate(o).add<type_checker>();
 
-    BOOST_CHECK_EQUAL(get_self(o), o->get<type_checker>());
+    BOOST_CHECK_EQUAL(get_self(o), o.get<type_checker>());
 
-    delete o;
+    // works as ptr too
+    BOOST_CHECK_EQUAL(get_self(&o), o.get<type_checker>());
 }
 
 BOOST_AUTO_TEST_CASE(complex_apply_mutation)
@@ -163,7 +164,7 @@ BOOST_AUTO_TEST_CASE(type_template)
     BOOST_CHECK(o1.implements(dummy_msg));
 
     object o2;
-    type.apply_to(&o2);
+    type.apply_to(o2);
     BOOST_CHECK(o2.has<no_messages>());
     BOOST_CHECK_NOT_NULL(o2.get<no_messages>());
     BOOST_CHECK(o2.has<counter>());
@@ -175,7 +176,7 @@ BOOST_AUTO_TEST_CASE(type_template)
         .add<counter>();
     o3.get<counter>()->count_uni();
     BOOST_CHECK_EQUAL(o3.get<counter>()->get_count(), 1);
-    type.apply_to(&o3);
+    type.apply_to(o3);
     // applying a type template should reset the object
     BOOST_CHECK_EQUAL(o3.get<counter>()->get_count(), 0);
 }

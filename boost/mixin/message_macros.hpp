@@ -21,7 +21,7 @@
 // a macro used in messages to get the mixin data directly, skipping function calls
 // GREATLY improves message call time
 #define _BOOST_MIXIN_GET_MIXIN_DATA(obj, id) \
-    reinterpret_cast<char*>(const_cast<void*>(obj->_mixin_data[obj->_type_info->_mixin_indices[id]].mixin()))
+    reinterpret_cast<char*>(const_cast<void*>(obj._mixin_data[obj._type_info->_mixin_indices[id]].mixin()))
 
 // a macro that forwards rvalue references message arguments in c++11
 #if BOOST_MIXIN_USING_CXX11

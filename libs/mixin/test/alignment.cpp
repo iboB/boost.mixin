@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(aligned_mixin)
     BOOST_CHECK(intptr_t(o.get<align_16>()) % 16 == 0);
     BOOST_CHECK(intptr_t(o.get<align_32>()) % 32 == 0);
 
-    check_alignment(&o);
+    check_alignment(o);
 }
 
 class align_default

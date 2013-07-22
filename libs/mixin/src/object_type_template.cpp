@@ -24,10 +24,9 @@ object_type_template::object_type_template()
 {
 }
 
-void object_type_template::apply_to(object* o) const
+void object_type_template::apply_to(object& o) const
 {
-    BOOST_ASSERT(o);
-    o->clear();
+    o.clear();
     object_mutator::apply_to(o);
 }
 

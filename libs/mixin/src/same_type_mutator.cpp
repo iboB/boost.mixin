@@ -32,11 +32,11 @@ same_type_mutator::same_type_mutator(const internal::object_type_info* info)
 }
 
 
-void same_type_mutator::apply_to(object* o)
+void same_type_mutator::apply_to(object& o)
 {
     if(!_is_created)
     {
-        _mutation.set_source(o->_type_info->as_mixin_collection());
+        _mutation.set_source(o._type_info->as_mixin_collection());
         create();
     }
 

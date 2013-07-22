@@ -35,10 +35,8 @@ void object_manager::create_objects()
 
     for(int i=0; i<10; ++i)
     {
-        object* o = new object(type);
-
-        set_id(o, i);
-        _objects.push_back(o);
+        _objects.push_back(new object(type));
+        set_id(_objects.back(), i);
     }
 }
 
@@ -52,7 +50,7 @@ void object_manager::change_rendering_sytem()
 
     for(size_t i=0; i<_objects.size(); ++i)
     {
-        object* o = _objects[i];
+        object& o = _objects[i];
 
         mutator.apply_to(o);
     }

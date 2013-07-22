@@ -36,7 +36,7 @@ object::object(const object_type_template& type)
     : _type_info(&object_type_info::null())
     , _mixin_data(&null_mixin_data)
 {
-    type.apply_to(this);
+    type.apply_to(*this);
 }
 
 object::~object()
