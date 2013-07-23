@@ -8,11 +8,11 @@
 
 [section:appendix Appendix]
 
-[section:app_ecs Appendix A. Entity-component systems]
+[section:app_ecs Appendix A. Entity-component-systems]
 
-[section:what_is_an_ecs What is an entity-component system?]
+[section:what_is_an_ecs What is an entity-component-system?]
 
-An entity-component system (ECS) allows users to create entities which consist
+An entity-component-system (ECS) allows users to create entities which consist
 of components. A simplified way of thinking about that is a container of
 instances of unique types. Another way of thinking about said entities is like
 they are objects produced from multiple inheritance only they are constructed in
@@ -38,7 +38,7 @@ with multiple inheritance as its contents cannot be statically analyzed.
 
 [endsect]
 
-[section:whats_good_in_ecs Why are entity-component systems good?]
+[section:whats_good_in_ecs Why are entity-component-systems good?]
 
 They allow the users to achieve true decoupling of their subsystems. For example
 if we extend the above example to have a registered component of type
@@ -75,7 +75,7 @@ product and introducing it as an optional plug-in becomes a breeze.
 
 [endsect]
 
-[section:who_uses_ecs Who uses entity-component systems?]
+[section:who_uses_ecs Who uses entity-component-systems?]
 
 They are very popular in game development, as most objects in a game have many
 different aspects for different sub-systems. Still, being as powerful as they
@@ -101,14 +101,14 @@ in which he describes the benefits of using an ECS and gives a simple example.
 * Adam Martin has a great [@http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/
 series of articles] on the subject. Especially on how such systems are related
 to game and MMOG development.
-* An existing simple classic entity-component system is
+* An existing simple classic entity-component-system is
 [@http://code.google.com/p/cistron/ cistron] by Karel Crombecq. You can also
 check out the [@http://www.codeximperium.be/stuff/Component-based%20programming.pdf slides]
 from his presentation on the subject.
 * Building Object Systems is a talk by Alex Duran. The slides are available
 [@http://wenku.baidu.com/view/7917fe26ccbff121dd3683b6.html here].
 * Chris Granger has an [@http://www.chris-granger.com/2012/12/11/anatomy-of-a-knockout/
-article] on the benefits of using an entity-component system in ClojureScript
+article] on the benefits of using an entity-component-system in ClojureScript
 for game development
 * An interesting discussion on the subject can be found at the
 [@http://forums.xkcd.com/viewtopic.php?f=11&t=81459 xkcd forums].
