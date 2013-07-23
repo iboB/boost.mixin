@@ -45,6 +45,8 @@ write it in their own free time, so concrete dates are hard to estimate)
     * Vectorized mixin/message memory: Instead of having a maximal number of
     them in a domain, grow the mixin_type_info/message_info buffers by that
     number
+    * Unused type garbage collector. When no objects exist of a given type it
+    can be garbage collected, saving up to a kilobyte of memory.
 * When humankind becomes a Kardashev type two civilization:
     * Integration with Boost.Thread. Call messages for a specific thread.
     * User-defined message hooks. Sample implementation with messages called on
