@@ -26,6 +26,10 @@
 [def -- \u2013]
 [template indexterm[term] '''<indexterm><primary>'''[term]'''</primary></indexterm>''']
 [template indexterm2[term1 term2] '''<indexterm><primary>'''[term1]'''</primary><secondary>'''[term2]'''</secondary></indexterm>''']
+[/
+    replace with [@boost:/libs/type_erasure/example/[filename] [filename]] when part of boost
+/]
+[template tutorialfile[filename] '''<ulink url="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/'''[filename]'''">'''[filename]'''</ulink>''']
 
 [/ =========================================================================== ]
 
@@ -39,11 +43,7 @@ libraries collection]. It will be submitted for review somewhere in late 2013.
 [endsect]
 
 [include introduction.qbk]
-[include overview.qbk]
-[include using.qbk]
-[include examples.qbk]
-[include tutorials.qbk]
-[include reference.qbk]
+[include basic_usage.qbk]
 [include roadmap.qbk]
 [include appendix.qbk]
 [xinclude index.xml]

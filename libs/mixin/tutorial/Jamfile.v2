@@ -1,0 +1,18 @@
+#
+# Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+#
+# Distributed under the Boost Software License, Version 1.0.
+# See accompanying file LICENSE_1_0.txt or copy at
+# http:#www.boost.org/LICENSE_1_0.txt
+#
+
+project boost/mixin/tutorials
+    : requirements
+        # not realy a requirement but for now it's easier this way
+        <toolset>gcc:<cxxflags>-std=c++0x
+        <toolset>clang:<cxxflags>-std=c++0x
+
+        <library>../build//boost_mixin
+    ;
+
+exe basic : basic.cpp ;

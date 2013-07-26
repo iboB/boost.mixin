@@ -15,9 +15,11 @@ at run time. Types and objects are constructed out of building blocks called
 mixins enabling an effect similar to multiple inheritance, while allowing the
 client code to remain oblivious to the actual composition of the objects.
 
-The result closely resembles the popular pattern
+A take on the
+[@http://en.wikipedia.org/wiki/Composition_over_inheritance Composition over inheritance]
+technique, the result closely resembles the popular pattern
 [link boost_mixin.appendix.app_ecs entity-component-system],
-or to the
+or the
 [@http://www.ruby-doc.org/docs/ProgrammingRuby/html/tut_modules.html mixins in Ruby].
 It can also be compared to the
 [@http://archive.eiffel.com/doc/online/eiffel50/intro/language/tutorial-10.html inheritance in Eiffel]
