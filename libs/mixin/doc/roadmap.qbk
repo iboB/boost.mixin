@@ -24,12 +24,15 @@ write it in their own free time, so concrete dates are hard to estimate)
     * Add more graceful runtime error handling, more specific non-breaking exceptions
     * Formal submission to Boost
 * Not soon, but with concrete idea of how to be done:
+    * Message bids -- allow mixins to "bid" for different messages (analogous to
+    `priority` for unicasts, but hides implementations on multicast messages)
     * object copy-constructors + mixin feature `copyable`
-    * private messages/mixins - messages/mixins that are not used outside of a
+    * private messages/mixins -- messages/mixins that are not used outside of a
     module - leave more room for other messages/mixins in a domain
     * Add a new mixin feature `fact`. Facts are static const variables in a
     mixin. No multicasts. No virtual tables.
-    * Add default message implementations (if none is provided)
+    * Add possibility for custom default message implementations
+    (instead of a runtime error if no message is provided)
     * Call mixin constructors when mutating object or constructing them via
     object type templates. Sample usage:
     `mutate(obj).add<mixin>("foo", param2).add<other_mixin>(42)`
