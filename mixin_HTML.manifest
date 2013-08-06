@@ -1,9 +1,12 @@
 index.html
 boost_mixin/introduction.html
-boost_mixin/overview.html
+boost_mixin/basic.html
 boost_mixin/using.html
-boost_mixin/examples.html
+boost_mixin/case_study.html
+boost_mixin/glossary.html
 boost_mixin/tutorials.html
+boost_mixin/examples.html
+boost_mixin/advanced.html
 boost_mixin/reference.html
 boost_mixin/roadmap.html
 boost_mixin/appendix.html

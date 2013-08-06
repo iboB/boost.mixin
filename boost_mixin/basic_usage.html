@@ -1,0 +1,243 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Basic usage</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="prev" href="introduction.html" title="Introduction">
+<link rel="next" href="roadmap.html" title="Roadmap">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="introduction.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="roadmap.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_mixin.basic_usage"></a><a class="link" href="basic_usage.html" title="Basic usage">Basic usage</a>
+</h2></div></div></div>
+<p>
+      (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/basic.cpp" target="_top">basic.cpp</a>)
+    </p>
+<p>
+      Let's imagine a program that needs to create representations for various music
+      players.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">cd_player</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="identifier">string</span> <span class="identifier">get_sound</span><span class="special">();</span>
+    <span class="keyword">void</span> <span class="identifier">insert_cd</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">cd</span><span class="special">);</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="identifier">string</span> <span class="identifier">_cd</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">class</span> <span class="identifier">mp3_player</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="identifier">string</span> <span class="identifier">get_sound</span><span class="special">();</span>
+    <span class="keyword">void</span> <span class="identifier">copy_mp3</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">mp3</span><span class="special">);</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="identifier">string</span> <span class="identifier">_mp3</span><span class="special">;</span>
+<span class="special">};</span></pre>
+<p>
+    </p>
+<p>
+      As you can see with respect to the type media is played we could have those
+      two classes that share the interface <code class="computeroutput"><span class="identifier">get_sound</span></code>
+      and have some unique methods to provide the media.
+    </p>
+<p>
+      An approach, alternative to Boost.Mixin here could have been to have a common
+      parent with a pure virtual method <code class="computeroutput"><span class="identifier">get_sound</span></code>.
+    </p>
+<p>
+      Now let's add the macros that will make our classes work as mixins and the
+      macro that will define the message, that they will implement.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">BOOST_MIXIN_MESSAGE_0</span><span class="special">(</span><span class="identifier">string</span><span class="special">,</span> <span class="identifier">get_sound</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">get_sound</span><span class="special">);</span>
+
+<span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">cd_player</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">cd_player</span><span class="special">,</span> <span class="identifier">get_sound_msg</span><span class="special">);</span>
+
+<span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">mp3_player</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">mp3_player</span><span class="special">,</span> <span class="identifier">get_sound_msg</span><span class="special">);</span></pre>
+<p>
+    </p>
+<p>
+      Although we declare and define the messsages and mixins on consecutive lines
+      here, this is not a requierment. Normally you'd want to have the declarations
+      in header files and the definitions in cpp files. See the more detailed Examples
+      section for an example about that.
+    </p>
+<p>
+      Now let's define a new axis for our classes: the type of output they'll have:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">headphones_player</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">play</span><span class="special">();</span>
+<span class="special">};</span>
+
+<span class="keyword">class</span> <span class="identifier">speakers_player</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">play</span><span class="special">();</span>
+<span class="special">};</span></pre>
+<p>
+    </p>
+<p>
+      and then, again "tell" the library about the new message and mixins:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">BOOST_MIXIN_MESSAGE_0</span><span class="special">(</span><span class="keyword">void</span><span class="special">,</span> <span class="identifier">play</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">play</span><span class="special">);</span>
+
+<span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">headphones_player</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">headphones_player</span><span class="special">,</span> <span class="identifier">play_msg</span><span class="special">);</span>
+
+<span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">speakers_player</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">speakers_player</span><span class="special">,</span> <span class="identifier">play_msg</span><span class="special">);</span>
+</pre>
+<p>
+    </p>
+<p>
+      Now we're ready to create a simple object composed from our newly defined mixins:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">sound_player</span><span class="special">;</span>
+
+<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">cd_player</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">headphones_player</span><span class="special">&gt;();</span></pre>
+<p>
+    </p>
+<p>
+      Now we have an empty object, which has internally instantiated the mixin classes.
+      So let's start using it.
+    </p>
+<p>
+      Since there is no polymorphic way of setting the music, we'll have to explicitly
+      get the apporpriate mixin and set it like this:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">sound_player</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">cd_player</span><span class="special">&gt;()-&gt;</span><span class="identifier">insert_cd</span><span class="special">(</span><span class="string">"Led Zeppelin IV (1971)"</span><span class="special">);</span></pre>
+<p>
+    </p>
+<p>
+      However playing music <span class="bold"><strong>is</strong></span> a polymorphic operation
+      and via the message <code class="computeroutput"><span class="identifier">play</span></code> it
+      can be done in this simple manner:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">play</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">);</span></pre>
+<p>
+    </p>
+<p>
+      This is the way to call Boos.Mixin messages. They are nothing more than global
+      functions defined by the <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MESSAGE</span></code>
+      macros. Internally they will find the appropriate class instance and call the
+      appropriate message (or trigger a run-time error if this cannot be done).
+    </p>
+<p>
+      Something else that we can do with our object is make a live mutation of its
+      type via the <code class="computeroutput"><span class="identifier">mutate</span></code> class.
+      And change the playing behaviour.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">headphones_player</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">speakers_player</span><span class="special">&gt;();</span>
+
+<span class="identifier">play</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">);</span></pre>
+<p>
+    </p>
+<p>
+      The music is now being played through speakers instead of headphones.
+    </p>
+<p>
+      Naturally we could also mutate the object by changing the media provider part:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">cd_player</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">mp3_player</span><span class="special">&gt;();</span>
+
+<span class="identifier">sound_player</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">mp3_player</span><span class="special">&gt;()-&gt;</span><span class="identifier">copy_mp3</span><span class="special">(</span><span class="string">"Led Zeppelin - Black Dog.mp3"</span><span class="special">);</span>
+
+<span class="identifier">play</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">);</span></pre>
+<p>
+    </p>
+<p>
+      And have "Black Dog" played through the existing mixin <code class="computeroutput"><span class="identifier">speakers_player</span></code>.
+    </p>
+<p>
+      Compared to a classic approach to a similar problem: multiple inheritance this
+      saves us a lot of classes &#8211; in this case four for all the combinations
+      of types of media and types of speakers, which might not sound like much, but
+      keep in mind that the library is appropriate for big systems, that may have
+      hundreds or even thousands of possible combinations.
+    </p>
+<p>
+      The last thing we'll cover in this basic example is how the speakers-specific
+      players knew what sound to play. Remember the message we defined earlier, that
+      was supposed to be used to retrieve the sound from the media-specific players
+      &#8211; <code class="computeroutput"><span class="identifier">get_sound</span></code>. It wasn't
+      used before, but it is used by the speakers to obtain the sound polymorphically.
+    </p>
+<p>
+      All mixins may use a special macro that refers to their owning object &#8211;
+      <code class="computeroutput"><span class="identifier">bm_this</span></code>. Thus the following
+      (pseudo) methods are possible:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">headphones_player</span><span class="special">::</span><span class="identifier">play</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"playing "</span> <span class="special">&lt;&lt;</span> <span class="identifier">get_sound</span><span class="special">(</span><span class="identifier">bm_this</span><span class="special">)</span>
+        <span class="special">&lt;&lt;</span> <span class="string">" through headphones"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">void</span> <span class="identifier">speakers_player</span><span class="special">::</span><span class="identifier">play</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"PLAYING "</span> <span class="special">&lt;&lt;</span> <span class="identifier">get_sound</span><span class="special">(</span><span class="identifier">bm_this</span><span class="special">)</span>
+        <span class="special">&lt;&lt;</span> <span class="string">" THROUGH SPEAKERS"</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span></pre>
+<p>
+    </p>
+<p>
+      And this covers the most basic usage of Boost.Mixin.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="introduction.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="roadmap.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,105 +1,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Overview</title>
+<title>Glossary</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
-<link rel="prev" href="introduction.html" title="Introduction">
-<link rel="next" href="using.html" title="Using Boost.Mixin">
+<link rel="prev" href="case_study.html" title="Case study">
+<link rel="next" href="tutorials.html" title="Tutorials">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="introduction.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="using.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="case_study.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="tutorials.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="boost_mixin.overview"></a><a class="link" href="overview.html" title="Overview">Overview</a>
+<a name="boost_mixin.glossary"></a><a class="link" href="glossary.html" title="Glossary">Glossary</a>
 </h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.lib_features">Library features</a></span></dt>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.object">Objects</a></span></dt>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.mixin">Mixins</a></span></dt>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.message">Messages</a></span></dt>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.priority">Message priority</a></span></dt>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.mutators">Mutators</a></span></dt>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.mrules">Mutation rules</a></span></dt>
-<dt><span class="section"><a href="overview.html#boost_mixin.overview.combinators">Result combinators</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.object">Objects</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.mixin">Mixins</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.message">Messages</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.priority">Message priority</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.mutators">Mutators</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.mrules">Mutation rules</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.combinators">Result combinators</a></span></dt>
 </dl></div>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.lib_features"></a><a class="link" href="overview.html#boost_mixin.overview.lib_features" title="Library features">Library features</a>
-</h3></div></div></div>
-<p>
-        This is a list of all library features. Don't worry if you don't understand
-        some of them. After you've familiarized yourself with the library, return
-        to this list and check it out again.
-      </p>
-<p>
-        <span class="bold"><strong>Main features:</strong></span>
-      </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
-            Lets you compose of objects from mixins
-          </li>
-<li class="listitem">
-            Allows physical separation between interface and implementation in your
-            code
-          </li>
-<li class="listitem">
-            Allows live mutation of objects: changing their composition at runtime
-          </li>
-<li class="listitem">
-            Multicast messages
-          </li>
-<li class="listitem">
-            Small to negligible call overhead. Message calls are almost as fast as
-            <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code> calls
-          </li>
-</ul></div>
-<p>
-        <span class="bold"><strong>Internal features:</strong></span>
-      </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
-            Domains of mixins and messages that don't mix
-          </li>
-<li class="listitem">
-            Message priority handle multiple mixins handling the same message
-          </li>
-<li class="listitem">
-            Object mutators to allow you to mutate arrays of objects faster
-          </li>
-<li class="listitem">
-            Mutation rules to allow you to handle mutations object-wide
-          </li>
-<li class="listitem">
-            Result combinators for multicast messages
-          </li>
-<li class="listitem">
-            Allocators to help managing the memory, used by the library
-          </li>
-<li class="listitem">
-            Message overloads
-          </li>
-<li class="listitem">
-            Lets you have dynamic libraries that enrich objects without modifying
-            the executable source
-          </li>
-</ul></div>
-</div>
 <p>
       Here is a list of the major idioms, introduced by Boost.Mixin.
     </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.object"></a><a class="link" href="overview.html#boost_mixin.overview.object" title="Objects">Objects</a>
+<a name="boost_mixin.glossary.object"></a><a class="link" href="glossary.html#boost_mixin.glossary.object" title="Objects">Objects</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5067200"></a>
+        <a class="indexterm" name="idp5234448"></a>
       </p>
 <p>
         An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
@@ -127,10 +64,10 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.mixin"></a><a class="link" href="overview.html#boost_mixin.overview.mixin" title="Mixins">Mixins</a>
+<a name="boost_mixin.glossary.mixin"></a><a class="link" href="glossary.html#boost_mixin.glossary.mixin" title="Mixins">Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5084640"></a>
+        <a class="indexterm" name="idp5251888"></a>
       </p>
 <p>
         A mixin is a class used as a "building block" for an object. In
@@ -156,10 +93,10 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.message"></a><a class="link" href="overview.html#boost_mixin.overview.message" title="Messages">Messages</a>
+<a name="boost_mixin.glossary.message"></a><a class="link" href="glossary.html#boost_mixin.glossary.message" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5091792"></a>
+        <a class="indexterm" name="idp5259040"></a>
       </p>
 <p>
         Messages in Boost.Mixin are a way of calling the methods of the mixins that
@@ -177,10 +114,10 @@
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="boost_mixin.overview.message.multicast"></a><a class="link" href="overview.html#boost_mixin.overview.message.multicast" title="Multicast messages">Multicast messages</a>
+<a name="boost_mixin.glossary.message.multicast"></a><a class="link" href="glossary.html#boost_mixin.glossary.message.multicast" title="Multicast messages">Multicast messages</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp5102816"></a>
+          <a class="indexterm" name="idp5270064"></a>
         </p>
 <p>
           One key difference between messages and methods is the multicast mechanism,
@@ -195,57 +132,14 @@
           with a message like <code class="computeroutput"><span class="identifier">trace</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">)</span></code>)
         </p>
 </div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="boost_mixin.overview.message.performance"></a><a class="link" href="overview.html#boost_mixin.overview.message.performance" title="Message performance">Message performance</a>
-</h4></div></div></div>
-<p>
-          <a class="indexterm" name="idp5112048"></a>
-        </p>
-<p>
-          The performance of messages is indeed slower than regular message calls
-          and even virtual function calls. Even though a call's algorithmic complexity
-          is still O(1), a number of memory indirections happen in order to call
-          the actual method behind the message.
-        </p>
-<p>
-          Unfortunately it's hard to estimate exactly how much slower the message
-          call is. With perfect cache locality and compiler optimizations a message
-          call will take about 15 cycles, compared to about 5-7 cycles for a vritual
-          call and 10-12 cycles for a std::function call. 15 cycles on a modern 2.8
-          GHz processor take about 5 nanoseconds to execute, which is a negligible
-          cost for a call.
-        </p>
-<p>
-          Unfortunately perfect cache locality is hard to come by, and especially
-          hard in the case of Boost.Mixin because of the internal memory indirections,
-          and potential cache misses in a message call. In an amortized test with
-          cache misses for all calls, Boost.Mixin messages take on average about
-          120 cycles (40 nanoseconds on the same processor), compared to 90 cycles
-          on average for virtual calls.
-        </p>
-<p>
-          So, generally speaking if the programmer doesn't take special care to achieve
-          cache locality for their object lists, a message call is about 2 times
-          slower than a regular method call and about 1.3 times slower than a virtual
-          call, which again can be called negligible. If, however, cache locality
-          is an absolutely critical feature for the desired performance, the mixin
-          messages will probably be detrimental for this code, and the programmers
-          are advised to do something else.
-        </p>
-<p>
-          Some advice about performance can be found in the <a class="link" href="tutorials.html#boost_mixin.tutorials.tips_tricks" title="Tips and tricks">Tips
-          and tricks</a> section of this book.
-        </p>
-</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.priority"></a><a class="link" href="overview.html#boost_mixin.overview.priority" title="Message priority">Message priority</a>
+<a name="boost_mixin.glossary.priority"></a><a class="link" href="glossary.html#boost_mixin.glossary.priority" title="Message priority">Message priority</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5119328"></a>
- <a class="indexterm" name="idp5120080"></a>
+        <a class="indexterm" name="idp5279424"></a>
+ <a class="indexterm" name="idp5280176"></a>
       </p>
 <p>
         A message priority can be used for both unicast and multicast messages. In
@@ -267,13 +161,13 @@
       </p>
 </div>
 <div class="section"><div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.mutators"></a><a class="link" href="overview.html#boost_mixin.overview.mutators" title="Mutators">Mutators</a>
+<a name="boost_mixin.glossary.mutators"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutators" title="Mutators">Mutators</a>
 </h3></div></div></div></div>
 <div class="section"><div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.mrules"></a><a class="link" href="overview.html#boost_mixin.overview.mrules" title="Mutation rules">Mutation rules</a>
+<a name="boost_mixin.glossary.mrules"></a><a class="link" href="glossary.html#boost_mixin.glossary.mrules" title="Mutation rules">Mutation rules</a>
 </h3></div></div></div></div>
 <div class="section"><div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.overview.combinators"></a><a class="link" href="overview.html#boost_mixin.overview.combinators" title="Result combinators">Result combinators</a>
+<a name="boost_mixin.glossary.combinators"></a><a class="link" href="glossary.html#boost_mixin.glossary.combinators" title="Result combinators">Result combinators</a>
 </h3></div></div></div></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -286,7 +180,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="introduction.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="using.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="case_study.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="tutorials.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

@@ -7,182 +7,262 @@
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
 <link rel="prev" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
-<link rel="next" href="overview.html" title="Overview">
+<link rel="next" href="basic.html" title="Basic usage">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="overview.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="basic.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_mixin.introduction"></a><a class="link" href="introduction.html" title="Introduction">Introduction</a>
 </h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.intro_ecs">Introduction to Mixins</a></span></dt>
-<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.boost_mixin">Boost.Mixin</a></span></dt>
-<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.bm_as_an_ecs">Boost.Mixin as
-      an entity-component system</a></span></dt>
-<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.ruby_smalltalk">Comparison to
-      Ruby and Smalltalk mixins</a></span></dt>
+<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.abstract">Abstract</a></span></dt>
+<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.features">List of features</a></span></dt>
+<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.compare">Comparisons</a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.introduction.intro_ecs"></a><a class="link" href="introduction.html#boost_mixin.introduction.intro_ecs" title="Introduction to Mixins">Introduction to Mixins</a>
+<a name="boost_mixin.introduction.abstract"></a><a class="link" href="introduction.html#boost_mixin.introduction.abstract" title="Abstract">Abstract</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp3910384"></a>
+        Boost.Mixin is a library that allows the composition and modifications of
+        types at run time. Types and objects are constructed out of building blocks
+        called mixins enabling an effect similar to multiple inheritance, while allowing
+        the client code to remain oblivious to the actual composition of the objects.
       </p>
 <p>
-        Speaking generally a mixin is a class that provides a certain functionality
-        to be reused by other classes. This general definition applies to almost
-        everything. One could say that all forms of composition and inheritance are
-        uses of mixins.
+        A take on the <a href="http://en.wikipedia.org/wiki/Composition_over_inheritance" target="_top">Composition
+        over inheritance</a> technique, the result closely resembles the popular
+        pattern <a class="link" href="appendix.html#boost_mixin.appendix.app_ecs" title="Appendix A. Entity-component-systems">entity-component-system</a>,
+        or the <a href="http://www.ruby-doc.org/docs/ProgrammingRuby/html/tut_modules.html" target="_top">mixins
+        in Ruby</a>. It can also be compared to the <a href="http://archive.eiffel.com/doc/online/eiffel50/intro/language/tutorial-10.html" target="_top">inheritance
+        in Eiffel</a> or the traits in <a href="http://selflanguage.org/_static/tutorial/Language/Prototypes/Organizing.html" target="_top">Self</a>,
+        <a href="http://www.scala-lang.org/node/126" target="_top">Scala</a>, <a href="http://php.net/manual/en/language.oop5.traits.php" target="_top">PHP</a>,
+        <a href="https://en.wikipedia.org/wiki/Trait_(computer_programming)" target="_top">and
+        many others</a>, or the <a href="http://doc.perl6.org/language/objects#Roles" target="_top">roles
+        in Perl</a>.
       </p>
 <p>
-        Many C++ users are familiar with the word mixin as a form of <a href="http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>
-        and this is indeed an appropriate name for some cases, although probably
-        the term "trait" (as in PHP's traits) would have been even better.
-      </p>
-<p>
-        In most languages for which it is explicitly stated that they natively support
-        mixins, a mixin is a runtime idiom, much like the components from an entity-component
-        system.
-      </p>
-<p>
-        For more details you can check <a href="http://en.wikipedia.org/wiki/Mixin" target="_top">Wikipedia's
-        article on Mixin</a>, but speaking generally may be more confusing than
-        helpful. Let's focus on the particular case of Boost.Mixin.
-      </p>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.introduction.boost_mixin"></a><a class="link" href="introduction.html#boost_mixin.introduction.boost_mixin" title="Boost.Mixin">Boost.Mixin</a>
-</h3></div></div></div>
-<p>
-        In short Boost.Mixin is a way of allowing the composition and modification
-        of types at runtime.
-      </p>
-<p>
-        Here's some code, which probably is the fastest way of understanding what
-        Boost.Mixin is about:
-      </p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">;</span>
-<span class="identifier">object</span><span class="special">*</span> <span class="identifier">o</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">object</span><span class="special">;</span> <span class="comment">// just an empty boost::mixin::object</span>
-
-<span class="comment">// xml_serializer and book_data are some classes in the project</span>
-<span class="comment">// there are external macros you need to call, to make them available as</span>
-<span class="comment">// mixins</span>
-<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
-    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">xml_serializer</span><span class="special">&gt;()</span>
-    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">book_data</span><span class="special">&gt;();</span>
-
-<span class="comment">// now o has internally instantiated an xml_serializer and book_data</span>
-<span class="comment">// it can be thought of a class that's been derived from them via</span>
-<span class="comment">// multiple inheritance</span>
-
-<span class="comment">// ...</span>
-
-<span class="comment">// set_title and serialize are messages</span>
-<span class="comment">// you can think of them as methods to the class</span>
-<span class="comment">// there are macros that let you define messages</span>
-
-<span class="identifier">set_title</span><span class="special">(</span><span class="identifier">o</span><span class="special">,</span> <span class="string">"The Three Musketeers"</span><span class="special">);</span> <span class="comment">// this will internally call</span>
-                                      <span class="comment">// book_data::set_title</span>
-<span class="identifier">serialize</span><span class="special">(</span><span class="identifier">o</span><span class="special">);</span> <span class="comment">// this will internally call xml_serialier::serialize</span>
-
-<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
-    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">xml_serializer</span><span class="special">&gt;()</span>
-    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">json_serializer</span><span class="special">&gt;();</span>
-
-<span class="comment">// now o has destroyed its xml_serializer instance and added a</span>
-<span class="comment">// json_serializer instead</span>
-
-<span class="identifier">serialize</span><span class="special">(</span><span class="identifier">o</span><span class="special">);</span> <span class="comment">// will now call json_serializer::serialize</span>
-</pre>
-<p>
-        This is given, while also having full abstraction between the interface and
+        This is given while also having full abstraction between the interface and
         the definition of types &#8211; a problem often given as the motivation
         for the <a href="http://www.drdobbs.com/cpp/making-pimpl-easy/205918714" target="_top">PIMPL
-        idiom</a>. When constructing objects from mixins, only the forward declaration
-        is needed. When calling messages, only the message declaration is needed.
+        idiom</a>.
       </p>
 <p>
-        In the example above the code works without the need to include the definiton
-        of the serializer classes or data classes. The mutation parts of the code
-        require only to see the macro <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">type_name</span><span class="special">)</span></code> for the mixins used. The message calls require
-        only the message declarations, thus making their compilation units completely
-        oblivious to what minxins might actually comprise this object.
+        The library uses the type <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+        as a placeholder, whose instances can be extended with existing classes (mixins),
+        thus providing a particular instance with the functionality of all those
+        types. Accessing the newly formed type's interface is made through messages
+        &#8211; stand-alone functions generated by the library, which can be thought
+        of as methods.
+      </p>
+<p>
+        Boost.Mixin focuses on maximal perofmance and minimal memory overhead.
       </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.introduction.bm_as_an_ecs"></a><a class="link" href="introduction.html#boost_mixin.introduction.bm_as_an_ecs" title="Boost.Mixin as an entity-component system">Boost.Mixin as
-      an entity-component system</a>
+<a name="boost_mixin.introduction.features"></a><a class="link" href="introduction.html#boost_mixin.introduction.features" title="List of features">List of features</a>
 </h3></div></div></div>
-<p>
-        If you're familiar with entitny-component systems, one way of looking at
-        at the library is as if it is one of those, and indeed, it has many features
-        that are characteristic for such systems.
-      </p>
-<p>
-        If you're not familiar with entity-component systems, you might want to check
-        out the <a class="link" href="appendix.html#boost_mixin.appendix.app_ecs" title="Appendix A. Entity-component systems">appendix entry</a>
-        on them.
-      </p>
-<p>
-        Here's how Boost.Mixin is like an ECS:
-      </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> can be interpreted as an entity
-            in an ECS. It's just an empty class, that needs to be "built"
-            from mixins.
+            Compose types from mixins at run time
           </li>
 <li class="listitem">
-            consequently mixins can be thought of as components. You use mixins to
-            build objects just as you use components to build entities.
-          </li>
-</ul></div>
-<p>
-        However, Boost.Mixin is not strictly an ECS. Here's a list of the differences.
-      </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
-            It is non-intrusive: Mixins don't need to inherit from a common parent,
-            nor do you need to change the code of a class to "turn it into"
-            a mixin.
+            Physically separate interface and implementation
           </li>
 <li class="listitem">
-            Instead of classes with pure virtual methods, messages are used to represent
-            the functional interface of mixins, and through that &#8211; of objects.
+            Non-intrusive &#8211; mixins don't need to have a common parent or any
+            special code inside
           </li>
 <li class="listitem">
-            Because of the previous two differences, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>-s
-            can be (and are) completely oblivious to what kinds of mixins there may
-            be, allowing you to truly, physically separate a program's subsystems.
+            Mutate "live" objects by changing their composition at run
+            time
           </li>
 <li class="listitem">
-            Some entity-component systems allow serveral entities to point to the
-            same instance of a component. This is not possible in Boost.Mixin. An
-            mixin instance is bound to an object instance
+            Have multicast messages, which are handled by many mixins within an object
+          </li>
+<li class="listitem">
+            Possiblity to have custom allocators to finely tune the memory and aim
+            for cache-locality for critical parts of the code
+          </li>
+<li class="listitem">
+            Ability to have dynamic libraries that can enrich or modify objects,
+            without modifying (even rebuilding) the executable.
+          </li>
+<li class="listitem">
+            Thread safe message calls - as thread safe as the underlying methods.
           </li>
 </ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.introduction.ruby_smalltalk"></a><a class="link" href="introduction.html#boost_mixin.introduction.ruby_smalltalk" title="Comparison to Ruby and Smalltalk mixins">Comparison to
-      Ruby and Smalltalk mixins</a>
+<a name="boost_mixin.introduction.compare"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare" title="Comparisons">Comparisons</a>
 </h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.introduction.compare.bm_as_multi_inh"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare.bm_as_multi_inh" title="Comparison with multiple inheritance">Comparison
+        with multiple inheritance</a>
+</h4></div></div></div>
 <p>
-        If you're familiar with the mixins in Ruby, Groovy, Smalltalk, Squeak, and
-        many other languages, you might find them similar to Boost.Mixin. They all
-        allow runtime modifincation of the object's interface, with the cost of having
-        runtime (as opposed to compile-time) errors when a message is called for
-        an object that doesn't implement it. However, unlike the mixins in the aforementioned
-        languages you cannot add them to an existing class. You must use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> instead.
-      </p>
+          The closest thing to Boost.Miixin that C++ can offer out of the box is
+          multiple inheritance. A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+          composed of some mixins, can be though of as an empty class that's derived
+          from these classes &#8211; the object's interface will be equal to the
+          union of the interfaces of its mixins, and it will internally instantiate
+          them.
+        </p>
+<p>
+          We covered how much more than multiple inheritance the library is in the
+          previous section, but in case you haven't inferred everything, here a comprehensive
+          list of the most imporatnt differences between Boost.Mixin and C++ multiple
+          inheritance:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <span class="bold"><strong>No combinatorial explosion of types</strong></span>:
+              you compose types at runtime, and don't need to explicitly list all
+              possible combination of building-block types.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>No type-bound interfaces</strong></span>: since the
+              interface is physically separated from the implementation (or type),
+              you don't need to have a single class implement an interface. You could
+              separate it between multiple classes or combine interfaces in a single
+              class.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Live object mutation</strong></span>: change the interface
+              and/or implementation of messages in an object at runtime.
+            </li>
+</ul></div>
+<p>
+          However, even-though compared to other libraries that have similar features,
+          Boost.Mixin is one of the fastest and with the least memory overhead, using
+          the library comes with some inevitable downsides when compared with plain
+          multiple inheritance:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <span class="bold"><strong>No compile-time type</strong></span>: An object derived
+              from, say, <code class="computeroutput"><span class="identifier">foo</span></code> and
+              <code class="computeroutput"><span class="identifier">bar</span></code> can implicitly
+              be cast too <code class="computeroutput"><span class="identifier">foo</span></code> or
+              <code class="computeroutput"><span class="identifier">bar</span></code>. Since the library
+              uses a placeholder type &#8211; <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+              &#8211; implicit casts to any of its mixins are impossible. That aside,
+              the hypothetical object from above, will recieve all of the methods
+              from foo and bar, but while this is true for the <code class="computeroutput"><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+              with such mixins, a compilation error cannot be generated if a message
+              is called that the object can't handle. A runtime error will be generated
+              instead, which is the norm in similar libraries, but is harder to catch
+              and debug than it is with plain multiple inheritance.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Memory overhead per type</strong></span>: Each unique
+              combination of mixins is internally represented by a type, which has
+              type metadata &#8211; for example an internal alternative to a virtual
+              table. The type metadata can take up to two kilobytes of memory. Unless
+              a type is instantiated its metadata won't be created, but still if
+              you expect to have a huge variety of types, you may want to keep this
+              in mind. Of course systems that are expected to have thousands of different
+              object types, usually wouldn't care about a couple of extra megabytes
+              of memory, but it could happen.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Memory overhead per object</strong></span>: An instance
+              of an empty class that has multiple parents takes up memory equal to
+              the sizes of all of its parents. This is inevitable. A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">objects</span></code> naturally takes up the same
+              amount plus an additional pointer for the type metadata, plus N pointers
+              used for the special <code class="computeroutput"><span class="identifier">bm_this</span></code>
+              pointer, where N is equal to the number of mixins within. So, in short,
+              the memory overhead of an object composed on N mixins, is N+1 times
+              <code class="computeroutput"><span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">intptr_t</span><span class="special">)</span></code>
+              ((N+1) * 8 bytes on a 64 bit system).
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Speed of message calls</strong></span>: A message
+              call is slower than a regular non-virtual method call. Exactly how
+              much is very hard to estimate, since this depends very much on cache
+              locality, but a message call can easily be compared to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code> call in terms of speed,
+              which in most (but not all) cases is a negligible overhead.
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.introduction.compare.bm_as_an_ecs"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare.bm_as_an_ecs" title="Boost.Mixin as an entity-component-system">Boost.Mixin
+        as an entity-component-system</a>
+</h4></div></div></div>
+<p>
+          If you're familiar with entitny-component-systems, one way of looking at
+          at the library is as if it is one of those, and indeed, it has many features
+          that are characteristic for such systems.
+        </p>
+<p>
+          If you're not familiar with entity-component-systems, you might want to
+          check out the <a class="link" href="appendix.html#boost_mixin.appendix.app_ecs" title="Appendix A. Entity-component-systems">appendix entry</a>
+          on them.
+        </p>
+<p>
+          Here's how Boost.Mixin is like an ECS:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> can be interpreted as an entity
+              in an ECS. It's just an empty class, that needs to be "built"
+              from mixins.
+            </li>
+<li class="listitem">
+              consequently mixins can be thought of as components. You use mixins
+              to build objects just as you use components to build entities.
+            </li>
+<li class="listitem">
+              As with any ECS, you can mutate objects by adding/removing/substituting
+              mixins.
+            </li>
+</ul></div>
+<p>
+          However, Boost.Mixin is not strictly an ECS. Here's a list of the differences.
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              It is non-intrusive: Mixins don't need to inherit from a common parent,
+              nor do you need to change the code of a class to "turn it into"
+              a mixin.
+            </li>
+<li class="listitem">
+              Instead of classes with pure virtual methods, messages are used to
+              represent the functional interface of mixins, and through that &#8211;
+              of objects.
+            </li>
+<li class="listitem">
+              Because of the previous two differences, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>-s
+              can be (and are) completely oblivious to what kinds of mixins there
+              may be, allowing you to truly, physically separate a program's subsystems.
+              The entity in an ECS on the other hand, usually has at least some knowledge
+              of all the possible component types (like the top level parent classes,
+              for example).
+            </li>
+<li class="listitem">
+              Some entity-component-systems allow serveral entities to point to the
+              same instance of a component. This is not possible in Boost.Mixin.
+              A mixin instance is bound to an object instance
+            </li>
+</ul></div>
+</div>
+<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.introduction.compare.bm_as_ruby_mixin"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare.bm_as_ruby_mixin" title="Comparison with Ruby mixins">Comparison
+        with Ruby mixins</a>
+</h4></div></div></div></div>
+<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.introduction.compare.bm_as_trait"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare.bm_as_trait" title="Comparison with traits">Comparison
+        with traits</a>
+</h4></div></div></div></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -195,7 +275,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="overview.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="basic.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

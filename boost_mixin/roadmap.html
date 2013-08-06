@@ -64,11 +64,17 @@
           Not soon, but with concrete idea of how to be done:
           <div class="itemizedlist"><ul class="itemizedlist" type="circle">
 <li class="listitem">
+                Message bids &#8211; allow mixins to "bid" for different
+                messages (analogous to <code class="computeroutput"><span class="identifier">priority</span></code>
+                for unicasts, but hides implementations on multicast messages)
+              </li>
+<li class="listitem">
                 object copy-constructors + mixin feature <code class="computeroutput"><span class="identifier">copyable</span></code>
               </li>
 <li class="listitem">
-                private messages/mixins - messages/mixins that are not used outside
-                of a module - leave more room for other messages/mixins in a domain
+                private messages/mixins &#8211; messages/mixins that are not used
+                outside of a module - leave more room for other messages/mixins in
+                a domain
               </li>
 <li class="listitem">
                 Add a new mixin feature <code class="computeroutput"><span class="identifier">fact</span></code>.
@@ -76,7 +82,8 @@
                 tables.
               </li>
 <li class="listitem">
-                Add default message implementations (if none is provided)
+                Add possibility for custom default message implementations (instead
+                of a runtime error if no message is provided)
               </li>
 <li class="listitem">
                 Call mixin constructors when mutating object or constructing them
@@ -106,6 +113,10 @@
                 Vectorized mixin/message memory: Instead of having a maximal number
                 of them in a domain, grow the mixin_type_info/message_info buffers
                 by that number
+              </li>
+<li class="listitem">
+                Unused type garbage collector. When no objects exist of a given type
+                it can be garbage collected, saving up to a kilobyte of memory.
               </li>
 </ul></div>
         </li>

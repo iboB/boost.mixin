@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Advanced topics</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="prev" href="examples.html" title="Examples">
+<link rel="next" href="reference.html" title="Reference">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="examples.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="reference.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_mixin.advanced"></a><a class="link" href="advanced.html" title="Advanced topics">Advanced topics</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.performance">Message performance</a></span></dt>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.domain">Using different domains</a></span></dt>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.allocators">Using custom allocators</a></span></dt>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.dynlib">Dynamic libraries and program
+      plugins</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.performance"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Message performance">Message performance</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp5324000"></a>
+      </p>
+<p>
+        The performance of messages is indeed slower than regular message calls and
+        even virtual function calls. Even though a call's algorithmic complexity
+        is still O(1), a number of memory indirections happen in order to call the
+        actual method behind the message.
+      </p>
+<p>
+        Unfortunately it's hard to estimate exactly how much slower the message call
+        is. With perfect cache locality and compiler optimizations a message call
+        will take about 15 cycles, compared to about 5-7 cycles for a vritual call
+        and 10-12 cycles for a std::function call. 15 cycles on a modern 2.8 GHz
+        processor take about 5 nanoseconds to execute, which is a negligible cost
+        for a call.
+      </p>
+<p>
+        Unfortunately perfect cache locality is hard to come by, and especially hard
+        in the case of Boost.Mixin because of the internal memory indirections, and
+        potential cache misses in a message call. In an amortized test with cache
+        misses for all calls, Boost.Mixin messages take on average about 120 cycles
+        (40 nanoseconds on the same processor), compared to 90 cycles on average
+        for virtual calls.
+      </p>
+<p>
+        So, generally speaking if the programmer doesn't take special care to achieve
+        cache locality for their object lists, a message call is about 2 times slower
+        than a regular method call and about 1.3 times slower than a virtual call,
+        which again can be called negligible. If, however, cache locality is an absolutely
+        critical feature for the desired performance, the mixin messages will probably
+        be detrimental for this code, and the programmers are advised to do something
+        else.
+      </p>
+</div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.domain"></a><a class="link" href="advanced.html#boost_mixin.advanced.domain" title="Using different domains">Using different domains</a>
+</h3></div></div></div></div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.allocators"></a><a class="link" href="advanced.html#boost_mixin.advanced.allocators" title="Using custom allocators">Using custom allocators</a>
+</h3></div></div></div></div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.dynlib"></a><a class="link" href="advanced.html#boost_mixin.advanced.dynlib" title="Dynamic libraries and program plugins">Dynamic libraries and program
+      plugins</a>
+</h3></div></div></div></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="examples.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="reference.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
