@@ -71,7 +71,20 @@ will be equal to the union of the interfaces of its mixins, and it will
 internally instantiate them.
 
 We covered how much more than multiple inheritance the library is in the
-previous section. However, even-though compared to other libraries that have
+previous section, but in case you haven't inferred everything, here a
+comprehensive list of the most imporatnt differences between Boost.Mixin and C++
+multiple inheritance:
+
+* *No combinatorial explosion of types*: you compose types at runtime, and
+don't need to explicitly list all possible combination of building-block types.
+* *No type-bound interfaces*: since the interface is physically separated from
+the implementation (or type), you don't need to have a single class implement
+an interface. You could separate it between multiple classes or combine
+interfaces in a single class.
+* *Live object mutation*: change the interface and/or implementation of messages
+in an object at runtime.
+
+However, even-though compared to other libraries that have
 similar features, Boost.Mixin is one of the fastest and with the least memory
 overhead, using the library comes with some inevitable downsides when compared
 with plain multiple inheritance:
@@ -104,7 +117,7 @@ short, the memory overhead of an object composed on N mixins, is N+1 times
 method call. Exactly how much is very hard to estimate, since this depends very
 much on cache locality, but a message call can easily be compared to a
 `std::function` call in terms of speed, which in most (but not all) cases is
-negligible.
+a negligible overhead.
 
 [endsect]
 
@@ -123,6 +136,8 @@ Here's how Boost.Mixin is like an ECS:
 empty class, that needs to be "built" from mixins.
 * consequently mixins can be thought of as components. You use mixins to build
 objects just as you use components to build entities.
+* As with any ECS, you can mutate objects by adding/removing/substituting
+mixins.
 
 However, Boost.Mixin is not strictly an ECS. Here's a list of the differences.
 

@@ -6,9 +6,9 @@
  http:#www.boost.org/LICENSE_1_0.txt
 /]
 
-[section:basic Basic usage]
+[section:case_study Case study]
 
-[import ../tutorial/basic.cpp]
-[basic]
+TODO: a case study that explains the motivation for each library feature via
+a hypothetical big program example
 
 [endsect]

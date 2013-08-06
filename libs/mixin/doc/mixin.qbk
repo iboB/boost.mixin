@@ -44,6 +44,13 @@ libraries collection]. It will be submitted for review somewhere in late 2013.
 
 [include introduction.qbk]
 [include basic_usage.qbk]
+[include using.qbk]
+[include case_study.qbk]
+[include glossary.qbk]
+[include tutorials.qbk]
+[include examples.qbk]
+[include advanced.qbk]
+[include reference.qbk]
 [include roadmap.qbk]
 [include appendix.qbk]
 [xinclude index.xml]
