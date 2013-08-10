@@ -16,3 +16,4 @@ project boost/mixin/tutorials
     ;
 
 exe basic : basic.cpp ;
+exe messages : messages.cpp ;

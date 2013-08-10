@@ -8,19 +8,17 @@
 
 [section:tutorials Tutorials]
 
-[section:multicast Multicast messages]
-[endsect]
+[section:messages Messages]
 
-[section:priority Adding priorities to messages]
-[endsect]
+[import ../tutorial/messages.cpp]
+[tutorial_messages]
 
-[section:overloading Overloading messages]
-[endsect]
-
-[section:mutation_rules Mutation rules]
 [endsect]
 
 [section:combinators Multicast combinators]
+[endsect]
+
+[section:mutation Object mutation]
 [endsect]
 
 [section:tips_tricks Tips and tricks]

@@ -47,6 +47,12 @@ official repository at GitHub].
 [endsect]
 
 [section:building Building the library]
+[section:boost As part of Boost]
+[endsect]
+[section:standalone As a standalone library]
+[endsect]
+[section:config Configuration]
+[endsect]
 [endsect]
 
 [section:contact Contacts]
