@@ -10,6 +10,8 @@
 
 [section:messages Messages]
 
+[indexterm2 message..tutorial]
+
 [import ../tutorial/messages.cpp]
 [tutorial_messages]
 

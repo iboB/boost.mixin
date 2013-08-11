@@ -101,7 +101,7 @@ int main()
 Now we're ready to create a simple object composed from our newly defined
 mixins:
 */
-    object sound_player;
+    object sound_player; // just an empty boost::mixin::object
 
     mutate(sound_player)
         .add<cd_player>()
