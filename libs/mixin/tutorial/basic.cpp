@@ -123,7 +123,7 @@ can be done in this simple manner:
     play(sound_player);
 
 /*`
-This is the way to call Boos.Mixin messages. They are nothing more than global
+This is the way to call Boost.Mixin messages. They are nothing more than global
 functions defined by the `BOOST_MIXIN_MESSAGE` macros. Internally they will find
 the appropriate class instance and call the appropriate message (or trigger a
 run-time error if this cannot be done).
