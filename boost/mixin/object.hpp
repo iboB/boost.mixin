@@ -5,7 +5,7 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //
-#if !defined(_BOOST_MIXIN_OBJECTL_HPP_INCLUDED)
+#if !defined(_BOOST_MIXIN_OBJECT_HPP_INCLUDED)
 #define _BOOST_MIXIN_OBJECT_HPP_INCLUDED
 
 #include "global.hpp"
