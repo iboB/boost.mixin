@@ -5,7 +5,6 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //
-#pragma once
 #if !defined(_BOOST_MIXIN_DOMAIN_HPP_INCLUDED)
 #define _BOOST_MIXIN_DOMAIN_HPP_INCLUDED
 
@@ -72,7 +71,7 @@ struct hash_avaliable_mixins_bitset : std::unary_function<available_mixins_bitse
         size_t result = 0;
         for(size_t i=0; i<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN; ++i)
         {
-            // xor groups of bits 
+            // xor groups of bits
             result ^= size_t(bs[i]) << (i % bits);
         }
         return result;

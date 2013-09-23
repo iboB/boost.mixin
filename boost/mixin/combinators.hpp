@@ -5,7 +5,6 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //
-#pragma once
 #if !defined(_BOOST_MIXIN_COMBINATORS_HPP_INCLUDED)
 #define _BOOST_MIXIN_COMBINATORS_HPP_INCLUDED
 
@@ -27,7 +26,7 @@ class boolean_and
 public:
     typedef bool result_type;
 
-    boolean_and() 
+    boolean_and()
         : _result(true)
     {}
 
@@ -58,7 +57,7 @@ class boolean_or
 public:
     typedef bool result_type;
 
-    boolean_or() 
+    boolean_or()
         : _result(false)
     {}
 

@@ -5,7 +5,6 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //
-#pragma once
 #if !defined(_BOOST_MIXIN_ALLOCATORS_HPP_INCLUDED)
 #define _BOOST_MIXIN_ALLOCATORS_HPP_INCLUDED
 
@@ -16,8 +15,11 @@ namespace boost
 namespace mixin
 {
 
-// the class to allocate mixins within objects
-// it can be set to a domain and be used to
+/**
+    * The class @ref should be the parent to your custom
+    * domain allocators, i.e. allocators that are set to a
+    * domain and used for all mixin allocation within it
+    */
 class BOOST_MIXIN_API domain_allocator
 {
 public:
