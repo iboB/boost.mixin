@@ -2,6 +2,7 @@
 site/
 
 # generated docs
+reference.xml
 *html/
 
 # linux temp files

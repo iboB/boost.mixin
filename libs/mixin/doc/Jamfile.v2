@@ -6,15 +6,42 @@
 # http:#www.boost.org/LICENSE_1_0.txt
 #
 
+import type ;
+type.register-suffixes ipp : HPP ; # for ipp files
+
+import path ; # for glob-tree
 using quickbook ;
 using boostbook ;
+using doxygen ;
 
-xml mixin_doc : mixin.qbk ;
+xml mixin_doc
+    :
+        mixin.qbk
+    :
+        <dependency>reference
+    ;
+
+doxygen reference
+    :
+        ../../../boost/mixin.hpp
+        [ path.glob-tree ../../../boost/mixin : *.hpp ]
+        [ path.glob-tree ../../../boost/mixin/gen : *.ipp ]
+    :
+        # <doxygen:param>QUIET=YES
+        <doxygen:param>SEARCH_INCLUDES=NO
+        <doxygen:param>ENABLE_PREPROCESSING=YES
+        <doxygen:param>MACRO_EXPANSION=YES
+        <doxygen:param>EXPAND_ONLY_PREDEF=YES
+        <doxygen:param>HIDE_UNDOC_MEMBERS=NO
+        <doxygen:param>WARN_IF_UNDOCUMENTED=NO
+        <doxygen:param>EXTRACT_PRIVATE=YES
+    ;
 
 boostbook mixin
     :
         mixin_doc
     :
+        <dependency>reference
         <xsl:param>generate.section.toc.level=1
         <xsl:param>toc.section.depth=2
         <xsl:param>toc.max.depth=3

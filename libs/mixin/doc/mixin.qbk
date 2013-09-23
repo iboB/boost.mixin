@@ -50,7 +50,7 @@ libraries collection]. It will be submitted for review somewhere in late 2013.
 [include tutorials.qbk]
 [include examples.qbk]
 [include advanced.qbk]
-[include reference.qbk]
+[xinclude reference.xml]
 [include roadmap.qbk]
 [include appendix.qbk]
 [xinclude index.xml]
