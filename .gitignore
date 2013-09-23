@@ -31,3 +31,7 @@ site/
 
 *bin/
 *obj/
+
+# qt creator
+*.5pre1
+
