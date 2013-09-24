@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class feature_registrator</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../../../mixin/reference.html#header.boost.mixin.feature_parser_hpp" title="Header &lt;boost/mixin/feature_parser.hpp&gt;">
+<link rel="prev" href="../INVALID_FEATURE_ID.html" title="Global INVALID_FEATURE_ID">
+<link rel="next" href="feature_parser.html" title="Class template feature_parser">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../INVALID_FEATURE_ID.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.feature_parser_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="feature_parser.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.mixin.internal.feature_registrator"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class feature_registrator</span></h2>
+<p>boost::mixin::internal::feature_registrator</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../mixin/reference.html#header.boost.mixin.feature_parser_hpp" title="Header &lt;boost/mixin/feature_parser.hpp&gt;">boost/mixin/feature_parser.hpp</a>&gt;
+
+</span>
+<span class="keyword">class</span> <a class="link" href="feature_registrator.html" title="Class feature_registrator">feature_registrator</a> <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+  <span class="comment">// <a class="link" href="feature_registrator.html#idp6241344-bb">public member functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <a class="link" href="feature_registrator.html" title="Class feature_registrator">feature_registrator</a> <span class="special">&amp;</span> <a class="link" href="feature_registrator.html#idp6241712-bb"><span class="keyword">operator</span><span class="special">&amp;</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Feature</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Message<span class="special">&gt;</span> 
+    <a class="link" href="feature_registrator.html" title="Class feature_registrator">feature_registrator</a> <span class="special">&amp;</span> <a class="link" href="feature_registrator.html#idp6244208-bb"><span class="keyword">operator</span><span class="special">&amp;</span></a><span class="special">(</span><a class="link" href="message_priority.html" title="Struct template message_priority">message_priority</a><span class="special">&lt;</span> <span class="identifier">Message</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="feature_registrator.html" title="Class feature_registrator">feature_registrator</a> <span class="special">&amp;</span> <a class="link" href="feature_registrator.html#idp6246960-bb"><span class="keyword">operator</span><span class="special">&amp;</span></a><span class="special">(</span><a class="link" href="../mixin_allocator.html" title="Class mixin_allocator">mixin_allocator</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="feature_registrator.html#idp6248960-bb"><span class="keyword">operator</span><span class="special">&amp;</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="../no_features_t.html" title="Struct no_features_t">no_features_t</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idp36157072"></a><h2>Description</h2>
+<div class="refsect2">
+<a name="idp36157488"></a><h3>
+<a name="idp6241344-bb"></a><code class="computeroutput">feature_registrator</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <a class="link" href="feature_registrator.html" title="Class feature_registrator">feature_registrator</a> <span class="special">&amp;</span> <a name="idp6241712-bb"></a><span class="keyword">operator</span><span class="special">&amp;</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Feature</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Message<span class="special">&gt;</span> 
+  <a class="link" href="feature_registrator.html" title="Class feature_registrator">feature_registrator</a> <span class="special">&amp;</span> <a name="idp6244208-bb"></a><span class="keyword">operator</span><span class="special">&amp;</span><span class="special">(</span><a class="link" href="message_priority.html" title="Struct template message_priority">message_priority</a><span class="special">&lt;</span> <span class="identifier">Message</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="feature_registrator.html" title="Class feature_registrator">feature_registrator</a> <span class="special">&amp;</span> <a name="idp6246960-bb"></a><span class="keyword">operator</span><span class="special">&amp;</span><span class="special">(</span><a class="link" href="../mixin_allocator.html" title="Class mixin_allocator">mixin_allocator</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6248960-bb"></a><span class="keyword">operator</span><span class="special">&amp;</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="../no_features_t.html" title="Struct no_features_t">no_features_t</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../INVALID_FEATURE_ID.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.feature_parser_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="feature_parser.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

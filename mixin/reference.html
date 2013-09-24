@@ -1,0 +1,398 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Reference</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="prev" href="../boost_mixin/advanced.html" title="Advanced topics">
+<link rel="next" href="../BOOST_DECLARE_EXPORTED_MIXIN.html" title="Macro BOOST_DECLARE_EXPORTED_MIXIN">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../boost_mixin/advanced.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../BOOST_DECLARE_EXPORTED_MIXIN.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="mixin.reference"></a>Reference</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="reference.html#header.boost.mixin_hpp">Header &lt;boost/mixin.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.mixin_hpp">Header &lt;boost/mixin/mixin.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.allocators_hpp">Header &lt;boost/mixin/allocators.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.combinators_hpp">Header &lt;boost/mixin/combinators.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.common_mutation_rules_hpp">Header &lt;boost/mixin/common_mutation_rules.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.config_hpp">Header &lt;boost/mixin/config.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.domain_hpp">Header &lt;boost/mixin/domain.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.exception_hpp">Header &lt;boost/mixin/exception.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.feature_hpp">Header &lt;boost/mixin/feature.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.feature_parser_hpp">Header &lt;boost/mixin/feature_parser.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.global_hpp">Header &lt;boost/mixin/global.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.message_hpp">Header &lt;boost/mixin/message.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.message_macros_hpp">Header &lt;boost/mixin/message_macros.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.mixin_collection_hpp">Header &lt;boost/mixin/mixin_collection.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.mixin_type_info_hpp">Header &lt;boost/mixin/mixin_type_info.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.mutation_rule_hpp">Header &lt;boost/mixin/mutation_rule.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.object_hpp">Header &lt;boost/mixin/object.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.object_mutator_hpp">Header &lt;boost/mixin/object_mutator.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.object_type_info_hpp">Header &lt;boost/mixin/object_type_info.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.object_type_mutation_hpp">Header &lt;boost/mixin/object_type_mutation.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.object_type_template_hpp">Header &lt;boost/mixin/object_type_template.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.same_type_mutator_hpp">Header &lt;boost/mixin/same_type_mutator.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.mixin.single_object_mutator_hpp">Header &lt;boost/mixin/single_object_mutator.hpp&gt;</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin_hpp"></a>Header &lt;<a href="../../../boost/mixin.hpp" target="_top">boost/mixin.hpp</a>&gt;</h3></div></div></div>
+<p>The main include file of the library. Includes all required files (including some that could become optional) </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.mixin_hpp"></a>Header &lt;<a href="../../../boost/mixin/mixin.hpp" target="_top">boost/mixin/mixin.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis">
+
+<a class="link" href="../BOOST_DECLARE_EXPORTED_MIXIN.html" title="Macro BOOST_DECLARE_EXPORTED_MIXIN">BOOST_DECLARE_EXPORTED_MIXIN</a>(export, mixin_type)
+<a class="link" href="../BOOST_DECLARE_MIXIN.html" title="Macro BOOST_DECLARE_MIXIN">BOOST_DECLARE_MIXIN</a>(mixin_type)
+<a class="link" href="../BOOST_DEFINE_MIXIN_IN_DOMAIN.html" title="Macro BOOST_DEFINE_MIXIN_IN_DOMAIN">BOOST_DEFINE_MIXIN_IN_DOMAIN</a>(domain_tag, mixin_type, mixin_features)
+<a class="link" href="../BOOST_DEFINE_MIXIN.html" title="Macro BOOST_DEFINE_MIXIN">BOOST_DEFINE_MIXIN</a>(mixin_type, mixin_features)
+<a class="link" href="../bm_this.html" title="Macro bm_this">bm_this</a></pre>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="../boost/mixin/object.html" title="Class object">object</a> <span class="special">*</span> <a name="boost.mixin.object_of_idp5196336"></a><span class="identifier">object_of</span><span class="special">(</span><span class="identifier">Mixin</span> <span class="special">*</span> mixin_addr<span class="special">)</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> 
+      <span class="keyword">const</span> <a class="link" href="../boost/mixin/object.html" title="Class object">object</a> <span class="special">*</span> <a name="boost.mixin.object_of_idp5198848"></a><span class="identifier">object_of</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Mixin</span> <span class="special">*</span> mixin_addr<span class="special">)</span><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.allocators_hpp"></a>Header &lt;<a href="../../../boost/mixin/allocators.hpp" target="_top">boost/mixin/allocators.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/domain_allocator.html" title="Class domain_allocator">domain_allocator</a><span class="special">;</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/mixin_allocator.html" title="Class mixin_allocator">mixin_allocator</a><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CusomAllocator<span class="special">&gt;</span> <a class="link" href="../boost/mixin/mixin_allocator.html" title="Class mixin_allocator">mixin_allocator</a> <span class="special">&amp;</span> <a name="boost.mixin.allocator"></a><span class="identifier">allocator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/default_domain_allocator.html" title="Class default_domain_allocator">default_domain_allocator</a><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.combinators_hpp"></a>Header &lt;<a href="../../../boost/mixin/combinators.hpp" target="_top">boost/mixin/combinators.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">namespace</span> <span class="identifier">combinators</span> <span class="special">{</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> MessageReturnType <span class="special">=</span> <span class="keyword">bool</span><span class="special">&gt;</span> <span class="keyword">class</span> <a class="link" href="../boost/mixin/combinators/boolean_and.html" title="Class template boolean_and">boolean_and</a><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> MessageReturnType <span class="special">=</span> <span class="keyword">bool</span><span class="special">&gt;</span> <span class="keyword">class</span> <a class="link" href="../boost/mixin/combinators/boolean_or.html" title="Class template boolean_or">boolean_or</a><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> MessageReturnType<span class="special">&gt;</span> <span class="keyword">class</span> <a class="link" href="../boost/mixin/combinators/sum.html" title="Class template sum">sum</a><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.common_mutation_rules_hpp"></a>Header &lt;<a href="../../../boost/mixin/common_mutation_rules.hpp" target="_top">boost/mixin/common_mutation_rules.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/mutually_exclusive_mixins.html" title="Class mutually_exclusive_mixins">mutually_exclusive_mixins</a><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">class</span> <a class="link" href="../boost/mixin/mandatory_mixin.html" title="Class template mandatory_mixin">mandatory_mixin</a><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">class</span> <a class="link" href="../boost/mixin/deprecated_mixin.html" title="Class template deprecated_mixin">deprecated_mixin</a><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> SourceMixin<span class="special">,</span> <span class="keyword">typename</span> TargetMixin<span class="special">&gt;</span> <span class="keyword">class</span> <a class="link" href="../boost/mixin/substitute_mixin.html" title="Class template substitute_mixin">substitute_mixin</a><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/mandatory_mixin_impl.html" title="Class mandatory_mixin_impl">mandatory_mixin_impl</a><span class="special">;</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/deprecated_mixin_impl.html" title="Class deprecated_mixin_impl">deprecated_mixin_impl</a><span class="special">;</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/substitute_mixin_impl.html" title="Class substitute_mixin_impl">substitute_mixin_impl</a><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.config_hpp"></a>Header &lt;<a href="../../../boost/mixin/config.hpp" target="_top">boost/mixin/config.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis">
+
+<a class="link" href="../BOOST_MIXIN_TEST.html" title="Macro BOOST_MIXIN_TEST">BOOST_MIXIN_TEST</a>
+<a class="link" href="../BOOST_MIXIN_USE_TYPEID.html" title="Macro BOOST_MIXIN_USE_TYPEID">BOOST_MIXIN_USE_TYPEID</a>
+<a class="link" href="../BOOST_MIXIN_DEBUG.html" title="Macro BOOST_MIXIN_DEBUG">BOOST_MIXIN_DEBUG</a>
+<a class="link" href="../BOOST_MIXIN_USING_CXX11.html" title="Macro BOOST_MIXIN_USING_CXX11">BOOST_MIXIN_USING_CXX11</a>
+<a class="link" href="../BOOST_MIXIN_DEFINE_BM_THIS.html" title="Macro BOOST_MIXIN_DEFINE_BM_THIS">BOOST_MIXIN_DEFINE_BM_THIS</a>
+<a class="link" href="../BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN.html" title="Macro BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN">BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN</a>
+<a class="link" href="../BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN.html" title="Macro BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN">BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN</a>
+<a class="link" href="../BOOST_MIXIN_USE_EXCEPTIONS.html" title="Macro BOOST_MIXIN_USE_EXCEPTIONS">BOOST_MIXIN_USE_EXCEPTIONS</a>
+<a class="link" href="../BOOST_MIXIN_API.html" title="Macro BOOST_MIXIN_API">BOOST_MIXIN_API</a></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.domain_hpp"></a>Header &lt;<a href="../../../boost/mixin/domain.hpp" target="_top">boost/mixin/domain.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis">
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../boost_mixin_domain_for__idp6180096.html" title="Struct template _boost_mixin_domain_for_type">_boost_mixin_domain_for_type</a><span class="special">;</span><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/default_domain.html" title="Class default_domain">default_domain</a><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <span class="identifier">size_t</span> <a name="boost.mixin.domain_id"></a><span class="identifier">domain_id</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="identifier">BOOST_MIXIN_API</span> 
+    <a name="boost.mixin.set_global_domain_alloc_idp6217280"></a><span class="identifier">set_global_domain_allocator</span><span class="special">(</span><a class="link" href="../boost/mixin/domain_allocator.html" title="Class domain_allocator">domain_allocator</a> <span class="special">*</span> allocator<span class="special">)</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="identifier">BOOST_MIXIN_API</span> 
+    <a name="boost.mixin.set_default_domain_allo_idp6218784"></a><span class="identifier">set_default_domain_allocator</span><span class="special">(</span><a class="link" href="../boost/mixin/domain_allocator.html" title="Class domain_allocator">domain_allocator</a> <span class="special">*</span> allocator<span class="special">)</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> DomainTag<span class="special">&gt;</span> 
+      <span class="keyword">void</span> <a name="boost.mixin.set_allocator_for_domain"></a><span class="identifier">set_allocator_for_domain</span><span class="special">(</span><a class="link" href="../boost/mixin/domain_allocator.html" title="Class domain_allocator">domain_allocator</a> <span class="special">*</span> allocator<span class="special">)</span><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">struct</span> <a class="link" href="../boost/mixin/internal/hash_avaliable_mixins_b_idp6183920.html" title="Struct hash_avaliable_mixins_bitset">hash_avaliable_mixins_bitset</a><span class="special">;</span>
+
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/domain.html" title="Class domain">domain</a><span class="special">;</span>
+      <span class="identifier">BOOST_MIXIN_API</span> <a class="link" href="../boost/mixin/internal/domain.html" title="Class domain">domain</a> <span class="special">&amp;</span> <a name="boost.mixin.internal.get_domain"></a><span class="identifier">get_domain</span><span class="special">(</span><span class="identifier">domain_id</span> id<span class="special">)</span><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> DomainTag<span class="special">&gt;</span> <a class="link" href="../boost/mixin/internal/domain.html" title="Class domain">domain</a> <span class="special">&amp;</span> <a name="boost.mixin.internal.get_domain_for_tag"></a><span class="identifier">get_domain_for_tag</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.exception_hpp"></a>Header &lt;<a href="../../../boost/mixin/exception.hpp" target="_top">boost/mixin/exception.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis">
+
+<a class="link" href="../BOOST_MIXIN_THROW_UNLESS.html" title="Macro BOOST_MIXIN_THROW_UNLESS">BOOST_MIXIN_THROW_UNLESS</a>(test, exception)</pre>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/exception.html" title="Class exception">exception</a><span class="special">;</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/invalid_domain.html" title="Class invalid_domain">invalid_domain</a><span class="special">;</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/invalid_transform.html" title="Class invalid_transform">invalid_transform</a><span class="special">;</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.feature_hpp"></a>Header &lt;<a href="../../../boost/mixin/feature.hpp" target="_top">boost/mixin/feature.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">struct</span> <a class="link" href="../boost/mixin/no_features_t.html" title="Struct no_features_t">no_features_t</a><span class="special">;</span>
+
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/feature.html" title="Class feature">feature</a><span class="special">;</span>
+
+    <span class="identifier">BOOST_MIXIN_API</span> <a class="link" href="../boost/mixin/no_features_t.html" title="Struct no_features_t">no_features_t</a> <span class="special">*</span> <a class="link" href="../boost/mixin/none.html" title="Global none">none</a><span class="special">;</span>
+    <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">feature_id</span> <a class="link" href="../boost/mixin/INVALID_FEATURE_ID.html" title="Global INVALID_FEATURE_ID">INVALID_FEATURE_ID</a><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../boost/mixin/internal/feature_instance.html" title="Struct template feature_instance">feature_instance</a><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.feature_parser_hpp"></a>Header &lt;<a href="../../../boost/mixin/feature_parser.hpp" target="_top">boost/mixin/feature_parser.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/feature_registrator.html" title="Class feature_registrator">feature_registrator</a><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/feature_parser.html" title="Class template feature_parser">feature_parser</a><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.global_hpp"></a>Header &lt;<a href="../../../boost/mixin/global.hpp" target="_top">boost/mixin/global.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis">
+
+<a class="link" href="../BOOST_MIXIN_CXX11_NAMESPACE.html" title="Macro BOOST_MIXIN_CXX11_NAMESPACE">BOOST_MIXIN_CXX11_NAMESPACE</a>
+<a class="link" href="../boost_mixin_internal.html" title="Macro boost_mixin_internal">boost_mixin_internal</a></pre>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="identifier">size_t</span> <a name="boost.mixin.mixin_id"></a><span class="identifier">mixin_id</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">size_t</span> <a name="boost.mixin.feature_id"></a><span class="identifier">feature_id</span><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/noncopyable.html" title="Class noncopyable">noncopyable</a><span class="special">;</span>
+
+      <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="keyword">const</span> <a class="link" href="../boost/mixin/internal/mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a> <span class="special">*</span> <span class="special">&gt;</span> <a name="boost.mixin.internal.mixin_type_info_vector"></a><span class="identifier">mixin_type_info_vector</span><span class="special">;</span>
+      <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">bitset</span><span class="special">&lt;</span> <span class="identifier">BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN</span> <span class="special">&gt;</span> <a name="boost.mixin.internal.available_mixins_bitset"></a><span class="identifier">available_mixins_bitset</span><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Container<span class="special">,</span> <span class="keyword">typename</span> Elem<span class="special">&gt;</span> 
+        <span class="keyword">bool</span> <a name="boost.mixin.internal.has_elem"></a><span class="identifier">has_elem</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Container</span> <span class="special">&amp;</span> c<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Elem</span> <span class="special">&amp;</span> e<span class="special">)</span><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">bool</span> <a name="boost.mixin.internal.is_sorted"></a><span class="identifier">is_sorted</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span> <span class="special">&amp;</span> v<span class="special">)</span><span class="special">;</span>
+      <span class="keyword">void</span> <a name="boost.mixin.internal.zero_memory"></a><span class="identifier">zero_memory</span><span class="special">(</span><span class="keyword">void</span> <span class="special">*</span> mem<span class="special">,</span> <span class="identifier">size_t</span> size<span class="special">)</span><span class="special">;</span>
+      <span class="identifier">BOOST_MIXIN_API</span> <span class="identifier">available_mixins_bitset</span> 
+      <a name="boost.mixin.internal.build_available_mixins__idp6283408"></a><span class="identifier">build_available_mixins_from</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">mixin_type_info_vector</span> <span class="special">&amp;</span> mixins<span class="special">)</span><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.message_hpp"></a>Header &lt;<a href="../../../boost/mixin/message.hpp" target="_top">boost/mixin/message.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Message<span class="special">&gt;</span> 
+      <a class="link" href="../boost/mixin/internal/message_priority.html" title="Struct template message_priority">internal::message_priority</a><span class="special">&lt;</span> <span class="identifier">Message</span> <span class="special">&gt;</span> <a name="boost.mixin.priority"></a><span class="identifier">priority</span><span class="special">(</span><span class="keyword">int</span> p<span class="special">,</span> <span class="identifier">Message</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">struct</span> <a class="link" href="../boost/mixin/internal/message_feature_tag.html" title="Struct message_feature_tag">message_feature_tag</a><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="../boost/mixin/internal/message_t.html" title="Struct message_t">message_t</a><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Message<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../boost/mixin/internal/message_priority.html" title="Struct template message_priority">message_priority</a><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="../boost/mixin/internal/message_for_mixin.html" title="Struct message_for_mixin">message_for_mixin</a><span class="special">;</span>
+
+      <span class="keyword">typedef</span> <span class="keyword">void</span><span class="special">(</span><span class="special">*</span> <a name="boost.mixin.internal.func_ptr"></a><span class="identifier">func_ptr</span><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.message_macros_hpp"></a>Header &lt;<a href="../../../boost/mixin/message_macros.hpp" target="_top">boost/mixin/message_macros.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis">
+
+<a class="link" href="../BOOST_MIXIN_FWD.html" title="Macro BOOST_MIXIN_FWD">BOOST_MIXIN_FWD</a>(arg_type, arg)
+<a class="link" href="../BOOST_MIXIN_MESSAGE_N.html" title="Macro BOOST_MIXIN_MESSAGE_N">BOOST_MIXIN_MESSAGE_N</a>(return_type, message)
+<a class="link" href="../BOOST_MIXIN_CONST_MESSAGE_N.html" title="Macro BOOST_MIXIN_CONST_MESSAGE_N">BOOST_MIXIN_CONST_MESSAGE_N</a>(return_type, message)
+<a class="link" href="../BOOST_MIXIN_MULTICAST_MESSAGE_N.html" title="Macro BOOST_MIXIN_MULTICAST_MESSAGE_N">BOOST_MIXIN_MULTICAST_MESSAGE_N</a>(return_type, message)
+<a class="link" href="../BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N.html" title="Macro BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N">BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N</a>(return_type, message)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_MESSAGE_N.html" title="Macro BOOST_MIXIN_EXPORTED_MESSAGE_N">BOOST_MIXIN_EXPORTED_MESSAGE_N</a>(export, return_type, message)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N.html" title="Macro BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N">BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N</a>(export, return_type, message)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N.html" title="Macro BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N">BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N</a>(export, return_type, message)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N.html" title="Macro BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N">BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N</a>(export, return_type, message)
+<a class="link" href="../BOOST_MIXIN_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_MESSAGE_N_OVERLOAD">BOOST_MIXIN_MESSAGE_N_OVERLOAD</a>(message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_CONST_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_CONST_MESSAGE_N_OVERLOAD">BOOST_MIXIN_CONST_MESSAGE_N_OVERLOAD</a>(message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_MULTICAST_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_MULTICAST_MESSAGE_N_OVERLOAD">BOOST_MIXIN_MULTICAST_MESSAGE_N_OVERLOAD</a>(message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N_OVERLOAD">BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N_OVERLOAD</a>(message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_EXPORTED_MESSAGE_N_OVERLOAD">BOOST_MIXIN_EXPORTED_MESSAGE_N_OVERLOAD</a>(export, message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N_OVERLOAD">BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N_OVERLOAD</a>(export, message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N_OVERLOAD">BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N_OVERLOAD</a>(export, message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N_OVERLOAD.html" title="Macro BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N_OVERLOAD">BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N_OVERLOAD</a>(export, message_name, return_type, method_name)
+<a class="link" href="../BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN.html" title="Macro BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN">BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN</a>(domain_tag, message_name)
+<a class="link" href="../BOOST_MIXIN_DEFINE_MESSAGE.html" title="Macro BOOST_MIXIN_DEFINE_MESSAGE">BOOST_MIXIN_DEFINE_MESSAGE</a>(message_name)</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.mixin_collection_hpp"></a>Header &lt;<a href="../../../boost/mixin/mixin_collection.hpp" target="_top">boost/mixin/mixin_collection.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/mixin_collection.html" title="Class mixin_collection">mixin_collection</a><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.mixin_type_info_hpp"></a>Header &lt;<a href="../../../boost/mixin/mixin_type_info.hpp" target="_top">boost/mixin/mixin_type_info.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a><span class="special">;</span>
+
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../boost/mixin/internal/mixin_type_info_instance.html" title="Struct template mixin_type_info_instance">mixin_type_info_instance</a><span class="special">;</span>
+
+      <span class="keyword">typedef</span> <span class="keyword">void</span><span class="special">(</span><span class="special">*</span> <a name="boost.mixin.internal.mixin_constructor_proc"></a><span class="identifier">mixin_constructor_proc</span><span class="special">;</span>
+      <span class="keyword">typedef</span> <span class="keyword">void</span><span class="special">(</span><span class="special">*</span> <a name="boost.mixin.internal.mixin_destructor_proc"></a><span class="identifier">mixin_destructor_proc</span><span class="special">;</span>
+
+      <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">mixin_id</span> <a class="link" href="../boost/mixin/internal/INVALID_MIXIN_ID.html" title="Global INVALID_MIXIN_ID">INVALID_MIXIN_ID</a><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a name="boost.mixin.internal.call_mixin_constructor"></a><span class="identifier">call_mixin_constructor</span><span class="special">(</span><span class="keyword">void</span> <span class="special">*</span> memory<span class="special">)</span><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a name="boost.mixin.internal.call_mixin_destructor"></a><span class="identifier">call_mixin_destructor</span><span class="special">(</span><span class="keyword">void</span> <span class="special">*</span> memory<span class="special">)</span><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.mutation_rule_hpp"></a>Header &lt;<a href="../../../boost/mixin/mutation_rule.hpp" target="_top">boost/mixin/mutation_rule.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/mutation_rule.html" title="Class mutation_rule">mutation_rule</a><span class="special">;</span>
+    <span class="keyword">void</span> <span class="identifier">BOOST_MIXIN_API</span> <a name="boost.mixin.add_new_mutation_rule"></a><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><a class="link" href="../boost/mixin/mutation_rule.html" title="Class mutation_rule">mutation_rule</a> <span class="special">*</span> rule<span class="special">)</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> DomainTag<span class="special">&gt;</span> 
+      <span class="keyword">void</span> <a name="boost.mixin.add_new_mutation_rule_f_idp6386816"></a><span class="identifier">add_new_mutation_rule_for_domain</span><span class="special">(</span><a class="link" href="../boost/mixin/mutation_rule.html" title="Class mutation_rule">mutation_rule</a> <span class="special">*</span> rule<span class="special">)</span><span class="special">;</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.object_hpp"></a>Header &lt;<a href="../../../boost/mixin/object.hpp" target="_top">boost/mixin/object.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/object.html" title="Class object">object</a><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.object_mutator_hpp"></a>Header &lt;<a href="../../../boost/mixin/object_mutator.hpp" target="_top">boost/mixin/object_mutator.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/object_mutator.html" title="Class object_mutator">object_mutator</a><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.object_type_info_hpp"></a>Header &lt;<a href="../../../boost/mixin/object_type_info.hpp" target="_top">boost/mixin/object_type_info.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/object_type_info.html" title="Class object_type_info">object_type_info</a><span class="special">;</span>
+      <span class="keyword">class</span> <a class="link" href="../boost/mixin/internal/mixin_data_in_object.html" title="Class mixin_data_in_object">mixin_data_in_object</a><span class="special">;</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.object_type_mutation_hpp"></a>Header &lt;<a href="../../../boost/mixin/object_type_mutation.hpp" target="_top">boost/mixin/object_type_mutation.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/object_type_mutation.html" title="Class object_type_mutation">object_type_mutation</a><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.object_type_template_hpp"></a>Header &lt;<a href="../../../boost/mixin/object_type_template.hpp" target="_top">boost/mixin/object_type_template.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/object_type_template.html" title="Class object_type_template">object_type_template</a><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">internal</span> <span class="special">{</span>
+    <span class="special">}</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.same_type_mutator_hpp"></a>Header &lt;<a href="../../../boost/mixin/same_type_mutator.hpp" target="_top">boost/mixin/same_type_mutator.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/same_type_mutator.html" title="Class same_type_mutator">same_type_mutator</a><span class="special">;</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.mixin.single_object_mutator_hpp"></a>Header &lt;<a href="../../../boost/mixin/single_object_mutator.hpp" target="_top">boost/mixin/single_object_mutator.hpp</a>&gt;</h3></div></div></div>
+<pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+  <span class="keyword">namespace</span> <span class="identifier">mixin</span> <span class="special">{</span>
+    <span class="keyword">class</span> <a class="link" href="../boost/mixin/single_object_mutator.html" title="Class single_object_mutator">single_object_mutator</a><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <a class="link" href="../boost/mixin/single_object_mutator.html" title="Class single_object_mutator">single_object_mutator</a> <a name="boost.mixin.mutate"></a><span class="identifier">mutate</span><span class="special">;</span>
+  <span class="special">}</span>
+<span class="special">}</span></pre>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../boost_mixin/advanced.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../BOOST_DECLARE_EXPORTED_MIXIN.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

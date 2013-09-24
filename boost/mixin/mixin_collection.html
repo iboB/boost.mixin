@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class mixin_collection</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../../mixin/reference.html#header.boost.mixin.mixin_collection_hpp" title="Header &lt;boost/mixin/mixin_collection.hpp&gt;">
+<link rel="prev" href="../../BOOST_MIXIN_DEFINE_MESSAGE.html" title="Macro BOOST_MIXIN_DEFINE_MESSAGE">
+<link rel="next" href="internal/mixin_type_info.html" title="Class mixin_type_info">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../../BOOST_MIXIN_DEFINE_MESSAGE.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.mixin_collection_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="internal/mixin_type_info.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.mixin.mixin_collection"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class mixin_collection</span></h2>
+<p>boost::mixin::mixin_collection</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../mixin/reference.html#header.boost.mixin.mixin_collection_hpp" title="Header &lt;boost/mixin/mixin_collection.hpp&gt;">boost/mixin/mixin_collection.hpp</a>&gt;
+
+</span>
+<span class="keyword">class</span> <a class="link" href="mixin_collection.html" title="Class mixin_collection">mixin_collection</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">noncopyable</span> <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+  <span class="comment">// <a class="link" href="mixin_collection.html#boost.mixin.mixin_collectionconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="mixin_collection.html#idp6358688-bb"><span class="identifier">mixin_collection</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="mixin_collection.html#idp6358816-bb"><span class="identifier">mixin_collection</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">internal</span><span class="special">::</span><span class="identifier">mixin_type_info_vector</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="mixin_collection.html#idp6338944-bb">public member functions</a></span>
+  <a class="link" href="internal/domain.html" title="Class domain">internal::domain</a> <span class="special">*</span> <a class="link" href="mixin_collection.html#idp6339312-bb"><span class="identifier">dom</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">bool</span> <a class="link" href="mixin_collection.html#idp6340432-bb"><span class="identifier">has</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="mixin_collection.html#idp6342048-bb"><span class="identifier">has</span></a><span class="special">(</span><span class="identifier">mixin_id</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6343536-bb"><span class="identifier">add</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6345152-bb"><span class="identifier">add</span></a><span class="special">(</span><span class="identifier">mixin_id</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6346640-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6348256-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="identifier">mixin_id</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <span class="keyword">bool</span> <a class="link" href="mixin_collection.html#idp6349744-bb"><span class="identifier">implements</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Feature</span> <span class="special">*</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6351984-bb"><span class="identifier">clear_all_implementing</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Feature</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6354224-bb"><span class="identifier">rebuild_from_compact_mixins</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6355088-bb"><span class="identifier">check_valid_mixin</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="internal/mixin_type_info.html" title="Class mixin_type_info">internal::mixin_type_info</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="mixin_collection.html#idp6356960-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="mixin_collection.html#idp6357824-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+  <span class="comment">// public data members</span>
+  <a class="link" href="internal/domain.html" title="Class domain">internal::domain</a> <span class="special">*</span> <span class="identifier">_domain</span><span class="special">;</span>
+  <span class="identifier">internal</span><span class="special">::</span><span class="identifier">available_mixins_bitset</span> <span class="identifier">_mixins</span><span class="special">;</span>
+  <span class="identifier">internal</span><span class="special">::</span><span class="identifier">mixin_type_info_vector</span> <span class="identifier">_compact_mixins</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idp36793280"></a><h2>Description</h2>
+<div class="refsect2">
+<a name="idp36793696"></a><h3>
+<a name="boost.mixin.mixin_collectionconstruct-copy-destruct"></a><code class="computeroutput">mixin_collection</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idp6358688-bb"></a><span class="identifier">mixin_collection</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp6358816-bb"></a><span class="identifier">mixin_collection</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">internal</span><span class="special">::</span><span class="identifier">mixin_type_info_vector</span> <span class="special">&amp;</span> mixins<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp36806320"></a><h3>
+<a name="idp6338944-bb"></a><code class="computeroutput">mixin_collection</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a class="link" href="internal/domain.html" title="Class domain">internal::domain</a> <span class="special">*</span> <a name="idp6339312-bb"></a><span class="identifier">dom</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">bool</span> <a name="idp6340432-bb"></a><span class="identifier">has</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp6342048-bb"></a><span class="identifier">has</span><span class="special">(</span><span class="identifier">mixin_id</span> id<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idp6343536-bb"></a><span class="identifier">add</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6345152-bb"></a><span class="identifier">add</span><span class="special">(</span><span class="identifier">mixin_id</span> id<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idp6346640-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6348256-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="identifier">mixin_id</span> id<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <span class="keyword">bool</span> <a name="idp6349744-bb"></a><span class="identifier">implements</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Feature</span> <span class="special">*</span> f<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idp6351984-bb"></a><span class="identifier">clear_all_implementing</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Feature</span> <span class="special">*</span> f<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6354224-bb"></a><span class="identifier">rebuild_from_compact_mixins</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6355088-bb"></a><span class="identifier">check_valid_mixin</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="internal/mixin_type_info.html" title="Class mixin_type_info">internal::mixin_type_info</a> <span class="special">&amp;</span> mixin_info<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6356960-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp6357824-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../../BOOST_MIXIN_DEFINE_MESSAGE.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.mixin_collection_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="internal/mixin_type_info.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class object_type_info</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../../../mixin/reference.html#header.boost.mixin.object_type_info_hpp" title="Header &lt;boost/mixin/object_type_info.hpp&gt;">
+<link rel="prev" href="object_mutator.html" title="Class object_mutator">
+<link rel="next" href="object_type_info/call_table_entry.html" title="Struct call_table_entry">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="object_mutator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.object_type_info_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="object_type_info/call_table_entry.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.mixin.internal.object_type_info"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class object_type_info</span></h2>
+<p>boost::mixin::internal::object_type_info</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../mixin/reference.html#header.boost.mixin.object_type_info_hpp" title="Header &lt;boost/mixin/object_type_info.hpp&gt;">boost/mixin/object_type_info.hpp</a>&gt;
+
+</span>
+<span class="keyword">class</span> <a class="link" href="object_type_info.html" title="Class object_type_info">object_type_info</a> <span class="special">:</span> <span class="keyword">private</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mixin_collection</span> <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+  <span class="comment">// member classes/structs/unions</span>
+
+  <span class="keyword">struct</span> <a class="link" href="object_type_info/call_table_entry.html" title="Struct call_table_entry">call_table_entry</a> <span class="special">{</span>
+
+    <span class="comment">// public data members</span>
+    <span class="keyword">const</span> <a class="link" href="message_for_mixin.html" title="Struct message_for_mixin">message_for_mixin</a> <span class="special">*</span> <span class="identifier">message_data</span><span class="special">;</span>
+    <a class="link" href="object_type_info/call_table_entry.html" title="Struct call_table_entry">call_table_entry</a> <span class="special">*</span> <span class="identifier">multicast_begin</span><span class="special">;</span>
+    <a class="link" href="object_type_info/call_table_entry.html" title="Struct call_table_entry">call_table_entry</a> <span class="special">*</span> <span class="identifier">multicast_end</span><span class="special">;</span>
+    <span class="keyword">union</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">object_type_info</span><span class="special">::</span><span class="identifier">call_table_entry</span><span class="special">::</span>@<span class="number">0</span> <span class="identifier">@1</span><span class="special">;</span>
+  <span class="special">}</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="object_type_info.html#boost.mixin.internal.object_type_infoconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="object_type_info.html#idp6445648-bb"><span class="identifier">object_type_info</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="object_type_info.html#idp6445776-bb"><span class="special">~</span><span class="identifier">object_type_info</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="object_type_info.html#idp6437952-bb">public member functions</a></span>
+  <span class="keyword">const</span> <a class="link" href="../mixin_collection.html" title="Class mixin_collection">mixin_collection</a> <span class="special">*</span> <a class="link" href="object_type_info.html#idp6438320-bb"><span class="identifier">as_mixin_collection</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">size_t</span> <a class="link" href="object_type_info.html#idp6439568-bb"><span class="identifier">mixin_index</span></a><span class="special">(</span><span class="identifier">mixin_id</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <a class="link" href="mixin_data_in_object.html" title="Class mixin_data_in_object">mixin_data_in_object</a> <span class="special">*</span> <a class="link" href="object_type_info.html#idp6441056-bb"><span class="identifier">alloc_mixin_data</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="object_type_info.html#idp6442176-bb"><span class="identifier">dealloc_mixin_data</span></a><span class="special">(</span><a class="link" href="mixin_data_in_object.html" title="Class mixin_data_in_object">mixin_data_in_object</a> <span class="special">*</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="object_type_info.html#idp6443920-bb"><span class="identifier">generate_call_table</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="object_type_info.html#idp6444784-bb"><span class="identifier">fill_call_table</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="object_type_info.html#idp6445904-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="object_type_info.html" title="Class object_type_info">object_type_info</a> <span class="special">&amp;</span> <a class="link" href="object_type_info.html#idp6446272-bb"><span class="identifier">null</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// public data members</span>
+  <span class="identifier">boost_mixin_internal</span> <span class="identifier">__pad0__</span><span class="special">;</span>
+  <span class="identifier">size_t</span> <span class="identifier">_mixin_indices</span><span class="special">;</span>
+  <a class="link" href="object_type_info/call_table_entry.html" title="Struct call_table_entry">call_table_entry</a> <span class="special">*</span> <span class="identifier">_multicast_buffer</span><span class="special">;</span>
+  <a class="link" href="object_type_info/call_table_entry.html" title="Struct call_table_entry">call_table_entry</a> <span class="identifier">_call_table</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idp37556288"></a><h2>Description</h2>
+<div class="refsect2">
+<a name="idp37556704"></a><h3>
+<a name="boost.mixin.internal.object_type_infoconstruct-copy-destruct"></a><code class="computeroutput">object_type_info</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idp6445648-bb"></a><span class="identifier">object_type_info</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp6445776-bb"></a><span class="special">~</span><span class="identifier">object_type_info</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp37566640"></a><h3>
+<a name="idp6437952-bb"></a><code class="computeroutput">object_type_info</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <a class="link" href="../mixin_collection.html" title="Class mixin_collection">mixin_collection</a> <span class="special">*</span> <a name="idp6438320-bb"></a><span class="identifier">as_mixin_collection</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">size_t</span> <a name="idp6439568-bb"></a><span class="identifier">mixin_index</span><span class="special">(</span><span class="identifier">mixin_id</span> id<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="mixin_data_in_object.html" title="Class mixin_data_in_object">mixin_data_in_object</a> <span class="special">*</span> <a name="idp6441056-bb"></a><span class="identifier">alloc_mixin_data</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6442176-bb"></a><span class="identifier">dealloc_mixin_data</span><span class="special">(</span><a class="link" href="mixin_data_in_object.html" title="Class mixin_data_in_object">mixin_data_in_object</a> <span class="special">*</span> data<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6443920-bb"></a><span class="identifier">generate_call_table</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6444784-bb"></a><span class="identifier">fill_call_table</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp37601936"></a><h3>
+<a name="idp6445904-bb"></a><code class="computeroutput">object_type_info</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="object_type_info.html" title="Class object_type_info">object_type_info</a> <span class="special">&amp;</span> <a name="idp6446272-bb"></a><span class="identifier">null</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="object_mutator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.object_type_info_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="object_type_info/call_table_entry.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

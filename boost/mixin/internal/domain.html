@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class domain</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../../../mixin/reference.html#header.boost.mixin.domain_hpp" title="Header &lt;boost/mixin/domain.hpp&gt;">
+<link rel="prev" href="hash_avaliable_mixins_b_idp6183920.html" title="Struct hash_avaliable_mixins_bitset">
+<link rel="next" href="../default_domain.html" title="Class default_domain">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="hash_avaliable_mixins_b_idp6183920.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.domain_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../default_domain.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.mixin.internal.domain"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class domain</span></h2>
+<p>boost::mixin::internal::domain</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../mixin/reference.html#header.boost.mixin.domain_hpp" title="Header &lt;boost/mixin/domain.hpp&gt;">boost/mixin/domain.hpp</a>&gt;
+
+</span>
+<span class="keyword">class</span> <a class="link" href="domain.html" title="Class domain">domain</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">noncopyable</span> <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+  <span class="comment">// <a class="link" href="domain.html#boost.mixin.internal.domainconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="domain.html#idp6209776-bb"><span class="identifier">domain</span></a><span class="special">(</span><span class="identifier">domain_id</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="domain.html#idp6188128-bb">public member functions</a></span>
+  <span class="identifier">domain_id</span> <a class="link" href="domain.html#idp6188496-bb"><span class="identifier">id</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a class="link" href="domain.html#idp6189360-bb"><span class="identifier">name</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="domain.html#idp6190224-bb"><span class="identifier">add_new_mutation_rule</span></a><span class="special">(</span><a class="link" href="../mutation_rule.html" title="Class mutation_rule">mutation_rule</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="domain.html#idp6191968-bb"><span class="identifier">apply_mutation_rules</span></a><span class="special">(</span><a class="link" href="../object_type_mutation.html" title="Class object_type_mutation">object_type_mutation</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">size_t</span> <a class="link" href="domain.html#idp6193712-bb"><span class="identifier">num_registered_mixins</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="domain.html#idp6194576-bb"><span class="identifier">register_mixin_type</span></a><span class="special">(</span><a class="link" href="mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="domain.html#idp6197072-bb"><span class="identifier">register_feature</span></a><span class="special">(</span><span class="identifier">Feature</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">const</span> <a class="link" href="object_type_info.html" title="Class object_type_info">object_type_info</a> <span class="special">*</span> 
+  <a class="link" href="domain.html#idp6199312-bb"><span class="identifier">get_object_type_info</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">mixin_type_info_vector</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">const</span> <a class="link" href="mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a> <span class="special">&amp;</span> <a class="link" href="domain.html#idp6201184-bb"><span class="identifier">mixin_info</span></a><span class="special">(</span><span class="identifier">mixin_id</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="domain.html#idp6203056-bb"><span class="identifier">set_allocator</span></a><span class="special">(</span><a class="link" href="../domain_allocator.html" title="Class domain_allocator">domain_allocator</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="../domain_allocator.html" title="Class domain_allocator">domain_allocator</a> <span class="special">*</span> <a class="link" href="domain.html#idp6204800-bb"><span class="identifier">allocator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="domain.html#idp6205920-bb">private member functions</a></span>
+  <span class="keyword">void</span> <a class="link" href="domain.html#idp6206288-bb"><span class="identifier">internal_register_mixin_type</span></a><span class="special">(</span><a class="link" href="mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="domain.html#idp6208032-bb"><span class="identifier">internal_register_feature</span></a><span class="special">(</span><a class="link" href="message_t.html" title="Struct message_t">message_t</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="domain.html#idp6211152-bb">private static functions</a></span>
+  <span class="keyword">static</span> <a class="link" href="domain.html" title="Class domain">domain</a> <span class="special">&amp;</span> <a class="link" href="domain.html#idp6211520-bb"><span class="identifier">create</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// public data members</span>
+  <span class="identifier">boost_mixin_internal</span> <span class="identifier">__pad0__</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idp35799024"></a><h2>Description</h2>
+<div class="refsect2">
+<a name="idp35799440"></a><h3>
+<a name="boost.mixin.internal.domainconstruct-copy-destruct"></a><code class="computeroutput">domain</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp6209776-bb"></a><span class="identifier">domain</span><span class="special">(</span><span class="identifier">domain_id</span> id<span class="special">,</span> <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> name<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35808656"></a><h3>
+<a name="idp6188128-bb"></a><code class="computeroutput">domain</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="identifier">domain_id</span> <a name="idp6188496-bb"></a><span class="identifier">id</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a name="idp6189360-bb"></a><span class="identifier">name</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6190224-bb"></a><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><a class="link" href="../mutation_rule.html" title="Class mutation_rule">mutation_rule</a> <span class="special">*</span> rule<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6191968-bb"></a><span class="identifier">apply_mutation_rules</span><span class="special">(</span><a class="link" href="../object_type_mutation.html" title="Class object_type_mutation">object_type_mutation</a> <span class="special">&amp;</span> mutation<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">size_t</span> <a name="idp6193712-bb"></a><span class="identifier">num_registered_mixins</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idp6194576-bb"></a><span class="identifier">register_mixin_type</span><span class="special">(</span><a class="link" href="mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a> <span class="special">&amp;</span> info<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Feature<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idp6197072-bb"></a><span class="identifier">register_feature</span><span class="special">(</span><span class="identifier">Feature</span> <span class="special">&amp;</span> feature<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <a class="link" href="object_type_info.html" title="Class object_type_info">object_type_info</a> <span class="special">*</span> 
+<a name="idp6199312-bb"></a><span class="identifier">get_object_type_info</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">mixin_type_info_vector</span> <span class="special">&amp;</span> mixins<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <a class="link" href="mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a> <span class="special">&amp;</span> <a name="idp6201184-bb"></a><span class="identifier">mixin_info</span><span class="special">(</span><span class="identifier">mixin_id</span> id<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6203056-bb"></a><span class="identifier">set_allocator</span><span class="special">(</span><a class="link" href="../domain_allocator.html" title="Class domain_allocator">domain_allocator</a> <span class="special">*</span> allocator<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="../domain_allocator.html" title="Class domain_allocator">domain_allocator</a> <span class="special">*</span> <a name="idp6204800-bb"></a><span class="identifier">allocator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35882048"></a><h3>
+<a name="idp6205920-bb"></a><code class="computeroutput">domain</code> private member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6206288-bb"></a><span class="identifier">internal_register_mixin_type</span><span class="special">(</span><a class="link" href="mixin_type_info.html" title="Class mixin_type_info">mixin_type_info</a> <span class="special">&amp;</span> info<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6208032-bb"></a><span class="identifier">internal_register_feature</span><span class="special">(</span><a class="link" href="message_t.html" title="Struct message_t">message_t</a> <span class="special">&amp;</span> m<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35895824"></a><h3>
+<a name="idp6211152-bb"></a><code class="computeroutput">domain</code> private static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <a class="link" href="domain.html" title="Class domain">domain</a> <span class="special">&amp;</span> <a name="idp6211520-bb"></a><span class="identifier">create</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> name<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="hash_avaliable_mixins_b_idp6183920.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.domain_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../default_domain.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
