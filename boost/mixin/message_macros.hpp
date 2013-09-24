@@ -14,14 +14,14 @@
 // ides that support these
 // that shows that they're for internal use only
 
-/** INTERNAL ONLY */
+/// INTERNAL ONLY
 #define _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) BOOST_PP_CAT(boost_mixin_msg_, message_name)
-/** INTERNAL ONLY */
+/// INTERNAL ONLY
 #define _BOOST_MIXIN_MESSAGE_TAG(message_name) BOOST_PP_CAT(message_name, _msg)
 
 // a macro used in messages to get the mixin data directly, skipping function calls
 // GREATLY improves message call time
-/** INTERNAL ONLY */
+/// INTERNAL ONLY
 #define _BOOST_MIXIN_GET_MIXIN_DATA(obj, id) \
     reinterpret_cast<char*>(const_cast<void*>(obj._mixin_data[obj._type_info->_mixin_indices[id]].mixin()))
 
