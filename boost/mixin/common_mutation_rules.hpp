@@ -8,18 +8,30 @@
 #if !defined(_BOOST_MIXIN_COMMON_MUTATION_RULES_HPP_INCLUDED)
 #define _BOOST_MIXIN_COMMON_MUTATION_RULES_HPP_INCLUDED
 
+/**
+ * \file
+ * Common mutation rules classes.
+ */
+
 #include "global.hpp"
 #include "mutation_rule.hpp"
 #include "mixin_collection.hpp"
-
-// common mutation rule classes
 
 namespace boost
 {
 namespace mixin
 {
 
-// common mutation rules
+/**
+ * A mutation rule for mutually exclusive mixins.
+ *
+ * If active, such rule will cause a mutation that adds one of the mutually
+ * exclusive mixins, to remove all others.
+ *
+ * For example, if `a`, `b`, and `c` are mutually exclusive mixins,
+ * any mutation that adds, say `a`, to an object, will automatically
+ * remove `b` and `c` from it.
+ */
 class BOOST_MIXIN_API mutually_exclusive_mixins : public mutation_rule, private mixin_collection
 {
 public:
@@ -27,11 +39,13 @@ public:
     using mixin_collection::has;
     using mixin_collection::remove;
 
+    /// Applies the rule to a mutation.
     virtual void apply_to(object_type_mutation& mutation); // override
 };
 
 namespace internal
 {
+/// INTERNAL ONLY
 class BOOST_MIXIN_API mandatory_mixin_impl : public mutation_rule
 {
 public:
@@ -46,6 +60,7 @@ protected:
     const mixin_id _id;
 };
 
+/// INTERNAL ONLY
 class BOOST_MIXIN_API deprecated_mixin_impl : public mutation_rule
 {
 public:
@@ -60,6 +75,7 @@ protected:
     const mixin_id _id;
 };
 
+/// INTERNAL ONLY
 class BOOST_MIXIN_API substitute_mixin_impl : public mutation_rule
 {
 public:
@@ -77,6 +93,14 @@ protected:
 };
 }
 
+/**
+ * A mutation rule for a mandatory mixin.
+ *
+ * If active, such rule will cause every mutation to always add the mixin
+ * to an object and will ignore any attempts of a mutation to remove it.
+ *
+ * \tparam Mixin The mandatory mixin type
+*/
 template <typename Mixin>
 class mandatory_mixin : public internal::mandatory_mixin_impl
 {
@@ -86,6 +110,15 @@ public:
     {}
 };
 
+/**
+ * A mutation rule for a deprecated mixin.
+ *
+ * If active, such rule will cause every mutation to always try to remove
+ * the mixin from an object and will ignore any attempts of a mutation to
+ * add it.
+ *
+ * \tparam Mixin The deprecated mixin type
+*/
 template <typename Mixin>
 class deprecated_mixin : public internal::deprecated_mixin_impl
 {
@@ -95,6 +128,15 @@ public:
     {}
 };
 
+/**
+ * A mutation rule for a substitute mixin.
+ *
+ * If active, such rule will cause any mutation that tries to add
+ * `SourceMixin` to instead add `TargetMixin`.
+ *
+ * \tparam SourceMixin The mixin type to be substituted
+ * \tparam TargetMixin The mixin type that is the substitute
+*/
 template <typename SourceMixin, typename TargetMixin>
 class substitute_mixin : public internal::substitute_mixin_impl
 {
