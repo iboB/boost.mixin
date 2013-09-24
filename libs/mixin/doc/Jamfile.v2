@@ -25,7 +25,6 @@ doxygen reference
     :
         ../../../boost/mixin.hpp
         [ path.glob-tree ../../../boost/mixin : *.hpp ]
-        [ path.glob-tree ../../../boost/mixin/gen : *.ipp ]
     :
         # <doxygen:param>QUIET=YES
         <doxygen:param>SEARCH_INCLUDES=NO
@@ -35,6 +34,7 @@ doxygen reference
         <doxygen:param>HIDE_UNDOC_MEMBERS=NO
         <doxygen:param>WARN_IF_UNDOCUMENTED=NO
         <doxygen:param>EXTRACT_PRIVATE=YES
+        <doxygen:param>PREDEFINED=\"BOOST_MIXIN_DOXYGEN=1\"
     ;
 
 boostbook mixin

@@ -14,11 +14,14 @@
 // ides that support these
 // that shows that they're for internal use only
 
+/** INTERNAL ONLY */
 #define _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) BOOST_PP_CAT(boost_mixin_msg_, message_name)
+/** INTERNAL ONLY */
 #define _BOOST_MIXIN_MESSAGE_TAG(message_name) BOOST_PP_CAT(message_name, _msg)
 
 // a macro used in messages to get the mixin data directly, skipping function calls
 // GREATLY improves message call time
+/** INTERNAL ONLY */
 #define _BOOST_MIXIN_GET_MIXIN_DATA(obj, id) \
     reinterpret_cast<char*>(const_cast<void*>(obj._mixin_data[obj._type_info->_mixin_indices[id]].mixin()))
 
@@ -29,23 +32,28 @@
 #   define BOOST_MIXIN_FWD(arg_type, arg) arg
 #endif
 
+#if defined(BOOST_MIXIN_DOXYGEN)
+// use there macros for the docs only
+#define BOOST_MIXIN_MESSAGE_N(return_type, message)
+#define BOOST_MIXIN_CONST_MESSAGE_N(return_type, message)
+#define BOOST_MIXIN_MULTICAST_MESSAGE_N(return_type, message)
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N(return_type, message)
+#define BOOST_MIXIN_EXPORTED_MESSAGE_N(export, return_type, message)
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N(export, return_type, message)
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N(export, return_type, message)
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N(export, return_type, message)
+#define BOOST_MIXIN_MESSAGE_N_OVERLOAD(message_name, return_type, method_name)
+#define BOOST_MIXIN_CONST_MESSAGE_N_OVERLOAD(message_name, return_type, method_name)
+#define BOOST_MIXIN_MULTICAST_MESSAGE_N_OVERLOAD(message_name, return_type, method_name)
+#define BOOST_MIXIN_CONST_MULTICAST_MESSAGE_N_OVERLOAD(message_name, return_type, method_name)
+#define BOOST_MIXIN_EXPORTED_MESSAGE_N_OVERLOAD(export, message_name, return_type, method_name)
+#define BOOST_MIXIN_EXPORTED_CONST_MESSAGE_N_OVERLOAD(export, message_name, return_type, method_name)
+#define BOOST_MIXIN_EXPORTED_MULTICAST_MESSAGE_N_OVERLOAD(export, message_name, return_type, method_name)
+#define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_N_OVERLOAD(export, message_name, return_type, method_name)
+#else
+// include the generated macros
 #include "gen/message_macros.ipp"
-
-/*#define BOOST_MIXIN_EXPORTED_MESSAGE_2_OVERLOAD_IN_DOMAIN(export, domain, message, return_type, method_name, arg1_type, a1, arg2_type, a2) \
-    _BOOST_MIXIN_MESSAGE2(export, domain, message, method_name, return_type, arg1_type, a1, arg2_type, a2, BOOST_PP_EMPTY(), unicast)
-
-#define BOOST_MIXIN_MESSAGE_2_OVERLOAD_IN_DOMAIN(domain, message, return_type, method_name, arg1_type, a1, arg2_type, a2) \
-    BOOST_MIXIN_EXPORTED_MESSAGE_2_OVERLOAD_IN_DOMAIN(BOOST_PP_EMPTY(), domain, message, return_type, method_name, arg1_type, a1, arg2_type, a2)
-#define BOOST_MIXIN_MESSAGE_2_IN_DOMAIN(domain, return_type, message, arg1_type, a1, arg2_type, a2) \
-    BOOST_MIXIN_MESSAGE_2_OVERLOAD_IN_DOMAIN(domain, message, return_type, message, arg1_type, a1, arg2_type, a2)
-#define BOOST_MIXIN_MESSAGE_2(return_type, message, arg1_t, arg1, arg2_t, arg2) \
-    BOOST_MIXIN_MESSAGE_2_IN_DOMAIN(::boost::mixin::default_domain, return_type, message, arg1_type, a1, arg2_type, a2)
-#define BOOST_MIXIN_EXPORTED_MESSAGE_2_IN_DOMAIN(export, domain, return_type, message, arg1_type, a1, arg2_type, a2) \
-    BOOST_MIXIN_EXPORTED_MESSAGE_2_OVERLOAD_IN_DOMAIN(export, domain, message, return_type, message, arg1_type, a1, arg2_type, a2)
-#define BOOST_MIXIN_EXPORTED_MESSAGE_2(export, return_type, message, arg1_t, arg1, arg2_t, arg2) \
-    BOOST_MIXIN_EXPORTED_MESSAGE_2_IN_DOMAIN(export, ::boost::mixin::default_domain, return_type, message, arg1_type, a1, arg2_type, a2)
-*/
-
+#endif
 
 #define BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN(domain_tag, message_name) \
     /* specialize _boost_mixin_domain_for_type to bind this message struct's type to its domain tag */ \
@@ -64,6 +72,10 @@
     /* provide a tag instance */ \
     _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) * _BOOST_MIXIN_MESSAGE_TAG(message_name)
 
+/**
+ * The macro for defining a message.
+ * Use it once per message in a compilation unit (.cpp file)
+ */
 #define BOOST_MIXIN_DEFINE_MESSAGE(message_name) \
     BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN(::boost::mixin::default_domain, message_name)
 

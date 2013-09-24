@@ -1,4 +1,3 @@
-#pragma once
 #if !defined(_BOOST_MIXIN_HPP_INCLUDED)
 #define _BOOST_MIXIN_HPP_INCLUDED
 
@@ -11,8 +10,15 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //
-// TODO: docs link
+// The documentation can be found at the library's page:
+// http://ibob.github.io/boost.mixin/
 //
+
+/** @file
+ * The main include file of the library.
+ * Includes all required files
+ * (including some that could become optional)
+ */
 
 #if defined(_MSC_VER)
 // don't leave our warning disabled for the outside world
