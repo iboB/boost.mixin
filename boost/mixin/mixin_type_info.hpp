@@ -8,6 +8,12 @@
 #if !defined(_BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED)
 #define _BOOST_MIXIN_MIXIN_TYPE_INFO_HPP_INCLUDED
 
+/**
+ * \file
+ * Defines the internall classes that describe the information about a mixin -
+ * features and message data, type name, size, alignment, etc.
+ */
+
 #include "global.hpp"
 #include "message.hpp"
 

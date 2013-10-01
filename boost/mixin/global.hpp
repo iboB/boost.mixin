@@ -8,6 +8,12 @@
 #if !defined(_BOOST_MIXIN_GLOBAL_HPP_INCLUDED)
 #define _BOOST_MIXIN_GLOBAL_HPP_INCLUDED
 
+/**
+ * \file
+ * Defines global internal functions, classes, and type definitions.
+ */
+
+
 #include "config.hpp"
 
 #include <boost/assert.hpp>

@@ -8,6 +8,11 @@
 #if !defined(_BOOST_MIXIN_EXCEPTION_HPP_INCLUDED)
 #define _BOOST_MIXIN_EXCEPTION_HPP_INCLUDED
 
+/**
+ * \file
+ * The library's exceptions.
+ */
+
 #include "global.hpp"
 #include <boost/preprocessor/stringize.hpp>
 
@@ -20,15 +25,21 @@ namespace boost
 namespace mixin
 {
 
+/// Parent class of all Boost.Mixin exceptions
 class exception : public ::boost::exception, public ::std::exception {};
 
+/// Thrown in case a `mixin_collection` receives mixins from two
+/// different domains
 class invalid_domain : public exception {};
 
+/// TBD
 class invalid_transform : public exception {};
 
 }
 }
 
+/// A macro that throws an exception if `BOOST_MIXIN_USE_EXCEPTIONS`
+/// is defined. If it's not, it falls back to an assert.
 #   define BOOST_MIXIN_THROW_UNLESS(test, exception) do { if(!(test)) { BOOST_THROW_EXCEPTION(exception()); } } while(false)
 
 #else // BOOST_MIXIN_USE_EXCEPTIONS

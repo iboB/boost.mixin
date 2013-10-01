@@ -8,6 +8,12 @@
 #if !defined(_BOOST_MIXIN_MESSAGE_HPP_INCLUDED)
 #define _BOOST_MIXIN_MESSAGE_HPP_INCLUDED
 
+/**
+ * \file
+ * Defines message related operations for the feature list.
+ */
+
+
 #include "feature.hpp"
 
 namespace boost
@@ -72,6 +78,7 @@ struct BOOST_MIXIN_API message_for_mixin
 
 } // namespace internal
 
+// Used in the mixin's feature list to give a priority to a message.
 template <typename Message>
 internal::message_priority<Message> priority(int p, Message*)
 {

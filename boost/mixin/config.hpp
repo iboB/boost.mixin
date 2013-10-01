@@ -8,6 +8,11 @@
 #if !defined(_BOOST_MIXIN_CONFIG_HPP_INCLUDED)
 #define _BOOST_MIXIN_CONFIG_HPP_INCLUDED
 
+/**
+ * \file
+ * The library's configuration file.
+ */
+
 #include <boost/config.hpp>
 
 // set this to true when running the boost mixin unit tests

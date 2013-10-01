@@ -8,9 +8,6 @@
 #if !defined(_BOOST_MIXIN_OBJECT_TYPE_TEMPLATE_HPP_INCLUDED)
 #define _BOOST_MIXIN_OBJECT_TYPE_TEMPLATE_HPP_INCLUDED
 
-// the type template is a class that preserves an object type info
-// to quickly set it to new objects
-
 #include "global.hpp"
 #include "object_mutator.hpp"
 
@@ -23,6 +20,11 @@ namespace internal
     class object_type_info;
 }
 
+/// An object type template. Internally it represents a prepared object type
+/// information.
+///
+/// It makes the construnction of objects from the same type (same mixins)
+/// slightly faster, than using `mutate`.
 class BOOST_MIXIN_API object_type_template : private internal::object_mutator
 {
 public:

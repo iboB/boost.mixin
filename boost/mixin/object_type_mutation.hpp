@@ -8,9 +8,6 @@
 #if !defined(_BOOST_MIXIN_OBJECT_TYPE_MUTATION_HPP_INCLUDED)
 #define _BOOST_MIXIN_OBJECT_TYPE_MUTATION_HPP_INCLUDED
 
-// the object type mutation represents an object mutation
-// is used by mutators and mutation rules
-
 #include "global.hpp"
 #include "mixin_type_info.hpp"
 #include "mixin_collection.hpp"
@@ -24,24 +21,41 @@ namespace internal
     class object_mutator;
 }
 
+/// This class represents an object mutation.
+/// It is used by mutators and mutation rules.
+///
+/// Internally the class has two `mixin_collection` objects -
+/// removing and adding that represet the mixins that are supposed to be
+/// removed and added by the mutation.
+///
+/// Additionally another mixin collection might be present - the source.
+/// It is a pointer that may be null. If it's not, it represents the mixins
+/// of the object that's been currently mutated.
 class BOOST_MIXIN_API object_type_mutation
 {
 public:
+    /// Constructs an empty mutation
     object_type_mutation();
+
+    /// Constructs a mutation with a specific source.
     object_type_mutation(const mixin_collection* src);
 
+    /// Sets the source of the mutation.
     void set_source(const mixin_collection* src) { _source = src; }
 
+    /// Checks if the mutation is adding a mixin.
     template <typename Mixin>
     bool is_adding() const
     {
         return _adding.has<Mixin>();
     }
+    /// Checks if the mutation is removing a mixin.
     template <typename Mixin>
     bool is_removing() const
     {
         return _removing.has<Mixin>();
     }
+    /// Checks if the mutation's source has a mixin.
     template <typename Mixin>
     bool source_has() const
     {
@@ -61,27 +75,34 @@ public:
         return _source->has(id);
     }
 
+    /// Checks if any of the mixins that are being added by the mutation
+    /// also implements a given feature.
     template <typename Feature>
     bool is_adding(const Feature* f) const
     {
         return _adding.implements(f);
     }
+    /// Checks if any of the mixins that are being removed by the mutation
+    /// also implements a given feature.
     template <typename Feature>
     bool is_removing(const Feature* f) const
     {
         return _removing.implements(f);
     }
+    /// Checks if the mutation's source implements a feature.
     template <typename Feature>
     bool source_implements(const Feature* f) const
     {
         return _source->implements(f);
     }
 
+    /// Removes a mixin from the ones being added by the mutation.
     template <typename Mixin>
     void stop_adding()
     {
         _adding.remove<Mixin>();
     }
+    /// Removes a mixin from the ones being removed by the mutation.
     template <typename Mixin>
     void stop_removing()
     {
@@ -97,23 +118,29 @@ public:
         _removing.remove(id);
     }
 
+    /// Removes all mixins from the ones being added by the mutation, that
+    /// also implement a specific feature.
     template <typename Feature>
     void stop_adding(const Feature* f)
     {
         _adding.clear_all_implementing(f);
     }
+    /// Removes all mixins from the ones being removed by the mutation, that
+    /// also implement a specific feature.
     template <typename Feature>
     void stop_removing(const Feature* f)
     {
         _removing.clear_all_implementing(f);
     }
 
+    /// Adds a mixin to the ones being added by the mutation.
     template <typename Mixin>
     void start_adding()
     {
         _adding.add<Mixin>();
         check_valid();
     }
+    /// Adds a mixin to the ones being removed by the mutation.
     template <typename Mixin>
     void start_removing()
     {
@@ -132,15 +159,18 @@ public:
         check_valid();
     }
 
+    /// Adds a feature to the mutation so that all mixins in the source, that
+    /// implement a specific feature will be removed.
     template <typename Feature>
     void start_removing(const Feature* f);
 
     bool empty() const { return _adding.empty() && _removing.empty(); }
 
-    // normalize _addind and _removing
-    // that is, if an element is in both arrays it will be removed from them
+    /// Normalize the collections _addind and _removing.
+    /// That is, if an element is in both, it will be removed from both.
     void normalize();
 
+    /// Clears a mutation. Restores it to its initial state.
     void clear();
 
 private:

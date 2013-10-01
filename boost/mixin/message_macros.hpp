@@ -8,6 +8,12 @@
 #if !defined(_BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED)
 #define _BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED
 
+/**
+ * \file
+ * Macros used to declare and define messages.
+ */
+
+
 #include "message.hpp"
 
 // some macros here have an underscore in front so it doesn't appear as a suggestion in
@@ -55,6 +61,10 @@
 #include "gen/message_macros.ipp"
 #endif
 
+/**
+ * The macro for defining a message in a specific domain.
+ * Use it once per message in a compilation unit (.cpp file)
+ */
 #define BOOST_MIXIN_DEFINE_MESSAGE_IN_DOMAIN(domain_tag, message_name) \
     /* specialize _boost_mixin_domain_for_type to bind this message struct's type to its domain tag */ \
     template <> struct _boost_mixin_domain_for_type<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)> { typedef domain_tag tag; }; \
@@ -73,7 +83,7 @@
     _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) * _BOOST_MIXIN_MESSAGE_TAG(message_name)
 
 /**
- * The macro for defining a message.
+ * The macro for defining a message in the default domain.
  * Use it once per message in a compilation unit (.cpp file)
  */
 #define BOOST_MIXIN_DEFINE_MESSAGE(message_name) \

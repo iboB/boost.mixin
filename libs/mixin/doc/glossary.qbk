@@ -109,13 +109,20 @@ unstable `std::sort` handles equal values.
 
 [endsect]
 
+[section:combinators Multicast result combinators]
+[endsect]
+
+[section:mutators Mutations]
+
 [section:mutators Mutators]
 [endsect]
 
 [section:mrules Mutation rules]
 [endsect]
 
-[section:combinators Result combinators]
+[endsect]
+
+[section:combinators Domains]
 [endsect]
 
 [endsect]

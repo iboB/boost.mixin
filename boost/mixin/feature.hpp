@@ -8,6 +8,11 @@
 #if !defined(_BOOST_MIXIN_FEATURE_HPP_INCLUDED)
 #define _BOOST_MIXIN_FEATURE_HPP_INCLUDED
 
+/**
+ * \file
+ * Common feature related classes.
+ */
+
 #include "global.hpp"
 
 namespace boost
@@ -15,8 +20,11 @@ namespace boost
 namespace mixin
 {
 
-// used to indicate that there are no features for a mixin
+/// The type of the `none` feature.
 struct BOOST_MIXIN_API no_features_t {};
+
+/// Use this as a mixin feature, to indicate that the mixin
+/// implements no features.
 extern BOOST_MIXIN_API no_features_t* none;
 
 namespace internal

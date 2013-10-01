@@ -24,6 +24,11 @@
 #   include <boost/unordered_map.hpp>
 #endif
 
+/**
+ * \file
+ * Domain related classes and functions.
+ */
+
 // domains are a collection of mixins and messages that can be used together
 // if you have two independent sets of mixins, use two domains
 // for example <game mixins> and <database mixins>
@@ -39,12 +44,18 @@ namespace boost
 namespace mixin
 {
 
-// tag class for the default domain
-// not an actual domain object but just a dummy used for its name only
+
+/**
+ * Tag class for the default domain.
+ *
+ * A tag class is not an actual domain object but just a dummy
+ * used for its symbol name only
+ */
 class default_domain
 {
 #if !BOOST_MIXIN_USE_TYPEID
 public:
+    /// The domain name function in case `BOOST_MIXIN_USE_TYPEID` is not defined
     static const char* boost_mixin_name() { return "default_domain"; }
 #endif
 };
@@ -198,13 +209,13 @@ domain& get_domain_for_tag()
 
 // allocator functions
 
-// set allocator to all domains
+/// Sets an allocator to all domains
 void BOOST_MIXIN_API set_global_domain_allocator(domain_allocator* allocator);
 
-// set allocator to default domain
+/// Set an allocator to the default domain, only
 void BOOST_MIXIN_API set_default_domain_allocator(domain_allocator* allocator);
 
-// add allocator to specific domain
+/// Sets an allocator to a specific domain, identified by its tag
 template <typename DomainTag>
 void set_allocator_for_domain(domain_allocator* allocator)
 {

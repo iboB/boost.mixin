@@ -8,11 +8,14 @@
 #if !defined(_BOOST_MIXIN_MUTATION_RULE_HPP_INCLUDED)
 #define _BOOST_MIXIN_MUTATION_RULE_HPP_INCLUDED
 
+/**
+ * \file
+ * Functions and classes related to mutation rules.
+ */
+
 #include "global.hpp"
 #include "mixin_collection.hpp"
 #include "domain.hpp"
-
-// base class for all mutation rules
 
 namespace boost
 {
@@ -21,18 +24,20 @@ namespace mixin
 
 class object_type_mutation;
 
+/// Base class for all mutation rules
 class BOOST_MIXIN_API mutation_rule
 {
 public:
     virtual ~mutation_rule() {}
 
+    /// Called when applying the mutation rule.
     virtual void apply_to(object_type_mutation& mutation) = 0;
 };
 
-// add mutation rule to default domain
+/// Adds a mutation rule to the default domain.
 void BOOST_MIXIN_API add_new_mutation_rule(mutation_rule* rule);
 
-// add mutation rule to specific domain
+/// Adds a mutation rule to the a specific domain.
 template <typename DomainTag>
 void add_new_mutation_rule_for_domain(mutation_rule* rule)
 {

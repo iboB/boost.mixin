@@ -8,6 +8,12 @@
 #if !defined(_BOOST_MIXIN_OBJECT_TYPE_INFO_HPP_INCLUDED)
 #define _BOOST_MIXIN_OBJECT_TYPE_INFO_HPP_INCLUDED
 
+/**
+ * \file
+ * Defines internal classes that contain the type information for an object -
+ * mixins, implemented features, etc.
+ */
+
 #include "global.hpp"
 #include "mixin_collection.hpp"
 #include "message.hpp"

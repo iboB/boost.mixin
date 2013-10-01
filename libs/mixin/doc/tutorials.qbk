@@ -17,7 +17,7 @@
 
 [endsect]
 
-[section:combinators Multicast combinators]
+[section:combinators Multicast result combinators]
 [endsect]
 
 [section:mutation Object mutation]

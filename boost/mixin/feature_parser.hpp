@@ -8,6 +8,12 @@
 #if !defined(_BOOST_MIXIN_FEATURE_PARSER_HPP_INCLUDED)
 #define _BOOST_MIXIN_FEATURE_PARSER_HPP_INCLUDED
 
+/**
+ * \file
+ * Defines the internal class used to parse a mixin's features.
+ */
+
+
 #include "global.hpp"
 #include "message.hpp"
 #include "object_type_info.hpp"

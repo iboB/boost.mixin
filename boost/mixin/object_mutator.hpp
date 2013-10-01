@@ -8,7 +8,11 @@
 #if !defined(_BOOST_MIXIN_OBJECT_MUTATOR_HPP_INCLUDED)
 #define _BOOST_MIXIN_OBJECT_MUTATOR_HPP_INCLUDED
 
-// this class is a parent to various concrete types that deal with object mutataion
+/**
+ * \file
+ * Defines an internal base class, that is a parent to various concrete types
+ * that deal with object mutataion.
+ */
 
 #include "global.hpp"
 #include "object_type_mutation.hpp"

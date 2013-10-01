@@ -27,19 +27,21 @@ namespace internal
 
 class object_type_template;
 
-// main object class
+/// The main object class.
 class BOOST_MIXIN_API object : public internal::noncopyable
 {
 public:
-    // constructs an empty object - no mixins
+    /// Constructs an empty object - no mixins.
     object();
-    // constructs an object from a specific type
+    /// Constructs an object from a specific type template.
     explicit object(const object_type_template& type_template);
     ~object();
 
 
     /////////////////////////////////////////////////////////////////
     // mixin info
+
+    /// Checks if the object has a specific mixin.
     template <typename Mixin>
     bool has() const
     {
@@ -48,6 +50,8 @@ public:
         return internal_has_mixin(info.id);
     }
 
+    /// Gets a specific mixin from the object. Returns nullptr if the mixin
+    /// isn't available.
     template <typename Mixin>
     Mixin* get()
     {
@@ -56,6 +60,8 @@ public:
         return reinterpret_cast<Mixin*>(internal_get_mixin(info.id));
     }
 
+    /// Gets a specific mixin from the object. Returns nullptr if the mixin
+    /// isn't available.
     template <typename Mixin>
     const Mixin* get() const
     {
@@ -67,6 +73,8 @@ public:
 
     /////////////////////////////////////////////////////////////////
     // feature info
+
+    /// Checks if the mixin implements a feature.
     template <typename Feature>
     bool implements(const Feature*) const
     {
@@ -77,7 +85,8 @@ public:
     }
     /////////////////////////////////////////////////////////////////
 
-    // destroys all mixins and sets null type info
+    /// Destroys all mixins within an object and resets it's type info
+    // (sets null type info)
     void clear();
 
 boost_mixin_internal:
