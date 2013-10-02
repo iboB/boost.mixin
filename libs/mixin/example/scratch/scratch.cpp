@@ -12,6 +12,8 @@
 using namespace boost::mixin;
 using namespace std;
 
+class test_dom;
+
 BOOST_DECLARE_MIXIN(a);
 BOOST_DECLARE_MIXIN(b);
 BOOST_DECLARE_MIXIN(c);
@@ -25,11 +27,17 @@ int main()
 
     mutate(o)
         .add<a>()
-        .add<b>()
+        .add<b>();
+
+    trace(o, cout);
+
+    object o2;
+
+    mutate(o2)
         .add<c>()
         .add<d>();
 
-    trace(&o, cout);
+    trace(o2, cout);
     
     cout << endl;
 
@@ -75,7 +83,7 @@ public:
 // this order should be important if the messages aren't sorted by mixin name
 BOOST_DEFINE_MIXIN(b, trace_msg);
 BOOST_DEFINE_MIXIN(a, trace_msg);
-BOOST_DEFINE_MIXIN(c, trace_msg);
-BOOST_DEFINE_MIXIN(d, trace_msg);
+BOOST_DEFINE_MIXIN_IN_DOMAIN(test_dom, c, none);
+BOOST_DEFINE_MIXIN_IN_DOMAIN(test_dom, d, none);
 
 BOOST_MIXIN_DEFINE_MESSAGE(trace);

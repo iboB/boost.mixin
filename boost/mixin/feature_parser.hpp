@@ -71,6 +71,10 @@ public:
         BOOST_ASSERT(f.id != INVALID_FEATURE_ID);
 
         mixin_type_info& mixin_info = _boost_get_mixin_type_info((Mixin*)nullptr);
+
+        BOOST_ASSERT_MSG(f.dom == mixin_info.dom,
+                "you're using a feature from a domain on a mixin from a different domain");
+
         parse_feature(mixin_info, f, typename Feature::feature_tag());
 
         return *this;
