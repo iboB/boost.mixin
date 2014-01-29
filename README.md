@@ -24,5 +24,5 @@ See accompanying file LICENSE_1_0.txt or copy [here](http://www.boost.org/LICENS
 
 See license FAQ [here](http://www.boost.org/users/license.html).
 
-Copyright (c) 2013 [Borislav Stanimirov](http://github.com/iboB), [Zahary Karadjov](http://github.com/zah)
+Copyright (c) 2013-2014 [Borislav Stanimirov](http://github.com/iboB), [Zahary Karadjov](http://github.com/zah)
 
