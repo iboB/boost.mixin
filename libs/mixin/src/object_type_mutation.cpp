@@ -1,12 +1,11 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 //
 #include "internal.hpp"
-#include <boost/mixin/domain.hpp>
 #include <boost/mixin/object_type_mutation.hpp>
 
 using namespace std;
@@ -70,45 +69,8 @@ void object_type_mutation::clear()
 
 void object_type_mutation::check_valid()
 {
-    domain*& adom = _adding._domain;
-    domain*& rdom = _removing._domain;
-    domain* src_dom = _source ? _source->dom() : nullptr;
-
-    // if one of the domains is set, set the others
-
-    if(src_dom)
-    {
-        if(!adom)
-        {
-            adom = src_dom;
-        }
-        BOOST_ASSERT(adom == src_dom);
-
-        if(!rdom)
-        {
-            rdom = src_dom;
-        }
-        BOOST_ASSERT(rdom == src_dom);
-    }
-    else if(adom && !rdom)
-    {
-        rdom = adom;
-    }
-    else if(rdom && !adom)
-    {
-        adom = rdom;
-    }
-
-    BOOST_ASSERT(adom == rdom);
-}
-
-domain* object_type_mutation::dom() const
-{
-    if(_adding.dom()) return _adding.dom();
-    if(_removing.dom()) return _adding.dom();
-    if(_source) return _source->dom();
-
-    return nullptr;
+    // no reason to have invalid mutations as of now
+    // so nothing to do
 }
 
 }

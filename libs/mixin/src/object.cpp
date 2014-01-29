@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -42,11 +42,6 @@ object::object(const object_type_template& type)
 object::~object()
 {
     clear();
-}
-
-domain* object::dom() const
-{
-    return _type_info->dom();
 }
 
 void* object::internal_get_mixin(mixin_id id)
@@ -126,7 +121,9 @@ void object::construct_mixin(mixin_id id)
     mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
     BOOST_ASSERT(!data.buffer());
 
-    const mixin_type_info& mixin_info = dom()->mixin_info(id);
+    domain& dom = domain::instance();
+
+    const mixin_type_info& mixin_info = dom.mixin_info(id);
 
     char* buffer;
     size_t mixin_offset;
@@ -142,7 +139,7 @@ void object::construct_mixin(mixin_id id)
     data.set_buffer(buffer, mixin_offset);
     data.set_object(this);
 
-    dom()->mixin_info(id).constructor(data.mixin());
+    dom.mixin_info(id).constructor(data.mixin());
 }
 
 void object::destroy_mixin(mixin_id id)
@@ -150,7 +147,7 @@ void object::destroy_mixin(mixin_id id)
     BOOST_ASSERT(_type_info->has(id));
     mixin_data_in_object& data = _mixin_data[_type_info->mixin_index(id)];
 
-    const mixin_type_info& mixin_info = dom()->mixin_info(id);
+    const mixin_type_info& mixin_info = domain::instance().mixin_info(id);
 
     mixin_info.destructor(data.mixin());
 

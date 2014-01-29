@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -22,12 +22,10 @@ namespace boost
 namespace mixin
 {
 
-class domain_allocator;
+class global_allocator;
 
 namespace internal
 {
-
-class domain;
 
 static const mixin_id INVALID_MIXIN_ID = ~mixin_id(0);
 
@@ -38,8 +36,7 @@ typedef void (*mixin_destructor_proc)(void* memory);
 class BOOST_MIXIN_API mixin_type_info : public noncopyable
 {
 public:
-    domain* dom; // the domain this mixin belongs to
-    mixin_id id; // the mixin's id within said domain
+    mixin_id id; // the mixin's id
 
     const char* name; // mixin name = name of the actual class
 
@@ -52,14 +49,14 @@ public:
     mixin_destructor_proc destructor;
 
     // shows whether this is as initialized mixin
-    bool is_valid() const { return id != INVALID_MIXIN_ID && dom; }
+    bool is_valid() const { return id != INVALID_MIXIN_ID; }
 
     // list of all the message infos for the messages this mixin supports
     std::vector<message_for_mixin> message_infos;
 
     // used to allocate memory for instances of this mixin
-    // usually equal to the allocator of its domain
-    domain_allocator* allocator;
+    // usually equal to the allocator of the domain
+    global_allocator* allocator;
 
     mixin_type_info()
         : id(INVALID_MIXIN_ID)

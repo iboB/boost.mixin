@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -19,7 +19,7 @@ namespace mixin
 /// The single object mutator mutates objects.
 /// Namely it adds and removes mixins from an object
 /// While synchronizing the object's
-/// type information with its domain.
+/// type information
 ///
 /// The usage is to call add and remove for the desired components and then
 /// call `single_object_mutator::apply()` or simply have it leave the scope,

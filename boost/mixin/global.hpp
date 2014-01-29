@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -89,7 +89,7 @@ namespace internal
     class mixin_type_info;
     typedef std::vector<const mixin_type_info*> mixin_type_info_vector;
 
-    typedef std::bitset<BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN> available_mixins_bitset;
+    typedef std::bitset<BOOST_MIXIN_MAX_MIXINS> available_mixins_bitset;
 
     extern BOOST_MIXIN_API available_mixins_bitset build_available_mixins_from(const mixin_type_info_vector& mixins);
 

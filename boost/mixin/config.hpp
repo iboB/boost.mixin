@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -23,7 +23,6 @@
 // boost::mixin hevily relies on type names
 // setting the BOOST_MIXIN_USE_TYPEID to true will cause it to obtain said names with type_info via typeid.
 // setting it to false will require the following extra steps:
-//     * domain tags must add static const char* boost_mixin_name() { return <domain tag class name>; }
 //     * mixins must add static const char* boost_mixin_name() { return <mixin class name>; }
 #define BOOST_MIXIN_USE_TYPEID 1
 
@@ -42,21 +41,21 @@
 // the pointer to the object owning the current mixin
 #define BOOST_MIXIN_DEFINE_BM_THIS 1
 
-// maximum number of registered mixins for a domain
+// maximum number of registered mixins
 // an assertion will occur if this limit is reached in a program
 // *    the object type creation and the object mutation are proportional
 //      to this value by a factor of o(n log(word, n)) where word is the bit size of size_t
 // *    the object type's size is 2 * <value> / 8 (a bit for each possible mixin)
 //      the more global object of different types you have the more type memory they'll consume
 // ie: minor cost for increase
-#define BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN 256
+#define BOOST_MIXIN_MAX_MIXINS 256
 
-// maximum number of messages per domain (and consequently per mixin)
+// maximum number of messages (and consequently max per mixin)
 // an assertion will occur if this limit is reached in a program
 // as with the mixin limits this influences object type with 2 times as many pointers (2 * <word> * value)
 // object creation and mutation is not influenced by this value
 // minor cost for increase
-#define BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN 512
+#define BOOST_MIXIN_MAX_MESSAGES 512
 
 #if !defined(BOOST_NO_EXCEPTIONS)
 // setting this to true will cause some functions to throw exceptions instead of asserting

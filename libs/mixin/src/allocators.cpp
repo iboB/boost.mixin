@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -15,9 +15,9 @@ namespace boost
 namespace mixin
 {
 
-const size_t domain_allocator::mixin_data_size = sizeof(internal::mixin_data_in_object);
+const size_t global_allocator::mixin_data_size = sizeof(internal::mixin_data_in_object);
 
-size_t domain_allocator::calculate_mem_size_for_mixin(size_t mixin_size, size_t mixin_alignment)
+size_t global_allocator::calculate_mem_size_for_mixin(size_t mixin_size, size_t mixin_alignment)
 {
     // normally alignof(x) + sizeof(x) is enough for an aligned allocation
     // but in this case we want to have an object* before that and the alignment
@@ -29,7 +29,7 @@ size_t domain_allocator::calculate_mem_size_for_mixin(size_t mixin_size, size_t 
     return mem_size;
 }
 
-size_t domain_allocator::calculate_mixin_offset(const char* buffer, size_t mixin_alignment)
+size_t global_allocator::calculate_mixin_offset(const char* buffer, size_t mixin_alignment)
 {
     // now malloc (or new) should make sure to give us memory that's word aligned
     // that means that buffer should be aligned to sizeof(ptr)
@@ -50,7 +50,7 @@ size_t domain_allocator::calculate_mixin_offset(const char* buffer, size_t mixin
 
 static inline char* allocate_mixin_data(size_t count)
 {
-    BOOST_ASSERT(domain_allocator::mixin_data_size == sizeof(internal::mixin_data_in_object));
+    BOOST_ASSERT(global_allocator::mixin_data_size == sizeof(internal::mixin_data_in_object));
     return new char[sizeof(internal::mixin_data_in_object) * count];
 }
 
@@ -74,7 +74,7 @@ void mixin_allocator::dealloc_mixin_data(char* ptr)
 namespace internal
 {
 
-char* default_domain_allocator::alloc_mixin_data(size_t count)
+char* default_allocator::alloc_mixin_data(size_t count)
 {
 #if defined(BOOST_MIXIN_DEBUG)
     _has_allocated = true;
@@ -82,7 +82,7 @@ char* default_domain_allocator::alloc_mixin_data(size_t count)
     return allocate_mixin_data(count);
 }
 
-void default_domain_allocator::dealloc_mixin_data(char* ptr)
+void default_allocator::dealloc_mixin_data(char* ptr)
 {
 #if defined(BOOST_MIXIN_DEBUG)
     BOOST_ASSERT(_has_allocated); // what? deallocate without ever allocating?
@@ -90,7 +90,7 @@ void default_domain_allocator::dealloc_mixin_data(char* ptr)
     deallocate_mixin_data(ptr);
 }
 
-void default_domain_allocator::alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset)
+void default_allocator::alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset)
 {
 #if defined(BOOST_MIXIN_DEBUG)
     _has_allocated = true;
@@ -105,7 +105,7 @@ void default_domain_allocator::alloc_mixin(size_t mixin_size, size_t mixin_align
     BOOST_ASSERT(out_mixin_offset + mixin_size <= mem_size); // we should have room for the mixin
 }
 
-void default_domain_allocator::dealloc_mixin(char* ptr)
+void default_allocator::dealloc_mixin(char* ptr)
 {
 #if defined(BOOST_MIXIN_DEBUG)
     BOOST_ASSERT(_has_allocated); // what? deallocate without ever allocating?

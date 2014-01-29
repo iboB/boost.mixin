@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -138,7 +138,6 @@ public:
     void start_adding()
     {
         _adding.add<Mixin>();
-        check_valid();
     }
     /// Adds a mixin to the ones being removed by the mutation.
     template <typename Mixin>
@@ -176,7 +175,6 @@ public:
 private:
     friend class internal::object_mutator;
     void check_valid();
-    internal::domain* dom() const;
 
     mixin_collection _adding;
     mixin_collection _removing;

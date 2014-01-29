@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -11,8 +11,6 @@
 
 using namespace boost::mixin;
 using namespace std;
-
-class test_dom;
 
 BOOST_DECLARE_MIXIN(a);
 BOOST_DECLARE_MIXIN(b);
@@ -83,7 +81,7 @@ public:
 // this order should be important if the messages aren't sorted by mixin name
 BOOST_DEFINE_MIXIN(b, trace_msg);
 BOOST_DEFINE_MIXIN(a, trace_msg);
-BOOST_DEFINE_MIXIN_IN_DOMAIN(test_dom, c, none);
-BOOST_DEFINE_MIXIN_IN_DOMAIN(test_dom, d, none);
+BOOST_DEFINE_MIXIN(c, none);
+BOOST_DEFINE_MIXIN(d, none);
 
 BOOST_MIXIN_DEFINE_MESSAGE(trace);

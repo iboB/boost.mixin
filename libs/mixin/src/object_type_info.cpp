@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -38,11 +38,9 @@ const object_type_info& object_type_info::null()
 
 mixin_data_in_object* object_type_info::alloc_mixin_data() const
 {
-    BOOST_ASSERT(_domain);
-
     size_t num_to_allocate = _compact_mixins.size() + 1; //reserve idnex 0 for nullptr
 
-    char* memory = _domain->allocator()->alloc_mixin_data(num_to_allocate);
+    char* memory = domain::instance().allocator()->alloc_mixin_data(num_to_allocate);
     mixin_data_in_object* ret = new (memory) mixin_data_in_object[num_to_allocate];
 
     return ret;
@@ -55,8 +53,7 @@ void object_type_info::dealloc_mixin_data(mixin_data_in_object* data) const
         data[i].~mixin_data_in_object();
     }
 
-    BOOST_ASSERT(_domain);
-    _domain->allocator()->dealloc_mixin_data(reinterpret_cast<char*>(data));
+    domain::instance().allocator()->dealloc_mixin_data(reinterpret_cast<char*>(data));
 }
 
 struct bigger_message_priority
@@ -65,11 +62,13 @@ struct bigger_message_priority
     {
         if(b.message_data->priority == a.message_data->priority)
         {
+            const domain& dom = domain::instance();
+
             // on the same priority sort by name of mixin
             // this will guarantee that different compilations of the same mixins sets
             // will always have the same order of multicast execution
-            const char* name_a = a.message_data->message->dom->mixin_info(a.message_data->_mixin_id).name;
-            const char* name_b = b.message_data->message->dom->mixin_info(b.message_data->_mixin_id).name;
+            const char* name_a = dom.mixin_info(a.message_data->_mixin_id).name;
+            const char* name_b = dom.mixin_info(b.message_data->_mixin_id).name;
 
             return strcmp(name_a, name_b) < 0;
         }
@@ -171,12 +170,13 @@ void object_type_info::fill_call_table()
         }
     }
 
+    const domain& dom = domain::instance();
+
     // final pass through all messages of the domain
     // if we implement it AND it is a multicast, sort our buffer
-    BOOST_ASSERT(_domain);
-    for(size_t i=0; i<_domain->_num_registered_messages; ++i)
+    for(size_t i=0; i<dom._num_registered_messages; ++i)
     {
-        if(_domain->_messages[i]->mechanism == message_t::multicast)
+        if(dom._messages[i]->mechanism == message_t::multicast)
         {
             call_table_entry& table_entry = _call_table[i];
 

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -27,10 +27,6 @@ namespace mixin
 
 /// Parent class of all Boost.Mixin exceptions
 class exception : public ::boost::exception, public ::std::exception {};
-
-/// Thrown in case a `mixin_collection` receives mixins from two
-/// different domains
-class invalid_domain : public exception {};
 
 /// TBD
 class invalid_transform : public exception {};

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -15,7 +15,6 @@
 
 #include "global.hpp"
 #include "mixin_collection.hpp"
-#include "domain.hpp"
 
 namespace boost
 {
@@ -34,15 +33,8 @@ public:
     virtual void apply_to(object_type_mutation& mutation) = 0;
 };
 
-/// Adds a mutation rule to the default domain.
+/// Adds a mutation rule to the domain.
 void BOOST_MIXIN_API add_new_mutation_rule(mutation_rule* rule);
-
-/// Adds a mutation rule to the a specific domain.
-template <typename DomainTag>
-void add_new_mutation_rule_for_domain(mutation_rule* rule)
-{
-    internal::get_domain_for_tag<DomainTag>().add_new_mutation_rule(rule);
-}
 
 } // namespace mixin
 } // namespace boost

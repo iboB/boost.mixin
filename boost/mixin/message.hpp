@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -24,7 +24,7 @@ namespace mixin
 namespace internal
 {
 
-// feature tags are used by feature parsers and domains to distinguish between feature types
+// feature tags are used by feature parsers and the domain to distinguish between feature types
 // and register them appropriately
 struct BOOST_MIXIN_API message_feature_tag {};
 
@@ -40,7 +40,7 @@ struct BOOST_MIXIN_API message_t : public feature
 
     const e_mechanism mechanism;
 
-    /* the way messages identify themselves to domains and feature parsers */
+    /* the way messages identify themselves to feature parsers and the domain */
     typedef message_feature_tag feature_tag;
 
 protected:

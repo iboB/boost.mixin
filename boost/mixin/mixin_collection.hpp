@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -16,22 +16,13 @@ namespace boost
 namespace mixin
 {
 
-namespace internal
-{
-    class domain;
-}
-
 /// A mixin collection is a class that allows the user to
-/// represent a number of mixins within a domain.
-///
-/// The first mixin added to a collection determines its domain.
+/// represent a number of mixins
 class BOOST_MIXIN_API mixin_collection : public internal::noncopyable
 {
 public:
     mixin_collection();
     mixin_collection(const internal::mixin_type_info_vector& mixins);
-
-    internal::domain* dom() const { return _domain; }
 
     /// Checks if a mixin type is present in the collection
     template <typename Mixin>
@@ -68,8 +59,6 @@ public:
     /// Clears all mixins implementing a feature from the collection
     template <typename Feature>
     void clear_all_implementing(const Feature* f);
-
-    internal::domain* _domain; // owning domain
 
     internal::available_mixins_bitset _mixins;
     // only the mixins the objects of this type have

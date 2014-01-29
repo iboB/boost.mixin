@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -32,7 +32,6 @@ class object;
 namespace internal
 {
 
-class domain;
 class mixin_data_in_object;
 
 class BOOST_MIXIN_API object_type_info : private mixin_collection
@@ -41,7 +40,6 @@ public:
     object_type_info();
     ~object_type_info();
 
-    using mixin_collection::dom;
     using mixin_collection::has;
 
     const mixin_collection* as_mixin_collection() const { return this; }
@@ -56,12 +54,11 @@ public:
     void generate_call_table();
 
 boost_mixin_internal:
-    using mixin_collection::_domain;
     using mixin_collection::_mixins;
     using mixin_collection::_compact_mixins;
 
     // indices in the _compact_mixins member
-    size_t _mixin_indices[BOOST_MIXIN_MAX_MIXINS_PER_DOMAIN];
+    size_t _mixin_indices[BOOST_MIXIN_MAX_MIXINS];
 
     struct call_table_entry
     {
@@ -86,7 +83,7 @@ boost_mixin_internal:
     };
 
     call_table_entry* _multicast_buffer; // a single buffer for all multicast messages to save allocation calls
-    call_table_entry _call_table[BOOST_MIXIN_MAX_MESSAGES_PER_DOMAIN];
+    call_table_entry _call_table[BOOST_MIXIN_MAX_MESSAGES];
 
     // this should be called after the mixins have been initialized
     void fill_call_table();

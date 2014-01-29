@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -53,8 +53,8 @@ void object_mutator::create()
 
     _mutation.normalize();
 
-    BOOST_ASSERT(_mutation.dom());
-    _mutation.dom()->apply_mutation_rules(_mutation);
+    domain& dom = domain::instance();
+    dom.apply_mutation_rules(_mutation);
 
     // in case the rules broke it somehow
     _mutation.normalize();
@@ -96,8 +96,7 @@ void object_mutator::create()
     // there could be duplicates if we're adding something that's already there
     new_type_mixins.erase(std::unique(new_type_mixins.begin(), new_type_mixins.end()), new_type_mixins.end());
 
-    domain* dom = new_type_mixins.front()->dom;
-    _target_type_info = dom->get_object_type_info(new_type_mixins);
+    _target_type_info = dom.get_object_type_info(new_type_mixins);
 
     if(_target_type_info->as_mixin_collection() == _mutation._source)
     {

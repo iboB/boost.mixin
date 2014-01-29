@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -28,7 +28,6 @@ namespace internal
 {
 
 class object_type_info;
-class domain;
 
 class BOOST_MIXIN_API object_mutator : public internal::noncopyable
 {

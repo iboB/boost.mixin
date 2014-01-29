@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -17,7 +17,7 @@
 #include "global.hpp"
 #include "message.hpp"
 #include "object_type_info.hpp"
-#include "allocators.hpp" // clang needs this to assign mixin_allocator to domain_allocator :(
+#include "allocators.hpp" // clang needs this to assign mixin_allocator to allocator :(
 
 namespace boost
 {
@@ -71,9 +71,6 @@ public:
         BOOST_ASSERT(f.id != INVALID_FEATURE_ID);
 
         mixin_type_info& mixin_info = _boost_get_mixin_type_info((Mixin*)nullptr);
-
-        BOOST_ASSERT_MSG(f.dom == mixin_info.dom,
-                "you're using a feature from a domain on a mixin from a different domain");
 
         parse_feature(mixin_info, f, typename Feature::feature_tag());
 

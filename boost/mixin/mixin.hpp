@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -32,8 +32,8 @@ namespace internal
 template <typename Mixin>
 mixin_type_info_instance<Mixin>::mixin_type_info_instance()
 {
-    // register the mixin within its domain
-    get_domain_for_tag<typename _boost_mixin_domain_for_type<Mixin>::tag>().
+    // register the mixin int the domain
+    domain::instance().
         // we use the function to get the type info, to guarantee that an instantiation of the template
         // from another module won't override if
         template register_mixin_type<Mixin>(_boost_get_mixin_type_info((Mixin*)nullptr));
@@ -82,53 +82,12 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
     BOOST_DECLARE_EXPORTED_MIXIN(BOOST_PP_EMPTY(), mixin_type)
 
 /**
- * \brief defines a mixin in a domain
- *
- * \param domain_tag the custom domain tag
- * \param mixin_type is the class name of the declared mixin.
- * \param mixin_features the mixin features
- *
- * The macro defines a mixin in a custom domain. Call this once per mixin
- * in a compilation unit (.cpp file). A good idea is, if possible, to place it
- * in the compilation unit of the mixin class itself.
- *
- * To work properly, the macro needs to see a forward declaration of the mixin
- * by BOOST_DECLARE[_EXPORED]_MIXIN.
- *
- * \par Mixin features:
- * The features argument is an ampersand (&) separated list of the features -
- * messages, allocators, and others - that the mixin will support. If the
- * features have a special suffix (as messages do), it applies here.
- *
- * If the mixin has no features, then `boost::mixin::none` should be set as
- * the last argument
- *
- * \par Example:
- * \code
- * BOOST_DEFINE_MIXIN_IN_DOMAIN(mydomain, mymixin, foo_msg & priority(1, bar_msg) & allocator<myalloc>);
- * BOOST_DEFINE_MIXIN_IN_DOMAIN(mydomain, simple_mixin, none);
- * \endcode
- */
-#define BOOST_DEFINE_MIXIN_IN_DOMAIN(domain_tag, mixin_type, mixin_features) \
-    /* create a function that will reference mixin_type_info_instance static registrator to guarantee its instantiation */ \
-    inline void _boost_register_mixin(mixin_type*) { ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::registrator.unused = true; } \
-    /* create a mixin_type_info getter for this type */ \
-    ::boost::mixin::internal::mixin_type_info& _boost_get_mixin_type_info(const mixin_type*) { return ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::info(); } \
-    /* create a features parsing function */ \
-    /* features can be parsed multiple times by different parsers */ \
-    template <typename FeaturesParser> \
-    void _boost_parse_mixin_features(const mixin_type*, FeaturesParser& parser) { parser & mixin_features; } \
-    /* specialize _boost_mixin_domain_for_type to bind this mixin's type to its domain tag */ \
-    template <> struct _boost_mixin_domain_for_type<mixin_type> { typedef domain_tag tag; }
-
-
-/**
  * \brief defines a mixin
  *
  * \param mixin_type is the class name of the declared mixin.
  * \param mixin_features the mixin features
  *
- * The macro defines a mixin in the default domain. Call this once per mixin
+ * The macro defines a mixin in the domain. Call this once per mixin
  * in a compilation unit (.cpp file). A good idea is, if possible, to place it
  * in the compilation unit of the mixin class itself.
  *
@@ -150,7 +109,15 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
  * \endcode
  */
 #define BOOST_DEFINE_MIXIN(mixin_type, mixin_features) \
-    BOOST_DEFINE_MIXIN_IN_DOMAIN(::boost::mixin::default_domain, mixin_type, mixin_features)
+    \
+    /* create a function that will reference mixin_type_info_instance static registrator to guarantee its instantiation */ \
+    inline void _boost_register_mixin(mixin_type*) { ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::registrator.unused = true; } \
+    /* create a mixin_type_info getter for this type */ \
+    ::boost::mixin::internal::mixin_type_info& _boost_get_mixin_type_info(const mixin_type*) { return ::boost::mixin::internal::mixin_type_info_instance<mixin_type>::info(); } \
+    /* create a features parsing function */ \
+    /* features can be parsed multiple times by different parsers */ \
+    template <typename FeaturesParser> \
+    void _boost_parse_mixin_features(const mixin_type*, FeaturesParser& parser) { parser & mixin_features; }
 
 class object;
 

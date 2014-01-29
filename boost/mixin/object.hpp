@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -20,7 +20,6 @@ namespace internal
 {
     class object_type_info;
     class mixin_data_in_object;
-    class domain;
     struct message_t;
     struct message_feature_tag;
 }
@@ -102,8 +101,6 @@ boost_mixin_internal:
 
     void construct_mixin(mixin_id id);
     void destroy_mixin(mixin_id id);
-
-    internal::domain* dom() const;
 
     const internal::object_type_info* _type_info;
 

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -27,18 +27,12 @@ struct BOOST_MIXIN_API no_features_t {};
 /// implements no features.
 extern BOOST_MIXIN_API no_features_t* none;
 
-namespace internal
-{
-    class domain;
-}
-
 static const feature_id INVALID_FEATURE_ID = ~feature_id(0);
 
 class BOOST_MIXIN_API feature : public internal::noncopyable
 {
 public:
     feature_id id;
-    internal::domain* dom;
     const char* const name;
 
     bool is_private; // true when it's never used outised a single module

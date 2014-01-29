@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -22,13 +22,13 @@ namespace mixin
 
 /**
  * The class should be the parent to your custom
- * domain allocators, i.e. allocators that are set to a
- * domain and used for all mixin allocation within it
+ * allocators, i.e. allocators that are set
+ * for all mixin allocation
  */
-class BOOST_MIXIN_API domain_allocator
+class BOOST_MIXIN_API global_allocator
 {
 public:
-    virtual ~domain_allocator() {}
+    virtual ~global_allocator() {}
 
     /// Pure virtual.
     /// Should return a valid pointer to an array with the size of \c count
@@ -106,7 +106,7 @@ public:
     // it could be a serious bug to allocate from one and deallocate from another
 
     // users are encouraged to make use of this when debugging
-    domain_allocator() : _has_allocated(false) {}
+    global_allocator() : _has_allocated(false) {}
 
     bool has_allocated() const { return _has_allocated; }
 
@@ -120,11 +120,11 @@ protected:
  * mixin allocators, i.e. allocators that are set to mixins
  * mixin as features.
  *
- * It's derived from `domain_allocator`, and the difference
+ * It's derived from `allocator`, and the difference
  * between the two is that `mixin_allocator`, hides `alloc_mixin_data` and
  * `dealloc_mixin_data`.
  */
-class BOOST_MIXIN_API mixin_allocator : public domain_allocator
+class BOOST_MIXIN_API mixin_allocator : public global_allocator
 {
 private:
     /// INTERNAL ONLY
@@ -137,11 +137,11 @@ namespace internal
 {
 
 /**
- * The default domain allocator.
+ * The default allocator.
  *
  * Used internally by the library, where no custom allocators are provided.
  */
-class BOOST_MIXIN_API default_domain_allocator : public domain_allocator
+class BOOST_MIXIN_API default_allocator : public global_allocator
 {
 public:
     /// INTERNAL ONLY
