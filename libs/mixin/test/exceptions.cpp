@@ -6,11 +6,18 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 
+#define BOOST_TEST_MODULE boost_mixin_exceptions
+
 #include <boost/mixin.hpp>
-#include <iostream>
+#include <boost/test/unit_test.hpp>
+#include <boost/test/included/unit_test.hpp>
 
 using namespace boost::mixin;
-using namespace std;
+
+BOOST_DECLARE_MIXIN(has_u1m1);
+BOOST_DECLARE_MIXIN(has_m1);
+BOOST_DECLARE_MIXIN(has_u2m2);
+BOOST_DECLARE_MIXIN(has_m2);
 
 BOOST_DECLARE_MIXIN(has_u1m1);
 BOOST_DECLARE_MIXIN(has_m1);
@@ -18,13 +25,11 @@ BOOST_DECLARE_MIXIN(has_u2m2);
 BOOST_DECLARE_MIXIN(has_m2);
 
 BOOST_MIXIN_MULTICAST_MESSAGE_0(int, m1);
-BOOST_MIXIN_MULTICAST_MESSAGE_0(void, m2);
+BOOST_MIXIN_MULTICAST_MESSAGE_0(int, m2);
 BOOST_MIXIN_MESSAGE_0(void, u1);
 BOOST_MIXIN_MESSAGE_0(void, u2);
 
-typedef boost::error_info<struct my_tag,std::string> my_tag_error_info;
-
-int main()
+BOOST_AUTO_TEST_CASE(exceptions)
 {
     {
         object o;
@@ -33,11 +38,16 @@ int main()
             .add<has_u1m1>()
             .add<has_m1>();
 
-        m1<combinators::sum>(o);
-        m1(o, combinators::sum<int>());
-    }
+        BOOST_CHECK_NO_THROW(u1(o));
+        BOOST_CHECK_NO_THROW(m1(o));
+        BOOST_CHECK_NO_THROW(m1<combinators::sum>(o));
+        BOOST_CHECK_NO_THROW(m1(o, combinators::sum<int>()));
 
-    return 0;
+        BOOST_CHECK_THROW(u2(o), bad_message_call);
+        BOOST_CHECK_THROW(m2(o), bad_message_call);
+        BOOST_CHECK_THROW(m2<combinators::sum>(o), bad_message_call);
+        BOOST_CHECK_THROW(m2(o, combinators::sum<int>()), bad_message_call);
+    }
 }
 
 class has_u1m1
@@ -57,16 +67,15 @@ class has_u2m2
 {
 public:
     void u2() {}
-    void m2() {}
+    int m2() { return 3; }
 };
 
 class has_m2
 {
 public:
-    void m2() {}
+    int m2() { return 4; }
 };
 
-// this order should be important if the messages aren't sorted by mixin name
 BOOST_DEFINE_MIXIN(has_u1m1, u1_msg & m1_msg);
 BOOST_DEFINE_MIXIN(has_m1, m1_msg);
 BOOST_DEFINE_MIXIN(has_u2m2, u2_msg & m2_msg);

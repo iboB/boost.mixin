@@ -30,6 +30,7 @@ rule test_all
     all_tests += [ run cxx11.cpp ] ;
     all_tests += [ run allocators.cpp ] ;
     all_tests += [ run alignment.cpp ] ;
+    all_tests += [ run exceptions.cpp ] ;
 
     for local mutation_rule_test in [ glob mutation_rules/*.cpp ]
     {

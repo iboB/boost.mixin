@@ -25,11 +25,14 @@ namespace boost
 namespace mixin
 {
 
-/// Parent class of all Boost.Mixin exceptions
+/// Parent class of all Boost.Mixin exceptions.
 class exception : public ::boost::exception, public ::std::exception {};
 
 /// TBD
 class invalid_transform : public exception {};
+
+/// Thrown when a message is called on a object that doesn't implement it.
+class bad_message_call : public exception {};
 
 }
 }

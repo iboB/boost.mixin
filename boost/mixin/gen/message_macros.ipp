@@ -53,7 +53,7 @@
         BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
         const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
-        BOOST_ASSERT(_b_m_msg_data); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_msg_data, ::boost::mixin::bad_message_call); \
         /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
         char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
@@ -80,7 +80,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -115,7 +115,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -227,7 +227,7 @@
         BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
         const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
-        BOOST_ASSERT(_b_m_msg_data); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_msg_data, ::boost::mixin::bad_message_call); \
         /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
         char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
@@ -254,7 +254,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -289,7 +289,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -401,7 +401,7 @@
         BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
         const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
-        BOOST_ASSERT(_b_m_msg_data); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_msg_data, ::boost::mixin::bad_message_call); \
         /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
         char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
@@ -428,7 +428,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -463,7 +463,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -575,7 +575,7 @@
         BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
         const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
-        BOOST_ASSERT(_b_m_msg_data); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_msg_data, ::boost::mixin::bad_message_call); \
         /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
         char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
@@ -602,7 +602,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -637,7 +637,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -749,7 +749,7 @@
         BOOST_ASSERT(static_cast< ::boost::mixin::internal::message_t&>(_b_m_self).mechanism == ::boost::mixin::internal::message_t::unicast); \
         const ::boost::mixin::internal::object_type_info::call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const ::boost::mixin::internal::message_for_mixin* _b_m_msg_data = _b_m_call_entry.message_data; \
-        BOOST_ASSERT(_b_m_msg_data); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_msg_data, ::boost::mixin::bad_message_call); \
         /* unfortunately we can't assert(_b_m_msg_data->message == &_b_m_self); since the data might come from a different module */ \
         char* _b_m_mixin_data = _BOOST_MIXIN_GET_MIXIN_DATA(_b_m_obj, _b_m_msg_data->_mixin_id); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
@@ -776,7 +776,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
@@ -811,7 +811,7 @@
         const call_table_entry& _b_m_call_entry = _b_m_obj._type_info->_call_table[_b_m_self.id]; \
         const call_table_entry* _b_m_begin = _b_m_call_entry.multicast_begin; \
         const call_table_entry* _b_m_end = _b_m_call_entry.multicast_end; \
-        BOOST_ASSERT(_b_m_begin); \
+        BOOST_MIXIN_THROW_UNLESS(_b_m_begin, ::boost::mixin::bad_message_call); \
         BOOST_ASSERT(_b_m_end); \
         for(const call_table_entry* _b_m_iter = _b_m_begin; _b_m_iter!=_b_m_end; ++_b_m_iter) \
         { \
