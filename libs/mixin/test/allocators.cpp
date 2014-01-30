@@ -6,7 +6,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 
-#define BOOST_TEST_MODULE cxx11_boost_mixin_features
+#define BOOST_TEST_MODULE boost_mixin_allocators
 
 #include <boost/mixin.hpp>
 #include <boost/test/unit_test.hpp>
@@ -68,7 +68,7 @@ struct custom_allocator : public mixin_allocator, public alloc_counter<T>
         _dda.dealloc_mixin(ptr);
     }
 
-    internal::default_domain_allocator _dda;
+    internal::default_allocator _dda;
 };
 
 class global_alloc : public custom_allocator<global_alloc> {};
@@ -79,7 +79,7 @@ class custom_alloc_var : public custom_allocator<custom_alloc_var> {} the_alloca
 BOOST_AUTO_TEST_CASE(allocators)
 {
     global_alloc* glob = new global_alloc;
-    set_global_domain_allocator(glob);
+    set_global_allocator(glob);
 
     {
         object o;
