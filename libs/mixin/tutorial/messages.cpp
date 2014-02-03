@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -184,7 +184,14 @@ BOOST_MIXIN_DEFINE_MESSAGE(set_anim_by_id);
 
 /*`
 Great! Now that we have our messages it's time to define the classes from above
-as mixins. We met the `BOOST_DEFINE_MIXIN` macro from the basic example. It has
+as mixins.
+
+Normally if the our program is spread across several files, you should use
+`BOOST_DECLARE_MIXIN` to declare that those classes are mixins, but since our
+program is in a single file, it can be omitted. All of its functionality is also
+encompassed by `BOOST_DEFINE_MIXIN`.
+
+We met the `BOOST_DEFINE_MIXIN` macro from the basic example. It has
 two arguments -- the mixin/class name and it's feature list. The feature list is
 a ampersand separated list symbols that represent the mixin's features and can
 contain many things but for now we'll focus on messages -- the ones this mixin
