@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -15,8 +15,6 @@
 #include "common/common.hpp"
 
 using namespace boost::mixin;
-
-class other_domain {};
 
 // some mixins and messages
 BOOST_DECLARE_MIXIN(counter);
