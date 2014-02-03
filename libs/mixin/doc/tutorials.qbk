@@ -1,5 +1,5 @@
 [/
- Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+ Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 
  Distributed under the Boost Software License, Version 1.0.
  See accompanying file LICENSE_1_0.txt or copy at
@@ -17,13 +17,10 @@
 
 [endsect]
 
-[section:combinators Multicast result combinators]
-[endsect]
-
 [section:mutation Object mutation]
 [endsect]
 
-[section:mutation Allocators]
+[section:combinators Multicast result combinators]
 [endsect]
 
 [section:tips_tricks Tips and tricks]
@@ -33,11 +30,38 @@ them all. Like: `#define transform_messages set_position_msg & set_orientation_m
 Then use it like this `BOOST_DEFINE_MIXIN(x, some_messages & transform_messages);`
 * Instead of using the long message declaration macros, consider defining your
 own. Maybe something like `#define BM_C_MSG_1 BOOST_MIXIN_CONST_MESSAGE_1`
-* Prefer using `object_type_template`-s instead of mutating each new object.
+* Prefer using `object_type_template`-s instead of mutating each new object in
+the same fashion.
 * Prefer using `same_type_mutator` when mutating multiple objects of the same
 type.
 
 [section:common_mixin_parent Mixins with a common parent]
+Sometimes you will feel the need to have mixins with a common parent. Most
+likely this will happen when you want to define two different mixins that share
+some common functionality. Moving the shared functionality in the same common
+parent is a good idea and Boost.Mixin will work exactly the same way if you do
+this. However there is a pitfall in this case. It happens when you have
+multiple inheritance. Due to the special nature in which the libray arranges the
+memory internally if a mixin type has more than one parent using `bm_this` in
+one of those parents might lead to crashes.
+
+More precisely, when the library allocates memory for a mixin type it allocates
+a buffer that is slightly bigger than needed and puts the pointer to the owning
+object at its front. What `bm_this` does is actually an offset from `this` with
+the appropriate number of bytes for `object*`. So if a parent of your mixin
+type, other than the first calls `bm_this` it will end up returning an invalid
+pointer to the owning object.
+
+To be able to have parents, other than the first, with access to the owning
+object we suggest that you create a pure virtual function that gets it from the
+actual mixin type.
+
+Say `virtual object* get_bm_object() = 0;` in the parents, which is implemented
+in the child class (the actual mixin defined with `BOOST_DEFINE_MIXIN`) by
+simply `return bm_this`.
+
+Of course there are other ways to accomplish this, for example with CRTP, but
+the virtual function is probably the cleanest and safest one.
 [endsect]
 
 [endsect]
