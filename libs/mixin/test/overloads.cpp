@@ -27,8 +27,6 @@ BOOST_MIXIN_MESSAGE_1_OVERLOAD(uni_1_overload_2, int, uni, int, a1);
 BOOST_MIXIN_MESSAGE_2_OVERLOAD(uni_1_overload_3, int, uni, int, a1, int, a2);
 BOOST_MIXIN_MESSAGE_3_OVERLOAD(uni_1_overload_4, int, uni, int, a1, int, a2, int, a3);
 
-typedef boost::error_info<struct my_tag,std::string> my_tag_error_info;
-
 BOOST_AUTO_TEST_CASE(overloads)
 {
     object o;
