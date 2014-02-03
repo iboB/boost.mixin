@@ -23,6 +23,9 @@
 [section:mutation Object mutation]
 [endsect]
 
+[section:mutation Allocators]
+[endsect]
+
 [section:tips_tricks Tips and tricks]
 
 * When adding the same set of messages to multiple mixins, create a define of
