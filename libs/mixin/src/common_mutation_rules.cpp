@@ -47,7 +47,7 @@ void mutually_exclusive_mixins::apply_to(object_type_mutation& mutation)
         return;
     }
 
-    // find the object has one of the mutually exclusive mixins
+    // find if the object has one of the mutually exclusive mixins
     BOOST_FOREACH(const mixin_type_info* mixin_info, _compact_mixins)
     {
         if(mixin_info->id == adding)
