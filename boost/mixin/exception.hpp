@@ -38,6 +38,10 @@ class bad_mutation_source : public exception {};
 /// Thrown when a message is called on a object that doesn't implement it.
 class bad_message_call : public exception {};
 
+/// Thrown when an object type is created which has mixins that implement 
+/// the same unicast message with the same priority
+class unicast_clash : public exception {};
+
 }
 }
 

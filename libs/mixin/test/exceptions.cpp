@@ -15,13 +15,10 @@
 using namespace boost::mixin;
 
 BOOST_DECLARE_MIXIN(has_u1m1);
+BOOST_DECLARE_MIXIN(has_u1);
 BOOST_DECLARE_MIXIN(has_m1);
 BOOST_DECLARE_MIXIN(has_u2m2);
-BOOST_DECLARE_MIXIN(has_m2);
-
-BOOST_DECLARE_MIXIN(has_u1m1);
-BOOST_DECLARE_MIXIN(has_m1);
-BOOST_DECLARE_MIXIN(has_u2m2);
+BOOST_DECLARE_MIXIN(has_u2);
 BOOST_DECLARE_MIXIN(has_m2);
 
 BOOST_MIXIN_MULTICAST_MESSAGE_0(int, m1);
@@ -90,11 +87,58 @@ BOOST_AUTO_TEST_CASE(ex_bad_mutation_source)
     BOOST_CHECK_THROW(mut_2_to_1.apply_to(o3), bad_mutation_source);
 }
 
+BOOST_AUTO_TEST_CASE(ex_unicast_clash)
+{
+    object o;
+
+    single_object_mutator safe(o);
+    safe
+        .add<has_u1>()
+        .add<has_u2m2>();
+
+    BOOST_CHECK_NO_THROW(safe.apply());
+
+    object o2;
+
+    single_object_mutator clash(o2);
+    clash
+        .add<has_u2>()
+        .add<has_u2m2>();
+
+    BOOST_CHECK_THROW(clash.apply(), unicast_clash);
+
+    single_object_mutator clash2(o);
+    clash2
+        .add<has_u2>();
+
+    BOOST_CHECK_THROW(clash2.apply(), unicast_clash);
+
+    object_type_template safe_t;
+    safe_t
+        .add<has_u2>()
+        .add<has_u1m1>();
+
+    BOOST_CHECK_NO_THROW(safe_t.create());
+
+    object_type_template clash_t;
+    clash_t
+        .add<has_u2>()
+        .add<has_u2m2>();
+
+    BOOST_CHECK_THROW(clash_t.create(), unicast_clash);
+}
+
 class has_u1m1
 {
 public:
     void u1() {}
     int m1() { return 1; }
+};
+
+class has_u1
+{
+public:
+    void u1() {}
 };
 
 class has_m1
@@ -110,6 +154,12 @@ public:
     int m2() { return 3; }
 };
 
+class has_u2
+{
+public:
+    void u2() {}
+};
+
 class has_m2
 {
 public:
@@ -118,8 +168,10 @@ public:
 
 BOOST_DEFINE_MIXIN(has_u1m1, u1_msg & m1_msg);
 BOOST_DEFINE_MIXIN(has_m1, m1_msg);
+BOOST_DEFINE_MIXIN(has_u1, u1_msg);
 BOOST_DEFINE_MIXIN(has_u2m2, u2_msg & m2_msg);
 BOOST_DEFINE_MIXIN(has_m2, m2_msg);
+BOOST_DEFINE_MIXIN(has_u2, u2_msg);
 
 BOOST_MIXIN_DEFINE_MESSAGE(m1);
 BOOST_MIXIN_DEFINE_MESSAGE(m2);

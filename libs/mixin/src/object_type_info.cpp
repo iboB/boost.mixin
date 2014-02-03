@@ -10,6 +10,7 @@
 #include <boost/mixin/object_type_info.hpp>
 #include <boost/mixin/domain.hpp>
 #include <boost/mixin/allocators.hpp>
+#include <boost/mixin/exception.hpp>
 
 namespace boost
 {
@@ -106,6 +107,27 @@ void object_type_info::fill_call_table()
                 ++total_multicast_length;
                 BOOST_ASSERT(table_entry.multicast_begin == nullptr);
                 ++table_entry.multicast_end; // hacky count number of clients for this specific multicast
+            }
+        }
+    }
+
+    // pass 1.5
+    // check for unicast clashes
+    for(size_t i=0; i<_compact_mixins.size(); ++i)
+    {
+        const mixin_type_info& info = *_compact_mixins[i];
+
+        for(size_t j=0; j<info.message_infos.size(); ++j)
+        {
+            const message_for_mixin& msg = info.message_infos[j];
+            call_table_entry& table_entry = _call_table[msg.message->id];
+
+            if(msg.message->mechanism == message_t::unicast)
+            {
+                BOOST_MIXIN_THROW_UNLESS(
+                    (table_entry.message_data == &msg) || (table_entry.message_data->priority > msg.priority),
+                    unicast_clash
+                    );
             }
         }
     }
