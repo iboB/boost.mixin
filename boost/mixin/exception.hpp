@@ -28,8 +28,12 @@ namespace mixin
 /// Parent class of all Boost.Mixin exceptions.
 class exception : public ::boost::exception, public ::std::exception {};
 
-/// TBD
-class invalid_transform : public exception {};
+/// Thrown when an attempt is made to mutate an object whose type doesn't correspond
+/// to the expected source type of the mutation (the one to mutate *from*).
+///
+/// The most likely cause is when using a `same_type_mutator` on objects that are
+/// not of the same type
+class bad_mutation_source : public exception {};
 
 /// Thrown when a message is called on a object that doesn't implement it.
 class bad_message_call : public exception {};

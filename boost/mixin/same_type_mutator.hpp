@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -21,6 +21,8 @@ namespace mixin
 ///
 /// If you want to mutate many objects of the same type, using this class
 /// will make it much faster than using the `single_object_mutator` multiple times.
+///
+///
 class BOOST_MIXIN_API same_type_mutator : public internal::object_mutator
 {
 public:
@@ -29,6 +31,10 @@ public:
 
     // not using but hiding parent's function
     void apply_to(object& o);
+
+private:
+    // create must be called by apply_to
+    using object_mutator::create;
 };
 
 }

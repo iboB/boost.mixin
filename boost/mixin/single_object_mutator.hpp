@@ -37,6 +37,9 @@ public:
 private:
     object& _object;
     bool _is_manually_applied;
+
+    // create must be called by apply
+    using object_mutator::create;
 };
 
 typedef single_object_mutator mutate;

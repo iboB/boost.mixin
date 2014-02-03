@@ -111,8 +111,9 @@ void object_mutator::apply_to(object& obj) const
 {
     BOOST_ASSERT(_is_created);
     BOOST_ASSERT(_mutation._source);
+
     // we need to mutate only objects of the same type
-    BOOST_ASSERT(obj._type_info->as_mixin_collection() == _mutation._source);
+    BOOST_MIXIN_THROW_UNLESS(obj._type_info->as_mixin_collection() == _mutation._source, bad_mutation_source);
 
     if(!_target_type_info)
     {
