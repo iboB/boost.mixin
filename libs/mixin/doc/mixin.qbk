@@ -1,5 +1,5 @@
 [/
- Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+ Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 
  Distributed under the Boost Software License, Version 1.0.
  See accompanying file LICENSE_1_0.txt or copy at
@@ -10,7 +10,7 @@
     [quickbook 1.5]
     [version 0.1]
     [authors [Stanimirov, Borislav] [Karadjov, Zahary]]
-    [copyright 2013 Borislav Stanimirov, Zahary Karadjov]
+    [copyright 2013-2014 Borislav Stanimirov, Zahary Karadjov]
     [purpose Entity-component system]
     [license
         Distributed under the Boost Software License, Version 1.0.
@@ -38,14 +38,20 @@ Boost.Mixin is a C++ implementation of the *Mixin* concept.
 [section Disclaimer]
 
 This library is *not* an official part of [@http://www.boost.org the Boost
-libraries collection]. It will be submitted for review somewhere in late 2013.
+libraries collection]. It will be submitted for review somewhere in early 2014.
 
 [endsect]
 
 [include introduction.qbk]
 [include basic_usage.qbk]
 [include using.qbk]
+
+[/
+TODO: a case study that explains the motivation for each library feature via
+a hypothetical big program example
 [include case_study.qbk]
+/]
+
 [include glossary.qbk]
 [include tutorials.qbk]
 [include examples.qbk]

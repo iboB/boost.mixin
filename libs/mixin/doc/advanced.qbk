@@ -39,10 +39,7 @@ else.
 
 [endsect]
 
-[section:domain Using different domains]
-[endsect]
-
-[section:domain Using custom mutation rules]
+[section:custom_rules Using custom mutation rules]
 [endsect]
 
 [section:allocators Using custom allocators]

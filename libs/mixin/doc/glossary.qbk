@@ -110,19 +110,42 @@ unstable `std::sort` handles equal values.
 [endsect]
 
 [section:combinators Multicast result combinators]
+[indexterm combinators]
+[indexterm2 message..multicast result combinators]
+
+When calling multicast messages, their return values are lost. Naturally, you
+can use an output parameter to collect those return values, but if you don't
+want to change existing methods, or if don't want to have the collection logic
+in them, the librarly provides a way to collect the return values externally.
+
+This happens with multicast result combinators.
+
+The library provides some common combinators, like `boolean_or`, `boolean_and`,
+and `sum`. It also allows you to easily create your own, for whatever purpose
+you need.
+
 [endsect]
 
-[section:mutators Mutations]
+[section:mutation Mutations]
+[indexterm mutation]
 
-[section:mutators Mutators]
-[endsect]
+A mutation changes the type of an object. You have to use some kind of mutator
+to give type to the object.
+
+Basically a mutation adds or removes mixins from an object.
 
 [section:mrules Mutation rules]
-[endsect]
+[indexterm mutation rules]
+
+A mutation rule is set globally applied to all mutations. A mutation rule may
+prevent a mixin to be added to an object or force one, even though the mutation
+wants to add it or doesn't mention it.
+
+A very common mutation rule is to have mutually exclusive mixins, where when you
+add one, the other is removed.
 
 [endsect]
 
-[section:combinators Domains]
 [endsect]
 
 [endsect]

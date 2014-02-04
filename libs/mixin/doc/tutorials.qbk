@@ -10,7 +10,7 @@
 
 [section:messages Messages]
 
-[indexterm2 message..tutorial]
+[indexterm2 message..example]
 
 [import ../tutorial/messages.cpp]
 [tutorial_messages]
@@ -18,9 +18,24 @@
 [endsect]
 
 [section:mutation Object mutation]
+
+[indexterm2 mutation..example]
+
+[import ../tutorial/mutation.cpp]
+[tutorial_mutation]
+
+[section:mrules Mutation rules]
+
+[indexterm2 mutation rules..example]
+
+[endsect]
+
 [endsect]
 
 [section:combinators Multicast result combinators]
+
+[indexterm2 combinators..example]
+
 [endsect]
 
 [section:tips_tricks Tips and tricks]
@@ -34,6 +49,14 @@ own. Maybe something like `#define BM_C_MSG_1 BOOST_MIXIN_CONST_MESSAGE_1`
 the same fashion.
 * Prefer using `same_type_mutator` when mutating multiple objects of the same
 type.
+* If you have some messages that are valid for /all/ objects in your system,
+instead of adding them to a mixin present in every object, consider having some
+stand-alone functions where your first parameter is `boost::mixin::object&`.
+They will be indistinguishable from messages.
+* If you have multicast logic that needs to stop after a success in any of the
+message implementations in an object, have your messages return `bool` and then
+use the `boolean_or` combinator. It will stop the message execution on the first
+`true`.
 
 [section:common_mixin_parent Mixins with a common parent]
 Sometimes you will feel the need to have mixins with a common parent. Most
