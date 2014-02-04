@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class global_allocator</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../../mixin/reference.html#header.boost.mixin.allocators_hpp" title="Header &lt;boost/mixin/allocators.hpp&gt;">
+<link rel="prev" href="internal/default_allocator.html" title="Class default_allocator">
+<link rel="next" href="mixin_allocator.html" title="Class mixin_allocator">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="internal/default_allocator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.allocators_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="mixin_allocator.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.mixin.global_allocator"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class global_allocator</span></h2>
+<p>boost::mixin::global_allocator</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../mixin/reference.html#header.boost.mixin.allocators_hpp" title="Header &lt;boost/mixin/allocators.hpp&gt;">boost/mixin/allocators.hpp</a>&gt;
+
+</span>
+<span class="keyword">class</span> <a class="link" href="global_allocator.html" title="Class global_allocator">global_allocator</a> <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+  <span class="comment">// <a class="link" href="global_allocator.html#boost.mixin.global_allocatorconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="global_allocator.html#idp6690912-bb"><span class="identifier">global_allocator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="global_allocator.html#idp6690784-bb"><span class="special">~</span><span class="identifier">global_allocator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="global_allocator.html#idm4832-bb">public member functions</a></span>
+  <span class="keyword">char</span> <span class="special">*</span> <a class="link" href="global_allocator.html#idm4432-bb"><span class="identifier">alloc_mixin_data</span></a><span class="special">(</span><span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="global_allocator.html#idp6678608-bb"><span class="identifier">dealloc_mixin_data</span></a><span class="special">(</span><span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="global_allocator.html#idp6680960-bb"><span class="identifier">alloc_mixin</span></a><span class="special">(</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">&amp;</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="global_allocator.html#idp6687568-bb"><span class="identifier">dealloc_mixin</span></a><span class="special">(</span><span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="global_allocator.html#idp6689920-bb"><span class="identifier">has_allocated</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="global_allocator.html#idp6691040-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="identifier">size_t</span> <a class="link" href="global_allocator.html#idp6691408-bb"><span class="identifier">calculate_mem_size_for_mixin</span></a><span class="special">(</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">size_t</span> <a class="link" href="global_allocator.html#idp6694720-bb"><span class="identifier">calculate_mixin_offset</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">,</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="global_allocator.html#boost.mixin.global_allocatorpublic-data-members">public data members</a></span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">size_t</span> <a class="link" href="global_allocator.html#boost.mixin.global_allocator.mixin_data_size"><span class="identifier">mixin_data_size</span></a><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idp35233840"></a><h2>Description</h2>
+<p>The class should be the parent to your custom allocators, i.e. allocators that are set for all mixin allocation </p>
+<div class="refsect2">
+<a name="idp35234640"></a><h3>
+<a name="boost.mixin.global_allocatorconstruct-copy-destruct"></a><code class="computeroutput">global_allocator</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idp6690912-bb"></a><span class="identifier">global_allocator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp6690784-bb"></a><span class="special">~</span><span class="identifier">global_allocator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35244544"></a><h3>
+<a name="idm4832-bb"></a><code class="computeroutput">global_allocator</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">char</span> <span class="special">*</span> <a name="idm4432-bb"></a><span class="identifier">alloc_mixin_data</span><span class="special">(</span><span class="identifier">size_t</span> count<span class="special">)</span><span class="special">;</span></pre>
+<p>Pure virtual. Should return a valid pointer to an array with the size of <code class="computeroutput">count</code> <code class="computeroutput">mixin_data_in_object</code> instances.</p>
+<p>Use the static constant <code class="computeroutput">mixin_data_size</code> to get the size of a single <code class="computeroutput">mixin_data_in_object</code></p>
+<p><b>Example:&#160;</b></p>
+<pre class="programlisting">char* my_allocator::alloc_mixin_data(size_t count)
+{
+    return new char[count * mixin_data_size];
+}
+</pre>
+<p> </p>
+<p>
+</p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp6678608-bb"></a><span class="identifier">dealloc_mixin_data</span><span class="special">(</span><span class="keyword">char</span> <span class="special">*</span> ptr<span class="special">)</span><span class="special">;</span></pre>
+<p>Pure virtual. Should free the memory that has been obtained via a call to <code class="computeroutput">alloc_mixin_data</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp6680960-bb"></a><span class="identifier">alloc_mixin</span><span class="special">(</span><span class="identifier">size_t</span> mixin_size<span class="special">,</span> <span class="identifier">size_t</span> mixin_alignment<span class="special">,</span> 
+                 <span class="keyword">char</span> <span class="special">*</span><span class="special">&amp;</span> out_buffer<span class="special">,</span> <span class="identifier">size_t</span> <span class="special">&amp;</span> out_mixin_offset<span class="special">)</span><span class="special">;</span></pre>
+<p>Pure virtual. Should return memory for a mixin instance. The library will requiest a buffer in which to put the mixin. Overrides of this method should fill the output parameters with the address of the allocated memory and the offset of the mixin (according to the alignment) BUT IN SUCH A WAY AS TO ALLOW A POINTER TO BE PLACED IN FRONT</p>
+<p>You may use <code class="computeroutput">calculate_mem_size_for_mixin</code> and <code class="computeroutput">calculate_mixin_offset</code> if you're not sure what to do.</p>
+<p><b>Example:&#160;</b></p>
+<pre class="programlisting">void your_allocator::alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*&amp; out_buffer, size_t&amp; out_mixin_offset)
+{
+    size_t mem_size = calculate_mem_size_for_mixin(mixin_size, mixin_alignment);
+    out_buffer = new char[mem_size];
+
+    out_mixin_offset = calculate_mixin_offset(out_buffer, mixin_alignment);
+}
+</pre>
+<p> </p>
+<p>
+</p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp6687568-bb"></a><span class="identifier">dealloc_mixin</span><span class="special">(</span><span class="keyword">char</span> <span class="special">*</span> ptr<span class="special">)</span><span class="special">;</span></pre>
+<p>Pure virtual. Should free the memory that has been obtained via a call to <code class="computeroutput">alloc_mixin</code>. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp6689920-bb"></a><span class="identifier">has_allocated</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35291232"></a><h3>
+<a name="idp6691040-bb"></a><code class="computeroutput">global_allocator</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">size_t</span> 
+<a name="idp6691408-bb"></a><span class="identifier">calculate_mem_size_for_mixin</span><span class="special">(</span><span class="identifier">size_t</span> mixin_size<span class="special">,</span> <span class="identifier">size_t</span> mixin_alignment<span class="special">)</span><span class="special">;</span></pre>
+<p>Calulcates appropriate size for a mixin buffer so as to satisfy the requirements of mixin size and alignment AND leave a room for its owning object in front.</p>
+<p>You may use it in your overrides of <code class="computeroutput">alloc_mixin</code> to determine the appropriate memory size. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">size_t</span> 
+<a name="idp6694720-bb"></a><span class="identifier">calculate_mixin_offset</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> buffer<span class="special">,</span> <span class="identifier">size_t</span> mixin_alignment<span class="special">)</span><span class="special">;</span></pre>
+<p>Calculates the appropriate offset of the mixin in the buffer so as to satisfy the requirements of its alignment AND leave a room for its owning object in front.</p>
+<p>You may use it in your overrides of <code class="computeroutput">alloc_mixin</code> to determine the correct mixin_offset. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35311872"></a><h3>
+<a name="boost.mixin.global_allocatorpublic-data-members"></a><code class="computeroutput">global_allocator</code> 
+        public
+       public data members</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">size_t</span> <a name="boost.mixin.global_allocator.mixin_data_size"></a><span class="identifier">mixin_data_size</span><span class="special">;</span></pre>
+<p>Size of <code class="computeroutput">mixin_data_in_object</code></p>
+<p>Use this to determine how many bytes you'll allocate for single mixin data in <code class="computeroutput">alloc_mixin_data</code> </p>
+</li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="internal/default_allocator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.allocators_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="mixin_allocator.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

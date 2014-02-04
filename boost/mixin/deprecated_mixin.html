@@ -26,22 +26,33 @@
 <span class="keyword">class</span> <a class="link" href="deprecated_mixin.html" title="Class template deprecated_mixin">deprecated_mixin</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">deprecated_mixin_impl</span> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="deprecated_mixin.html#boost.mixin.deprecated_mixinconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="deprecated_mixin.html#idp6161264-bb"><span class="identifier">deprecated_mixin</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="deprecated_mixin.html#idp6752512-bb"><span class="identifier">deprecated_mixin</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp35510160"></a><h2>Description</h2>
+<a name="idp35686352"></a><h2>Description</h2>
+<p>A mutation rule for a deprecated mixin.</p>
+<p>If active, such rule will cause every mutation to always try to remove the mixin from an object and will ignore any attempts of a mutation to add it.</p>
+<p>
+</p>
 <div class="refsect2">
-<a name="idp35510576"></a><h3>
+<a name="idp35687744"></a><h3>Template Parameters</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><span class="keyword">typename</span> Mixin</pre>
+<p>The deprecated mixin type </p>
+</li></ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35690912"></a><h3>
 <a name="boost.mixin.deprecated_mixinconstruct-copy-destruct"></a><code class="computeroutput">deprecated_mixin</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp6161264-bb"></a><span class="identifier">deprecated_mixin</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp6752512-bb"></a><span class="identifier">deprecated_mixin</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>

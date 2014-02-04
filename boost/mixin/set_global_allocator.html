@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Class default_domain</title>
+<title>Function set_global_allocator</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
@@ -14,33 +14,24 @@
 <a accesskey="p" href="internal/domain.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.domain_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="exception.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
-<a name="boost.mixin.default_domain"></a><div class="titlepage"></div>
+<a name="boost.mixin.set_global_allocator"></a><div class="titlepage"></div>
 <div class="refnamediv">
-<h2><span class="refentrytitle">Class default_domain</span></h2>
-<p>boost::mixin::default_domain</p>
+<h2><span class="refentrytitle">Function set_global_allocator</span></h2>
+<p>boost::mixin::set_global_allocator</p>
 </div>
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../mixin/reference.html#header.boost.mixin.domain_hpp" title="Header &lt;boost/mixin/domain.hpp&gt;">boost/mixin/domain.hpp</a>&gt;
 
 </span>
-<span class="keyword">class</span> <a class="link" href="default_domain.html" title="Class default_domain">default_domain</a> <span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
-
-  <span class="comment">// <a class="link" href="default_domain.html#idp6182320-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a class="link" href="default_domain.html#idp6182688-bb"><span class="identifier">boost_mixin_name</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-<span class="special">}</span><span class="special">;</span></pre></div>
+<span class="keyword">void</span> <span class="identifier">BOOST_MIXIN_API</span> <span class="identifier">set_global_allocator</span><span class="special">(</span><a class="link" href="global_allocator.html" title="Class global_allocator">global_allocator</a> <span class="special">*</span> allocator<span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp35921504"></a><h2>Description</h2>
-<div class="refsect2">
-<a name="idp35921920"></a><h3>
-<a name="idp6182320-bb"></a><code class="computeroutput">default_domain</code> public static functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a name="idp6182688-bb"></a><span class="identifier">boost_mixin_name</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
-</div>
+<a name="idp36031168"></a><h2>Description</h2>
+<p>Sets an global allocator for all mixins Returns the previous allocator </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>

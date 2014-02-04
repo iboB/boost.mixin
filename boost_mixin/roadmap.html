@@ -23,35 +23,10 @@
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-          Probably by October 2013
+          Hopefully by April 2014:
           <div class="itemizedlist"><ul class="itemizedlist" type="circle">
 <li class="listitem">
-                Unit tests
-              </li>
-<li class="listitem">
-                Performance tests
-              </li>
-<li class="listitem">
-                Tutorials
-              </li>
-<li class="listitem">
-                Full reference documentation
-              </li>
-<li class="listitem">
-                Preliminary submission to Boost
-              </li>
-</ul></div>
-        </li>
-<li class="listitem">
-          Hopefully by the end of 2013:
-          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
-<li class="listitem">
-                Work on more sensible (and helpful) runtime and compile-time errors.
-                Missing messages, ambiguous message priority, etc.
-              </li>
-<li class="listitem">
-                Add more graceful runtime error handling, more specific non-breaking
-                exceptions
+                Full documentation
               </li>
 <li class="listitem">
                 Formal submission to Boost
@@ -62,6 +37,12 @@
           Not soon, but with concrete idea of how to be done:
           <div class="itemizedlist"><ul class="itemizedlist" type="circle">
 <li class="listitem">
+                Case-study: A demo project, that better illustrates the libraries
+                functionalities in a "real life" scenario. Complete with
+                a document which gives problems for motivation and their Boost.Mixin
+                solutions.
+              </li>
+<li class="listitem">
                 Message bids &#8211; allow mixins to "bid" for different
                 messages (analogous to <code class="computeroutput"><span class="identifier">priority</span></code>
                 for unicasts, but hides implementations on multicast messages)
@@ -71,8 +52,7 @@
               </li>
 <li class="listitem">
                 private messages/mixins &#8211; messages/mixins that are not used
-                outside of a module - leave more room for other messages/mixins in
-                a domain
+                outside of a module - leave more room for other messages/mixins
               </li>
 <li class="listitem">
                 Add a new mixin feature <code class="computeroutput"><span class="identifier">fact</span></code>.
@@ -109,8 +89,8 @@
               </li>
 <li class="listitem">
                 Vectorized mixin/message memory: Instead of having a maximal number
-                of them in a domain, grow the mixin_type_info/message_info buffers
-                by that number
+                of them, grow the mixin_type_info/message_info buffers by that number.
+                Might lead to slower mutations.
               </li>
 <li class="listitem">
                 Unused type garbage collector. When no objects exist of a given type
@@ -139,10 +119,15 @@
                 Integration with Boost.Python and luabind.
               </li>
 <li class="listitem">
-                Remove C++03 backward compatibility
+                Remove C++03 backward compatibility.
               </li>
 <li class="listitem">
-                Library being accepted in Boost
+                Library being accepted in Boost?
+              </li>
+<li class="listitem">
+                Mixin/Message domains - sets of mixins and messages that cannot be
+                mixed. Will throw a runtime error when trying to combine certain
+                mixins or messages.
               </li>
 </ul></div>
         </li>
@@ -150,7 +135,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>

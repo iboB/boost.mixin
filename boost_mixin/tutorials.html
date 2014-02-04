@@ -19,8 +19,8 @@
 </h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="tutorials.html#boost_mixin.tutorials.messages">Messages</a></span></dt>
-<dt><span class="section"><a href="tutorials.html#boost_mixin.tutorials.combinators">Multicast combinators</a></span></dt>
 <dt><span class="section"><a href="tutorials.html#boost_mixin.tutorials.mutation">Object mutation</a></span></dt>
+<dt><span class="section"><a href="tutorials.html#boost_mixin.tutorials.combinators">Multicast result combinators</a></span></dt>
 <dt><span class="section"><a href="tutorials.html#boost_mixin.tutorials.tips_tricks">Tips and tricks</a></span></dt>
 <dt><span class="section"><a href="tutorials.html#boost_mixin.tutorials.common_problems">Common problems
       and solutions</a></span></dt>
@@ -30,7 +30,7 @@
 <a name="boost_mixin.tutorials.messages"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.messages" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34419648"></a>
+        <a class="indexterm" name="idp34450000"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/messages.cpp" target="_top">messages.cpp</a>)
@@ -247,7 +247,16 @@
       </p>
 <p>
         Great! Now that we have our messages it's time to define the classes from
-        above as mixins. We met the <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>
+        above as mixins.
+      </p>
+<p>
+        Normally if the our program is spread across several files, you should use
+        <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span></code> to declare
+        that those classes are mixins, but since our program is in a single file,
+        it can be omitted. All of its functionality is also encompassed by <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>.
+      </p>
+<p>
+        We met the <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>
         macro from the basic example. It has two arguments &#8211; the mixin/class
         name and it's feature list. The feature list is a ampersand separated list
         symbols that represent the mixin's features and can contain many things but
@@ -280,7 +289,7 @@
         we'd like to do something special with their message lists.
       </p>
 <p>
-        <a class="indexterm" name="idp34633648"></a>
+        <a class="indexterm" name="idp34667152"></a>
       </p>
 <p>
         First, about <code class="computeroutput"><span class="identifier">has_id</span></code>. What
@@ -411,12 +420,289 @@
         And that concludes our tutorial on messages.
       </p>
 </div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.tutorials.combinators"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.combinators" title="Multicast combinators">Multicast combinators</a>
-</h3></div></div></div></div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.tutorials.mutation"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation" title="Object mutation">Object mutation</a>
-</h3></div></div></div></div>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp34793136"></a>
+      </p>
+<p>
+        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation.cpp" target="_top">mutation.cpp</a>)
+      </p>
+<p>
+        For this tutorial let's begin by introducing some mixins that may be found
+        in a game: A root mixin, that should be present in all objects, and two that
+        provide a way to render the object on the screen:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">game_object</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">_id</span><span class="special">;</span>
+    <span class="identifier">string</span> <span class="identifier">name</span><span class="special">;</span>
+    <span class="comment">// ... other common fields</span>
+<span class="special">};</span>
+
+<span class="keyword">class</span> <span class="identifier">opengl_rendering</span>
+<span class="special">{</span>
+<span class="special">};</span>
+
+<span class="keyword">class</span> <span class="identifier">directx_rendering</span>
+<span class="special">{</span>
+<span class="special">};</span>
+</pre>
+<p>
+      </p>
+<p>
+        We won't concert ourselves with their concrete functionality, so we'll just
+        leave them with no messages.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">game_object</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">opengl_rendering</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">directx_rendering</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        You're probably familiar from the previous examples with the most basic way
+        to mutate an object, so let's use it to give it a type.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">obj1</span><span class="special">;</span>
+<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">game_object</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;();</span>
+</pre>
+<p>
+      </p>
+<p>
+        ...and then change it. Let's assume we're switching our rendering platform.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Using the <code class="computeroutput"><span class="identifier">mutate</span></code> class is
+        probably the most common way in which you'll mutate objects in Boost.Mixin.
+        Yes, <code class="computeroutput"><span class="identifier">mutate</span></code> is not a function
+        but a class, that has methods <code class="computeroutput"><span class="identifier">remove</span></code>
+        and <code class="computeroutput"><span class="identifier">add</span></code>, and in its destructor
+        it applies the actual mutation.
+      </p>
+<p>
+        A mutation is a relatively slow process so if the internal object type was
+        being changed on each call of <code class="computeroutput"><span class="identifier">remove</span></code>
+        or <code class="computeroutput"><span class="identifier">add</span></code>, first the program
+        would be needlessly slowed down, and second the library would need to deal
+        with various incomplete types in its internal type registry.
+      </p>
+<p>
+        So, if you want to add and remove mixins accross several blocks or functions,
+        you may safely instantiate the <code class="computeroutput"><span class="identifier">mutate</span></code>
+        class or use its typedef <code class="computeroutput"><span class="identifier">single_object_mutator</span></code>
+        that probably has a more appropriate name for cases like this.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">single_object_mutator</span> <span class="identifier">mutation</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">);</span>
+
+<span class="identifier">mutation</span><span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;();</span>
+<span class="comment">// ...</span>
+<span class="identifier">mutation</span><span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Here <code class="computeroutput"><span class="identifier">obj1</span></code> hasn't been mutated
+        yet. A type that has <code class="computeroutput"><span class="identifier">game_object</span></code>
+        and <code class="computeroutput"><span class="identifier">opengl_rendering</span></code> hasn't
+        been instantiated internally. In order for this to happen the <code class="computeroutput"><span class="identifier">mutation</span></code> instance needs to be destroyed,
+        or, to explicitly perform the mutation, you may call <code class="computeroutput"><span class="identifier">apply</span></code>
+        like so:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutation</span><span class="special">.</span><span class="identifier">apply</span><span class="special">();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now <code class="computeroutput"><span class="identifier">obj1</span></code> has been mutated,
+        and <code class="computeroutput"><span class="identifier">mutation</span></code> has been "cleared"
+        &#8211; returned to the empty state it had right after its instantiation.
+        This means we can reuse it to perform other mutation on <code class="computeroutput"><span class="identifier">obj1</span></code>.
+        Say:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutation</span><span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">game_object</span><span class="special">&gt;();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Oops! We're removing the mixin that needs to be present in all objects. Not
+        to worry. You may "clear" a mutation without applying it, by calling
+        <code class="computeroutput"><span class="identifier">cancel</span></code>.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutation</span><span class="special">.</span><span class="identifier">cancel</span><span class="special">();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now the mutation is not performed, and its state is empty.
+      </p>
+<p>
+        You may safely apply empty mutations to an object:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutation</span><span class="special">.</span><span class="identifier">apply</span><span class="special">();</span> <span class="comment">// no effect</span>
+</pre>
+<p>
+      </p>
+<p>
+        Another way to mutate objects is by using a type template.
+      </p>
+<p>
+        A type template gives a type to an object and, unlike <code class="computeroutput"><span class="identifier">mutate</span><span class="special">/</span><span class="identifier">single_object_mutator</span></code>
+        it's not bound to a specific object instance. Again unlike <code class="computeroutput"><span class="identifier">mutate</span></code> it disregards all mixins within
+        an object and applies its internal type, hence it has no <code class="computeroutput"><span class="identifier">remove</span></code>
+        method. It implicitly "removes" all mixins that are not among its
+        own.
+      </p>
+<p>
+        You can create a type template like so:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">object_type_template</span> <span class="identifier">directx_rendering_template</span><span class="special">;</span>
+<span class="identifier">directx_rendering_template</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">game_object</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">create</span><span class="special">();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Again, similar to the case with <code class="computeroutput"><span class="identifier">single_object_mutator</span></code>,
+        you can spread these calls among many blocks or functions.
+      </p>
+<p>
+        Don't forget to call <code class="computeroutput"><span class="identifier">create</span></code>.
+        It is the method that creates the internal object type. If you try to apply
+        a type template that hasn't been created to an object, a runtime error will
+        be triggered.
+      </p>
+<p>
+        To apply a type template to an object you may pass it as a parameter to its
+        constructor.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">obj2</span><span class="special">(</span><span class="identifier">directx_rendering_template</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now <code class="computeroutput"><span class="identifier">obj2</span></code> has the mixins
+        <code class="computeroutput"><span class="identifier">game_object</span></code> and <code class="computeroutput"><span class="identifier">directx_rendering</span></code>.
+      </p>
+<p>
+        Let's create a new type template.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">object_type_template</span> <span class="identifier">opengl_rendering_template</span><span class="special">;</span>
+<span class="identifier">opengl_rendering_template</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">game_object</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">create</span><span class="special">();</span>
+</pre>
+<p>
+      </p>
+<p>
+        ...to illustrate the other way of applying it to an object:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">opengl_rendering_template</span><span class="special">.</span><span class="identifier">apply_to</span><span class="special">(</span><span class="identifier">obj2</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        Applying this type template it the same object, was equivalent to <code class="computeroutput"><span class="identifier">mutate</span></code>-ing it, removing <code class="computeroutput"><span class="identifier">directx_rendering</span></code>
+        and adding <code class="computeroutput"><span class="identifier">opengl_rendering</span></code>.
+      </p>
+<p>
+        Now we have two objects &#8211; <code class="computeroutput"><span class="identifier">obj1</span></code>
+        and <code class="computeroutput"><span class="identifier">obj2</span></code> &#8211; that have
+        the same mixins.
+      </p>
+<p>
+        Sometimes the case would be such that you have a big group of objects that
+        have the exact same type internally, and want them all to be mutated to have
+        a different type. Naturally you may <code class="computeroutput"><span class="identifier">mutate</span></code>
+        each of them one by one, and this would be the appropriate (and only) way
+        to mutate a group of objects that have a <span class="emphasis"><em>different</em></span> type.
+      </p>
+<p>
+        If the type is the same, however, you have a slightly faster alternative.
+        The same type mutator:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">same_type_mutator</span> <span class="identifier">directx</span><span class="special">;</span>
+<span class="identifier">directx</span>
+    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Unlike type templates, same type mutators don't need you to create them explicitly
+        with some method. The creation of the internal type and all preparations
+        are done when the mutation is applied to the first object.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">directx</span><span class="special">.</span><span class="identifier">apply_to</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">);</span>
+<span class="identifier">directx</span><span class="special">.</span><span class="identifier">apply_to</span><span class="special">(</span><span class="identifier">obj2</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        Remember that the only time you can afford to use a same type mutator, is
+        when <span class="emphasis"><em>all</em></span> objects that need to be mutated with it have
+        composed of the same set of mixins.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.tutorials.mutation.mrules"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation.mrules" title="Mutation rules">Mutation rules</a>
+</h4></div></div></div>
+<p>
+          <a class="indexterm" name="idp34953168"></a>
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.tutorials.combinators"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.combinators" title="Multicast result combinators">Multicast result combinators</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp34956064"></a>
+      </p>
+</div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.tutorials.tips_tricks"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.tips_tricks" title="Tips and tricks">Tips and tricks</a>
@@ -437,17 +723,66 @@
           </li>
 <li class="listitem">
             Prefer using <code class="computeroutput"><span class="identifier">object_type_template</span></code>-s
-            instead of mutating each new object.
+            instead of mutating each new object in the same fashion.
           </li>
 <li class="listitem">
             Prefer using <code class="computeroutput"><span class="identifier">same_type_mutator</span></code>
             when mutating multiple objects of the same type.
           </li>
+<li class="listitem">
+            If you have some messages that are valid for <span class="emphasis"><em>all</em></span>
+            objects in your system, instead of adding them to a mixin present in
+            every object, consider having some stand-alone functions where your first
+            parameter is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">&amp;</span></code>.
+            They will be indistinguishable from messages.
+          </li>
+<li class="listitem">
+            If you have multicast logic that needs to stop after a success in any
+            of the message implementations in an object, have your messages return
+            <code class="computeroutput"><span class="keyword">bool</span></code> and then use the <code class="computeroutput"><span class="identifier">boolean_or</span></code> combinator. It will stop
+            the message execution on the first <code class="computeroutput"><span class="keyword">true</span></code>.
+          </li>
 </ul></div>
-<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="boost_mixin.tutorials.tips_tricks.common_mixin_parent"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.tips_tricks.common_mixin_parent" title="Mixins with a common parent">Mixins
         with a common parent</a>
-</h4></div></div></div></div>
+</h4></div></div></div>
+<p>
+          Sometimes you will feel the need to have mixins with a common parent. Most
+          likely this will happen when you want to define two different mixins that
+          share some common functionality. Moving the shared functionality in the
+          same common parent is a good idea and Boost.Mixin will work exactly the
+          same way if you do this. However there is a pitfall in this case. It happens
+          when you have multiple inheritance. Due to the special nature in which
+          the libray arranges the memory internally if a mixin type has more than
+          one parent using <code class="computeroutput"><span class="identifier">bm_this</span></code>
+          in one of those parents might lead to crashes.
+        </p>
+<p>
+          More precisely, when the library allocates memory for a mixin type it allocates
+          a buffer that is slightly bigger than needed and puts the pointer to the
+          owning object at its front. What <code class="computeroutput"><span class="identifier">bm_this</span></code>
+          does is actually an offset from <code class="computeroutput"><span class="keyword">this</span></code>
+          with the appropriate number of bytes for <code class="computeroutput"><span class="identifier">object</span><span class="special">*</span></code>. So if a parent of your mixin type, other
+          than the first calls <code class="computeroutput"><span class="identifier">bm_this</span></code>
+          it will end up returning an invalid pointer to the owning object.
+        </p>
+<p>
+          To be able to have parents, other than the first, with access to the owning
+          object we suggest that you create a pure virtual function that gets it
+          from the actual mixin type.
+        </p>
+<p>
+          Say <code class="computeroutput"><span class="keyword">virtual</span> <span class="identifier">object</span><span class="special">*</span> <span class="identifier">get_bm_object</span><span class="special">()</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span></code> in the parents, which is implemented in
+          the child class (the actual mixin defined with <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>)
+          by simply <code class="computeroutput"><span class="keyword">return</span> <span class="identifier">bm_this</span></code>.
+        </p>
+<p>
+          Of course there are other ways to accomplish this, for example with CRTP,
+          but the virtual function is probably the cleanest and safest one.
+        </p>
+</div>
 </div>
 <div class="section"><div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.tutorials.common_problems"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.common_problems" title="Common problems and solutions">Common problems
@@ -465,7 +800,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>

@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
-<link rel="prev" href="case_study.html" title="Case study">
+<link rel="prev" href="using.html" title="Using Boost.Mixin">
 <link rel="next" href="tutorials.html" title="Tutorials">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="case_study.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="tutorials.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="using.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="tutorials.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -22,9 +22,8 @@
 <dt><span class="section"><a href="glossary.html#boost_mixin.glossary.mixin">Mixins</a></span></dt>
 <dt><span class="section"><a href="glossary.html#boost_mixin.glossary.message">Messages</a></span></dt>
 <dt><span class="section"><a href="glossary.html#boost_mixin.glossary.priority">Message priority</a></span></dt>
-<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.mutators">Mutators</a></span></dt>
-<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.mrules">Mutation rules</a></span></dt>
-<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.combinators">Result combinators</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.combinators">Multicast result combinators</a></span></dt>
+<dt><span class="section"><a href="glossary.html#boost_mixin.glossary.mutation">Mutations</a></span></dt>
 </dl></div>
 <p>
       Here is a list of the major idioms, introduced by Boost.Mixin.
@@ -34,7 +33,7 @@
 <a name="boost_mixin.glossary.object"></a><a class="link" href="glossary.html#boost_mixin.glossary.object" title="Objects">Objects</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34361232"></a>
+        <a class="indexterm" name="idp34380304"></a>
       </p>
 <p>
         An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
@@ -65,7 +64,7 @@
 <a name="boost_mixin.glossary.mixin"></a><a class="link" href="glossary.html#boost_mixin.glossary.mixin" title="Mixins">Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34378672"></a>
+        <a class="indexterm" name="idp34397744"></a>
       </p>
 <p>
         A mixin is a class used as a "building block" for an object. In
@@ -94,7 +93,7 @@
 <a name="boost_mixin.glossary.message"></a><a class="link" href="glossary.html#boost_mixin.glossary.message" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34385824"></a>
+        <a class="indexterm" name="idp34404896"></a>
       </p>
 <p>
         Messages in Boost.Mixin are a way of calling the methods of the mixins that
@@ -115,7 +114,7 @@
 <a name="boost_mixin.glossary.message.multicast"></a><a class="link" href="glossary.html#boost_mixin.glossary.message.multicast" title="Multicast messages">Multicast messages</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34396848"></a>
+          <a class="indexterm" name="idp34415920"></a>
         </p>
 <p>
           One key difference between messages and methods is the multicast mechanism,
@@ -136,8 +135,8 @@
 <a name="boost_mixin.glossary.priority"></a><a class="link" href="glossary.html#boost_mixin.glossary.priority" title="Message priority">Message priority</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34406208"></a>
- <a class="indexterm" name="idp34406960"></a>
+        <a class="indexterm" name="idp34425280"></a>
+ <a class="indexterm" name="idp34426032"></a>
       </p>
 <p>
         A message priority can be used for both unicast and multicast messages. In
@@ -158,19 +157,65 @@
         handles equal values.
       </p>
 </div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.glossary.mutators"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutators" title="Mutators">Mutators</a>
-</h3></div></div></div></div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.glossary.mrules"></a><a class="link" href="glossary.html#boost_mixin.glossary.mrules" title="Mutation rules">Mutation rules</a>
-</h3></div></div></div></div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
-<a name="boost_mixin.glossary.combinators"></a><a class="link" href="glossary.html#boost_mixin.glossary.combinators" title="Result combinators">Result combinators</a>
-</h3></div></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.glossary.combinators"></a><a class="link" href="glossary.html#boost_mixin.glossary.combinators" title="Multicast result combinators">Multicast result combinators</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp34433216"></a>
+ <a class="indexterm" name="idp34433968"></a>
+      </p>
+<p>
+        When calling multicast messages, their return values are lost. Naturally,
+        you can use an output parameter to collect those return values, but if you
+        don't want to change existing methods, or if don't want to have the collection
+        logic in them, the librarly provides a way to collect the return values externally.
+      </p>
+<p>
+        This happens with multicast result combinators.
+      </p>
+<p>
+        The library provides some common combinators, like <code class="computeroutput"><span class="identifier">boolean_or</span></code>,
+        <code class="computeroutput"><span class="identifier">boolean_and</span></code>, and <code class="computeroutput"><span class="identifier">sum</span></code>. It also allows you to easily create
+        your own, for whatever purpose you need.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.glossary.mutation"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutation" title="Mutations">Mutations</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp34441504"></a>
+      </p>
+<p>
+        A mutation changes the type of an object. You have to use some kind of mutator
+        to give type to the object.
+      </p>
+<p>
+        Basically a mutation adds or removes mixins from an object.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.glossary.mutation.mrules"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutation.mrules" title="Mutation rules">Mutation rules</a>
+</h4></div></div></div>
+<p>
+          <a class="indexterm" name="idp34444800"></a>
+        </p>
+<p>
+          A mutation rule is set globally applied to all mutations. A mutation rule
+          may prevent a mixin to be added to an object or force one, even though
+          the mutation wants to add it or doesn't mention it.
+        </p>
+<p>
+          A very common mutation rule is to have mutually exclusive mixins, where
+          when you add one, the other is removed.
+        </p>
+</div>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>
@@ -178,7 +223,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="case_study.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="tutorials.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="using.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="tutorials.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

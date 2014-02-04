@@ -7,11 +7,11 @@
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
 <link rel="up" href="../../../mixin/reference.html#header.boost.mixin.combinators_hpp" title="Header &lt;boost/mixin/combinators.hpp&gt;">
 <link rel="prev" href="boolean_or.html" title="Class template boolean_or">
-<link rel="next" href="../internal/mandatory_mixin_impl.html" title="Class mandatory_mixin_impl">
+<link rel="next" href="../mutually_exclusive_mixins.html" title="Class mutually_exclusive_mixins">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="boolean_or.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.combinators_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../internal/mandatory_mixin_impl.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="boolean_or.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.combinators_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../mutually_exclusive_mixins.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.mixin.combinators.sum"></a><div class="titlepage"></div>
@@ -29,36 +29,51 @@
   <span class="keyword">typedef</span> <span class="identifier">MessageReturnType</span> <a name="boost.mixin.combinators.sum.result_type"></a><span class="identifier">result_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="sum.html#boost.mixin.combinators.sumconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="sum.html#idp6152464-bb"><span class="identifier">sum</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="sum.html#idp6736912-bb"><span class="identifier">sum</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="sum.html#idp6148880-bb">public member functions</a></span>
-  <span class="keyword">bool</span> <a class="link" href="sum.html#idp6149248-bb"><span class="identifier">add_result</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a class="link" href="sum.html#idp6150736-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="sum.html#idp6151600-bb"><span class="identifier">reset</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="sum.html#idp6731840-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="sum.html#idp6732208-bb"><span class="identifier">add_result</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a class="link" href="sum.html#idp6734032-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="sum.html#idp6735792-bb"><span class="identifier">reset</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp35250816"></a><h2>Description</h2>
+<a name="idp35539616"></a><h2>Description</h2>
+<p>A combinator for a sum operation. Sums all the return values of the multicast chain.</p>
+<p>
+</p>
 <div class="refsect2">
-<a name="idp35251232"></a><h3>
+<a name="idp35540544"></a><h3>Template Parameters</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><span class="keyword">typename</span> MessageReturnType</pre>
+<p>The actual return type of the messages. </p>
+</li></ol></div>
+</div>
+<div class="refsect2">
+<a name="idp35543728"></a><h3>
 <a name="boost.mixin.combinators.sumconstruct-copy-destruct"></a><code class="computeroutput">sum</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp6152464-bb"></a><span class="identifier">sum</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp6736912-bb"></a><span class="identifier">sum</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idp35256976"></a><h3>
-<a name="idp6148880-bb"></a><code class="computeroutput">sum</code> public member functions</h3>
+<a name="idp35549472"></a><h3>
+<a name="idp6731840-bb"></a><code class="computeroutput">sum</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp6149248-bb"></a><span class="identifier">add_result</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a name="idp6150736-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp6151600-bb"></a><span class="identifier">reset</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idp6732208-bb"></a><span class="identifier">add_result</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>The function used by the code generated for multicast messages. </li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a name="idp6734032-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<p>The result of the operation if the multicast call has been made with an input/ouput parameter - an instance of <code class="computeroutput">sum</code> </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp6735792-bb"></a><span class="identifier">reset</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Resets the result, so the instance could be reused. </li>
 </ol></div>
 </div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>
@@ -66,7 +81,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="boolean_or.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.combinators_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../internal/mandatory_mixin_impl.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="boolean_or.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../mixin/reference.html#header.boost.mixin.combinators_hpp"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../mutually_exclusive_mixins.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

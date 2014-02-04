@@ -61,6 +61,19 @@
 <p>
         Boost.Mixin focuses on maximal performance and minimal memory overhead.
       </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.introduction.abstract.other_mixin"></a><a class="link" href="introduction.html#boost_mixin.introduction.abstract.other_mixin" title='Other meanings of "mixin" in C++'>Other
+        meanings of "mixin" in C++</a>
+</h4></div></div></div>
+<p>
+          The name "Mixin" is not to be confused with another meaning,
+          popular in C++, namely <a href="http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP
+          mixins</a>. This particular use of CRTP in this document shall henceforth
+          be referred to as "traits", as the exact same functionality is
+          called "traits" in many other languages.
+        </p>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -136,6 +149,12 @@
 <li class="listitem">
               <span class="bold"><strong>Live object mutation</strong></span>: change the interface
               and/or implementation of messages in an object at runtime.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>No common parent</strong></span>: in order to have
+              containers of your objects, composed by multiple inheritance, you need
+              to define a "master type" from which all parents need to
+              be derived by virtual inheritance.
             </li>
 </ul></div>
 <p>
@@ -253,19 +272,101 @@
             </li>
 </ul></div>
 </div>
-<div class="section"><div class="titlepage"><div><div><h4 class="title">
-<a name="boost_mixin.introduction.compare.bm_as_ruby_mixin"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare.bm_as_ruby_mixin" title="Comparison with Ruby mixins">Comparison
-        with Ruby mixins</a>
-</h4></div></div></div></div>
-<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="boost_mixin.introduction.compare.bm_as_trait"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare.bm_as_trait" title="Comparison with traits">Comparison
         with traits</a>
-</h4></div></div></div></div>
+</h4></div></div></div>
+<p>
+          As mentioned above Boost.Mixin is similar to a feature of many other languages,
+          called "traits". The exact same feature can be mimicked in C++
+          with CRTP. You may have heard the term "mixin" being mentioned
+          in a C++ context before. It is very likely that what was meant was this
+          CRTP style of creating types from existing ones.
+        </p>
+<p>
+          Indeed, at least superficially, both Boost.Mixin and said traits are very
+          similar as both are used to create new types by combining existing ones,
+          while also solving one of the problems of plain old multiple inheritance
+          - the communication between the different components that comprise the
+          object.
+        </p>
+<p>
+          However much of the multiple inheritance probelems remain:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Types composed of traits are static. Most languages (including C++
+              using the aforementioned mimic) don't allow you to change an object's
+              type.
+            </li>
+<li class="listitem">
+              There is still a combinatorial explosion of types: each possible combination
+              needs to be explicitly coded.
+            </li>
+<li class="listitem">
+              In strongly typed languages, like C++, there is still the problem of
+              having a common interface to all objects.
+            </li>
+<li class="listitem">
+              In C++ you are bound to having the same compilation dependencies because
+              of the header files that need to be included to compose types.
+            </li>
+</ul></div>
+<p>
+          Boost.Mixin solves all of these problems.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.introduction.compare.bm_as_ruby_mixin"></a><a class="link" href="introduction.html#boost_mixin.introduction.compare.bm_as_ruby_mixin" title="Comparison with Ruby mixins">Comparison
+        with Ruby mixins</a>
+</h4></div></div></div>
+<p>
+          If you're familiar with the mixins in Ruby, perhaps you will find a lot
+          of similarities between them and Boost.Mixin.
+        </p>
+<p>
+          Ruby's mixins can of course be used just like traits, however extending
+          existing objects with modules is also allowed via <code class="computeroutput"><span class="identifier">Object</span><span class="preprocessor">#extend</span></code>. This is almost exactly what
+          Boost.Mixin allows you to do. Indeed, Ruby has been a great inspiration
+          for this library.
+        </p>
+<p>
+          Still, barring the differences that arise from C++ being a strongly typed
+          language, for a small amount of extra code Boost.Mixin allows you to do
+          much more:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <span class="bold"><strong>Removing mixins</strong></span>: in Ruby, when you
+              extend an oject with a module, all functions that both object and the
+              module have are permanently overridden in the object by their versions
+              from the module. Boost.Mixin allows you to temporarily mutate the object
+              and then remove the mixin while restoring the object exactly to its
+              former self.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Prioritize messages</strong></span>: in Boost.Mixin
+              you can set priorities to the messages and thus when extending an object
+              with a mixin, if a message is implemented by the object with a higher
+              priority, even though it is also supplied by the mixin, in won't override
+              the one already in the object.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Multicast messages</strong></span>: in Ruby (as in
+              almost every other language with a similar functionality) a method
+              call leads to a piece of code, defined for that method. Boost.Mixin
+              allows you to have messages that are handled by more than one of mixins
+              in an object.
+            </li>
+</ul></div>
+</div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2013 Borislav Stanimirov, Zahary Karadjov<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>
