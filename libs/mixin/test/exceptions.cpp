@@ -37,12 +37,14 @@ BOOST_AUTO_TEST_CASE(ex_bad_message_call)
     BOOST_CHECK_NO_THROW(u1(o));
     BOOST_CHECK_NO_THROW(m1(o));
     BOOST_CHECK_NO_THROW(m1<combinators::sum>(o));
-    BOOST_CHECK_NO_THROW(m1(o, combinators::sum<int>()));
+
+    combinators::sum<int> sum;
+    BOOST_CHECK_NO_THROW(m1(o, sum));
 
     BOOST_CHECK_THROW(u2(o), bad_message_call);
     BOOST_CHECK_THROW(m2(o), bad_message_call);
     BOOST_CHECK_THROW(m2<combinators::sum>(o), bad_message_call);
-    BOOST_CHECK_THROW(m2(o, combinators::sum<int>()), bad_message_call);
+    BOOST_CHECK_THROW(m2(o, sum), bad_message_call);
 }
 
 BOOST_AUTO_TEST_CASE(ex_bad_mutation_source)
