@@ -11,19 +11,13 @@
 Here is a list of planned features and events for the library: (The authors
 write it in their own free time, so concrete dates are hard to estimate)
 
-
-* Probably by October 2013
-    * Unit tests
-    * Performance tests
-    * Tutorials
-    * Full reference documentation
-    * Preliminary submission to Boost
-* Hopefully by the end of 2013:
-    * Work on more sensible (and helpful) runtime and compile-time errors.
-    Missing messages, ambiguous message priority, etc.
-    * Add more graceful runtime error handling, more specific non-breaking exceptions
+* Hopefully by April 2014:
+    * Full documentation
     * Formal submission to Boost
 * Not soon, but with concrete idea of how to be done:
+    * Case-study: A demo project, that better illustrates the libraries
+    functionalities in a "real life" scenario. Complete with a document which
+    gives problems for motivation and their Boost.Mixin solutions.
     * Message bids -- allow mixins to "bid" for different messages (analogous to
     `priority` for unicasts, but hides implementations on multicast messages)
     * object copy-constructors + mixin feature `copyable`
@@ -47,7 +41,7 @@ write it in their own free time, so concrete dates are hard to estimate)
     * Reduce library memory footprint
     * Vectorized mixin/message memory: Instead of having a maximal number of
     them, grow the mixin_type_info/message_info buffers by that
-    number
+    number. Might lead to slower mutations.
     * Unused type garbage collector. When no objects exist of a given type it
     can be garbage collected, saving up to a kilobyte of memory.
 * When humankind becomes a Kardashev type two civilization:
@@ -57,8 +51,8 @@ write it in their own free time, so concrete dates are hard to estimate)
     * A way to mutate static mixins in and out. Slight mutation execution penalty.
     * Some magic to make it work even faster.
     * Integration with Boost.Python and luabind.
-    * Remove C++03 backward compatibility
-    * Library being accepted in Boost
+    * Remove C++03 backward compatibility.
+    * Library being accepted in Boost?
 	* Mixin/Message domains - sets of mixins and messages that cannot be mixed.
 	Will throw a runtime error when trying to combine certain mixins or messages.
 
