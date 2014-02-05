@@ -48,7 +48,7 @@ struct message_t;
 
 #if !BOOST_MIXIN_USING_CXX11
 // we need to define a hash function for bitsets
-// curiously boost doesn's seem to have one
+// curiously boost doesn't seem to have one
 struct hash_avaliable_mixins_bitset : std::unary_function<available_mixins_bitset, size_t>
 {
     size_t operator()(const available_mixins_bitset& bs) const

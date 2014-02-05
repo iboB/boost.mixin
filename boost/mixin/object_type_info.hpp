@@ -72,7 +72,7 @@ boost_mixin_internal:
             };
 
             // this view is used for multicast messages
-            // it will contain a dynamically allocated array of entries sorte by priority
+            // it will contain a dynamically allocated array of entries sorted by priority
             struct
             {
                 call_table_entry* multicast_begin;

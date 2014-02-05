@@ -10,7 +10,7 @@
 
 /**
  * \file
- * Defines the internall classes that describe the information about a mixin -
+ * Defines the internal classes that describe the information about a mixin -
  * features and message data, type name, size, alignment, etc.
  */
 
@@ -81,7 +81,7 @@ struct mixin_type_info_instance : public noncopyable
     // we need to reference it somewhere so as to call its constructor
     static mixin_type_info_instance registrator;
 
-    // the constructor is defined in mixin.h because it refernces the domain object
+    // the constructor is defined in mixin.h because it references the domain object
     mixin_type_info_instance();
 
     // to prevent warnings and optimizations that will say that we're not using

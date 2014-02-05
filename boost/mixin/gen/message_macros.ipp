@@ -31,7 +31,7 @@
         { \
             /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = caller0<constness Mixin, return_type, &Mixin::method_name>; \
-            /* cast the caller to a void (*)() - safe acoording to the standard */ \
+            /* cast the caller to a void (*)() - safe according to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
         } \
     }; \
@@ -205,7 +205,7 @@
         { \
             /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = caller1<constness Mixin, return_type, &Mixin::method_name>; \
-            /* cast the caller to a void (*)() - safe acoording to the standard */ \
+            /* cast the caller to a void (*)() - safe according to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
         } \
     }; \
@@ -379,7 +379,7 @@
         { \
             /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = caller2<constness Mixin, return_type, &Mixin::method_name>; \
-            /* cast the caller to a void (*)() - safe acoording to the standard */ \
+            /* cast the caller to a void (*)() - safe according to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
         } \
     }; \
@@ -553,7 +553,7 @@
         { \
             /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = caller3<constness Mixin, return_type, &Mixin::method_name>; \
-            /* cast the caller to a void (*)() - safe acoording to the standard */ \
+            /* cast the caller to a void (*)() - safe according to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
         } \
     }; \
@@ -727,7 +727,7 @@
         { \
             /* prevent the linker from optimizing away the caller function */ \
             static caller_func caller = caller4<constness Mixin, return_type, &Mixin::method_name>; \
-            /* cast the caller to a void (*)() - safe acoording to the standard */ \
+            /* cast the caller to a void (*)() - safe according to the standard */ \
             return reinterpret_cast< ::boost::mixin::internal::func_ptr>(caller); \
         } \
     }; \

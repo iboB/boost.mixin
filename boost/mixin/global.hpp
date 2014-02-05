@@ -41,7 +41,7 @@
 #   else
 #       error "getting typenames with typeid hasn't been tested on compilers other than gcc and msvc"
 #   endif
-#else // safer but more inconvinient way
+#else // safer but more inconvenient way
 #   define BOOST_MIXIN_TYPE_NAME(type) type::boost_mixin_name()
 #endif
 

@@ -20,7 +20,7 @@
 // and will slow down the execution time
 #define BOOST_MIXIN_TEST 1
 
-// boost::mixin hevily relies on type names
+// boost::mixin heavily relies on type names
 // setting the BOOST_MIXIN_USE_TYPEID to true will cause it to obtain said names with type_info via typeid.
 // setting it to false will require the following extra steps:
 //     * mixins must add static const char* boost_mixin_name() { return <mixin class name>; }

@@ -51,7 +51,7 @@ public:
     /// been obtained via a call to `alloc_mixin_data`.
     virtual void dealloc_mixin_data(char* ptr) = 0;
 
-    /// Calulcates appropriate size for a mixin buffer
+    /// Calculates appropriate size for a mixin buffer
     /// so as to satisfy the requirements of mixin size and alignment
     /// AND leave a room for its owning object in front.
     ///
@@ -69,7 +69,7 @@ public:
 
     /// Pure virtual.
     /// Should return memory for a mixin instance.
-    /// The library will requiest a buffer in which to put the mixin.
+    /// The library will request a buffer in which to put the mixin.
     /// Overrides of this method should fill the output parameters with the
     /// address of the allocated memory and the offset of the mixin
     /// (according to the alignment)

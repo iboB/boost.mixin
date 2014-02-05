@@ -23,7 +23,7 @@ namespace internal
 /// An object type template. Internally it represents a prepared object type
 /// information.
 ///
-/// It makes the construnction of objects from the same type (same mixins)
+/// It makes the construction of objects from the same type (same mixins)
 /// slightly faster, than using `mutate`.
 class BOOST_MIXIN_API object_type_template : private internal::object_mutator
 {

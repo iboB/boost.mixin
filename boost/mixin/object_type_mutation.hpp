@@ -25,7 +25,7 @@ namespace internal
 /// It is used by mutators and mutation rules.
 ///
 /// Internally the class has two `mixin_collection` objects -
-/// removing and adding that represet the mixins that are supposed to be
+/// removing and adding that represent the mixins that are supposed to be
 /// removed and added by the mutation.
 ///
 /// Additionally another mixin collection might be present - the source.
@@ -165,7 +165,7 @@ public:
 
     bool empty() const { return _adding.empty() && _removing.empty(); }
 
-    /// Normalize the collections _addind and _removing.
+    /// Normalize the collections _adding and _removing.
     /// That is, if an element is in both, it will be removed from both.
     void normalize();
 

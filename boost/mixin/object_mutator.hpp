@@ -11,7 +11,7 @@
 /**
  * \file
  * Defines an internal base class, that is a parent to various concrete types
- * that deal with object mutataion.
+ * that deal with object mutation.
  */
 
 #include "global.hpp"

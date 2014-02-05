@@ -95,7 +95,7 @@ public:
     }
 
     /// The result of the operation if the multicast call has been made
-    /// with an input/ouput parameter - an instance of `boolean_or`
+    /// with an input/output parameter - an instance of `boolean_or`
     bool result() const
     {
         return _result;
@@ -135,7 +135,7 @@ public:
     }
 
     /// The result of the operation if the multicast call has been made
-    /// with an input/ouput parameter - an instance of `sum`
+    /// with an input/output parameter - an instance of `sum`
     const result_type& result() const
     {
         return _result;

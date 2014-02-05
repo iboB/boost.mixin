@@ -35,7 +35,7 @@ public:
     feature_id id;
     const char* const name;
 
-    bool is_private; // true when it's never used outised a single module
+    bool is_private; // true when it's never used outside a single module
     // registrators will register features of the same name as the same feature
     // if they're not private
     // having different features with the same name in different modules
@@ -66,7 +66,7 @@ struct feature_instance
         return f;
     }
 
-    // unfortunately we cannot do the mixin trick of clobal instantiation here
+    // unfortunately we cannot do the mixin trick of global instantiation here
     // there is no guarantee that the features will be instantiated before the mixins
     // and their id's are needed
     // instead we'll register the features manually when registering the mixin

@@ -31,7 +31,7 @@ public:
     single_object_mutator(object& o);
     ~single_object_mutator();
 
-    /// Appliest the mutation to the object.
+    /// Applies the mutation to the object.
     void apply();
 
 private:
