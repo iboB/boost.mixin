@@ -84,9 +84,20 @@ public:
     }
     /////////////////////////////////////////////////////////////////
 
-    /// Destroys all mixins within an object and resets it's type info
+    /// Destroys all mixins within an object and resets its type info
     // (sets null type info)
     void clear();
+
+    /////////////////////////////////////////////////////////////////
+    // logging and diagnostics
+
+    /// Adds the names of the messages implemented by the object to the vector
+    void get_message_names(std::vector<const char*>& out_message_names) const;
+
+    /// Adds the names of the object's mixins to the vector
+    void get_mixin_names(std::vector<const char*>& out_mixin_names) const;
+
+    /////////////////////////////////////////////////////////////////
 
 boost_mixin_internal:
     void* internal_get_mixin(mixin_id id);

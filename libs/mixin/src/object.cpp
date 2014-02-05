@@ -162,5 +162,25 @@ bool object::implements_message(feature_id id) const
     return !!_type_info->_call_table[id].message_data;
 }
 
+void object::get_message_names(std::vector<const char*>& out_message_names) const
+{
+    for(size_t i=0; i<BOOST_MIXIN_MAX_MESSAGES; ++i)
+    {
+        const internal::message_for_mixin* data = _type_info->_call_table[i].message_data;
+        if(data)
+        {
+            out_message_names.push_back(data->message->name);
+        }
+    }
+}
+
+void object::get_mixin_names(std::vector<const char*>& out_mixin_names) const
+{
+    BOOST_FOREACH(const mixin_type_info* mixin_info, _type_info->_compact_mixins)
+    {
+        out_mixin_names.push_back(mixin_info->name);
+    }
+}
+
 }
 }
