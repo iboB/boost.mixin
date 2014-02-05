@@ -39,6 +39,9 @@
 
 [indexterm2 combinators..example]
 
+[import ../tutorial/combinators.cpp]
+[tutorial_combinators]
+
 [endsect]
 
 [section:tips_tricks Tips and tricks]
