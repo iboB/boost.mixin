@@ -33,7 +33,7 @@
 <a name="boost_mixin.glossary.object"></a><a class="link" href="glossary.html#boost_mixin.glossary.object" title="Objects">Objects</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34380304"></a>
+        <a class="indexterm" name="idp34424640"></a>
       </p>
 <p>
         An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
@@ -64,7 +64,7 @@
 <a name="boost_mixin.glossary.mixin"></a><a class="link" href="glossary.html#boost_mixin.glossary.mixin" title="Mixins">Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34397744"></a>
+        <a class="indexterm" name="idp34442080"></a>
       </p>
 <p>
         A mixin is a class used as a "building block" for an object. In
@@ -93,7 +93,7 @@
 <a name="boost_mixin.glossary.message"></a><a class="link" href="glossary.html#boost_mixin.glossary.message" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34404896"></a>
+        <a class="indexterm" name="idp34449232"></a>
       </p>
 <p>
         Messages in Boost.Mixin are a way of calling the methods of the mixins that
@@ -114,11 +114,11 @@
 <a name="boost_mixin.glossary.message.multicast"></a><a class="link" href="glossary.html#boost_mixin.glossary.message.multicast" title="Multicast messages">Multicast messages</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34415920"></a>
+          <a class="indexterm" name="idp34460256"></a>
         </p>
 <p>
           One key difference between messages and methods is the multicast mechanism,
-          introduced by Boost.Mixin. For example conside the case when you add several
+          introduced by Boost.Mixin. For example consider the case when you add several
           mixins that implement the same message to an object and then call this
           message.
         </p>
@@ -135,8 +135,8 @@
 <a name="boost_mixin.glossary.priority"></a><a class="link" href="glossary.html#boost_mixin.glossary.priority" title="Message priority">Message priority</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34425280"></a>
- <a class="indexterm" name="idp34426032"></a>
+        <a class="indexterm" name="idp34469616"></a>
+ <a class="indexterm" name="idp34470368"></a>
       </p>
 <p>
         A message priority can be used for both unicast and multicast messages. In
@@ -147,7 +147,7 @@
         For a unicast (regular) message, the mixin with the highest message priority
         will handle it. If multiple mixins have the same priority, it cannot be determined
         which one of the it will be. It will be the same issue as the order of global
-        object initializaton.
+        object initialization.
       </p>
 <p>
         For a multicast message, the order of the mixins that handle it will be
@@ -162,14 +162,14 @@
 <a name="boost_mixin.glossary.combinators"></a><a class="link" href="glossary.html#boost_mixin.glossary.combinators" title="Multicast result combinators">Multicast result combinators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34433216"></a>
- <a class="indexterm" name="idp34433968"></a>
+        <a class="indexterm" name="idp34477552"></a>
+ <a class="indexterm" name="idp34478304"></a>
       </p>
 <p>
         When calling multicast messages, their return values are lost. Naturally,
         you can use an output parameter to collect those return values, but if you
         don't want to change existing methods, or if don't want to have the collection
-        logic in them, the librarly provides a way to collect the return values externally.
+        logic in them, the library provides a way to collect the return values externally.
       </p>
 <p>
         This happens with multicast result combinators.
@@ -185,7 +185,7 @@
 <a name="boost_mixin.glossary.mutation"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutation" title="Mutations">Mutations</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34441504"></a>
+        <a class="indexterm" name="idp34485840"></a>
       </p>
 <p>
         A mutation changes the type of an object. You have to use some kind of mutator
@@ -199,7 +199,7 @@
 <a name="boost_mixin.glossary.mutation.mrules"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutation.mrules" title="Mutation rules">Mutation rules</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34444800"></a>
+          <a class="indexterm" name="idp34489136"></a>
         </p>
 <p>
           A mutation rule is set globally applied to all mutations. A mutation rule

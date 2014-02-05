@@ -29,44 +29,44 @@
   <span class="keyword">typedef</span> <span class="identifier">MessageReturnType</span> <a name="boost.mixin.combinators.sum.result_type"></a><span class="identifier">result_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="sum.html#boost.mixin.combinators.sumconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="sum.html#idp6736912-bb"><span class="identifier">sum</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="sum.html#idp7282704-bb"><span class="identifier">sum</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="sum.html#idp6731840-bb">public member functions</a></span>
-  <span class="keyword">bool</span> <a class="link" href="sum.html#idp6732208-bb"><span class="identifier">add_result</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a class="link" href="sum.html#idp6734032-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="sum.html#idp6735792-bb"><span class="identifier">reset</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="sum.html#idp7277104-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="sum.html#idp7277504-bb"><span class="identifier">add_result</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a class="link" href="sum.html#idp7279504-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="sum.html#idp7281424-bb"><span class="identifier">reset</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp35539616"></a><h2>Description</h2>
+<a name="idp36145952"></a><h2>Description</h2>
 <p>A combinator for a sum operation. Sums all the return values of the multicast chain.</p>
 <p>
 </p>
 <div class="refsect2">
-<a name="idp35540544"></a><h3>Template Parameters</h3>
+<a name="idp36146880"></a><h3>Template Parameters</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
 <pre class="literallayout"><span class="keyword">typename</span> MessageReturnType</pre>
 <p>The actual return type of the messages. </p>
 </li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idp35543728"></a><h3>
+<a name="idp36150064"></a><h3>
 <a name="boost.mixin.combinators.sumconstruct-copy-destruct"></a><code class="computeroutput">sum</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp6736912-bb"></a><span class="identifier">sum</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp7282704-bb"></a><span class="identifier">sum</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idp35549472"></a><h3>
-<a name="idp6731840-bb"></a><code class="computeroutput">sum</code> public member functions</h3>
+<a name="idp36155872"></a><h3>
+<a name="idp7277104-bb"></a><code class="computeroutput">sum</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idp6732208-bb"></a><span class="identifier">add_result</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>The function used by the code generated for multicast messages. </li>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idp7277504-bb"></a><span class="identifier">add_result</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>The function used by the code generated for multicast messages. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a name="idp6734032-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
-<p>The result of the operation if the multicast call has been made with an input/ouput parameter - an instance of <code class="computeroutput">sum</code> </p>
+<pre class="literallayout"><span class="keyword">const</span> <span class="identifier">result_type</span> <span class="special">&amp;</span> <a name="idp7279504-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<p>The result of the operation if the multicast call has been made with an input/output parameter - an instance of <code class="computeroutput">sum</code> </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp6735792-bb"></a><span class="identifier">reset</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Resets the result, so the instance could be reused. </li>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp7281424-bb"></a><span class="identifier">reset</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Resets the result, so the instance could be reused. </li>
 </ol></div>
 </div>
 </div>

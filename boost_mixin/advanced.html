@@ -30,7 +30,7 @@
 <a name="boost_mixin.advanced.performance"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Message performance">Message performance</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp35009456"></a>
+        <a class="indexterm" name="idp35595872"></a>
       </p>
 <p>
         The performance of messages is indeed slower than regular message calls and
@@ -41,7 +41,7 @@
 <p>
         Unfortunately it's hard to estimate exactly how much slower the message call
         is. With perfect cache locality and compiler optimizations a message call
-        will take about 15 cycles, compared to about 5-7 cycles for a vritual call
+        will take about 15 cycles, compared to about 5-7 cycles for a virtual call
         and 10-12 cycles for a std::function call. 15 cycles on a modern 2.8 GHz
         processor take about 5 nanoseconds to execute, which is a negligible cost
         for a call.

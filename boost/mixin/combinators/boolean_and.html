@@ -29,46 +29,46 @@
   <span class="keyword">typedef</span> <span class="keyword">bool</span> <a name="boost.mixin.combinators.boolean_and.result_type"></a><span class="identifier">result_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="boolean_and.html#boost.mixin.combinators.boolean_andconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="boolean_and.html#idp6718352-bb"><span class="identifier">boolean_and</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="boolean_and.html#idp7262208-bb"><span class="identifier">boolean_and</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="boolean_and.html#idp6712336-bb">public member functions</a></span>
-  <span class="keyword">bool</span> <a class="link" href="boolean_and.html#idp6712704-bb"><span class="identifier">add_result</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="boolean_and.html#idp6715104-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="boolean_and.html#idp6717232-bb"><span class="identifier">reset</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="boolean_and.html#idp7255552-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="boolean_and.html#idp7255952-bb"><span class="identifier">add_result</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="boolean_and.html#idp7258592-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="boolean_and.html#idp7260928-bb"><span class="identifier">reset</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp35400128"></a><h2>Description</h2>
+<a name="idp36006080"></a><h2>Description</h2>
 <p>A combinator for a boolean <code class="computeroutput">and</code> operation.</p>
 <p>
 </p>
 <div class="refsect2">
-<a name="idp35401792"></a><h3>Template Parameters</h3>
+<a name="idp36007744"></a><h3>Template Parameters</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
 <pre class="literallayout"><span class="keyword">typename</span> MessageReturnType <span class="special">=</span> <span class="keyword">bool</span></pre>
 <p>The actual return type of the messages. Its default value is <code class="computeroutput">bool</code>, but such an operation is valid for various other classes that can be cast to <code class="computeroutput">bool</code>, such as pointers, std streams, etc. </p>
 </li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idp35407552"></a><h3>
+<a name="idp36013600"></a><h3>
 <a name="boost.mixin.combinators.boolean_andconstruct-copy-destruct"></a><code class="computeroutput">boolean_and</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp6718352-bb"></a><span class="identifier">boolean_and</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp7262208-bb"></a><span class="identifier">boolean_and</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idp35413536"></a><h3>
-<a name="idp6712336-bb"></a><code class="computeroutput">boolean_and</code> public member functions</h3>
+<a name="idp36019520"></a><h3>
+<a name="idp7255552-bb"></a><code class="computeroutput">boolean_and</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idp6712704-bb"></a><span class="identifier">add_result</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idp7255952-bb"></a><span class="identifier">add_result</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MessageReturnType</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>The function used by the code generated for multicast messages. Stops the execution of the multicast chain at the first <code class="computeroutput">false</code>. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idp6715104-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idp7258592-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>The result of the operation if the multicast call has been made with an input/ouput parameter - an instance of <code class="computeroutput"><code class="computeroutput"><a class="link" href="boolean_and.html" title="Class template boolean_and">boolean_and</a></code></code> </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp6717232-bb"></a><span class="identifier">reset</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Resets the result, so the instance could be reused. </li>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp7260928-bb"></a><span class="identifier">reset</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Resets the result, so the instance could be reused. </li>
 </ol></div>
 </div>
 </div>

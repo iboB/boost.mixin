@@ -30,7 +30,7 @@
 <a name="boost_mixin.tutorials.messages"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.messages" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34450000"></a>
+        <a class="indexterm" name="idp34494336"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/messages.cpp" target="_top">messages.cpp</a>)
@@ -40,7 +40,7 @@
         game. First let's define the mixin classes that we're going to use.
       </p>
 <p>
-        There's a mixin that's a part from evey object of our game. The one that
+        There's a mixin that's a part from every object of our game. The one that
         gives them a unique id. We'll also define a method, called <code class="computeroutput"><span class="identifier">trace</span></code> that will display information about
         the mixin in a stream.
       </p>
@@ -127,7 +127,7 @@
 <p>
         Now it's time to declare the messages our mixins will use. We have some methods
         in our classes for which there won't be any messages, since those methods
-        aren't polymoriphic. They're unique for their specific classes so it's absolutely
+        aren't polymorphic. They're unique for their specific classes so it's absolutely
         adequate to call them by <code class="computeroutput"><span class="identifier">object</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">mixin</span><span class="special">&gt;()-&gt;</span><span class="identifier">method</span><span class="special">(...)</span></code>.
       </p>
 <p>
@@ -166,7 +166,7 @@
       </p>
 <p>
         Lets see the <code class="computeroutput"><span class="identifier">trace</span></code> method,
-        that's presen in all of our classes. If we declare a message for it in the
+        that's present in all of our classes. If we declare a message for it in the
         way we talked above, only of the mixins within an object will be able to
         handle it. But when we <code class="computeroutput"><span class="identifier">trace</span></code>
         an object's info, we obviously would like to have the info for all of its
@@ -289,12 +289,12 @@
         we'd like to do something special with their message lists.
       </p>
 <p>
-        <a class="indexterm" name="idp34667152"></a>
+        <a class="indexterm" name="idp34711488"></a>
       </p>
 <p>
         First, about <code class="computeroutput"><span class="identifier">has_id</span></code>. What
         we'd like to do is display its info first, because the object id is usually
-        the first thing you need about an object. So in otder to achieve this the
+        the first thing you need about an object. So in order to achieve this the
         notion of message priority is introduced. Each message in a mixin gets a
         priority of 0 by default. For multicast messages like <code class="computeroutput"><span class="identifier">trace</span></code>
         the priority will affect the order in which they're executed. The higher
@@ -425,7 +425,7 @@
 <a name="boost_mixin.tutorials.mutation"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation" title="Object mutation">Object mutation</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34793136"></a>
+        <a class="indexterm" name="idp34837472"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation.cpp" target="_top">mutation.cpp</a>)
@@ -444,13 +444,9 @@
     <span class="comment">// ... other common fields</span>
 <span class="special">};</span>
 
-<span class="keyword">class</span> <span class="identifier">opengl_rendering</span>
-<span class="special">{</span>
-<span class="special">};</span>
+<span class="keyword">class</span> <span class="identifier">opengl_rendering</span> <span class="special">{};</span>
 
-<span class="keyword">class</span> <span class="identifier">directx_rendering</span>
-<span class="special">{</span>
-<span class="special">};</span>
+<span class="keyword">class</span> <span class="identifier">directx_rendering</span> <span class="special">{};</span>
 </pre>
 <p>
       </p>
@@ -506,7 +502,7 @@
         with various incomplete types in its internal type registry.
       </p>
 <p>
-        So, if you want to add and remove mixins accross several blocks or functions,
+        So, if you want to add and remove mixins across several blocks or functions,
         you may safely instantiate the <code class="computeroutput"><span class="identifier">mutate</span></code>
         class or use its typedef <code class="computeroutput"><span class="identifier">single_object_mutator</span></code>
         that probably has a more appropriate name for cases like this.
@@ -691,7 +687,204 @@
 <a name="boost_mixin.tutorials.mutation.mrules"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation.mrules" title="Mutation rules">Mutation rules</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34953168"></a>
+          <a class="indexterm" name="idp34996256"></a>
+        </p>
+<p>
+          (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation_rules.cpp" target="_top">mutation_rules.cpp</a>)
+        </p>
+<p>
+          Let's define some mixins that may be present in a CAD system specialized
+          for furniture design. Like the previous example we won't concern ourselves
+          with any particular messages.
+        </p>
+<p>
+          So, again we have a mixin that we want to be present in every object.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">furniture</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">_id</span><span class="special">;</span>
+    <span class="identifier">string</span> <span class="identifier">name</span><span class="special">;</span>
+    <span class="comment">// ... other common fields</span>
+<span class="special">};</span>
+
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">furniture</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+          We also have mixins that describe the frame of the piece of furniture.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">wood_frame</span> <span class="special">{};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">wood_frame</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+
+<span class="keyword">class</span> <span class="identifier">metal_frame</span> <span class="special">{};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">metal_frame</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+          Let's also define some mixins that will be responsible for the object serialization.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ofml_serialization</span> <span class="special">{};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">ofml_serialization</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+
+<span class="keyword">class</span> <span class="identifier">xml_serialization</span> <span class="special">{};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">xml_serialization</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+          Now, let's move on to the entry point of our program.
+        </p>
+<p>
+          We said that each and every object in our system should be expected to
+          have the mixin <code class="computeroutput"><span class="identifier">furniture</span></code>.
+          That could be accomplished if we manually add it to all mutations we make
+          but there is a simpler way to do it. By adding the <code class="computeroutput"><span class="identifier">mandatory_mixin</span></code>
+          mutation rule.
+        </p>
+<p>
+          All mutation rules should be added by calling <code class="computeroutput"><span class="identifier">add_new_mutation_rule</span></code>.
+          Since <code class="computeroutput"><span class="identifier">mandatory_mixin</span></code> is
+          a mutation rule that the library provides, we can accomplish this with
+          a single line of code:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">mandatory_mixin</span><span class="special">&lt;</span><span class="identifier">furniture</span><span class="special">&gt;);</span>
+</pre>
+<p>
+        </p>
+<p>
+          Now each mutation after this line, will add <code class="computeroutput"><span class="identifier">furniture</span></code>
+          to the objects (even if it's not been explicitly added) and also if a mutation
+          tries to remove the mixin from the object it won't be allowed. There won't
+          be an error or a warning. The library will silently ignore the request
+          to remove <code class="computeroutput"><span class="identifier">furniture</span></code>, or
+          any other mixin, that's been added as mandatory. Note, that if a mutation
+          tries to remove <code class="computeroutput"><span class="identifier">furniture</span></code>,
+          and also adds and removes other mixins, only the part removing the mandatory
+          mixin will be ignored. The others will be performed.
+        </p>
+<p>
+          Another common case for using <code class="computeroutput"><span class="identifier">mandatory_mixin</span></code>
+          is if you want to have some debugging mixin, that you want present in you
+          objects, when you're debugging your application. This is very easily accomplished
+          if you just set the rule for it in a conditional compilation block.
+        </p>
+<p>
+          You probably noticed the mixin <code class="computeroutput"><span class="identifier">ofml_serialization</span></code>.
+          OFML is a format specifically designed for describing furniture that's
+          still used in some European countries, but hasn't gotten worldwide acceptance.
+          Let's assume we want to drop the support for OFML, but without removing
+          the actual code, since third party plugins to our CAD system may still
+          depend on it. All we want is to prevent anybody from adding the mixin to
+          an object. Basically the exact opposite of <code class="computeroutput"><span class="identifier">mandatory_mixin</span></code>.
+          This is the mutation rule <code class="computeroutput"><span class="identifier">deprecated_mixin</span></code>
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">deprecated_mixin</span><span class="special">&lt;</span><span class="identifier">ofml_serialization</span><span class="special">&gt;);</span>
+</pre>
+<p>
+        </p>
+<p>
+          After the previous line of code, any mutation that tries to add <code class="computeroutput"><span class="identifier">ofml_serialization</span></code> won't be able to,
+          and all mutations will try to remove it if it's present in an object. Again,
+          as was the case before, if a mutation does many things, only the part from
+          it, trying to add <code class="computeroutput"><span class="identifier">ofml_serialization</span></code>
+          will be silently ignored.
+        </p>
+<p>
+          The last built-in rule in the library is <code class="computeroutput"><span class="identifier">mutually_exclusive_mixins</span></code>.
+        </p>
+<p>
+          Since a piece of furniture has either wood frame or a metal frame and never
+          both, it would be a good idea to prevent the programmers from accidentally
+          adding both mixins representing the frame in a single object. This mutation
+          rule helps us do exactly that.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutually_exclusive_mixins</span><span class="special">*</span> <span class="identifier">rule</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">mutually_exclusive_mixins</span><span class="special">;</span>
+<span class="identifier">rule</span><span class="special">-&gt;</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">wood_frame</span><span class="special">&gt;();</span>
+<span class="identifier">rule</span><span class="special">-&gt;</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">metal_frame</span><span class="special">&gt;();</span>
+<span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="identifier">rule</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+          You may add as many mutually exclusive mixins as you wish. If you had,
+          say, <code class="computeroutput"><span class="identifier">plastic_frame</span></code> you
+          could also add it to that list.
+        </p>
+<p>
+          Any object mutated after that rule is set will implicitly remove any of
+          the mutually exclusive mixins if another is added.
+        </p>
+<p>
+          In many of our examples a sample game code was given, with mixins <code class="computeroutput"><span class="identifier">opengl_rendering</span></code> and <code class="computeroutput"><span class="identifier">directx_rendering</span></code>.
+          The <code class="computeroutput"><span class="identifier">mutually_exclusive_mixins</span></code>
+          is perfect for this case and any other when we're always doing <code class="computeroutput"><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">x</span><span class="special">&gt;().</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">y</span><span class="special">&gt;()</span></code>
+          and <code class="computeroutput"><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">y</span><span class="special">&gt;().</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">x</span><span class="special">&gt;()</span></code>.
+        </p>
+<p>
+          So to see this in practice:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">o</span><span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          This object is empty. Mutation rules don't apply if there's no mutation.
+          If, however, the object had been created with a type template passed in
+          its constructor, then the rules would have been applied.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">ofml_serialization</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">xml_serialization</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">wood_frame</span><span class="special">&gt;();</span>
+</pre>
+<p>
+        </p>
+<p>
+          Two rules are affected by this mutation. First it will implicitly add
+          <code class="computeroutput"><span class="identifier">furniture</span></code> to the object,
+          and second it will ignore the attempt to add <code class="computeroutput"><span class="identifier">ofml_serialization</span></code>.
+          As a result the object will have <code class="computeroutput"><span class="identifier">furniture</span></code>,
+          <code class="computeroutput"><span class="identifier">xml_serialization</span></code> and
+          <code class="computeroutput"><span class="identifier">wood_frame</span></code>.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">metal_frame</span><span class="special">&gt;();</span>
+</pre>
+<p>
+        </p>
+<p>
+          The mutually exclusive mixins will ensure that after this line the object
+          won't have the <code class="computeroutput"><span class="identifier">wood_frame</span></code>
+          mixin.
+        </p>
+<p>
+          You can also define your own custom mutation rules. The process is described
+          in the advanced topics of this book.
+        </p>
+<p>
+          Lastly, note that the library will be responsible for freeing the memory
+          and destroying the rules you've added. All you need to do is call <code class="computeroutput"><span class="identifier">add_new_mutation_rule</span></code> with a rule, allocated
+          and constructed with <code class="computeroutput"><span class="keyword">new</span></code>.
         </p>
 </div>
 </div>
@@ -700,7 +893,353 @@
 <a name="boost_mixin.tutorials.combinators"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.combinators" title="Multicast result combinators">Multicast result combinators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34956064"></a>
+        <a class="indexterm" name="idp35122560"></a>
+      </p>
+<p>
+        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/combinators.cpp" target="_top">combinators.cpp</a>)
+      </p>
+<p>
+        For this tutorial let's imagine we have a simple CAD program, which deals
+        designing 3-dimensional objects. In such programs various aspects of an object
+        need to be visible and editable at different times. Let's assume our objects
+        are defined by their wireframe, their vertices, and their surface.
+      </p>
+<p>
+        We'll define mixins for those and focus on the parts they have in common:
+        namely whether an part of the object is visible, and how much elements is
+        this part composed of.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">wireframe</span><span class="special">);</span>
+
+<span class="keyword">class</span> <span class="identifier">wireframe</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">set_visible</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">value</span><span class="special">);</span>
+    <span class="keyword">void</span> <span class="identifier">set_elements_count</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">count</span><span class="special">);</span>
+
+    <span class="keyword">bool</span> <span class="identifier">visible</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">elements_count</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+
+    <span class="comment">// ...</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="keyword">bool</span> <span class="identifier">_visible</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">_elements_count</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">vertices</span><span class="special">);</span>
+
+<span class="keyword">class</span> <span class="identifier">vertices</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">set_visible</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">value</span><span class="special">);</span>
+    <span class="keyword">void</span> <span class="identifier">set_elements_count</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">count</span><span class="special">);</span>
+
+    <span class="keyword">bool</span> <span class="identifier">visible</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">elements_count</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+
+    <span class="comment">// ...</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="keyword">bool</span> <span class="identifier">_visible</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">_elements_count</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="identifier">BOOST_DECLARE_MIXIN</span><span class="special">(</span><span class="identifier">surface</span><span class="special">);</span>
+
+<span class="keyword">class</span> <span class="identifier">surface</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">set_visible</span><span class="special">(</span><span class="keyword">bool</span> <span class="identifier">value</span><span class="special">);</span>
+    <span class="keyword">void</span> <span class="identifier">set_elements_count</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">count</span><span class="special">);</span>
+
+    <span class="keyword">bool</span> <span class="identifier">visible</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">elements_count</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+
+    <span class="comment">// ...</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="keyword">bool</span> <span class="identifier">_visible</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">_elements_count</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now let's define messages for the methods we'll want to access polymorphically
+        and define our mixins to use those messages.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">BOOST_MIXIN_CONST_MULTICAST_MESSAGE_0</span><span class="special">(</span><span class="keyword">bool</span><span class="special">,</span> <span class="identifier">visible</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_CONST_MULTICAST_MESSAGE_0</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">elements_count</span><span class="special">);</span>
+
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">visible</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">elements_count</span><span class="special">);</span>
+
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">vertices</span><span class="special">,</span> <span class="identifier">visible_msg</span> <span class="special">&amp;</span> <span class="identifier">elements_count_msg</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">wireframe</span><span class="special">,</span> <span class="identifier">visible_msg</span> <span class="special">&amp;</span> <span class="identifier">elements_count_msg</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">surface</span><span class="special">,</span> <span class="identifier">visible_msg</span> <span class="special">&amp;</span> <span class="identifier">elements_count_msg</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        As you can see those are multicast messages. Each of the mixins in the object
+        will implement and respond to them.
+      </p>
+<p>
+        Now let's create some objects.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">NUM_OBJECTS</span> <span class="special">=</span> <span class="number">20</span><span class="special">;</span>
+<span class="identifier">object</span> <span class="identifier">objects</span><span class="special">[</span><span class="identifier">NUM_OBJECTS</span><span class="special">];</span>
+
+<span class="keyword">const</span> <span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span> <span class="special">=</span> <span class="identifier">objects</span><span class="special">[</span><span class="number">0</span><span class="special">];</span>
+</pre>
+<p>
+      </p>
+<p>
+        ...and mutate them with some mixins, and give them some values.
+      </p>
+<p>
+        For example let's say all of our objects are cubes, that have 24 vertices
+        (4 per side), 6 squares for the wireframe, and a single (folded) surface.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">NUM_OBJECTS</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span> <span class="special">=</span> <span class="identifier">objects</span><span class="special">[</span><span class="identifier">i</span><span class="special">];</span>
+
+    <span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+        <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">vertices</span><span class="special">&gt;()</span>
+        <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">wireframe</span><span class="special">&gt;()</span>
+        <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">surface</span><span class="special">&gt;();</span>
+
+    <span class="identifier">o</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">vertices</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_elements_count</span><span class="special">(</span><span class="number">24</span><span class="special">);</span>
+    <span class="identifier">o</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">vertices</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_visible</span><span class="special">(</span><span class="keyword">false</span><span class="special">);</span>
+
+    <span class="identifier">o</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">wireframe</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_elements_count</span><span class="special">(</span><span class="number">6</span><span class="special">);</span>
+    <span class="identifier">o</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">wireframe</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_visible</span><span class="special">(</span><span class="keyword">false</span><span class="special">);</span>
+
+    <span class="identifier">o</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">surface</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_elements_count</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+    <span class="identifier">o</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">surface</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_visible</span><span class="special">(</span><span class="keyword">true</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        As you may have noticed all our messages are functions that have a return
+        value. You may have tried making multicast messages with non-void functions
+        and noticed that the generated message function <span class="emphasis"><em>is</em></span> void
+        and doesn't return anything.
+      </p>
+<p>
+        The things that will help us make use of the values returned from the messages
+        are the multicast result combinators.
+      </p>
+<p>
+        So, let's say we want to see if an object is visible. We say that it is visible
+        if at least one of its mixins is. To get this value we may use the combinator
+        <code class="computeroutput"><span class="identifier">boolean_or</span></code> provided by the
+        library (all built-in combinators are in namespace <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">combinators</span></code>)
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">bool</span> <span class="identifier">is_first_visible</span> <span class="special">=</span> <span class="identifier">visible</span><span class="special">&lt;</span><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">boolean_or</span><span class="special">&gt;(</span><span class="identifier">o</span><span class="special">);</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The first object is "</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">is_first_visible</span> <span class="special">?</span> <span class="string">"visible"</span> <span class="special">:</span> <span class="string">"invisible"</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<p>
+        That's it. Giving a combinator as an explicit template argument to a multicast
+        message call, will call a function that <span class="emphasis"><em>has</em></span> a return
+        value defined by the combinator. In this case <code class="computeroutput"><span class="identifier">boolean_or</span></code>
+        causes the message to return a <code class="computeroutput"><span class="keyword">bool</span></code>
+        which is true if at least one of the messages returns non-zero.
+      </p>
+<p>
+        Had we defined that an object is visible if <span class="emphasis"><em>all</em></span> of its
+        mixins were visible, then we could have used the built-in combinator <code class="computeroutput"><span class="identifier">boolean_and</span></code>.
+      </p>
+<p>
+        Now let's another built-in combinator &#8211; <code class="computeroutput"><span class="identifier">sum</span></code>.
+        You may have guessed that it's a sum of all values returned by the messages.
+        In our case we may want to check how many elements are in the entire object
+        like this:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"There are "</span> <span class="special">&lt;&lt;</span> <span class="identifier">elements_count</span><span class="special">&lt;</span><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">sum</span><span class="special">&gt;(</span><span class="identifier">o</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">" elements in the first object."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<p>
+        All built-in combinators have an alternative usage. You saw the first, where
+        putting the combinator as a template argument, causes the message to return
+        a value.
+      </p>
+<p>
+        The second usage keeps the message function <code class="computeroutput"><span class="keyword">void</span></code>,
+        but lets you add the combinator as an output parameter. This way, for example
+        you may sum all elements throughout all objects with a single reusable combinator:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">sum</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">sum</span><span class="special">;</span>
+<span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">NUM_OBJECTS</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">elements_count</span><span class="special">(</span><span class="identifier">objects</span><span class="special">[</span><span class="identifier">i</span><span class="special">],</span> <span class="identifier">sum</span><span class="special">);</span>
+<span class="special">}</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"There are "</span> <span class="special">&lt;&lt;</span> <span class="identifier">sum</span><span class="special">.</span><span class="identifier">result</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="string">" elements among all objects."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<p>
+        That's basically all there is to know about using combinators. Now, let's
+        move on to creating our own custom ones.
+      </p>
+<p>
+        The built-in combinators are powerful, but sometimes you need to accomplish
+        a task where you need some specific combinator behavior and need to add a
+        custom one.
+      </p>
+<p>
+        To create a custom combinator that's used as an output parameter is very
+        easy. All you need to do is create a class, that has a public method called
+        <code class="computeroutput"><span class="identifier">add_result</span></code>. This public method
+        should take one argument of the same type as (or one that can be implicitly
+        cast to) the return type of the multicast message that you're "combining"
+        with it. The method will be repeatedly called with each successful message
+        with its return value as an argument. It should return <code class="computeroutput"><span class="keyword">bool</span></code>
+        &#8211; <code class="computeroutput"><span class="keyword">true</span></code> when the execution
+        should continue and <code class="computeroutput"><span class="keyword">false</span></code> when
+        it should stop.
+      </p>
+<p>
+        We mentioned <code class="computeroutput"><span class="identifier">boolean_or</span></code> and
+        <code class="computeroutput"><span class="identifier">boolean_and</span></code>. The function
+        <code class="computeroutput"><span class="identifier">add_result</span></code> in <code class="computeroutput"><span class="identifier">boolean_or</span></code> returns false on the first non-zero
+        value. That means it has determined the the final value is true (because
+        at least one true has been met) and there is no need to execute the rest.
+        Likewise <code class="computeroutput"><span class="identifier">boolean_and</span></code>'s <code class="computeroutput"><span class="identifier">add_result</span></code> returns false on the first zero
+        value it gets. Exactly as C++'s operators <code class="computeroutput"><span class="special">||</span></code>
+        and <code class="computeroutput"><span class="special">&amp;&amp;</span></code> behave.
+      </p>
+<p>
+        So let's define our output parameter combinator that counts all mixins that
+        have more than 1 element. Also, we <span class="emphasis"><em>could</em></span> call it for
+        a single object, but let's make use of the fact that it's an output parameter
+        and count all mixins with more than 1 element among all objects:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">more_than_1</span>
+<span class="special">{</span>
+    <span class="identifier">more_than_1</span><span class="special">()</span> <span class="special">:</span> <span class="identifier">count</span><span class="special">(</span><span class="number">0</span><span class="special">)</span> <span class="special">{}</span>
+
+    <span class="keyword">bool</span> <span class="identifier">add_result</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">elements</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="keyword">if</span><span class="special">(</span><span class="identifier">elements</span> <span class="special">&gt;</span> <span class="number">1</span><span class="special">)</span>
+            <span class="special">++</span><span class="identifier">count</span><span class="special">;</span>
+
+        <span class="comment">// Never break. We need this for all mixins in an object</span>
+        <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="keyword">int</span> <span class="identifier">count</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="identifier">more_than_1</span> <span class="identifier">counter</span><span class="special">;</span>
+
+<span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">NUM_OBJECTS</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">elements_count</span><span class="special">(</span><span class="identifier">objects</span><span class="special">[</span><span class="identifier">i</span><span class="special">],</span> <span class="identifier">counter</span><span class="special">);</span>
+<span class="special">}</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"There are "</span> <span class="special">&lt;&lt;</span> <span class="identifier">counter</span><span class="special">.</span><span class="identifier">count</span> <span class="special">&lt;&lt;</span> <span class="string">" mixins with more than 1 element among all objects."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now, the last case we need to cover is when you want your custom combinator
+        to be added as a template argument to the message's function giving it a
+        return value of its own.
+      </p>
+<p>
+        To do this is only slightly more complicated the the previous, return parameter
+        case.
+      </p>
+<p>
+        You need to create a template class whose template parameter will be provided
+        by the message call and will be the message return type.
+      </p>
+<p>
+        Next, as before you'll need an <code class="computeroutput"><span class="identifier">add_result</span></code>
+        method to be repeatedly called, again having a single argument of type equal
+        to the message return type (you may just reuse the template argument of the
+        combinator class), and again returning <code class="computeroutput"><span class="keyword">bool</span></code>
+        to indicate whether the message execution should continue or stop.
+      </p>
+<p>
+        Next, you'll need a typedef <code class="computeroutput"><span class="identifier">result_type</span></code>,
+        which will indicate the return type of the message function.
+      </p>
+<p>
+        Lastly, you'll have to create a method, called result, with no arguments,
+        that has a return type <code class="computeroutput"><span class="identifier">result_type</span></code>.
+        It will be called when the execution is completed and it will provide the
+        return value of the message function.
+      </p>
+<p>
+        So, let's create an identical combinator as before &#8211; one that counts
+        the mixins in an object that have more than one element, but this time to
+        be used as a template argument of the message function.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">MsgReturnType</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">more_than_1_t</span>
+<span class="special">{</span>
+    <span class="identifier">more_than_1_t</span><span class="special">()</span> <span class="special">:</span> <span class="identifier">count</span><span class="special">(</span><span class="number">0</span><span class="special">)</span> <span class="special">{}</span>
+
+    <span class="keyword">bool</span> <span class="identifier">add_result</span><span class="special">(</span><span class="identifier">MsgReturnType</span> <span class="identifier">elements</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="keyword">if</span><span class="special">(</span><span class="identifier">elements</span> <span class="special">&gt;</span> <span class="number">1</span><span class="special">)</span>
+            <span class="special">++</span><span class="identifier">count</span><span class="special">;</span>
+
+        <span class="comment">// Never break. We need this for all mixins in an object</span>
+        <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="comment">// return type of message function</span>
+    <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="identifier">result_type</span> <span class="identifier">result</span><span class="special">()</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">count</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="keyword">int</span> <span class="identifier">count</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now we can use our new custom combinator as we used <code class="computeroutput"><span class="identifier">boolean_or</span></code>
+        above.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"There are "</span> <span class="special">&lt;&lt;</span> <span class="identifier">elements_count</span><span class="special">&lt;</span><span class="identifier">more_than_1_t</span><span class="special">&gt;(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">&lt;&lt;</span> <span class="string">" mixins with more than 1 element in the first object."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<p>
+        And that's all there is about multicast result combinators.
       </p>
 </div>
 <div class="section">
@@ -755,7 +1294,7 @@
           same common parent is a good idea and Boost.Mixin will work exactly the
           same way if you do this. However there is a pitfall in this case. It happens
           when you have multiple inheritance. Due to the special nature in which
-          the libray arranges the memory internally if a mixin type has more than
+          the library arranges the memory internally if a mixin type has more than
           one parent using <code class="computeroutput"><span class="identifier">bm_this</span></code>
           in one of those parents might lead to crashes.
         </p>

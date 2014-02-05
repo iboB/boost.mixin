@@ -98,7 +98,7 @@
             Have multicast messages, which are handled by many mixins within an object
           </li>
 <li class="listitem">
-            Possiblity to have custom allocators to finely tune the memory and aim
+            Possibility to have custom allocators to finely tune the memory and aim
             for cache-locality for critical parts of the code
           </li>
 <li class="listitem">
@@ -130,7 +130,7 @@
 <p>
           We covered how much more than multiple inheritance the library is in the
           previous section, but in case you haven't inferred everything, here a comprehensive
-          list of the most imporatnt differences between Boost.Mixin and C++ multiple
+          list of the most important differences between Boost.Mixin and C++ multiple
           inheritance:
         </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
@@ -172,7 +172,7 @@
               <code class="computeroutput"><span class="identifier">bar</span></code>. Since the library
               uses a placeholder type &#8211; <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
               &#8211; implicit casts to any of its mixins are impossible. That aside,
-              the hypothetical object from above, will recieve all of the methods
+              the hypothetical object from above, will receive all of the methods
               from foo and bar, but while this is true for the <code class="computeroutput"><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
               with such mixins, a compilation error cannot be generated if a message
               is called that the object can't handle. A runtime error will be generated
@@ -266,7 +266,7 @@
               for example).
             </li>
 <li class="listitem">
-              Some entity-component-systems allow serveral entities to point to the
+              Some entity-component-systems allow several entities to point to the
               same instance of a component. This is not possible in Boost.Mixin.
               A mixin instance is bound to an object instance
             </li>
@@ -292,7 +292,7 @@
           object.
         </p>
 <p>
-          However much of the multiple inheritance probelems remain:
+          However much of the multiple inheritance problems remain:
         </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
@@ -340,8 +340,8 @@
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
               <span class="bold"><strong>Removing mixins</strong></span>: in Ruby, when you
-              extend an oject with a module, all functions that both object and the
-              module have are permanently overridden in the object by their versions
+              extend an object with a module, all functions that both object and
+              the module have are permanently overridden in the object by their versions
               from the module. Boost.Mixin allows you to temporarily mutate the object
               and then remove the mixin while restoring the object exactly to its
               former self.
