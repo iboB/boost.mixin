@@ -60,8 +60,8 @@ BOOST_DECLARE_MIXIN(mp3_player);
 BOOST_DEFINE_MIXIN(mp3_player, get_sound_msg);
 
 /*`
-Although we declare and define the messsages and mixins on consecutive lines
-here, this is not a requierment. Normally you'd want to have the declarations in
+Although we declare and define the messages and mixins on consecutive lines
+here, this is not a requirement. Normally you'd want to have the declarations in
 header files and the definitions in cpp files. See the more detailed Examples
 section for an example about that.
 
@@ -112,7 +112,7 @@ Now we have an empty object, which has internally instantiated the mixin
 classes. So let's start using it.
 
 Since there is no polymorphic way of setting the music, we'll have to explicitly
-get the apporpriate mixin and set it like this:
+get the appropriate mixin and set it like this:
 */
     sound_player.get<cd_player>()->insert_cd("Led Zeppelin IV (1971)");
 
@@ -129,7 +129,7 @@ the appropriate class instance and call the appropriate message (or trigger a
 run-time error if this cannot be done).
 
 Something else that we can do with our object is make a live mutation of its
-type via the `mutate` class. And change the playing behaviour.
+type via the `mutate` class. And change the playing behavior.
 */
 
     mutate(sound_player)

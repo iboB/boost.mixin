@@ -68,7 +68,7 @@ changed on each call of `remove` or `add`, first the program would be needlessly
 slowed down, and second the library would need to deal with various incomplete
 types in its internal type registry.
 
-So, if you want to add and remove mixins accross several blocks or functions,
+So, if you want to add and remove mixins across several blocks or functions,
 you may safely instantiate the `mutate` class or use its typedef
 `single_object_mutator` that probably has a more appropriate name for cases like
 this.

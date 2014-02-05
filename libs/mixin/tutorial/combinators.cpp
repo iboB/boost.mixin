@@ -266,7 +266,7 @@ the message call and will be the message return type.
 Next, as before you'll need an `add_result` method to be repeatedly called,
 again having a single argument of type equal to the message return type (you may
 just reuse the template argument of the combinator class), and again returning
-`bool` to indicate whether the message execution should conitnue or stop.
+`bool` to indicate whether the message execution should continue or stop.
 
 Next, you'll need a typedef `result_type`, which will indicate the return type
 of the message function.

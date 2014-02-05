@@ -17,7 +17,7 @@ Let's define some mixins that may be present in a CAD system specialized for
 furniture design. Like the previous example we won't concern ourselves with any
 particular messages.
 
-So, again we have a mixin that we want to be persent in every object.
+So, again we have a mixin that we want to be present in every object.
 */
 
 class furniture
@@ -59,7 +59,7 @@ int main()
 /*`
 Now, let's move on to the entry point of our program.
 
-We said that each adn every object in our system should be expected to have the
+We said that each and every object in our system should be expected to have the
 mixin `furniture`. That could be accomplished if we manually add it to all
 mutations we make but there is a simpler way to do it. By adding the
 `mandatory_mixin` mutation rule.
@@ -81,7 +81,7 @@ mandatory mixin will be ignored. The others will be performed.
 Another common case for using `mandatory_mixin` is if you want to have some
 debugging mixin, that you want present in you objects, when you're debugging
 your application. This is very easily accomplished if you just set the rule for
-it in a conditional comiplation block.
+it in a conditional compilation block.
 
 You probably noticed the mixin `ofml_serialization`. OFML is a format
 specifically designed for describing furniture that's still used in some

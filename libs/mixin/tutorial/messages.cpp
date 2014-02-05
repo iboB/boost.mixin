@@ -18,7 +18,7 @@ using namespace boost::mixin;
 For this tutorial will look a simplified piece of code from an imaginary game.
 First let's define the mixin classes that we're going to use.
 
-There's a mixin that's a part from evey object of our game. The one that gives
+There's a mixin that's a part from every object of our game. The one that gives
 them a unique id. We'll also define a method, called `trace` that will display
 information about the mixin in a stream.
 */
@@ -94,7 +94,7 @@ public:
 /*`
 Now it's time to declare the messages our mixins will use. We have some methods
 in our classes for which there won't be any messages, since those methods aren't
-polymoriphic. They're unique for their specific classes so it's absolutely
+polymorphic. They're unique for their specific classes so it's absolutely
 adequate to call them by `object.get<mixin>()->method(...)`.
 
 So, let's start with the simplest case. The one we alreay used in the
@@ -125,7 +125,7 @@ same as before but with `CONST` added to it:
 BOOST_MIXIN_CONST_MESSAGE_0(void, render);
 
 /*`
-Lets see the `trace` method, that's presen in all of our classes. If we declare
+Lets see the `trace` method, that's present in all of our classes. If we declare
 a message for it in the way we talked above, only of the mixins within an object
 will be able to handle it. But when we `trace` an object's info, we obviously
 would like to have the info for all of its mixins. For cases like this: where
@@ -219,7 +219,7 @@ something special with their message lists.
 [indexterm2 priority..example]
 
 First, about `has_id`. What we'd like to do is display its info first, because
-the object id is usually the first thing you need about an object. So in otder
+the object id is usually the first thing you need about an object. So in order
 to achieve this the notion of message priority is introduced. Each message in
 a mixin gets a priority of 0 by default. For multicast messages like `trace` the
 priority will affect the order in which they're executed. The higher priority
