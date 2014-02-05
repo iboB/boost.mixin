@@ -25,13 +25,9 @@ class game_object
     // ... other common fields
 };
 
-class opengl_rendering
-{
-};
+class opengl_rendering {};
 
-class directx_rendering
-{
-};
+class directx_rendering {};
 
 /*`
 We won't concert ourselves with their concrete functionality, so we'll just

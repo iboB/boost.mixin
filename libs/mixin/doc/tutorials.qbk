@@ -28,6 +28,9 @@
 
 [indexterm2 mutation rules..example]
 
+[import ../tutorial/mutation_rules.cpp]
+[tutorial_mutation_rules]
+
 [endsect]
 
 [endsect]
