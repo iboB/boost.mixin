@@ -164,12 +164,13 @@ bool object::implements_message(feature_id id) const
 
 void object::get_message_names(std::vector<const char*>& out_message_names) const
 {
+    const domain& dom = domain::instance();
+
     for(size_t i=0; i<BOOST_MIXIN_MAX_MESSAGES; ++i)
     {
-        const internal::message_for_mixin* data = _type_info->_call_table[i].message_data;
-        if(data)
+        if(implements_message(i))
         {
-            out_message_names.push_back(data->message->name);
+            out_message_names.push_back(dom._messages[i]->name);
         }
     }
 }
