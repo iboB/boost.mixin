@@ -63,7 +63,7 @@ languages.
 inside
 * Mutate "live" objects by changing their composition at run time
 * Have multicast messages, which are handled by many mixins within an object
-* Possiblity to have custom allocators to finely tune the memory and aim for
+* Possibility to have custom allocators to finely tune the memory and aim for
 cache-locality for critical parts of the code
 * Ability to have dynamic libraries that can enrich or modify objects, without
 modifying (even rebuilding) the executable.
@@ -83,7 +83,7 @@ internally instantiate them.
 
 We covered how much more than multiple inheritance the library is in the
 previous section, but in case you haven't inferred everything, here a
-comprehensive list of the most imporatnt differences between Boost.Mixin and C++
+comprehensive list of the most important differences between Boost.Mixin and C++
 multiple inheritance:
 
 * *No combinatorial explosion of types*: you compose types at runtime, and
@@ -106,7 +106,7 @@ with plain multiple inheritance:
 * *No compile-time type*: An object derived from, say, `foo` and `bar` can
 implicitly be cast too `foo` or `bar`. Since the library uses a placeholder type
 -- `boost::mixin::object` -- implicit casts to any of its mixins are impossible.
-That aside, the hypothetical object from above, will recieve all of the methods
+That aside, the hypothetical object from above, will receive all of the methods
 from foo and bar, but while this is true for the `mixin::object` with such
 mixins, a compilation error cannot be generated if a message is called that the
 object can't handle. A runtime error will be generated instead, which is the
@@ -164,7 +164,7 @@ are) completely oblivious to what kinds of mixins there may be, allowing you
 to truly, physically separate a program's subsystems. The entity in an ECS on
 the other hand, usually has at least some knowledge of all the possible
 component types (like the top level parent classes, for example).
-* Some entity-component-systems allow serveral entities to point to the same
+* Some entity-component-systems allow several entities to point to the same
 instance of a component. This is not possible in Boost.Mixin. A mixin instance
 is bound to an object instance
 
@@ -183,7 +183,7 @@ similar as both are used to create new types by combining existing ones, while
 also solving one of the problems of plain old multiple inheritance - the
 communication between the different components that comprise the object.
 
-However much of the multiple inheritance probelems remain:
+However much of the multiple inheritance problems remain:
 
 * Types composed of traits are static. Most languages (including C++ using
 the aforementioned mimic) don't allow you to change an object's type.
@@ -213,7 +213,7 @@ Still, barring the differences that arise from C++ being a strongly typed
 language, for a small amount of extra code Boost.Mixin allows you to do much
 more:
 
-* *Removing mixins*: in Ruby, when you extend an oject with a module, all
+* *Removing mixins*: in Ruby, when you extend an object with a module, all
 functions that both object and the module have are permanently overridden in the
 object by their versions from the module. Boost.Mixin allows you to temporarily
 mutate the object and then remove the mixin while restoring the object exactly

@@ -70,7 +70,7 @@ likely this will happen when you want to define two different mixins that share
 some common functionality. Moving the shared functionality in the same common
 parent is a good idea and Boost.Mixin will work exactly the same way if you do
 this. However there is a pitfall in this case. It happens when you have
-multiple inheritance. Due to the special nature in which the libray arranges the
+multiple inheritance. Due to the special nature in which the library arranges the
 memory internally if a mixin type has more than one parent using `bm_this` in
 one of those parents might lead to crashes.
 

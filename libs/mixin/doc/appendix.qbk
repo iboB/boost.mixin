@@ -82,7 +82,7 @@ different aspects for different sub-systems. Still, being as powerful as they
 are, they find their place in many other pieces of software developed in C++,
 Java or C#.
 
-It is the author's oppinion that any big project with complex objects could
+It is the author's opinion that any big project with complex objects could
 benefit from using an ECS. Indeed games and game engines are a prime example of
 such a project, but there are many others. Any software that has optional
 dynamic library plug-ins, most CAD systems, graph editors, project management

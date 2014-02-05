@@ -29,14 +29,14 @@ which declares that a class is a mixin.
 They are /all/ you need to include in order to use these mixins to mutate
 objects. The users are encouraged to implement a similar structure in their own
 applications. It allows us to modify the mixin classes, without having to
-recompile anything but the compilation units that define the actuall classes.
+recompile anything but the compilation units that define the actual classes.
 
 In most cases a C++ class is split between two files. A header for the
 declaration to be included in compilation units that use the class, and a
 compilation unit with the class definition. The mixin classes in the example
 are similarly split. /However/, you may notice that the only place the header
-files that declare a mixin class are included is in their corresponging
-comilation units. In fact, your mixins that are like the ones in the example and
+files that declare a mixin class are included is in their corresponding
+compilation units. In fact, your mixins that are like the ones in the example and
 are never used with `object::get` as actual C++ classes, /don't need header
 files at all/. You may simply write them in their compilation units only, much
 like Java or C# classes are written.
