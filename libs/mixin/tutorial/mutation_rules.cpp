@@ -172,7 +172,7 @@ derived from `boost::mixin::mutation_rule` and override its pure virtual method
 `apply_to`. The method has a single input-output parameter -- the mutation that
 has been requested.
 
-If you remember, we defined two mixins we havent yet used -- `has_doors` and
+If you remember, we defined two mixins we haven't yet used -- `has_doors` and
 `container`. We can safely say that a piece of furniture that has doors is
 always also a container (The opposite is not true. Think racks and bookcases).
 So it would be a good idea to add a mutation rule which adds the `container`
@@ -233,7 +233,7 @@ Does it do a topological sort of the rules? Say we add a mandatory /and/ a
 deprecated rule about the same mixin. How does it handle dependency loops?
 
 The answer is simple. It doesn't. The rules are applied once per mutation
-in the order in which they were added. It is the reponsibility of the user
+in the order in which they were added. It is the responsibility of the user
 to add them in some sensible order. Had the library provided some form
 of rule sort, it would have needlessly overcomplicated the custom rule
 definition, especially for cases in which you actually want to...
