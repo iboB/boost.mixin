@@ -50,6 +50,17 @@ BOOST_DEFINE_MIXIN(ofml_serialization, none);
 class xml_serialization {};
 BOOST_DEFINE_MIXIN(xml_serialization, none);
 
+/*`
+And finally let's define two mixins that would help us describe our piece of
+furniture if it can contain objects inside -- like a cabinet or a wardrobe.
+*/
+
+class has_doors {};
+BOOST_DEFINE_MIXIN(has_doors, none);
+
+class container {};
+BOOST_DEFINE_MIXIN(container, none);
+
 //]
 
 int main()
@@ -154,12 +165,81 @@ Two rules are affected by this mutation. First it will implicitly add
 The mutually exclusive mixins will ensure that after this line the object won't
 have the `wood_frame` mixin.
 
-You can also define your own custom mutation rules. The process is described in
-the advanced topics of this book.
+Having listed all built-in mutation rules, let's define a custom one.
 
-Lastly, note that the library will be responsible for freeing the memory and
+Defining a custom rule is very easy. All you need to do is create a class
+derived from `boost::mixin::mutation_rule` and override its pure virtual method
+`apply_to`. The method has a single input-output parameter -- the mutation that
+has been requested.
+
+If you remember, we defined two mixins we havent yet used -- `has_doors` and
+`container`. We can safely say that a piece of furniture that has doors is
+always also a container (The opposite is not true. Think racks and bookcases).
+So it would be a good idea to add a mutation rule which adds the `container`
+mixin if `has_doors` is being added, and removes `has_doors` if `container`
+is being removed and the object has doors.
+*/
+    class container_rule : public boost::mixin::mutation_rule
+    {
+    public:
+        virtual void apply_to(object_type_mutation& mutation)
+        {
+            if(mutation.is_adding<has_doors>())
+            {
+                mutation.start_adding<container>();
+            }
+
+            if(mutation.is_removing<container>() && mutation.source_has<has_doors>())
+            {
+                mutation.start_removing<has_doors>();
+            }
+        }
+    };
+
+/*`
+That's it. Now all we have to do is add our mutation rule and it will be
+active.
+*/
+    add_new_mutation_rule(new container_rule);
+
+    mutate(o)
+        .add<has_doors>();
+
+/*`
+After this mutation our custom mutation rule has also added `container` to
+the object.
+*/
+
+    mutate(o)
+        .remove<container>();
+
+/*`
+And after this line, thanks to our custom mutation rule `o` will also have
+its `has_doors` mixin removed.
+
+To see all ways in which you can change a mutation from the mutation rule
+check out the documentation entry on `object_type_mutation`.
+
+Lastly, there are two important pieces of information about mutation rules
+you need to know.
+
+First, note that the library will be responsible for freeing the memory and
 destroying the rules you've added. All you need to do is call
 `add_new_mutation_rule` with a rule, allocated and constructed with `new`.
+
+Second, you may have noticed that mutation rules can logically depend on
+each other. You may ask yourselves what does the library do about that?
+Does it do a topological sort of the rules? Say we add a mandatory /and/ a
+deprecated rule about the same mixin. How does it handle dependency loops?
+
+The answer is simple. It doesn't. The rules are applied once per mutation
+in the order in which they were added. It is the reponsibility of the user
+to add them in some sensible order. Had the library provided some form
+of rule sort, it would have needlessly overcomplicated the custom rule
+definition, especially for cases in which you actually want to...
+well, overrule a rule.
+
+So, that's all there is to know about mutation rules.
 */
 
 //]

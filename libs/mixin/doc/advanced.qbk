@@ -39,9 +39,6 @@ else.
 
 [endsect]
 
-[section:custom_rules Using custom mutation rules]
-[endsect]
-
 [section:allocators Using custom allocators]
 [endsect]
 
