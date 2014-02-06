@@ -30,7 +30,7 @@
 <a name="boost_mixin.tutorials.messages"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.messages" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34494336"></a>
+        <a class="indexterm" name="idp34449952"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/messages.cpp" target="_top">messages.cpp</a>)
@@ -289,7 +289,7 @@
         we'd like to do something special with their message lists.
       </p>
 <p>
-        <a class="indexterm" name="idp34711488"></a>
+        <a class="indexterm" name="idp34667104"></a>
       </p>
 <p>
         First, about <code class="computeroutput"><span class="identifier">has_id</span></code>. What
@@ -425,7 +425,7 @@
 <a name="boost_mixin.tutorials.mutation"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation" title="Object mutation">Object mutation</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34837472"></a>
+        <a class="indexterm" name="idp34793088"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation.cpp" target="_top">mutation.cpp</a>)
@@ -687,7 +687,7 @@
 <a name="boost_mixin.tutorials.mutation.mrules"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation.mrules" title="Mutation rules">Mutation rules</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34996256"></a>
+          <a class="indexterm" name="idp34951872"></a>
         </p>
 <p>
           (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation_rules.cpp" target="_top">mutation_rules.cpp</a>)
@@ -736,6 +736,21 @@
 
 <span class="keyword">class</span> <span class="identifier">xml_serialization</span> <span class="special">{};</span>
 <span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">xml_serialization</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+          And finally let's define two mixins that would help us describe our piece
+          of furniture if it can contain objects inside &#8211; like a cabinet or
+          a wardrobe.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">has_doors</span> <span class="special">{};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">has_doors</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+
+<span class="keyword">class</span> <span class="identifier">container</span> <span class="special">{};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">container</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
 </pre>
 <p>
         </p>
@@ -878,13 +893,102 @@
           mixin.
         </p>
 <p>
-          You can also define your own custom mutation rules. The process is described
-          in the advanced topics of this book.
+          Having listed all built-in mutation rules, let's define a custom one.
         </p>
 <p>
-          Lastly, note that the library will be responsible for freeing the memory
+          Defining a custom rule is very easy. All you need to do is create a class
+          derived from <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutation_rule</span></code> and override its pure virtual
+          method <code class="computeroutput"><span class="identifier">apply_to</span></code>. The method
+          has a single input-output parameter &#8211; the mutation that has been
+          requested.
+        </p>
+<p>
+          If you remember, we defined two mixins we haven't yet used &#8211; <code class="computeroutput"><span class="identifier">has_doors</span></code> and <code class="computeroutput"><span class="identifier">container</span></code>.
+          We can safely say that a piece of furniture that has doors is always also
+          a container (The opposite is not true. Think racks and bookcases). So it
+          would be a good idea to add a mutation rule which adds the <code class="computeroutput"><span class="identifier">container</span></code> mixin if <code class="computeroutput"><span class="identifier">has_doors</span></code>
+          is being added, and removes <code class="computeroutput"><span class="identifier">has_doors</span></code>
+          if <code class="computeroutput"><span class="identifier">container</span></code> is being removed
+          and the object has doors.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">container_rule</span> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutation_rule</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">apply_to</span><span class="special">(</span><span class="identifier">object_type_mutation</span><span class="special">&amp;</span> <span class="identifier">mutation</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="keyword">if</span><span class="special">(</span><span class="identifier">mutation</span><span class="special">.</span><span class="identifier">is_adding</span><span class="special">&lt;</span><span class="identifier">has_doors</span><span class="special">&gt;())</span>
+        <span class="special">{</span>
+            <span class="identifier">mutation</span><span class="special">.</span><span class="identifier">start_adding</span><span class="special">&lt;</span><span class="identifier">container</span><span class="special">&gt;();</span>
+        <span class="special">}</span>
+
+        <span class="keyword">if</span><span class="special">(</span><span class="identifier">mutation</span><span class="special">.</span><span class="identifier">is_removing</span><span class="special">&lt;</span><span class="identifier">container</span><span class="special">&gt;()</span> <span class="special">&amp;&amp;</span> <span class="identifier">mutation</span><span class="special">.</span><span class="identifier">source_has</span><span class="special">&lt;</span><span class="identifier">has_doors</span><span class="special">&gt;())</span>
+        <span class="special">{</span>
+            <span class="identifier">mutation</span><span class="special">.</span><span class="identifier">start_removing</span><span class="special">&lt;</span><span class="identifier">has_doors</span><span class="special">&gt;();</span>
+        <span class="special">}</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+</pre>
+<p>
+        </p>
+<p>
+          That's it. Now all we have to do is add our mutation rule and it will be
+          active.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">container_rule</span><span class="special">);</span>
+
+<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">has_doors</span><span class="special">&gt;();</span>
+</pre>
+<p>
+        </p>
+<p>
+          After this mutation our custom mutation rule has also added <code class="computeroutput"><span class="identifier">container</span></code> to the object.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">container</span><span class="special">&gt;();</span>
+</pre>
+<p>
+        </p>
+<p>
+          And after this line, thanks to our custom mutation rule <code class="computeroutput"><span class="identifier">o</span></code>
+          will also have its <code class="computeroutput"><span class="identifier">has_doors</span></code>
+          mixin removed.
+        </p>
+<p>
+          To see all ways in which you can change a mutation from the mutation rule
+          check out the documentation entry on <code class="computeroutput"><span class="identifier">object_type_mutation</span></code>.
+        </p>
+<p>
+          Lastly, there are two important pieces of information about mutation rules
+          you need to know.
+        </p>
+<p>
+          First, note that the library will be responsible for freeing the memory
           and destroying the rules you've added. All you need to do is call <code class="computeroutput"><span class="identifier">add_new_mutation_rule</span></code> with a rule, allocated
           and constructed with <code class="computeroutput"><span class="keyword">new</span></code>.
+        </p>
+<p>
+          Second, you may have noticed that mutation rules can logically depend on
+          each other. You may ask yourselves what does the library do about that?
+          Does it do a topological sort of the rules? Say we add a mandatory <span class="emphasis"><em>and</em></span>
+          a deprecated rule about the same mixin. How does it handle dependency loops?
+        </p>
+<p>
+          The answer is simple. It doesn't. The rules are applied once per mutation
+          in the order in which they were added. It is the responsibility of the
+          user to add them in some sensible order. Had the library provided some
+          form of rule sort, it would have needlessly overcomplicated the custom
+          rule definition, especially for cases in which you actually want to...
+          well, overrule a rule.
+        </p>
+<p>
+          So, that's all there is to know about mutation rules.
         </p>
 </div>
 </div>
@@ -893,7 +997,7 @@
 <a name="boost_mixin.tutorials.combinators"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.combinators" title="Multicast result combinators">Multicast result combinators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp35122560"></a>
+        <a class="indexterm" name="idp35159056"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/combinators.cpp" target="_top">combinators.cpp</a>)

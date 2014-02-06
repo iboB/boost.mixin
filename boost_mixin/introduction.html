@@ -151,10 +151,13 @@
               and/or implementation of messages in an object at runtime.
             </li>
 <li class="listitem">
-              <span class="bold"><strong>No common parent</strong></span>: in order to have
-              containers of your objects, composed by multiple inheritance, you need
-              to define a "master type" from which all parents need to
-              be derived by virtual inheritance.
+              <span class="bold"><strong>Natural common reference</strong></span>: in order
+              to have containers of your objects composed by multiple inheritance,
+              you need to define a "master type" from which all parents
+              need to be derived by virtual inheritance. Such a type would be a coupling
+              "focal point" and would need to be frequently changed while
+              you develop your software. In Boost.Mixin this is a no-issue, since
+              all objects in the library are of type <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>.
             </li>
 </ul></div>
 <p>
