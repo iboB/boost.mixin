@@ -94,9 +94,12 @@ an interface. You could separate it between multiple classes or combine
 interfaces in a single class.
 * *Live object mutation*: change the interface and/or implementation of messages
 in an object at runtime.
-* *No common parent*: in order to have containers of your objects, composed by
+* *Natural common reference*: in order to have containers of your objects composed by
 multiple inheritance, you need to define a "master type" from which all parents
-need to be derived by virtual inheritance.
+need to be derived by virtual inheritance. Such a type would be a coupling
+"focal point" and would need to be frequently changed while you develop your
+software. In Boost.Mixin this is a no-issue, since all objects in the library
+are of type `boost::mixin::object`.
 
 However, even-though compared to other libraries that have
 similar features, Boost.Mixin is one of the fastest and with the least memory
