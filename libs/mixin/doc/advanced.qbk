@@ -8,6 +8,10 @@
 
 [section:advanced Advanced topics]
 
+
+[section:performance Performance]
+[indexterm performance]
+
 [section:performance Message performance]
 [indexterm2 message..performance]
 
@@ -36,6 +40,8 @@ again can be called negligible. If, however, cache locality is an absolutely
 critical feature for the desired performance, the mixin messages will probably
 be detrimental for this code, and the programmers are advised to do something
 else.
+
+[endsect]
 
 [endsect]
 

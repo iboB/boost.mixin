@@ -75,6 +75,28 @@ product and introducing it as an optional plug-in becomes a breeze.
 
 [endsect]
 
+[section:nonpoly_ecs Non-polymorphic entity-component-systems]
+
+There exists a technique, often also called entity-component-system, that is not
+polymorphic. It can be combined to a degree with code like the one described
+above but it requires special maintenance.
+
+Essentially what it does is, the entity has pointers (or sometime indexes) of
+concrete components, that aren't managed by it, but by the subsystems that use
+these components. The subsystems contain dense arrays of these components, which
+they process, often being oblivious of entities and other higher-level concepts.
+
+This is done in very performance heavy pieces of software, where even the
+cache locality of the data is critical. Since polymorphism is incompatible with
+cache locality, those systems sacrifice (at least to some degree) the ease of
+use and maintainability for the speed.
+
+This is especially popular in high-end games, where in order to produce state
+of the art graphics and physics with a decent framerate, each microsecond is of
+importance.
+
+[endsect]
+
 [section:who_uses_ecs Who uses entity-component-systems?]
 
 They are very popular in game development, as most objects in a game have many
@@ -88,8 +110,8 @@ such a project, but there are many others. Any software that has optional
 dynamic library plug-ins, most CAD systems, graph editors, project management
 tools, and many others.
 
-Most script-language objects natively support a form of these systems, and most
-of them call it /Mixins/.
+Most script-language objects natively support a functionality resembling the
+polymorphic form of these systems, and most of them call it /Mixins/.
 
 [endsect]
 

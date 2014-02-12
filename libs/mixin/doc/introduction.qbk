@@ -10,7 +10,7 @@
 
 [section:abstract Abstract]
 
-Boost.Mixin is a library that allows the composition and modifications of types
+Boost.Mixin is a library that allows the composition and modifications of polymorphic types
 at run time. Types and objects are constructed out of building blocks called
 mixins enabling an effect similar to multiple inheritance, while allowing the
 client code to remain oblivious to the actual composition of the objects.
@@ -34,6 +34,8 @@ This is given while also having full abstraction between the interface and the
 definition of types -- a problem often given as the motivation for the
 [@http://www.drdobbs.com/cpp/making-pimpl-easy/205918714 PIMPL idiom].
 
+In short, /Boost.Mixin is an alternative way to accomplish polymorphism/.
+
 The library uses the type `boost::mixin::object` as a placeholder, whose
 instances can be extended with existing classes (mixins), thus providing
 a particular instance with the functionality of all those types. Accessing the
@@ -53,6 +55,41 @@ languages.
 
 [endsect]
 
+[section:feel Basic look and feel of the code with Boost.Mixin]
+
+Here is a very small and incomplete example of what your code may look like if
+you use the library.
+
+    // assuming my_objects.get_ally(0); is a way to get an ally to the
+    // main character in a game
+    boost::mixin::object& obj = my_objects.get_ally(0);
+
+    // now let's make the object think some positive thoughts about the
+    // main character
+
+    think(obj); // C++ doesn't allow us to have obj.think().
+                // Boost.Mixin's messages are standalone functions
+
+    // type composition
+    boost::mixin::mutate(obj)
+        .add<flying_creature>();
+
+    // object can now respond to fly()
+
+    fly(obj); // ...instead of obj.fly()
+
+    // type mutation
+    boost::mixin::mutate(obj)
+        .remove<ally>()
+        .add<enemy>();
+
+    think(obj); // the same object now thinks negative thoughts about the main
+                // character, since it's no longer an ally, but an enemy
+
+For a more detailed, working example see [link boost_mixin.basic Basic usage].
+
+[endsect]
+
 [endsect]
 
 [section:features List of features]
@@ -68,6 +105,36 @@ cache-locality for critical parts of the code
 * Ability to have dynamic libraries that can enrich or modify objects, without
 modifying (even rebuilding) the executable.
 * Thread safe message calls - as thread safe as the underlying methods.
+
+[endsect]
+
+[section:whentouse When (and when not) to use Boost.Mixin]
+
+The more complex your objects are, the more beneficial it will be to use the
+library. Pieces of software that typically have very complex objects include
+Games (especially role-playing ones or strategies), CAD systems, enterprise
+systems, UI libraries, and more.
+
+As a general rule of thumb: if you have complex polymorphic objects, Boost.Mixin
+is a good choice.
+
+We should emphasize on the polymorphism. In many very high-performance systems
+polymorphism is avoided, at the cost of code that is (at least somewhat)
+harder to write and maintain (this is most often the case with high-end games).
+Since such systems will try to "squeeze" every possible piece of processing
+power out of the CPU, cache locality and lack of cache misses are critical in
+some parts of their code. As is the case with all instances of polymorphism,
+including C++ virtual methods and `std::function`, uses of Boost.Mixin's
+features will almost certainly lead to cache misses. Of course, you may still
+rely on the library in other parts of your code. For more information about the
+library performance, see the
+[link boost_mixin.advanced.performance Performance section].
+
+Of course, small projects with simple objects, even if they are polymorphic, may
+end up not finding any particular benefits in using the library, since their
+size makes them fast to compile and easy to maintain as they are. If a piece of
+software can be created in a couple of days, by one or two programmers, there
+will hardly be any need for Boost.Mixin.
 
 [endsect]
 
@@ -171,6 +238,15 @@ component types (like the top level parent classes, for example).
 instance of a component. This is not possible in Boost.Mixin. A mixin instance
 is bound to an object instance
 
+Note that some data structures, sometimes called entity-component-systems, are
+not used to create and manage polymorphic objects, but instead are used to bind
+a strictly predefined set of concrete components to the same entity for a very
+performance intensive piece of software. The components are used by different
+subsystems, that require them to be aligned in dense arrays for faster
+processing, without cache misses. As we mentioned before, Boost.Mixin isn't
+designed for such cases, and while in terms of design and ease of use, it is a
+better choice than such an approach, it cannot help you in their main goal.
+
 [endsect]
 
 [section:bm_as_trait Comparison with traits]
@@ -199,12 +275,13 @@ the header files that need to be included to compose types.
 
 Boost.Mixin solves all of these problems.
 
-
 [endsect]
 
 [section:bm_as_ruby_mixin Comparison with Ruby mixins]
 
-If you're familiar with the mixins in Ruby, perhaps you will find a lot of
+If you're familiar with the
+[@http://www.ruby-doc.org/docs/ProgrammingRuby/html/tut_modules.html mixins in Ruby],
+perhaps you will find a lot of
 similarities between them and Boost.Mixin.
 
 Ruby's mixins can of course be used just like traits, however extending existing
