@@ -139,4 +139,70 @@ for game development
 
 [endsect]
 
+[section:app_vs_watch Appendix B. Visual Studio watch visualizers]
+
+If you're using Microsoft Visual Studio, you can install special watch
+visualizers which will make adding `boost::mixin::object` in a watch window a
+better experience.
+
+There are two ways to do this, which will work on both the full and express
+versions of Visual Studio.
+
+[section:natvis Modern: .natvis files. VS 2012 and later]
+
+The result when adding a watch on an object should resemble this:
+
+[$boost_mixin/vs_natvis.png]
+
+To install this visualizer:
+
+* Locate `boost_mixin.natvis` in your Boost.Mixin instalation. It should be in
+the `tools` subdirectory.
+* To install for your user only, copy it to
+`<Documents>\<Visual Studio Version>\Visualizers`. If the directory doesn't
+exist, create it manually.
+* To install for all users, copy it to
+`%VSINSTALLDIR%\Common7\Packages\Debugger\Visualizers`. You will need
+administrator access to do this.
+
+[endsect]
+
+[section:autoexp Classic: autoexp.dat. VS 2003 and later]
+
+The result when adding a watch on an object should resemble this:
+
+[$boost_mixin/vs_autoexp.png]
+
+To install this visualizer:
+
+* Locate `autoexp.txt` in your Boost.Mixin installation. It should be in the
+`tools` subdirectory.
+* Open it in a text editor
+* Open `%VSINSTALLDIR%\Common7\Packages\Debugger\autoexp.dat` in a text editor
+* Typically it will end with a `[hresult]` section.
+* Paste the entire content of `autoexp.txt` /just before/ the line `[hresult]`
+
+To use this visualizer with Visual Studio versions 2012 or newer, you should
+also go to in your menus to `Tools > Options > Debugging > Edit and Continue`
+and there check `Enable native Edit and Continue`. Warning: This will also
+disable any natvis visualizers you might have installed.
+
+[endsect]
+
+[section:mixin Watching a mixin]
+
+No matter which (if any) of these visualizers you use, to watch concrete mixin
+from an object, you should add a new watch where you explicitly cast the address
+to the correct mixin type. The visualizers only help you quickly find the
+address and the target type. They don't (and unfortunately can't) perform the
+cast.
+
+If you perform the cast correctly, the result will resemble this:
+
+[$boost_mixin/vs_watch.png]
+
+[endsect]
+
+[endsect]
+
 [endsect]

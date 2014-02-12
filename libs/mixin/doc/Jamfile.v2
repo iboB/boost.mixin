@@ -21,6 +21,15 @@ xml mixin_doc
         <dependency>reference
     ;
 
+install images
+  :
+    img/vs_autoexp.png
+    img/vs_natvis.png
+    img/vs_watch.png
+  :
+    <location>html/boost_mixin
+  ;
+
 doxygen reference
     :
         ../../../boost/mixin.hpp
