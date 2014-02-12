@@ -17,7 +17,11 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_mixin.appendix"></a><a class="link" href="appendix.html" title="Appendix">Appendix</a>
 </h2></div></div></div>
-<div class="toc"><dl><dt><span class="section"><a href="appendix.html#boost_mixin.appendix.app_ecs">Appendix A. Entity-component-systems</a></span></dt></dl></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="appendix.html#boost_mixin.appendix.app_ecs">Appendix A. Entity-component-systems</a></span></dt>
+<dt><span class="section"><a href="appendix.html#boost_mixin.appendix.app_vs_watch">Appendix B. Visual
+      Studio watch visualizers</a></span></dt>
+</dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.appendix.app_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs" title="Appendix A. Entity-component-systems">Appendix A. Entity-component-systems</a>
@@ -107,6 +111,35 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_ecs.nonpoly_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs.nonpoly_ecs" title="Non-polymorphic entity-component-systems">Non-polymorphic
+        entity-component-systems</a>
+</h4></div></div></div>
+<p>
+          There exists a technique, often also called entity-component-system, that
+          is not polymorphic. It can be combined to a degree with code like the one
+          described above but it requires special maintenance.
+        </p>
+<p>
+          Essentially what it does is, the entity has pointers (or sometime indexes)
+          of concrete components, that aren't managed by it, but by the subsystems
+          that use these components. The subsystems contain dense arrays of these
+          components, which they process, often being oblivious of entities and other
+          higher-level concepts.
+        </p>
+<p>
+          This is done in very performance heavy pieces of software, where even the
+          cache locality of the data is critical. Since polymorphism is incompatible
+          with cache locality, those systems sacrifice (at least to some degree)
+          the ease of use and maintainability for the speed.
+        </p>
+<p>
+          This is especially popular in high-end games, where in order to produce
+          state of the art graphics and physics with a decent framerate, each microsecond
+          is of importance.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="boost_mixin.appendix.app_ecs.who_uses_ecs"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_ecs.who_uses_ecs" title="Who uses entity-component-systems?">Who uses
         entity-component-systems?</a>
 </h4></div></div></div>
@@ -124,8 +157,8 @@
           tools, and many others.
         </p>
 <p>
-          Most script-language objects natively support a form of these systems,
-          and most of them call it <span class="emphasis"><em>Mixins</em></span>.
+          Most script-language objects natively support a functionality resembling
+          the polymorphic form of these systems, and most of them call it <span class="emphasis"><em>Mixins</em></span>.
         </p>
 </div>
 <div class="section">
@@ -162,6 +195,118 @@
               An interesting discussion on the subject can be found at the <a href="http://forums.xkcd.com/viewtopic.php?f=11&amp;t=81459" target="_top">xkcd forums</a>.
             </li>
 </ul></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.appendix.app_vs_watch"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_vs_watch" title="Appendix B. Visual Studio watch visualizers">Appendix B. Visual
+      Studio watch visualizers</a>
+</h3></div></div></div>
+<p>
+        If you're using Microsoft Visual Studio, you can install special watch visualizers
+        which will make adding <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+        in a watch window a better experience.
+      </p>
+<p>
+        There are two ways to do this, which will work on both the full and express
+        versions of Visual Studio.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_vs_watch.natvis"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_vs_watch.natvis" title="Modern: .natvis files. VS 2012 and later">Modern: .natvis
+        files. VS 2012 and later</a>
+</h4></div></div></div>
+<p>
+          The result when adding a watch on an object should resemble this:
+        </p>
+<p>
+          <span class="inlinemediaobject"><img src="vs_natvis.png" alt="vs_natvis"></span>
+        </p>
+<p>
+          To install this visualizer:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Locate <code class="computeroutput"><span class="identifier">boost_mixin</span><span class="special">.</span><span class="identifier">natvis</span></code>
+              in your Boost.Mixin instalation. It should be in the <code class="computeroutput"><span class="identifier">tools</span></code> subdirectory.
+            </li>
+<li class="listitem">
+              To install for your user only, copy it to <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">Documents</span><span class="special">&gt;\&lt;</span><span class="identifier">Visual</span> <span class="identifier">Studio</span>
+              <span class="identifier">Version</span><span class="special">&gt;\</span><span class="identifier">Visualizers</span></code>. If the directory doesn't
+              exist, create it manually.
+            </li>
+<li class="listitem">
+              To install for all users, copy it to <code class="computeroutput"><span class="special">%</span><span class="identifier">VSINSTALLDIR</span><span class="special">%\</span><span class="identifier">Common7</span><span class="special">\</span><span class="identifier">Packages</span><span class="special">\</span><span class="identifier">Debugger</span><span class="special">\</span><span class="identifier">Visualizers</span></code>. You will need administrator
+              access to do this.
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_vs_watch.autoexp"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_vs_watch.autoexp" title="Classic: autoexp.dat. VS 2003 and later">Classic:
+        autoexp.dat. VS 2003 and later</a>
+</h4></div></div></div>
+<p>
+          The result when adding a watch on an object should resemble this:
+        </p>
+<p>
+          <span class="inlinemediaobject"><img src="vs_autoexp.png" alt="vs_autoexp"></span>
+        </p>
+<p>
+          To install this visualizer:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Locate <code class="computeroutput"><span class="identifier">autoexp</span><span class="special">.</span><span class="identifier">txt</span></code> in your Boost.Mixin installation.
+              It should be in the <code class="computeroutput"><span class="identifier">tools</span></code>
+              subdirectory.
+            </li>
+<li class="listitem">
+              Open it in a text editor
+            </li>
+<li class="listitem">
+              Open <code class="computeroutput"><span class="special">%</span><span class="identifier">VSINSTALLDIR</span><span class="special">%\</span><span class="identifier">Common7</span><span class="special">\</span><span class="identifier">Packages</span><span class="special">\</span><span class="identifier">Debugger</span><span class="special">\</span><span class="identifier">autoexp</span><span class="special">.</span><span class="identifier">dat</span></code>
+              in a text editor
+            </li>
+<li class="listitem">
+              Typically it will end with a <code class="computeroutput"><span class="special">[</span><span class="identifier">hresult</span><span class="special">]</span></code>
+              section.
+            </li>
+<li class="listitem">
+              Paste the entire content of <code class="computeroutput"><span class="identifier">autoexp</span><span class="special">.</span><span class="identifier">txt</span></code>
+              <span class="emphasis"><em>just before</em></span> the line <code class="computeroutput"><span class="special">[</span><span class="identifier">hresult</span><span class="special">]</span></code>
+            </li>
+</ul></div>
+<p>
+          To use this visualizer with Visual Studio versions 2012 or newer, you should
+          also go to in your menus to <code class="computeroutput"><span class="identifier">Tools</span>
+          <span class="special">&gt;</span> <span class="identifier">Options</span>
+          <span class="special">&gt;</span> <span class="identifier">Debugging</span>
+          <span class="special">&gt;</span> <span class="identifier">Edit</span>
+          <span class="keyword">and</span> <span class="identifier">Continue</span></code>
+          and there check <code class="computeroutput"><span class="identifier">Enable</span> <span class="identifier">native</span> <span class="identifier">Edit</span>
+          <span class="keyword">and</span> <span class="identifier">Continue</span></code>.
+          Warning: This will also disable any natvis visualizers you might have installed.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.appendix.app_vs_watch.mixin"></a><a class="link" href="appendix.html#boost_mixin.appendix.app_vs_watch.mixin" title="Watching a mixin">Watching a
+        mixin</a>
+</h4></div></div></div>
+<p>
+          No matter which (if any) of these visualizers you use, to watch concrete
+          mixin from an object, you should add a new watch where you explicitly cast
+          the address to the correct mixin type. The visualizers only help you quickly
+          find the address and the target type. They don't (and unfortunately can't)
+          perform the cast.
+        </p>
+<p>
+          If you perform the cast correctly, the result will resemble this:
+        </p>
+<p>
+          <span class="inlinemediaobject"><img src="vs_watch.png" alt="vs_watch"></span>
+        </p>
 </div>
 </div>
 </div>

@@ -20,6 +20,8 @@
 <div class="toc"><dl>
 <dt><span class="section"><a href="introduction.html#boost_mixin.introduction.abstract">Abstract</a></span></dt>
 <dt><span class="section"><a href="introduction.html#boost_mixin.introduction.features">List of features</a></span></dt>
+<dt><span class="section"><a href="introduction.html#boost_mixin.introduction.whentouse">When (and when not)
+      to use Boost.Mixin</a></span></dt>
 <dt><span class="section"><a href="introduction.html#boost_mixin.introduction.compare">Comparisons</a></span></dt>
 </dl></div>
 <div class="section">
@@ -28,9 +30,10 @@
 </h3></div></div></div>
 <p>
         Boost.Mixin is a library that allows the composition and modifications of
-        types at run time. Types and objects are constructed out of building blocks
-        called mixins enabling an effect similar to multiple inheritance, while allowing
-        the client code to remain oblivious to the actual composition of the objects.
+        polymorphic types at run time. Types and objects are constructed out of building
+        blocks called mixins enabling an effect similar to multiple inheritance,
+        while allowing the client code to remain oblivious to the actual composition
+        of the objects.
       </p>
 <p>
         A take on the <a href="http://en.wikipedia.org/wiki/Composition_over_inheritance" target="_top">Composition
@@ -49,6 +52,9 @@
         the definition of types &#8211; a problem often given as the motivation
         for the <a href="http://www.drdobbs.com/cpp/making-pimpl-easy/205918714" target="_top">PIMPL
         idiom</a>.
+      </p>
+<p>
+        In short, <span class="emphasis"><em>Boost.Mixin is an alternative way to accomplish polymorphism</em></span>.
       </p>
 <p>
         The library uses the type <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
@@ -72,6 +78,46 @@
           mixins</a>. This particular use of CRTP in this document shall henceforth
           be referred to as "traits", as the exact same functionality is
           called "traits" in many other languages.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.introduction.abstract.feel"></a><a class="link" href="introduction.html#boost_mixin.introduction.abstract.feel" title="Basic look and feel of the code with Boost.Mixin">Basic look
+        and feel of the code with Boost.Mixin</a>
+</h4></div></div></div>
+<p>
+          Here is a very small and incomplete example of what your code may look
+          like if you use the library.
+        </p>
+<pre class="programlisting"><span class="comment">// assuming my_objects.get_ally(0); is a way to get an ally to the</span>
+<span class="comment">// main character in a game</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">obj</span> <span class="special">=</span> <span class="identifier">my_objects</span><span class="special">.</span><span class="identifier">get_ally</span><span class="special">(</span><span class="number">0</span><span class="special">);</span>
+
+<span class="comment">// now let's make the object think some positive thoughts about the</span>
+<span class="comment">// main character</span>
+
+<span class="identifier">think</span><span class="special">(</span><span class="identifier">obj</span><span class="special">);</span> <span class="comment">// C++ doesn't allow us to have obj.think().</span>
+            <span class="comment">// Boost.Mixin's messages are standalone functions</span>
+
+<span class="comment">// type composition</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">flying_creature</span><span class="special">&gt;();</span>
+
+<span class="comment">// object can now respond to fly()</span>
+
+<span class="identifier">fly</span><span class="special">(</span><span class="identifier">obj</span><span class="special">);</span> <span class="comment">// ...instead of obj.fly()</span>
+
+<span class="comment">// type mutation</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">ally</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">enemy</span><span class="special">&gt;();</span>
+
+<span class="identifier">think</span><span class="special">(</span><span class="identifier">obj</span><span class="special">);</span> <span class="comment">// the same object now thinks negative thoughts about the main</span>
+            <span class="comment">// character, since it's no longer an ally, but an enemy</span>
+</pre>
+<p>
+          For a more detailed, working example see <a class="link" href="basic.html" title="Basic usage">Basic
+          usage</a>.
         </p>
 </div>
 </div>
@@ -109,6 +155,42 @@
             Thread safe message calls - as thread safe as the underlying methods.
           </li>
 </ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.introduction.whentouse"></a><a class="link" href="introduction.html#boost_mixin.introduction.whentouse" title="When (and when not) to use Boost.Mixin">When (and when not)
+      to use Boost.Mixin</a>
+</h3></div></div></div>
+<p>
+        The more complex your objects are, the more beneficial it will be to use
+        the library. Pieces of software that typically have very complex objects
+        include Games (especially role-playing ones or strategies), CAD systems,
+        enterprise systems, UI libraries, and more.
+      </p>
+<p>
+        As a general rule of thumb: if you have complex polymorphic objects, Boost.Mixin
+        is a good choice.
+      </p>
+<p>
+        We should emphasize on the polymorphism. In many very high-performance systems
+        polymorphism is avoided, at the cost of code that is (at least somewhat)
+        harder to write and maintain (this is most often the case with high-end games).
+        Since such systems will try to "squeeze" every possible piece of
+        processing power out of the CPU, cache locality and lack of cache misses
+        are critical in some parts of their code. As is the case with all instances
+        of polymorphism, including C++ virtual methods and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code>,
+        uses of Boost.Mixin's features will almost certainly lead to cache misses.
+        Of course, you may still rely on the library in other parts of your code.
+        For more information about the library performance, see the <a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Performance">Performance
+        section</a>.
+      </p>
+<p>
+        Of course, small projects with simple objects, even if they are polymorphic,
+        may end up not finding any particular benefits in using the library, since
+        their size makes them fast to compile and easy to maintain as they are. If
+        a piece of software can be created in a couple of days, by one or two programmers,
+        there will hardly be any need for Boost.Mixin.
+      </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -274,6 +356,17 @@
               A mixin instance is bound to an object instance
             </li>
 </ul></div>
+<p>
+          Note that some data structures, sometimes called entity-component-systems,
+          are not used to create and manage polymorphic objects, but instead are
+          used to bind a strictly predefined set of concrete components to the same
+          entity for a very performance intensive piece of software. The components
+          are used by different subsystems, that require them to be aligned in dense
+          arrays for faster processing, without cache misses. As we mentioned before,
+          Boost.Mixin isn't designed for such cases, and while in terms of design
+          and ease of use, it is a better choice than such an approach, it cannot
+          help you in their main goal.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -326,8 +419,9 @@
         with Ruby mixins</a>
 </h4></div></div></div>
 <p>
-          If you're familiar with the mixins in Ruby, perhaps you will find a lot
-          of similarities between them and Boost.Mixin.
+          If you're familiar with the <a href="http://www.ruby-doc.org/docs/ProgrammingRuby/html/tut_modules.html" target="_top">mixins
+          in Ruby</a>, perhaps you will find a lot of similarities between them
+          and Boost.Mixin.
         </p>
 <p>
           Ruby's mixins can of course be used just like traits, however extending
