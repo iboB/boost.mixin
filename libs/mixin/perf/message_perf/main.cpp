@@ -66,6 +66,7 @@ struct timer
 #endif
 
 #define PERF(name, summer, getter) \
+    srand(10); \
     cout << #name << ": "; \
     { \
         timer t; \
@@ -87,13 +88,16 @@ int main(int argc, char**)
     initialize_globals();
     int thesum = 0;
 
-    PERF(simple, regular_objects[rand()%OBJ_NUM].add(argc), regular_objects[i].sum());
+    #define access i%OBJ_NUM
+    //#define access rand() % OBJ_NUM
 
-    PERF(virtual, ac_instances[rand()%OBJ_NUM]->add(argc), ac_instances[i]->sum());
+    PERF(simple, regular_objects[access].add(argc), regular_objects[i].sum());
 
-    PERF(std_func, f_add[rand()%OBJ_NUM](argc), f_sum[i]());
+    PERF(virtual, ac_instances[access]->add(argc), ac_instances[i]->sum());
 
-    PERF(mixin, add(bm_objects[rand()%OBJ_NUM], argc), sum(bm_objects[i]));
+    PERF(std_func, f_add[access](argc), f_sum[i]());
+
+    PERF(mixin, add(bm_objects[access], argc), sum(bm_objects[i]));
 
     return 0;
 }

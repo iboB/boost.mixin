@@ -9,7 +9,7 @@
 #include <boost/bind.hpp>
 
 int A_LOT = 100000000;
-int OBJ_NUM = 1000;
+int OBJ_NUM = 10000;
 
 using namespace boost::mixin;
 using namespace std;
@@ -21,6 +21,7 @@ boost::mixin::object** bm_objects;
 regular_class* regular_objects;
 
 BOOST_DECLARE_MIXIN(regular_class);
+BOOST_DECLARE_MIXIN(regular_class2);
 
 class abstract_instance : public abstract_class
 {
@@ -55,6 +56,19 @@ public:
         return _sum;
     }
 
+    int _sum;
+};
+
+class regular_class2
+{
+public:
+    regular_class2() : _sum(0) {}
+
+    void add(int i);
+
+    int sum() const;
+
+private:
     int _sum;
 };
 
@@ -94,10 +108,19 @@ extern void initialize_globals()
     f_sum = new BOOST_MIXIN_CXX11_NAMESPACE::function<int()>[OBJ_NUM];
 
     regular_class* objs = new regular_class[OBJ_NUM];
+    regular_class2* objs2 = new regular_class2[OBJ_NUM];
     for(int i=0; i<OBJ_NUM; ++i)
     {
-        f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs + i, _1_NAMESPACE::_1);
-        f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs + i);
+        if(rand()%2)
+        {
+            f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs + i, _1_NAMESPACE::_1);
+            f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs + i);
+        }
+        else
+        {
+            f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::add, objs2 + i, _1_NAMESPACE::_1);
+            f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::sum, objs2 + i);
+        }
     }
 
     bm_objects = new object*[OBJ_NUM];
@@ -105,7 +128,15 @@ extern void initialize_globals()
     for(int i=0; i<OBJ_NUM; ++i)
     {
         bm_objects[i] = new object;
-        mutate(bm_objects[i]).add<regular_class>();
+
+        if(rand() % 2)
+        {
+            mutate(bm_objects[i]).add<regular_class>();
+        }
+        else
+        {
+            mutate(bm_objects[i]).add<regular_class2>();
+        }
     }
 }
 
@@ -121,7 +152,18 @@ int  regular_class::sum() const
     return _sum;
 }
 
+void regular_class2::add(int i)
+{
+    _sum += i;
+}
+
+int  regular_class2::sum() const
+{
+    return _sum;
+}
+
 BOOST_DEFINE_MIXIN(regular_class, add_msg & sum_msg);
+BOOST_DEFINE_MIXIN(regular_class2, add_msg & sum_msg);
 
 BOOST_MIXIN_DEFINE_MESSAGE(add);
 BOOST_MIXIN_DEFINE_MESSAGE(sum);
