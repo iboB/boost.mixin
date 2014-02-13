@@ -106,6 +106,50 @@ Here are some test results:
     ]
 ]
 
+* OS: Windows 7
+* CPU: AMD FX 4100
+* Compiler: msvc 9 (Visual Studio 2008)
+* Debug compilation parameters: Standard (`/Od /EHsc /RTC1 /MDd /ZI`)
+* Release compilation parameters: Standard, but with no link time code generation (`/O2 /Oi /EHsc /MD /Gy /Zi`)
+
+[table
+    [
+        [Method]
+        [Debug]
+        [Debug mean]
+        [Release]
+        [Release mean]
+    ]
+    [
+        [Regular]
+        [4103 ms]
+        [41 ns]
+        [1419 ms]
+        [14 ns]
+    ]
+    [
+        [Virtual]
+        [5585 ms]
+        [55 ns]
+        [1560 ms]
+        [16 ns]
+    ]
+    [
+        [`boost::function`]
+        [45240 ms]
+        [452 ns]
+        [1919 ms]
+        [19 ns]
+    ]
+    [
+        [Boost.Mixin msg]
+        [25100 ms]
+        [251 ns]
+        [2714 ms]
+        [27 ns]
+    ]
+]
+
 [endsect]
 
 [endsect]
