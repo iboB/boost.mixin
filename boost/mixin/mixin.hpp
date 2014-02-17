@@ -162,7 +162,7 @@ const object* object_of(const Mixin* mixin_addr)
 } // namespace boost
 
 // this macro makes writing code within mixins nicer
-#if BOOST_MIXIN_DEFINE_BM_THIS
+#if !defined(BOOST_MIXIN_NO_BM_THIS)
 /**
  * \brief a pointer to the owning object of the current mixin
  *
@@ -171,8 +171,9 @@ const object* object_of(const Mixin* mixin_addr)
  *
  * It is nothing more than `boost::mixin::object_of(this)`
  *
- * \note You can disable the definition of this macro, by not defining
- * BOOST_MIXIN_DEFINE_BM_THIS in config.hpp
+ * \note You can disable the definition of this macro by
+ * defining `BOOST_MIXIN_NO_BM_THIS` before including the
+ * library's headers.
  *
  * \see object_of()
 */

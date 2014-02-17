@@ -55,4 +55,17 @@ class unicast_clash : public exception {};
 
 #endif // BOOST_MIXIN_USE_EXCEPTIONS
 
+
+#if !defined(BOOST_MIXIN_NO_MSG_THROW)
+/// This macro us used internally to throw exceptions within the functions generated
+/// for the mixin messages.
+/// 
+/// \note You can throwing of exceptions in the message functions by defining
+///  `BOOST_MIXIN_NO_MSG_THROW` before inlcuding Boost.Mixin's headers. If you do this,
+/// the messages will fall back to having `assert` calls in them
+#   define BOOST_MIXIN_MSG_THROW_UNLESS(test, exception) BOOST_MIXIN_THROW_UNLESS(test, exception)
+#else
+#   define BOOST_MIXIN_MSG_THROW_UNLESS(test, exception) BOOST_ASSERT_MSG(test, BOOST_PP_STRINGIZE(exception))
+#endif
+
 #endif // _BOOST_MIXIN_EXCEPTION_HPP_INCLUDED

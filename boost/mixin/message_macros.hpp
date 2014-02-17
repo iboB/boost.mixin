@@ -44,6 +44,13 @@
 /**
 * Macro that declares a message
 *
+* This generates the stand-alone function which is users should use to call messages.
+*
+* The calls will throw the exception `bad_message_call` if none of the mixins
+* from which the object is composed handles this message. To prevent the message calls
+* from Throwing exceptions you can define `BOOST_MIXIN_NO_MSG_THROW` before including
+* the library's headers.
+*
 * \par Variants:
 * \code
 * BOOST_MIXIN_MESSAGE_N(return_type, message, args)

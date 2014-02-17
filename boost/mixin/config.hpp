@@ -37,10 +37,6 @@
 #   define BOOST_MIXIN_USING_CXX11 1
 #endif
 
-// set this to true to make the library define "bm_this" as a shortcut to boost::mixin::get_object(this)
-// the pointer to the object owning the current mixin
-#define BOOST_MIXIN_DEFINE_BM_THIS 1
-
 // maximum number of registered mixins
 // an assertion will occur if this limit is reached in a program
 // *    the object type creation and the object mutation are proportional

@@ -11,55 +11,43 @@
 using namespace std;
 using namespace boost::mixin;
 
-class game_object
+class test_mixin
 {
+public:
     int _id;
     string name;
     // ... other common fields
+
+    void test() {}
 };
 
-class character
+BOOST_MIXIN_MESSAGE_0(void, test);
+
+BOOST_DEFINE_MIXIN(test_mixin, test_msg);
+
+BOOST_MIXIN_DEFINE_MESSAGE(test);
+
+struct parent
 {
+    virtual void virt() = 0;
 };
 
-class building
+struct child : public parent
 {
+    void virt() override {}
 };
-
-BOOST_DEFINE_MIXIN(game_object, none);
-BOOST_DEFINE_MIXIN(character, none);
-BOOST_DEFINE_MIXIN(building, none);
 
 int main()
 {
     object obj1;
     mutate(obj1)
-        .add<game_object>()
-        .add<character>();
+        .add<test_mixin>();
 
-    mutate(obj1)
-        .remove<character>()
-        .add<building>();
+    parent* x = new child;
 
-    single_object_mutator mutation(obj1);
+    x->virt();
 
-    mutation.remove<building>();
-    mutation.add<character>();
-
-    mutation.apply();
-
-    //mutation.remove
-
-    object_type_template character_template;
-    character_template
-        .add<game_object>()
-        .add<character>()
-        .create();
-
-    object monster(character_template);
-
-    //object_type_template 
-    
+    test(obj1);
 
     return 0;
 }

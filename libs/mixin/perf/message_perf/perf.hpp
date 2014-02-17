@@ -8,6 +8,8 @@
 #pragma once
 
 #include <iostream>
+
+#define BOOST_MIXIN_NO_MSG_THROW
 #include <boost/mixin.hpp>
 
 #if BOOST_MIXIN_USING_CXX11
