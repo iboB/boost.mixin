@@ -9,7 +9,7 @@
 #include <boost/bind.hpp>
 
 int A_LOT = 100000000;
-int OBJ_NUM = 10000;
+int OBJ_NUM = 100000;
 
 using namespace boost::mixin;
 using namespace std;
@@ -30,7 +30,7 @@ public:
 
     void add(int i)
     {
-        _sum+=i;
+        //_sum+=i;
     }
 
     int sum() const
@@ -48,7 +48,7 @@ public:
 
     void add(int i)
     {
-        _sum+=i;
+        //_sum+=i;
     }
 
     int sum() const
@@ -73,6 +73,12 @@ private:
 };
 
 
+#if BOOST_MIXIN_USING_CXX11
+#   define _1_NAMESPACE placeholders
+#else
+#   define _1_NAMESPACE
+#endif
+
 extern void initialize_globals()
 {
     // don't care about memory leaks
@@ -81,62 +87,38 @@ extern void initialize_globals()
 
     ac_instances = new abstract_class*[OBJ_NUM];
 
-    for(int i=0; i<OBJ_NUM; ++i)
-    {
-        abstract_class* c;
-
-        if(rand()%2)
-        {
-            c = new abstract_instance;
-        }
-        else
-        {
-            c = new abstract_instance2;
-        }
-
-        ac_instances[i] = c;
-    }
-
-
-#if BOOST_MIXIN_USING_CXX11
-#   define _1_NAMESPACE placeholders
-#else
-#   define _1_NAMESPACE
-#endif
-
     f_add = new BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)>[OBJ_NUM];
     f_sum = new BOOST_MIXIN_CXX11_NAMESPACE::function<int()>[OBJ_NUM];
-
     regular_class* objs = new regular_class[OBJ_NUM];
     regular_class2* objs2 = new regular_class2[OBJ_NUM];
-    for(int i=0; i<OBJ_NUM; ++i)
-    {
-        if(rand()%2)
-        {
-            f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs + i, _1_NAMESPACE::_1);
-            f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs + i);
-        }
-        else
-        {
-            f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::add, objs2 + i, _1_NAMESPACE::_1);
-            f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::sum, objs2 + i);
-        }
-    }
 
     bm_objects = new object*[OBJ_NUM];
 
     for(int i=0; i<OBJ_NUM; ++i)
     {
+        abstract_class* c;
         bm_objects[i] = new object;
 
-        if(rand() % 2)
+        if(rand()%2)
         {
+            c = new abstract_instance;
+
+            f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs + i, _1_NAMESPACE::_1);
+            f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs + i);
+
             mutate(bm_objects[i]).add<regular_class>();
         }
         else
         {
+            c = new abstract_instance2;
+
+            f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::add, objs2 + i, _1_NAMESPACE::_1);
+            f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::sum, objs2 + i);
+
             mutate(bm_objects[i]).add<regular_class2>();
         }
+
+        ac_instances[i] = c;
     }
 }
 
@@ -144,7 +126,7 @@ extern void initialize_globals()
 
 void regular_class::add(int i)
 {
-    _sum += i;
+    //_sum += i;
 }
 
 int  regular_class::sum() const
@@ -154,7 +136,7 @@ int  regular_class::sum() const
 
 void regular_class2::add(int i)
 {
-    _sum += i;
+    //_sum += i;
 }
 
 int  regular_class2::sum() const
