@@ -44,7 +44,7 @@ class bad_mutation_source : public exception {};
 /// Thrown when a message is called on a object that doesn't implement it.
 class bad_message_call : public exception {};
 
-/// Thrown when an object type is created which has mixins that implement 
+/// Thrown when an object type is created which has mixins that implement
 /// the same unicast message with the same priority
 class unicast_clash : public exception {};
 
@@ -65,9 +65,9 @@ class unicast_clash : public exception {};
 #if !defined(BOOST_MIXIN_NO_MSG_THROW)
 /// This macro us used internally to throw exceptions within the functions generated
 /// for the mixin messages.
-/// 
-/// \note You can throwing of exceptions in the message functions by defining
-///  `BOOST_MIXIN_NO_MSG_THROW` before inlcuding Boost.Mixin's headers. If you do this,
+///
+/// \note You can disable the throwing of exceptions in the message functions by defining
+///  `BOOST_MIXIN_NO_MSG_THROW` before including Boost.Mixin's headers. If you do this,
 /// the messages will fall back to having `assert` calls in them
 #   define BOOST_MIXIN_MSG_THROW_UNLESS(test, exception) BOOST_MIXIN_THROW_UNLESS(test, exception)
 #else
