@@ -30,7 +30,7 @@
 <a name="boost_mixin.tutorials.messages"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.messages" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34259776"></a>
+        <a class="indexterm" name="idp5483408"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/messages.cpp" target="_top">messages.cpp</a>)
@@ -289,7 +289,7 @@
         we'd like to do something special with their message lists.
       </p>
 <p>
-        <a class="indexterm" name="idp34476928"></a>
+        <a class="indexterm" name="idp5700928"></a>
       </p>
 <p>
         First, about <code class="computeroutput"><span class="identifier">has_id</span></code>. What
@@ -425,7 +425,7 @@
 <a name="boost_mixin.tutorials.mutation"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation" title="Object mutation">Object mutation</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34602912"></a>
+        <a class="indexterm" name="idp5826912"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation.cpp" target="_top">mutation.cpp</a>)
@@ -687,7 +687,7 @@
 <a name="boost_mixin.tutorials.mutation.mrules"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation.mrules" title="Mutation rules">Mutation rules</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34761696"></a>
+          <a class="indexterm" name="idp5985696"></a>
         </p>
 <p>
           (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation_rules.cpp" target="_top">mutation_rules.cpp</a>)
@@ -997,7 +997,7 @@
 <a name="boost_mixin.tutorials.combinators"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.combinators" title="Multicast result combinators">Multicast result combinators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34981424"></a>
+        <a class="indexterm" name="idp6201648"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/combinators.cpp" target="_top">combinators.cpp</a>)
@@ -1427,10 +1427,190 @@
         </p>
 </div>
 </div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.tutorials.common_problems"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.common_problems" title="Common problems and solutions">Common problems
       and solutions</a>
-</h3></div></div></div></div>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.tutorials.common_problems.compiler_errors"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.common_problems.compiler_errors" title="Compiler erros">Compiler
+        erros</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              No overload of <code class="computeroutput"><span class="identifier">_boost_get_mixin_type_info</span></code>
+              supports the type
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem: In your code you're referring to a mixin, that the library
+                    cannot recognize as such. This could be caused by a mutation,
+                    or by calling <code class="computeroutput"><span class="identifier">object</span><span class="special">::</span><span class="identifier">get</span></code>
+                    or <code class="computeroutput"><span class="identifier">object</span><span class="special">::</span><span class="identifier">has</span></code>.
+                  </li>
+<li class="listitem">
+                    Solution: Make sure you've spelled the name of the mixin correctly.
+                    Make sure the line that produces the error has visibility to
+                    the declaration of this mixin (by <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span></code>)
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              No overload of <code class="computeroutput"><span class="identifier">_boost_get_mixin_feature</span></code>
+              supports the type
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem: You're calling <code class="computeroutput"><span class="identifier">object</span><span class="special">::</span><span class="identifier">implements</span></code>
+                    with a message that cannot be recognized as such.
+                  </li>
+<li class="listitem">
+                    Solution: Make sure you've spelled the message name correctly.
+                    Make sure you've added the <code class="computeroutput"><span class="identifier">_msg</span></code>
+                    suffix to the message.
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              No overload of <code class="computeroutput"><span class="identifier">_boost_register_mixin_feature</span></code>
+              supports the type
+            </li>
+<li class="listitem">
+              ...or no overload of operator <code class="computeroutput"><span class="special">&amp;</span></code>
+              supports the type
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem: You're adding a mixin feature to the feature list in
+                    <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>
+                    that cannot be recognized as such
+                  </li>
+<li class="listitem">
+                    Solution: If it's a message, check that you've added the <code class="computeroutput"><span class="identifier">_msg</span></code> suffix. If it's an allocator,
+                    make sure it's derived from the <code class="computeroutput"><span class="identifier">mixin_allocator</span></code>
+                    class
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              Redefinition of _booost_get_mixin_feature
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem: You're defining two messages with <code class="computeroutput"><span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span></code>
+                    that have same name in the same file.
+                  </li>
+<li class="listitem">
+                    Solution: Declare the messages as overloads with <code class="computeroutput"><span class="identifier">BOOST_MIXIN_xxx_MESSAGE_N_OVERLOAD</span></code>.
+                    Define the overloads.
+                  </li>
+</ul></div>
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.tutorials.common_problems.linker_errors"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.common_problems.linker_errors" title="Linker erros">Linker
+        erros</a>
+</h4></div></div></div>
+<p>
+          Undefined reference (mentioned below) will be reported as an "unresolved
+          external symbol" in Visual C++.
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Undefined reference to <code class="computeroutput"><span class="identifier">_boost_mixin_get_type_info</span></code>
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem 1: A type has been declared as a mixin, but hasn't been
+                    defined
+                  </li>
+<li class="listitem">
+                    Solution 1: Define the mixin with <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>
+                  </li>
+<li class="listitem">
+                    Problem 2: A mixin is being used from a dynamic library, that
+                    hasn't been exported correctly.
+                  </li>
+<li class="listitem">
+                    Solution 2: Declare the mixin properly as <code class="computeroutput"><span class="identifier">BOOST_DECLARE_EXPORTED_MIXIN</span></code>
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              Undefined references to <code class="computeroutput"><span class="identifier">_boost_register_mixin_feature</span></code>
+              and <code class="computeroutput"><span class="identifier">_booost_get_mixin_feature</span></code>
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem 1: A message has been declared but not defined.
+                  </li>
+<li class="listitem">
+                    Solution 1: Define the message with <code class="computeroutput"><span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span></code>
+                  </li>
+<li class="listitem">
+                    Problem 2 : A message is being used from a dynamic library, that
+                    hasn't been exported correctly.
+                  </li>
+<li class="listitem">
+                    Solution 2: Declare the message properly as <code class="computeroutput"><span class="identifier">BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N</span></code>
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              Multiple refernces to <code class="computeroutput"><span class="identifier">_boost_register_mixin_feature</span></code>
+              and <code class="computeroutput"><span class="identifier">_booost_get_mixin_feature</span></code>
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem: Two messages have been defined with the same name and
+                    different arguments.
+                  </li>
+<li class="listitem">
+                    Solution: Declare the messages as overloads with <code class="computeroutput"><span class="identifier">BOOST_MIXIN_xxx_MESSAGE_N_OVERLOAD</span></code>
+                  </li>
+</ul></div>
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.tutorials.common_problems.runtime_errors"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.common_problems.runtime_errors" title="Runtime erros">Runtime
+        erros</a>
+</h4></div></div></div>
+<p>
+          The exceptions the library may throw, what causes them, and how to fix
+          them can be found in the reference. Besides them, these may also occur:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Assertion fails in <code class="computeroutput"><span class="identifier">domain</span><span class="special">.</span><span class="identifier">hpp</span></code>:
+              "you have to increase the maximum number of mixins"
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem: The maximum number of registered mixins supported by
+                    the library has been surpassed.
+                  </li>
+<li class="listitem">
+                    Solution: You have to increase the value of <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MIXINS</span></code>
+                    in the file <code class="computeroutput"><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span></code>
+                    of the library and then rebuild it.
+                  </li>
+</ul></div>
+            </li>
+<li class="listitem">
+              Assertion fails in <code class="computeroutput"><span class="identifier">domain</span><span class="special">.</span><span class="identifier">cpp</span></code>:
+              "you have to increase the maximum number of messages"
+              <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                    Problem: The maximum number of registered messages supported
+                    by the library has been surpassed.
+                  </li>
+<li class="listitem">
+                    Solution: You have to increase the value of <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MESSAGES</span></code>
+                    in the file <code class="computeroutput"><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span></code>
+                    of the library and then rebuild it.
+                  </li>
+</ul></div>
+            </li>
+</ul></div>
+</div>
+</div>
 <div class="footnotes">
 <br><hr width="100" align="left">
 <div class="footnote"><p><sup>[<a id="ftn.boost_mixin.tutorials.messages.f0" href="#boost_mixin.tutorials.messages.f0" class="para">1</a>] </sup>

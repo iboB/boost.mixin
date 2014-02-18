@@ -22,6 +22,7 @@
 <dt><span class="section"><a href="using.html#boost_mixin.using.dependencies">Dependencies</a></span></dt>
 <dt><span class="section"><a href="using.html#boost_mixin.using.getting">Getting the library</a></span></dt>
 <dt><span class="section"><a href="using.html#boost_mixin.using.building">Building the library</a></span></dt>
+<dt><span class="section"><a href="using.html#boost_mixin.using.using">Using the library</a></span></dt>
 <dt><span class="section"><a href="using.html#boost_mixin.using.contact">Contacts</a></span></dt>
 </dl></div>
 <div class="section">
@@ -103,13 +104,88 @@
 <div class="section"><div class="titlepage"><div><div><h4 class="title">
 <a name="boost_mixin.using.building.boost"></a><a class="link" href="using.html#boost_mixin.using.building.boost" title="As part of Boost">As part of Boost</a>
 </h4></div></div></div></div>
-<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="boost_mixin.using.building.standalone"></a><a class="link" href="using.html#boost_mixin.using.building.standalone" title="As a standalone library">As a standalone
         library</a>
-</h4></div></div></div></div>
-<div class="section"><div class="titlepage"><div><div><h4 class="title">
+</h4></div></div></div>
+<p>
+          You can build it with it's Jamfile and Boost.Build.
+        </p>
+<p>
+          Also in <a href="https://github.com/iboB/boost.mixin" target="_top">the official Git
+          repository at GitHub</a>, you can find project files for Visual Studio
+          2012 and 2008 for Windows, QMAKE and Code::Blocks for Linux or Unix, and
+          an Xcode project for OSX.
+        </p>
+<p>
+          Again in the repository there is also a <code class="computeroutput"><span class="identifier">CMakeLists</span><span class="special">.</span><span class="identifier">txt</span></code>
+          file for <code class="computeroutput"><span class="identifier">CMake</span></code>.
+        </p>
+<p>
+          If you want something eles, all you need to do is compile and link all
+          the <code class="computeroutput"><span class="special">.</span><span class="identifier">cpp</span></code>
+          files from the <code class="computeroutput"><span class="identifier">src</span></code> directory.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="boost_mixin.using.building.config"></a><a class="link" href="using.html#boost_mixin.using.building.config" title="Configuration">Configuration</a>
-</h4></div></div></div></div>
+</h4></div></div></div>
+<p>
+          Here is a list of the configuration options from <code class="computeroutput"><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span></code>.
+          You need to rebiuld the library if you change any of those.
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_MIXIN_TEST</span></code> -
+              should be defined to nonzero for the library's unit test. Currently
+              changes some visibility scopes, but may be used in the future to optionally
+              define some help variables and functionalities that may end up slowing
+              the execution considerably.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_MIXIN_USE_TYPEID</span></code>
+              - determines the way by which the mixin class names are obtained by
+              the library. The default value is nonzero which makes use of C++'s
+              Runtime type information (RTTI): <code class="computeroutput"><span class="keyword">typeid</span></code>
+              and <code class="computeroutput"><span class="identifier">type_info</span></code>. If you
+              set it to zero, then, in order for your code to compile, every mixin
+              type will need to have a public static method &#8211; <code class="computeroutput"><span class="keyword">static</span> <span class="keyword">const</span>
+              <span class="keyword">char</span><span class="special">*</span>
+              <span class="identifier">boost_mixin_name</span><span class="special">()</span></code>
+              &#8211; which returns a unique string for a class.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_MIXIN_USING_CXX11</span></code>
+              - when set to 0 doesn't make use of any C++11 features and also doesn't
+              define the C++11 specific functionalities - <code class="computeroutput"><span class="identifier">object</span></code>
+              move constructors and message rvalue arguments.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MIXINS</span></code>
+              - determines the maximum number of mixins that can be registered in
+              an application.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MESSAGES</span></code>
+              - determines the maximum number of messages that can be registered
+              in an application.
+            </li>
+</ul></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.using.using"></a><a class="link" href="using.html#boost_mixin.using.using" title="Using the library">Using the library</a>
+</h3></div></div></div>
+<p>
+        To use the library in your programs, you only need to include its main header:
+        <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mixin</span><span class="special">.</span><span class="identifier">hpp</span></code>.
+      </p>
+<p>
+        No special initilization or deinitialization code is needed.
+      </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">

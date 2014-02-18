@@ -24,8 +24,10 @@
 
 </span>BOOST_MIXIN_MESSAGE_N(return_type, message, args)</pre></div>
 <div class="refsect1">
-<a name="idp37312800"></a><h2>Description</h2>
+<a name="idp8618800"></a><h2>Description</h2>
 <p>Macro that declares a message</p>
+<p>This generates the stand-alone function which is users should use to call messages.</p>
+<p>The calls will throw the exception <code class="computeroutput">bad_message_call</code> if none of the mixins from which the object is composed handles this message. To prevent the message calls from Throwing exceptions you can define <code class="computeroutput">BOOST_MIXIN_NO_MSG_THROW</code> before including the library's headers.</p>
 <p><b>Variants:&#160;</b></p>
 <pre class="programlisting"><span class="identifier">BOOST_MIXIN_MESSAGE_N</span><span class="special">(</span><span class="identifier">return_type</span><span class="special">,</span> <span class="identifier">message</span><span class="special">,</span> <span class="identifier">args</span><span class="special">)</span>
 <span class="identifier">BOOST_MIXIN_CONST_MESSAGE_N</span><span class="special">(</span><span class="identifier">return_type</span><span class="special">,</span> <span class="identifier">message</span><span class="special">,</span> <span class="identifier">args</span><span class="special">)</span>

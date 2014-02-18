@@ -28,7 +28,7 @@
 <a name="boost_mixin.advanced.performance"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Performance">Performance</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp35752384"></a>
+        <a class="indexterm" name="idp6769552"></a>
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -36,10 +36,10 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp35755360"></a>
+          <a class="indexterm" name="idp6772528"></a>
         </p>
 <p>
-          The performance of messages is indeed slower than regular message calls
+          The performance of messages is indeed slower than regular function calls
           and even virtual function calls. Even though a call's algorithmic complexity
           is still O(1), a number of memory indirections happen in order to call
           the actual method behind the message.
@@ -263,8 +263,211 @@
 </tr>
 </tbody>
 </table></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                OS: Windows 7
+              </li>
+<li class="listitem">
+                CPU: AMD FX 4100
+              </li>
+<li class="listitem">
+                Compiler: msvc 9 (Visual Studio 2008)
+              </li>
+<li class="listitem">
+                Debug compilation parameters: Standard (<code class="computeroutput"><span class="special">/</span><span class="identifier">Od</span> <span class="special">/</span><span class="identifier">EHsc</span> <span class="special">/</span><span class="identifier">RTC1</span> <span class="special">/</span><span class="identifier">MDd</span> <span class="special">/</span><span class="identifier">ZI</span></code>)
+              </li>
+<li class="listitem">
+                Release compilation parameters: Standard, but with no link time code
+                generation (<code class="computeroutput"><span class="special">/</span><span class="identifier">O2</span>
+                <span class="special">/</span><span class="identifier">Oi</span>
+                <span class="special">/</span><span class="identifier">EHsc</span>
+                <span class="special">/</span><span class="identifier">MD</span>
+                <span class="special">/</span><span class="identifier">Gy</span>
+                <span class="special">/</span><span class="identifier">Zi</span></code>)
+              </li>
+</ul></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                    <p>
+                      Method
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Debug
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Debug mean
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Release
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Release mean
+                    </p>
+                  </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                    <p>
+                      Regular
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      4103 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      41 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1419 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      14 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Virtual
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      5585 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      55 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1560 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      16 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      45240 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      452 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1919 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      19 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Boost.Mixin msg
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      25100 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      251 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      2714 ms
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      27 ns
+                    </p>
+                  </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost_mixin.advanced.performance.msg_perf.optimize_msg"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance.msg_perf.optimize_msg" title="Optimizing message calls">Optimizing
+          message calls</a>
+</h5></div></div></div>
+<p>
+            The stand-alone functions generated for messages typically have an <code class="computeroutput"><span class="keyword">if</span></code> statement in them. It's there so as
+            to throw an exception if none of the mixins in an object implements the
+            message. If you disable the library's exceptions those <code class="computeroutput"><span class="keyword">if</span></code>-s will be converted to <code class="computeroutput"><span class="identifier">assert</span></code>-s (which in non-debug compilations
+            are simply ignored).
+          </p>
+<p>
+            If you don't want to recompile the library with exceptions disabled,
+            or if you just want all other exceptions, but not these, you can disable
+            the throwing of exceptions from the message functions fi you define
+            <code class="computeroutput"><span class="identifier">BOOST_MIXIN_NO_MSG_THROW</span></code>
+            <span class="emphasis"><em>before</em></span> including the Boost.Mixin headers.
+          </p>
+<p>
+            Note that if you disable the exceptions from the message functions, calling
+            a message on an object that doesn't implement it, will certainly lead
+            to undefined behaviour and crashes.
+          </p>
+<p>
+            Also have in mind, that removing the 'if'-s will improve the performance
+            by only a small amount of nanoseconds per message call on a modern CPU.
+            Situations where such a thing could be significant should be very very
+            rare.
+          </p>
 </div>
 </div>
+<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.performance.mutation_perf"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance.mutation_perf" title="Mutation performance">Mutation
+        performance</a>
+</h4></div></div></div></div>
 </div>
 <div class="section"><div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.advanced.allocators"></a><a class="link" href="advanced.html#boost_mixin.advanced.allocators" title="Using custom allocators">Using custom allocators</a>

@@ -24,7 +24,7 @@
 
 </span>bm_this</pre></div>
 <div class="refsect1">
-<a name="idp35729968"></a><h2>Description</h2>
+<a name="idp7015312"></a><h2>Description</h2>
 <p>Much like <code class="computeroutput">this</code> is a pointer to the current class, <code class="computeroutput">bm_this</code> is a macro that, for mixins, points to the current object.</p>
 <p>It is nothing more than <code class="computeroutput">boost::mixin::object_of(this)</code></p>
 <div class="note"><table border="0" summary="Note">
@@ -32,7 +32,7 @@
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td>
 <th align="left">Note</th>
 </tr>
-<tr><td align="left" valign="top"><p>You can disable the definition of this macro, by not defining BOOST_MIXIN_DEFINE_BM_THIS in config.hpp</p></td></tr>
+<tr><td align="left" valign="top"><p>You can disable the definition of this macro by defining <code class="computeroutput">BOOST_MIXIN_NO_BM_THIS</code> before including the library's headers.</p></td></tr>
 </table></div>
 <p>
 </p>
