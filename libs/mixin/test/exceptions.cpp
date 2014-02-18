@@ -130,6 +130,25 @@ BOOST_AUTO_TEST_CASE(ex_unicast_clash)
     BOOST_CHECK_THROW(clash_t.create(), unicast_clash);
 }
 
+BOOST_AUTO_TEST_CASE(ex_bad_mutation)
+{
+    object_type_template tmpl;
+    tmpl
+        .add<has_u1m1>()
+        .add<has_u2m2>();
+
+    BOOST_CHECK_THROW(object o(tmpl), bad_mutation);
+
+    tmpl.create();
+
+    BOOST_CHECK_NO_THROW(object o(tmpl));
+
+    // the type template should be usable
+    object o(tmpl);
+    BOOST_CHECK(o.has<has_u1m1>());
+    BOOST_CHECK(o.has<has_u2m2>());
+}
+
 class has_u1m1
 {
 public:
