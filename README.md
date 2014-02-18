@@ -8,11 +8,11 @@ day accepted in) the Boost C++ libraries.
 ## Disclaimer
 
 This library is *not* an official part of [the Boost libraries collection](http://www.boost.org).
-It will be submitted for review somewhere in late 2013.
+It will be submitted for review by the end of February 2014.
 
 ## Documentation
 
-The (still incomplete) documentation is available at
+The documentation is available at
 [the github page of the library](http://ibob.github.com/boost.mixin/).
 
 For questions and comments you can contact the developers at the [Boost developers' malining list](http://lists.boost.org/mailman/listinfo.cgi/boost).
