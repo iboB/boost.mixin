@@ -39,6 +39,24 @@ object::object(const object_type_template& type)
     type.apply_to(*this);
 }
 
+#if BOOST_MIXIN_USING_CXX11
+object::object(object&& o)
+    : _type_info(o._type_info)
+    , _mixin_data(o._mixin_data)
+
+{
+    // start with 1 since 0 is reserved for the null mixin
+    for(size_t i=1; i<=_type_info->_compact_mixins.size(); ++i)
+    {
+        _mixin_data[i].set_object(this);
+    }
+
+    // clear other object
+    o._type_info = &object_type_info::null();
+    o._mixin_data = &null_mixin_data;
+}
+#endif
+
 object::~object()
 {
     clear();
