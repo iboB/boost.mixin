@@ -28,7 +28,6 @@ rule test_all
     all_tests += [ run multicast.cpp ] ;
     all_tests += [ run combinators.cpp ] ;
     all_tests += [ run overloads.cpp ] ;
-    all_tests += [ run cxx11.cpp ] ;
     all_tests += [ run allocators.cpp ] ;
     all_tests += [ run alignment.cpp ] ;
     all_tests += [ run exceptions.cpp ] ;
@@ -36,6 +35,11 @@ rule test_all
     for local mutation_rule_test in [ glob mutation_rules/*.cpp ]
     {
         all_tests += [ run $(mutation_rule_test) ] ;
+    }
+
+    for local cxx1_test in [ glob cxx11/*.cpp ]
+    {
+        all_tests += [ run $(cxx1_test) ] ;
     }
 
     return $(all_tests) ;
