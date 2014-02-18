@@ -28,6 +28,12 @@ namespace mixin
 /// Parent class of all Boost.Mixin exceptions.
 class exception : public ::boost::exception, public ::std::exception {};
 
+/// Thrown when an attempt is made to mutate an object with an incomplete mutation
+///
+/// Currently the only way you could have an incomplete mutation is trying to
+/// apply an `object_type_template` for which `create` hasn't been called.
+class bad_mutation : public exception {};
+
 /// Thrown when an attempt is made to mutate an object whose type doesn't correspond
 /// to the expected source type of the mutation (the one to mutate *from*).
 ///

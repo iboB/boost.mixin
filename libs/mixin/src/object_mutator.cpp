@@ -109,7 +109,7 @@ void object_mutator::create()
 
 void object_mutator::apply_to(object& obj) const
 {
-    BOOST_ASSERT(_is_created);
+    BOOST_MIXIN_THROW_UNLESS(_is_created, bad_mutation);
     BOOST_ASSERT(_mutation._source);
 
     // we need to mutate only objects of the same type
