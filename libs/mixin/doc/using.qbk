@@ -49,10 +49,56 @@ official repository at GitHub].
 [section:building Building the library]
 [section:boost As part of Boost]
 [endsect]
+
 [section:standalone As a standalone library]
+
+You can build it with it's Jamfile and Boost.Build.
+
+Also in [@https://github.com/iboB/boost.mixin the official Git repository at
+GitHub], you can find project files for Visual Studio 2012 and 2008 for Windows,
+QMAKE and Code::Blocks for Linux or Unix, and an Xcode project for OSX.
+
+Again in the repository there is also a `CMakeLists.txt` file for `CMake`.
+
+If you want something eles, all you need to do is compile and link all the
+`.cpp` files from the `src` directory.
+
 [endsect]
+
 [section:config Configuration]
+
+Here is a list of the configuration options from `config.hpp`. You need to
+rebiuld the library if you change any of those.
+
+* `BOOST_MIXIN_TEST` - should be defined to nonzero for the library's unit test.
+Currently changes some visibility scopes, but may be used in the future to
+optionally define some help variables and functionalities that may end up
+slowing the execution considerably.
+* `BOOST_MIXIN_USE_TYPEID` - determines the way by which the mixin class names
+are obtained by the library. The default value is nonzero which makes use of
+C++'s Runtime type information (RTTI): `typeid` and `type_info`. If you set it
+to zero, then, in order for your code to compile, every mixin type will need
+to have a public static method -- `static const char* boost_mixin_name()`  --
+which returns a unique string for a class.
+* `BOOST_MIXIN_USING_CXX11` - when set to 0 doesn't make use of any C++11 features
+and also doesn't define the C++11 specific functionalities - `object` move
+constructors and message rvalue arguments.
+* `BOOST_MIXIN_MAX_MIXINS` - determines the maximum number of mixins that can be
+registered in an application.
+* `BOOST_MIXIN_MAX_MESSAGES` - determines the maximum number of messages that can
+be registered in an application.
+
 [endsect]
+
+[endsect]
+
+[section:using Using the library]
+
+To use the library in your programs, you only need to include its main header:
+`boost/mixin.hpp`.
+
+No special initilization or deinitialization code is needed.
+
 [endsect]
 
 [section:contact Contacts]
