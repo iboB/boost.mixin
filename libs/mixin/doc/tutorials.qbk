@@ -65,6 +65,7 @@ use the `boolean_or` combinator. It will stop the message execution on the first
 `true`.
 
 [section:common_mixin_parent Mixins with a common parent]
+
 Sometimes you will feel the need to have mixins with a common parent. Most
 likely this will happen when you want to define two different mixins that share
 some common functionality. Moving the shared functionality in the same common
@@ -91,11 +92,90 @@ simply `return bm_this`.
 
 Of course there are other ways to accomplish this, for example with CRTP, but
 the virtual function is probably the cleanest and safest one.
+
 [endsect]
 
 [endsect]
 
 [section:common_problems Common problems and solutions]
+
+[section:compiler_errors Compiler erros]
+
+* No overload of `_boost_get_mixin_type_info` supports the type
+    * Problem: In your code you're referring to a mixin, that the library cannot
+    recognize as such. This could be caused by a mutation, or by calling
+    `object::get` or `object::has`.
+    * Solution: Make sure you've spelled the name of the mixin correctly. Make
+    sure the line that produces the error has visibility to the declaration of
+    this mixin (by `BOOST_DECLARE_MIXIN`)
+* No overload of `_boost_get_mixin_feature` supports the type
+    * Problem: You're calling `object::implements` with a message that cannot be
+    recognized as such.
+    * Solution: Make sure you've spelled the message name correctly. Make sure
+    you've added the `_msg` suffix to the message.
+* No overload of `_boost_register_mixin_feature` supports the type
+* ...or no overload of operator `&` supports the type
+    * Problem: You're adding a mixin feature to the feature list in
+    `BOOST_DEFINE_MIXIN` that cannot be recognized as such
+    * Solution: If it's a message, check that you've added the `_msg` suffix.
+    If it's an allocator, make sure it's derived from the `mixin_allocator`
+    class
+* Redefinition of _booost_get_mixin_feature
+    * Problem: You're defining two messages with `BOOST_MIXIN_DEFINE_MESSAGE`
+    that have same name in the same file.
+    * Solution: Declare the messages as overloads with
+    `BOOST_MIXIN_xxx_MESSAGE_N_OVERLOAD`. Define the overloads.
+
+[endsect]
+
+[section:linker_errors Linker erros]
+
+Undefined reference (mentioned below) will be reported as an "unresolved
+external symbol" in Visual C++.
+
+* Undefined reference to `_boost_mixin_get_type_info`
+    * Problem 1: A type has been declared as a mixin, but hasn't been defined
+    * Solution 1: Define the mixin with `BOOST_DEFINE_MIXIN`
+    * Problem 2: A mixin is being used from a dynamic library, that hasn't been
+    exported correctly.
+    * Solution 2: Declare the mixin properly as `BOOST_DECLARE_EXPORTED_MIXIN`
+* Undefined references to `_boost_register_mixin_feature` and
+`_booost_get_mixin_feature`
+    * Problem 1: A message has been declared but not defined.
+    * Solution 1: Define the message with `BOOST_MIXIN_DEFINE_MESSAGE`
+    * Problem 2 : A message is being used from a dynamic library, that hasn't been
+    exported correctly.
+    * Solution 2: Declare the message properly as
+    `BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N`
+* Multiple refernces to `_boost_register_mixin_feature` and
+`_booost_get_mixin_feature`
+    * Problem: Two messages have been defined with the same name and different
+    arguments.
+    * Solution: Declare the messages as overloads with
+    `BOOST_MIXIN_xxx_MESSAGE_N_OVERLOAD`
+
+[endsect]
+
+[section:runtime_errors Runtime erros]
+
+The exceptions the library may throw, what causes them, and how to fix them
+can be found in the reference. Besides them, these may also occur:
+
+* Assertion fails in `domain.hpp`: "you have to increase the maximum number of
+mixins"
+    * Problem: The maximum number of registered mixins supported by the library
+    has been surpassed.
+    * Solution: You have to increase the value of `BOOST_MIXIN_MAX_MIXINS` in
+    the file `config.hpp` of the library and then rebuild it.
+* Assertion fails in `domain.cpp`: "you have to increase the maximum number of
+messages"
+    * Problem: The maximum number of registered messages supported by the
+    library has been surpassed.
+    * Solution: You have to increase the value of `BOOST_MIXIN_MAX_MESSAGES` in
+    the file `config.hpp` of the library and then rebuild it.
+
+[endsect]
+
 [endsect]
 
 [endsect]
