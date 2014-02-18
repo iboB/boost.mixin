@@ -15,7 +15,7 @@
 [section:msg_perf Message performance]
 [indexterm2 message..performance]
 
-The performance of messages is indeed slower than regular message calls and even
+The performance of messages is indeed slower than regular function calls and even
 virtual function calls. Even though a call's algorithmic complexity is still
 O(1), a number of memory indirections happen in order to call the actual method
 behind the message.
@@ -151,6 +151,33 @@ Here are some test results:
 ]
 
 [endsect]
+
+[section:optimize_msg Optimizing message calls]
+
+The stand-alone functions generated for messages typically have an `if`
+statement in them. It's there so as to throw an exception if none of the mixins
+in an object implements the message. If you disable the library's exceptions
+those `if`-s will be converted to `assert`-s (which in non-debug compilations
+are simply ignored).
+
+If you don't want to recompile the library with exceptions disabled, or if you
+just want all other exceptions, but not these, you can disable the throwing of
+exceptions from the message functions fi you define `BOOST_MIXIN_NO_MSG_THROW`
+/before/ including the Boost.Mixin headers.
+
+Note that if you disable the exceptions from the message functions, calling a
+message on an object that doesn't implement it, will certainly lead to undefined
+behaviour and crashes.
+
+Also have in mind, that removing the 'if'-s will improve the performance by only
+a small amount of nanoseconds per message call on a modern CPU. Situations where
+such a thing could be significant should be very very rare.
+
+[endsect]
+
+[endsect]
+
+[section:mutation_perf Mutation performance]
 
 [endsect]
 

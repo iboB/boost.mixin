@@ -55,6 +55,15 @@ languages.
 
 [endsect]
 
+[section:other_mixin_D Other meanings of "mixin" in other languages]
+
+* In D [@ http://dlang.org/mixin.html the term mixin] exists and `mixin` is a
+keyword. It is a compile time feature, that has some similarities with the
+macros in C and C++, and none at all with Boost.Mixin. It is a completely
+different concept.
+
+[endsect]
+
 [section:feel Basic look and feel of the code with Boost.Mixin]
 
 Here is a very small and incomplete example of what your code may look like if
