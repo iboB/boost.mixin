@@ -58,9 +58,9 @@
 #   define BOOST_MIXIN_USE_EXCEPTIONS 1
 #endif
 
-// msvc complains that template classes don't have a dll interface
-// can't deal with this right now
+// there is warning push/pop about this in the main header
 #if defined(_MSC_VER)
+// msvc complains that template classes don't have a dll interface (they shouldn't).
 #   pragma warning (disable: 4251)
 #endif
 
