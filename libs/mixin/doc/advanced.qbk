@@ -189,4 +189,7 @@ such a thing could be significant should be very very rare.
 [section:dynlib Dynamic libraries and program plugins]
 [endsect]
 
+[section:implementation Implementation notes]
+[endsect]
+
 [endsect]
