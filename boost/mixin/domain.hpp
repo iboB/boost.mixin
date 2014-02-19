@@ -127,9 +127,8 @@ public:
     void set_allocator(global_allocator* allocator);
     global_allocator* allocator() const { return _allocator; }
 
-#if !BOOST_MIXIN_TEST // we want to access these when testing
-private:
-#endif
+boost_mixin_internal:
+
     domain();
     ~domain();
 

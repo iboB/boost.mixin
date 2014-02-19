@@ -15,11 +15,6 @@
 
 #include <boost/config.hpp>
 
-// set this to true when running the boost mixin unit tests
-// this will cause the creation of many additional variables
-// and will slow down the execution time
-#define BOOST_MIXIN_TEST 1
-
 // boost::mixin heavily relies on type names
 // setting the BOOST_MIXIN_USE_TYPEID to true will cause it to obtain said names with type_info via typeid.
 // setting it to false will require the following extra steps:

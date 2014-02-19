@@ -70,10 +70,6 @@ If you want something eles, all you need to do is compile and link all the
 Here is a list of the configuration options from `config.hpp`. You need to
 rebiuld the library if you change any of those.
 
-* `BOOST_MIXIN_TEST` - should be defined to nonzero for the library's unit test.
-Currently changes some visibility scopes, but may be used in the future to
-optionally define some help variables and functionalities that may end up
-slowing the execution considerably.
 * `BOOST_MIXIN_USE_TYPEID` - determines the way by which the mixin class names
 are obtained by the library. The default value is nonzero which makes use of
 C++'s Runtime type information (RTTI): `typeid` and `type_info`. If you set it
