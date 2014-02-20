@@ -55,6 +55,7 @@ a hypothetical big program example
 [include glossary.qbk]
 [include tutorials.qbk]
 [include examples.qbk]
+[include debugging.qbk]
 [include advanced.qbk]
 [xinclude reference.xml]
 [include roadmap.qbk]
