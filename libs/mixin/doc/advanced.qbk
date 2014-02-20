@@ -179,6 +179,43 @@ such a thing could be significant should be very very rare.
 
 [section:mutation_perf Mutation performance]
 
+An object mutation can be a relatively slow operation.
+
+Every mutation will invoke all mutation rules registered within the system.
+Their speed may vary and will depend on whether they end up changing the
+mutation or not. If they do change it, some allocation may take place. Even if
+they don't, each of them will be invoked by a virtual function and will have
+at least one 'if' check (possibly more, depending on the mutation rule).
+
+If the mutation ends up creating a new type -- a mixin combination that hasn't
+yet been met -- this will also lead to the relatively slow process of
+initializing the internal data structurures for that type. This will lead to
+some allocations and loops that generate the type's call table.
+
+Even if the mutation doesn't generate a new type, it will have to find the
+existing one, which is a hash table lookup with key a bitset of size
+`BOOST_MIXIN_MAX_MIXINS`.
+
+Finally, the mutation will change the object (unless it happens to be an
+identity mutation -- adding and removing nothing). To change it it will have to
+allocate new mixin data for it -- an array of pointers to mixins, then
+deallocate any mixins being removed and allocate any mixins being added, and
+finally deallocate the old mixin data for the object.
+
+[section:optimize_mutation Optimizing mutations]
+
+Using `object_type_template` or `same_type_mutator` will perform the first steps
+-- the ones concerning the identification of the object's type -- only once.
+
+To reduce the allocations for the individual object's being mutated, you can add
+custom allocators to some of the mixins or to the entire domain.
+
+[endsect]
+
+[section:mutation_perf_test Mutations performance test]
+
+[endsect]
+
 [endsect]
 
 [endsect]

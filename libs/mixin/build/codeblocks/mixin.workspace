@@ -5,7 +5,10 @@
 			<Depends filename="mixin.cbp" />
 		</Project>
 		<Project filename="mixin.cbp" />
-		<Project filename="../../perf/message_perf/message_perf.cbp" active="1">
+		<Project filename="../../perf/message_perf/message_perf.cbp">
+			<Depends filename="mixin.cbp" />
+		</Project>
+		<Project filename="../../perf/mutation_perf/mutation_perf.cbp">
 			<Depends filename="mixin.cbp" />
 		</Project>
 	</Workspace>
