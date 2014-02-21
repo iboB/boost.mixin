@@ -62,6 +62,10 @@ then will be: `(mesh*)obj._mixin_data[N]._mixin`
 
 [endsect]
 
+[section:messages Inspecting the messages in an object]
+
+[endsect]
+
 [endsect]
 
 [section:step_into Stepping into messages]
