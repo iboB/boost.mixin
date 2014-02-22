@@ -15,6 +15,16 @@ namespace boost
 namespace mixin
 {
 
+// ceil(a/b)*b with integers
+// scales a so an exact number of b will fit in it
+static size_t ceil_scale(size_t a, size_t b)
+{
+    size_t result = (a+b-1)/b;
+    result*=b;
+
+    return result;
+}
+
 const size_t global_allocator::mixin_data_size = sizeof(internal::mixin_data_in_object);
 
 size_t global_allocator::calculate_mem_size_for_mixin(size_t mixin_size, size_t mixin_alignment)
@@ -22,9 +32,16 @@ size_t global_allocator::calculate_mem_size_for_mixin(size_t mixin_size, size_t 
     // normally alignof(x) + sizeof(x) is enough for an aligned allocation
     // but in this case we want to have an object* before that and the alignment
     // could be smaller than sizeof(object*) - especially on 64 bit platforms
-    size_t mem_size = (sizeof(object*) + mixin_alignment - 1) / mixin_alignment; // integer division rounding up
-    mem_size *= mixin_alignment;
+    size_t mem_size = ceil_scale(sizeof(object*), mixin_alignment);
     mem_size += mixin_size;
+
+    // now it could be the case that the mixin alignment doesn't match the pointer alignment
+    // and allocations from a consecutive allocator may end my misaligning the memory for
+    // our object* pointer
+    // the case could be such if the mixin class doesn't have any data members or has data members, 
+    // smaller than uintptr_t
+    // so, we perform another division rounding up for the final memory size
+    mem_size = ceil_scale(mem_size, sizeof(object*));
 
     return mem_size;
 }
@@ -41,8 +58,7 @@ size_t global_allocator::calculate_mixin_offset(const char* buffer, size_t mixin
     BOOST_ASSERT_MSG(uintptr_t(buffer) % sizeof(object*) == 0,
         "allocators should always return memory aligned to sizeof(void*)");
 
-    uintptr_t mixin_pos = (uintptr_t(buffer + sizeof(object*)) + mixin_alignment - 1) / mixin_alignment;
-    mixin_pos *= mixin_alignment;
+    uintptr_t mixin_pos = ceil_scale(uintptr_t(buffer + sizeof(object*)), mixin_alignment);
 
     return mixin_pos - uintptr_t(buffer);
 }
