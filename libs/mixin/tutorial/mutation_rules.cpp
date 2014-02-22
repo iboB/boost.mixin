@@ -9,7 +9,6 @@
 #include <iostream>
 
 using namespace std;
-using namespace boost::mixin;
 
 //[tutorial_mutation_rules_A
 /*`
@@ -27,17 +26,17 @@ class furniture
     // ... other common fields
 };
 
-BOOST_DEFINE_MIXIN(furniture, none);
+BOOST_DEFINE_MIXIN(furniture, boost::mixin::none);
 
 /*`
 We also have mixins that describe the frame of the piece of furniture.
 */
 
 class wood_frame {};
-BOOST_DEFINE_MIXIN(wood_frame, none);
+BOOST_DEFINE_MIXIN(wood_frame, boost::mixin::none);
 
 class metal_frame {};
-BOOST_DEFINE_MIXIN(metal_frame, none);
+BOOST_DEFINE_MIXIN(metal_frame, boost::mixin::none);
 
 /*`
 Let's also define some mixins that will be responsible for the object
@@ -45,10 +44,10 @@ serialization.
 */
 
 class ofml_serialization {};
-BOOST_DEFINE_MIXIN(ofml_serialization, none);
+BOOST_DEFINE_MIXIN(ofml_serialization, boost::mixin::none);
 
 class xml_serialization {};
-BOOST_DEFINE_MIXIN(xml_serialization, none);
+BOOST_DEFINE_MIXIN(xml_serialization, boost::mixin::none);
 
 /*`
 And finally let's define two mixins that would help us describe our piece of
@@ -56,10 +55,10 @@ furniture if it can contain objects inside -- like a cabinet or a wardrobe.
 */
 
 class has_doors {};
-BOOST_DEFINE_MIXIN(has_doors, none);
+BOOST_DEFINE_MIXIN(has_doors, boost::mixin::none);
 
 class container {};
-BOOST_DEFINE_MIXIN(container, none);
+BOOST_DEFINE_MIXIN(container, boost::mixin::none);
 
 //]
 
@@ -79,7 +78,7 @@ All mutation rules should be added by calling `add_new_mutation_rule`. Since
 `mandatory_mixin` is a mutation rule that the library provides, we can
 accomplish this with a single line of code:
 */
-    add_new_mutation_rule(new mandatory_mixin<furniture>);
+    boost::mixin::add_new_mutation_rule(new boost::mixin::mandatory_mixin<furniture>);
 /*`
 Now each mutation after this line, will add `furniture` to the objects (even if
 it's not been explicitly added) and also if a mutation tries to remove the mixin
@@ -103,7 +102,7 @@ prevent anybody from adding the mixin to an object. Basically the exact opposite
 of `mandatory_mixin`. This is the mutation rule `deprecated_mixin`
 */
 
-    add_new_mutation_rule(new deprecated_mixin<ofml_serialization>);
+    boost::mixin::add_new_mutation_rule(new boost::mixin::deprecated_mixin<ofml_serialization>);
 /*`
 After the previous line of code, any mutation that tries to add
 `ofml_serialization` won't be able to, and all mutations will try to remove it
@@ -119,10 +118,10 @@ adding both mixins representing the frame in a single object. This mutation rule
 helps us do exactly that.
 */
 
-    mutually_exclusive_mixins* rule = new mutually_exclusive_mixins;
+    boost::mixin::mutually_exclusive_mixins* rule = new boost::mixin::mutually_exclusive_mixins;
     rule->add<wood_frame>();
     rule->add<metal_frame>();
-    add_new_mutation_rule(rule);
+    boost::mixin::add_new_mutation_rule(rule);
 
 /*`
 You may add as many mutually exclusive mixins as you wish. If you had, say,
@@ -139,14 +138,14 @@ perfect for this case and any other when we're always doing
 So to see this in practice:
 */
 
-    object o;
+    boost::mixin::object o;
 /*`
 This object is empty. Mutation rules don't apply if there's no mutation. If,
 however, the object had been created with a type template passed in its
 constructor, then the rules would have been applied.
 */
 
-    mutate(o)
+    boost::mixin::mutate(o)
         .add<ofml_serialization>()
         .add<xml_serialization>()
         .add<wood_frame>();
@@ -158,7 +157,7 @@ Two rules are affected by this mutation. First it will implicitly add
 `xml_serialization` and `wood_frame`.
 */
 
-    mutate(o)
+    boost::mixin::mutate(o)
         .add<metal_frame>();
 
 /*`
@@ -182,7 +181,7 @@ is being removed and the object has doors.
     class container_rule : public boost::mixin::mutation_rule
     {
     public:
-        virtual void apply_to(object_type_mutation& mutation)
+        virtual void apply_to(boost::mixin::object_type_mutation& mutation)
         {
             if(mutation.is_adding<has_doors>())
             {
@@ -200,9 +199,9 @@ is being removed and the object has doors.
 That's it. Now all we have to do is add our mutation rule and it will be
 active.
 */
-    add_new_mutation_rule(new container_rule);
+    boost::mixin::add_new_mutation_rule(new container_rule);
 
-    mutate(o)
+    boost::mixin::mutate(o)
         .add<has_doors>();
 
 /*`
@@ -210,7 +209,7 @@ After this mutation our custom mutation rule has also added `container` to
 the object.
 */
 
-    mutate(o)
+    boost::mixin::mutate(o)
         .remove<container>();
 
 /*`

@@ -9,7 +9,6 @@
 #include <iostream>
 
 using namespace std;
-using namespace boost::mixin;
 
 //[tutorial_mutation_A
 /*`
@@ -33,9 +32,9 @@ class directx_rendering {};
 We won't concert ourselves with their concrete functionality, so we'll just
 leave them with no messages.
 */
-BOOST_DEFINE_MIXIN(game_object, none);
-BOOST_DEFINE_MIXIN(opengl_rendering, none);
-BOOST_DEFINE_MIXIN(directx_rendering, none);
+BOOST_DEFINE_MIXIN(game_object, boost::mixin::none);
+BOOST_DEFINE_MIXIN(opengl_rendering, boost::mixin::none);
+BOOST_DEFINE_MIXIN(directx_rendering, boost::mixin::none);
 //]
 
 int main()
@@ -45,15 +44,15 @@ int main()
 You're probably familiar from the previous examples with the most basic way to
 mutate an object, so let's use it to give it a type.
 */
-    object obj1;
-    mutate(obj1)
+    boost::mixin::object obj1;
+    boost::mixin::mutate(obj1)
         .add<game_object>()
         .add<opengl_rendering>();
 
 /*`
 ...and then change it. Let's assume we're switching our rendering platform.
 */
-    mutate(obj1)
+    boost::mixin::mutate(obj1)
         .remove<opengl_rendering>()
         .add<directx_rendering>();
 
@@ -73,7 +72,7 @@ you may safely instantiate the `mutate` class or use its typedef
 `single_object_mutator` that probably has a more appropriate name for cases like
 this.
 */
-    single_object_mutator mutation(obj1);
+    boost::mixin::single_object_mutator mutation(obj1);
 
     mutation.remove<directx_rendering>();
     // ...
@@ -120,7 +119,7 @@ mixins that are not among its own.
 
 You can create a type template like so:
 */
-    object_type_template directx_rendering_template;
+    boost::mixin::object_type_template directx_rendering_template;
     directx_rendering_template
         .add<game_object>()
         .add<directx_rendering>()
@@ -138,7 +137,7 @@ To apply a type template to an object you may pass it as a parameter to its
 constructor.
 */
 
-    object obj2(directx_rendering_template);
+    boost::mixin::object obj2(directx_rendering_template);
 
 /*`
 Now `obj2` has the mixins `game_object` and `directx_rendering`.
@@ -146,7 +145,7 @@ Now `obj2` has the mixins `game_object` and `directx_rendering`.
 Let's create a new type template.
 */
 
-    object_type_template opengl_rendering_template;
+    boost::mixin::object_type_template opengl_rendering_template;
     opengl_rendering_template
         .add<game_object>()
         .add<opengl_rendering>()
@@ -172,7 +171,7 @@ a /different/ type.
 If the type is the same, however, you have a slightly faster alternative. The
 same type mutator:
 */
-    same_type_mutator directx;
+    boost::mixin::same_type_mutator directx;
     directx
         .remove<opengl_rendering>()
         .add<directx_rendering>();

@@ -9,7 +9,6 @@
 #include <iostream>
 
 using namespace std;
-using namespace boost::mixin;
 
 //[tutorial_combinators_intro
 /*`
@@ -100,9 +99,9 @@ Now let's create some objects.
 */
 
 const int NUM_OBJECTS = 20;
-object objects[NUM_OBJECTS];
+boost::mixin::object objects[NUM_OBJECTS];
 
-const object& o = objects[0];
+const boost::mixin::object& o = objects[0];
 
 //]
 
@@ -117,9 +116,9 @@ side), 6 squares for the wireframe, and a single (folded) surface.
 */
     for(int i=0; i<NUM_OBJECTS; ++i)
     {
-        object& o = objects[i];
+        boost::mixin::object& o = objects[i];
 
-        mutate(o)
+        boost::mixin::mutate(o)
             .add<vertices>()
             .add<wireframe>()
             .add<surface>();
@@ -152,7 +151,7 @@ if at least one of its mixins is. To get this value we may use the combinator
 `boolean_or` provided by the library (all built-in combinators are in namespace
 `boost::mixin::combinators`)
 */
-    bool is_first_visible = visible<combinators::boolean_or>(o);
+    bool is_first_visible = visible<boost::mixin::combinators::boolean_or>(o);
     cout << "The first object is " << (is_first_visible ? "visible" : "invisible") << "." << endl;
 
 /*`
@@ -168,7 +167,7 @@ Now let's another built-in combinator -- `sum`. You may have guessed that it's
 a sum of all values returned by the messages. In our case we may want to check
 how many elements are in the entire object like this:
 */
-    cout << "There are " << elements_count<combinators::sum>(o) << " elements in the first object." << endl;
+    cout << "There are " << elements_count<boost::mixin::combinators::sum>(o) << " elements in the first object." << endl;
 
 /*`
 All built-in combinators have an alternative usage. You saw the first, where
@@ -180,7 +179,7 @@ combinator as an output parameter. This way, for example you may sum all
 elements throughout all objects with a single reusable combinator:
 */
 
-    combinators::sum<int> sum;
+    boost::mixin::combinators::sum<int> sum;
     for(int i=0; i<NUM_OBJECTS; ++i)
     {
         elements_count(objects[i], sum);

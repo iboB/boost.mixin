@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Borislav Stanimirov, Zahary Karadjov
+// Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
 //
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE_1_0.txt or copy at
@@ -10,7 +10,6 @@
 #include <boost/mixin.hpp>
 
 using namespace std;
-using namespace boost::mixin;
 
 //[basic_A
 /*`
@@ -101,9 +100,9 @@ int main()
 Now we're ready to create a simple object composed from our newly defined
 mixins:
 */
-    object sound_player; // just an empty boost::mixin::object
+    boost::mixin::object sound_player; // just an empty boost::mixin::object
 
-    mutate(sound_player)
+    boost::mixin::mutate(sound_player)
         .add<cd_player>()
         .add<headphones_player>();
 
@@ -132,7 +131,7 @@ Something else that we can do with our object is make a live mutation of its
 type via the `mutate` class. And change the playing behavior.
 */
 
-    mutate(sound_player)
+    boost::mixin::mutate(sound_player)
         .remove<headphones_player>()
         .add<speakers_player>();
 
@@ -144,7 +143,7 @@ The music is now being played through speakers instead of headphones.
 Naturally we could also mutate the object by changing the media provider part:
 */
 
-    mutate(sound_player)
+    boost::mixin::mutate(sound_player)
         .remove<cd_player>()
         .add<mp3_player>();
 

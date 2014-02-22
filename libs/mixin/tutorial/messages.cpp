@@ -11,7 +11,6 @@
 #include <boost/mixin.hpp>
 
 using namespace std;
-using namespace boost::mixin;
 
 //[tutorial_messages_A
 /*`
@@ -261,9 +260,9 @@ Let's start by creating two objects - an enemy and an ally to the hypothetical
 main character. We'll give them some irrelevant id-s and meshes.
 */
 
-    object enemy; // just an empty boost::mixin::object
+    boost::mixin::object enemy; // just an empty boost::mixin::object
 
-    mutate(enemy)
+    boost::mixin::mutate(enemy)
         .add<has_id>()
         .add<animated_model>()
         .add<enemy_ai>();
@@ -273,9 +272,9 @@ main character. We'll give them some irrelevant id-s and meshes.
 
     trace(enemy, cout); // trace enemy data
 
-    object ally;
+    boost::mixin::object ally;
 
-    mutate(ally)
+    boost::mixin::mutate(ally)
         .add<has_id>()
         .add<animated_model>()
         .add<ally_ai>();
@@ -302,7 +301,7 @@ because of its special `think` priority, the calls to `think` from then on will
 be handled by it.
 */
 
-    mutate(enemy).add<stunned_ai>();
+    boost::mixin::mutate(enemy).add<stunned_ai>();
     think(enemy); // don't do hostile stuff, because you're stunned
     render(enemy); // drawing a stunned enemy
 
@@ -312,7 +311,7 @@ Now let's remove the stun effect from our enemy, by simply removing the
 resume as before.
 */
 
-    mutate(enemy).remove<stunned_ai>();
+    boost::mixin::mutate(enemy).remove<stunned_ai>();
     think(enemy); // again do hostile stuff
     render(enemy); // drawing a hostile enemy
 
