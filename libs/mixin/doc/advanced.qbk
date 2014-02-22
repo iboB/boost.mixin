@@ -287,6 +287,31 @@ Here is a sample test result:
 [endsect]
 
 [section:dynlib Dynamic libraries and program plugins]
+
+As long as the library itself is dynamic (`.dll` on Windows or `.so` on Unix or
+Linux) its safe to use in an application that has dynamic libraries which use
+Boost.Mixin.
+
+An interesting thing which you can accomplish with the library is to have
+optional plugins -- dynamic libraries that aren't liked with the executable
+but may or may not be present, and if they are, they are being loaded
+dynamically (with `LoadLibrary` or `dlopen`).
+
+Such plugin may add a mutation rule for its special mixins, or export functions
+that mutate objects.
+
+For example this may be very useful for an engineering CAD system that could
+potentially have many different optional plugins for its different needs. Say a
+plugin that extends the buildings with electrical wiring, could simply export a
+mixin called `electrical_wiring` that contains the appropriate functionality.
+
+There is only one thing you need to remember when you're exporting mixins or
+messages from a dynamic library: to use the export macros:
+`BOOST_DECLARE_EXPORTED_MIXIN` and `BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N`. They
+are exactly like their regular counterparts but for their first argument, which
+is the compiler specific export symbol (say `__declspec(dllexport)` for Visual
+C++ or just `BOOST_SYMBOL_EXPORT` if you're using Boost.
+
 [endsect]
 
 [section:implementation Implementation notes]
