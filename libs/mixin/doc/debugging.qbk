@@ -64,6 +64,30 @@ then will be: `(mesh*)obj._mixin_data[N]._mixin`
 
 [section:messages Inspecting the messages in an object]
 
+The most difficult thing to see from an object is a list of the messages it
+implements. There is no compact structure that you can check.
+
+The only way to do it is to check the call table of the type and compare it with
+the data in the domain.
+
+So, first you need to inspect the plain array `obj._type._call_table`. Its size
+is the maximum number of messages allowed in the system. Some of its members are
+going to ne none-null pointers. Those are the messages that are implemented by
+the objects.
+
+Unfortunately this information cannot help you see the message names, but only
+their ids. To see the exact name you need to add a domain instance to the
+watches. To do so, you'll have to have a line in your code like this one:
+
+    const boost::mixin::internal::domain& bm_domain = boost::mixin::internal::domain::instance();
+
+From this domain instance you should be able to check its member
+`bm_domain._messages`. This again is an array of size
+`BOOST_MIXIN_MAX_MESSAGES`. Now you can use indices of the non-null messages
+from `obj._type._call_table` in `bm_domain._messages` to see the message names.
+For example if our object implements message N, you can see its name in
+`bm_domain._messages[N]->name`.
+
 [endsect]
 
 [endsect]
