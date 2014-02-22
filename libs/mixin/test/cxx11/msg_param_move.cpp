@@ -13,8 +13,6 @@
 
 #if BOOST_MIXIN_USING_CXX11
 
-#include "common/common.hpp"
-
 using namespace boost::mixin;
 
 BOOST_DECLARE_MIXIN(receive_rvalue);
