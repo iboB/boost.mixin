@@ -214,6 +214,69 @@ custom allocators to some of the mixins or to the entire domain.
 
 [section:mutation_perf_test Mutations performance test]
 
+The mutation performance tests performs a couple of tasks to evaluate the time
+they consume:
+
+* *New type* -- Creation of new types. Mutating objects in such a way that each
+mutation triggers the creation of a new object type.
+* *Existing type* -- Creation of objects with a type template, such that each
+object is created with a type, that's already been met in the system.
+* *Mutate* -- Mutation of objects of different types with a target an existing
+type.
+* *Same type mutate*: Mutation of objects of the same type with
+`same_type_mutator`. It adds two mixins and removes one.
+* *Custom allocator*: Mutation of objects of different types with a mixin that
+has a custom allocator attached. The custom allocator preallocates pools of
+100,000 mixins.
+* *Same type alloc*: Mutation of objects of the same type with
+`same_type_mutator`. It adds a mixin with the same custom allocator.
+
+Here is a sample test result:
+
+* OS: Ubuntu 13.04
+* CPU: AMD FX X8 8150
+* Compiler: g++ (Ubuntu/Linaro 4.7.3-1ubuntu1)
+* Debug compilation parameters: `-fexceptions -g`
+* Release compilation parameters `-fexceptions -O2`
+
+[table
+    [
+        [Task]
+        [Mean time in Debug]
+        [Mean time in Release]
+    ]
+    [
+        [New type]
+        [1900 ns]
+        [990 ns]
+    ]
+    [
+        [Existing type]
+        [1662 ns]
+        [550 ns]
+    ]
+    [
+        [Mutate]
+        [6700 ns]
+        [697 ns]
+    ]
+    [
+        [Same type mutate]
+        [1308 ns]
+        [322 ns]
+    ]
+    [
+        [Custom allocator]
+        [5155 ns]
+        [544 ns]
+    ]
+    [
+        [Same type alloc]
+        [1073 ns]
+        [158 ns]
+    ]
+]
+
 [endsect]
 
 [endsect]

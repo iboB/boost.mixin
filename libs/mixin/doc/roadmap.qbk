@@ -18,6 +18,12 @@ write it in their own free time, so concrete dates are hard to estimate)
     * Case-study: A demo project, that better illustrates the libraries
     functionalities in a "real life" scenario. Complete with a document which
     gives problems for motivation and their Boost.Mixin solutions.
+    * Optimize mutation process: less allocations. Design special
+    `mixin_collection` for the process, that can be preallocated (or that uses
+    a buffer that's allocated only once) and has `reserve`. Allow reuse of
+    `single_object_mutator`.
+    * Create some library allocators: one with mem pages (vector memory), a
+    per-frame style allocator, object pool style `std::list` one.
     * Message bids -- allow mixins to "bid" for different messages (analogous to
     `priority` for unicasts, but hides implementations on multicast messages)
     * object copy-constructors + mixin feature `copyable`
