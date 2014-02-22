@@ -49,9 +49,8 @@ struct custom_allocator : public mixin_allocator
             new_mixin_page();
         }
 
-        ++mixin_index;
-
         out_buffer = mixin_block.back() + mixin_index * mixin_unit_size;
+        ++mixin_index;
 
         out_mixin_offset = calculate_mixin_offset(out_buffer, mixin_alignment);
     }
