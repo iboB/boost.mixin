@@ -18,3 +18,10 @@ project boost/mixin/perf
 exe message
     : message_perf/main.cpp message_perf/perf.cpp
     ;
+
+exe mutation
+    :
+        mutation_perf/main.cpp
+        mutation_perf/custom_alloc_mixin.cpp
+        mutation_perf/generated.cpp
+    ;
