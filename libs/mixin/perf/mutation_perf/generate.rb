@@ -11,7 +11,7 @@
 
 HEADER_FILE = 'generated.hpp'
 COMPILE_FILE = 'generated.cpp'
-NUM_MIXINS = 8
+NUM_MIXINS = 10
 
 h_out = <<DATA
 //

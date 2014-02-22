@@ -22,6 +22,8 @@ int main(int argc, char**)
 
     const size_t num_tmpl = templates.size();
 
+    cout << num_tmpl << endl;
+
     vector<object*> objects(num_tmpl);
 
     for(size_t i=0; i<num_tmpl; ++i)

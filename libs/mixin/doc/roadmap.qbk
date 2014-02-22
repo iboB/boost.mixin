@@ -44,6 +44,8 @@ write it in their own free time, so concrete dates are hard to estimate)
     number. Might lead to slower mutations.
     * Unused type garbage collector. When no objects exist of a given type it
     can be garbage collected, saving up to a kilobyte of memory.
+    * Create a preprocessing tool (like Qt's moc) that can be used instead of
+    the macros for mixin and message definition.
 * When humankind becomes a Kardashev type two civilization:
     * Integration with Boost.Thread. Call messages for a specific thread.
     * User-defined message hooks. Sample implementation with messages called on
