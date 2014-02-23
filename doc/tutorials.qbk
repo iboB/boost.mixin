@@ -147,7 +147,7 @@ external symbol" in Visual C++.
     exported correctly.
     * Solution 2: Declare the message properly as
     `BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N`
-* Multiple refernces to `_boost_register_mixin_feature` and
+* Multiple references to `_boost_register_mixin_feature` and
 `_booost_get_mixin_feature`
     * Problem: Two messages have been defined with the same name and different
     arguments.

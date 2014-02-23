@@ -156,7 +156,7 @@ The result when adding a watch on an object should resemble this:
 
 To install this visualizer:
 
-* Locate `boost_mixin.natvis` in your Boost.Mixin instalation. It should be in
+* Locate `boost_mixin.natvis` in your Boost.Mixin installation. It should be in
 the `tools` subdirectory.
 * To install for your user only, copy it to
 `<Documents>\<Visual Studio Version>\Visualizers`. If the directory doesn't

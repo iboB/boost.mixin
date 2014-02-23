@@ -60,7 +60,7 @@ QMAKE and Code::Blocks for Linux or Unix, and an Xcode project for OSX.
 
 Again in the repository there is also a `CMakeLists.txt` file for `CMake`.
 
-If you want something eles, all you need to do is compile and link all the
+If you want something else, all you need to do is compile and link all the
 `.cpp` files from the `src` directory.
 
 [endsect]
@@ -93,14 +93,14 @@ be registered in an application.
 To use the library in your programs, you only need to include its main header:
 `boost/mixin.hpp`.
 
-No special initilization or deinitialization code is needed.
+No special initialization or deinitialization code is needed.
 
 [endsect]
 
 [section:contact Contacts]
 
 For questions and comments you can contact the developers publicly at the
-[@http://lists.boost.org/mailman/listinfo.cgi/boost Boost developers' malining
+[@http://lists.boost.org/mailman/listinfo.cgi/boost Boost developers' mailing
 list.] or personally on email: `b.stanimirov` at the domain `abv.bg`.
 
 [endsect]
