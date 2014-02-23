@@ -9,9 +9,9 @@
 project boost/mixin
     : source-location ../src
     : requirements
-        # not realy a requirement but for now it's easier this way
-        <toolset>gcc:<cxxflags>-std=c++0x
-        <toolset>clang:<cxxflags>-std=c++0x
+        <link>shared:<define>BOOST_MIXIN_DYN_LINK=1
+    : usage-requirements
+        <link>shared:<define>BOOST_MIXIN_DYN_LINK=1
     ;
 
 local SOURCES =

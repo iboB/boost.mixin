@@ -60,8 +60,8 @@
 #endif
 
 // dynamic link macros
-#if 1 // (defined BOOST_HAS_DECLSPEC)
-#   if 1 // defined(BOOST_ALL_DYN_LINK) || defined(BOOST_MIXIN_DYN_LINK)
+#if defined(BOOST_HAS_DECLSPEC)
+#   if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_MIXIN_DYN_LINK)
 #       if defined(BOOST_MIXIN_SRC)
 #           define BOOST_MIXIN_API BOOST_SYMBOL_EXPORT
 #       else

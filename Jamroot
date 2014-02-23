@@ -11,6 +11,10 @@
 project boost
     : requirements
         <include>include
+
+        # not realy a requirement but for now it's easier this way
+        <toolset>gcc:<cxxflags>-std=c++0x
+        <toolset>clang:<cxxflags>-std=c++0x
     ;
 
 # stub install
