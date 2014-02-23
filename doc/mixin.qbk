@@ -29,7 +29,7 @@
 [/
     replace with [@boost:/libs/mixin/example/[filename] [filename]] when part of boost
 /]
-[template tutorialfile[filename] '''<ulink url="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/'''[filename]'''">'''[filename]'''</ulink>''']
+[template tutorialfile[filename] '''<ulink url="https://github.com/iboB/boost.mixin/blob/master/tutorial/'''[filename]'''">'''[filename]'''</ulink>''']
 
 [/ =========================================================================== ]
 
