@@ -21,7 +21,7 @@ are for objects with a very short lifetime. Currently those are not covered by
 the allocators.
 
 What you can control with the custom allocators is the new memory allocated for
-object instances - their internal mixin data. You can assign a gloabl allocator
+object instances - their internal mixin data. You can assign a global allocator
 to the library and you could also set individual allocators per mixin type.
 
 First let's see how you can create a global allocator. Let's assume you have
@@ -43,7 +43,7 @@ class custom_allocator : public boost::mixin::global_allocator
     /*`
     The first two methods allocate a buffer for the mixin data pointers. Every
     object has pointers to its mixins within it. This is the array of such
-    pointers. The class `global_allocatos` has a static constant member --
+    pointers. The class `global_allocator` has a static constant member --
     `mixin_data_size` -- which you should use to see the size of a single
     element in that array.
     */
@@ -222,8 +222,8 @@ mixins relying on them being in a continuous buffer to avoid cache misses.
 To illustrate a usage for our mixin allocator, let's imagine we have a game. If
 a character in our game dies, it will be destroyed at the end of the current
 frame and should stop responding to any messages. We can create a mixin called
-`dead_chacater` which implements all those the messages with a higher priority
-than the rest of the mixins. Since every object that has a dead_characer mixin
+`dead_character` which implements all those the messages with a higher priority
+than the rest of the mixins. Since every object that has a `dead_character` mixin
 will be destroyed by the end of the frame, it will be save to use the per-frame
 allocator for it.
 

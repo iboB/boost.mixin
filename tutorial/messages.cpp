@@ -96,11 +96,11 @@ in our classes for which there won't be any messages, since those methods aren't
 polymorphic. They're unique for their specific classes so it's absolutely
 adequate to call them by `object.get<mixin>()->method(...)`.
 
-So, let's start with the simplest case. The one we alreay used in the
+So, let's start with the simplest case. The one we already used in the
 [link boost_mixin.basic basic usage example].
 
 The declaration syntax is the familiar macro `BOOST_MIXIN_MESSAGE_|N|`, where
-`|N|` stands for the number of arguments the message has. The macro's aruments
+`|N|` stands for the number of arguments the message has. The macro's arguments
 are coma separated: return value, message/method name, argument 1 type, argument
 1 name, argument 2 type, argument 2 name, etc etc.
 
