@@ -178,6 +178,7 @@ such a thing could be significant should be very very rare.
 [endsect]
 
 [section:mutation_perf Mutation performance]
+[indexterm2 mutation..performance]
 
 An object mutation can be a relatively slow operation.
 
@@ -284,6 +285,8 @@ Here is a sample test result:
 [endsect]
 
 [section:allocators Using custom allocators]
+
+[indexterm2 allocators..using]
 
 [import ../tutorial/allocators.cpp]
 [tutorial_allocators]
