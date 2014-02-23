@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="d3d_renderer.cpp" />
+    <ClCompile Include="gl_renderer.cpp" />
+    <ClCompile Include="has_id.cpp" />
+    <ClCompile Include="object_manager.cpp" />
+    <ClCompile Include="rendering_messages.cpp" />
+    <ClCompile Include="system_messages.cpp" />
+    <ClCompile Include="transform.cpp" />
+    <ClCompile Include="transform_messages.cpp" />
+    <ClCompile Include="basic.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="basic.hpp" />
+    <ClInclude Include="d3d_renderer.hpp" />
+    <ClInclude Include="d3d_renderer_mixin.hpp" />
+    <ClInclude Include="gl_renderer.hpp" />
+    <ClInclude Include="gl_renderer_mixin.hpp" />
+    <ClInclude Include="has_id.hpp" />
+    <ClInclude Include="has_id_mixin.hpp" />
+    <ClInclude Include="object_manager.hpp" />
+    <ClInclude Include="rendering_messages.hpp" />
+    <ClInclude Include="system_messages.hpp" />
+    <ClInclude Include="transform.hpp" />
+    <ClInclude Include="transform_messages.hpp" />
+    <ClInclude Include="transform_mixin.hpp" />
+  </ItemGroup>
+</Project>
