@@ -39,14 +39,14 @@
 // *    the object type's size is 2 * <value> / 8 (a bit for each possible mixin)
 //      the more global object of different types you have the more type memory they'll consume
 // ie: minor cost for increase
-#define BOOST_MIXIN_MAX_MIXINS 256
+#define BOOST_MIXIN_MAX_MIXINS 512
 
 // maximum number of messages (and consequently max per mixin)
 // an assertion will occur if this limit is reached in a program
 // as with the mixin limits this influences object type with 2 times as many pointers (2 * <word> * value)
 // object creation and mutation is not influenced by this value
 // minor cost for increase
-#define BOOST_MIXIN_MAX_MESSAGES 512
+#define BOOST_MIXIN_MAX_MESSAGES 1024
 
 #if !defined(BOOST_NO_EXCEPTIONS)
 // setting this to true will cause some functions to throw exceptions instead of asserting
