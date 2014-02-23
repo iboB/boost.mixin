@@ -43,6 +43,17 @@
                 solutions.
               </li>
 <li class="listitem">
+                Optimize mutation process: less allocations. Design special <code class="computeroutput"><span class="identifier">mixin_collection</span></code> for the process,
+                that can be preallocated (or that uses a buffer that's allocated
+                only once) and has <code class="computeroutput"><span class="identifier">reserve</span></code>.
+                Allow reuse of <code class="computeroutput"><span class="identifier">single_object_mutator</span></code>.
+              </li>
+<li class="listitem">
+                Create some library allocators: one with mem pages (vector memory),
+                a per-frame style allocator, object pool style <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">list</span></code>
+                one.
+              </li>
+<li class="listitem">
                 Message bids &#8211; allow mixins to "bid" for different
                 messages (analogous to <code class="computeroutput"><span class="identifier">priority</span></code>
                 for unicasts, but hides implementations on multicast messages)
@@ -95,6 +106,10 @@
 <li class="listitem">
                 Unused type garbage collector. When no objects exist of a given type
                 it can be garbage collected, saving up to a kilobyte of memory.
+              </li>
+<li class="listitem">
+                Create a preprocessing tool (like Qt's moc) that can be used instead
+                of the macros for mixin and message definition.
               </li>
 </ul></div>
         </li>

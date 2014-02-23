@@ -5,10 +5,11 @@ boost_mixin/using.html
 boost_mixin/glossary.html
 boost_mixin/tutorials.html
 boost_mixin/examples.html
+boost_mixin/debugging.html
 boost_mixin/advanced.html
 mixin/reference.html
-boost/mixin/object_of_idp6739424.html
-boost/mixin/object_of_idp6746704.html
+boost/mixin/object_of_idp7414320.html
+boost/mixin/object_of_idp7421600.html
 BOOST_DECLARE_EXPORTED_MIXIN.html
 BOOST_DECLARE_MIXIN.html
 BOOST_DEFINE_MIXIN.html
@@ -23,7 +24,6 @@ boost/mixin/mutually_exclusive_mixins.html
 boost/mixin/mandatory_mixin.html
 boost/mixin/deprecated_mixin.html
 boost/mixin/substitute_mixin.html
-BOOST_MIXIN_TEST.html
 BOOST_MIXIN_USE_TYPEID.html
 BOOST_MIXIN_DEBUG.html
 BOOST_MIXIN_USING_CXX11.html
@@ -31,7 +31,7 @@ BOOST_MIXIN_MAX_MIXINS.html
 BOOST_MIXIN_MAX_MESSAGES.html
 BOOST_MIXIN_USE_EXCEPTIONS.html
 BOOST_MIXIN_API.html
-boost/mixin/internal/hash_avaliable_mixins_b_idp7407456.html
+boost/mixin/internal/hash_avaliable_mixins_b_idp8098192.html
 boost/mixin/internal/domain.html
 boost/mixin/set_global_allocator.html
 boost/mixin/exception.html

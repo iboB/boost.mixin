@@ -26,30 +26,30 @@
 <span class="keyword">class</span> <a class="link" href="same_type_mutator.html" title="Class same_type_mutator">same_type_mutator</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">object_mutator</span> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="same_type_mutator.html#boost.mixin.same_type_mutatorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="same_type_mutator.html#idp7778400-bb"><span class="identifier">same_type_mutator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="same_type_mutator.html#idp7778528-bb"><span class="identifier">same_type_mutator</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="internal/object_type_info.html" title="Class object_type_info">internal::object_type_info</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="same_type_mutator.html#idp8477216-bb"><span class="identifier">same_type_mutator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="same_type_mutator.html#idp8477344-bb"><span class="identifier">same_type_mutator</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="internal/object_type_info.html" title="Class object_type_info">internal::object_type_info</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="same_type_mutator.html#idp7776064-bb">public member functions</a></span>
-  <span class="keyword">void</span> <a class="link" href="same_type_mutator.html#idp7776464-bb"><span class="identifier">apply_to</span></a><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="same_type_mutator.html#idp8474880-bb">public member functions</a></span>
+  <span class="keyword">void</span> <a class="link" href="same_type_mutator.html#idp8475280-bb"><span class="identifier">apply_to</span></a><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp10342352"></a><h2>Description</h2>
+<a name="idp39928080"></a><h2>Description</h2>
 <p>The same type object mutator mutates objects of the same type. Namely, it adds and removes mixins from objects that initially have the same mixins.</p>
 <p>If you want to mutate many objects of the same type, using this class will make it much faster than using the <code class="computeroutput"><a class="link" href="single_object_mutator.html" title="Class single_object_mutator">single_object_mutator</a></code> multiple times. </p>
 <div class="refsect2">
-<a name="idp10345008"></a><h3>
+<a name="idp39930720"></a><h3>
 <a name="boost.mixin.same_type_mutatorconstruct-copy-destruct"></a><code class="computeroutput">same_type_mutator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idp7778400-bb"></a><span class="identifier">same_type_mutator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idp7778528-bb"></a><span class="identifier">same_type_mutator</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="internal/object_type_info.html" title="Class object_type_info">internal::object_type_info</a> <span class="special">*</span> info<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp8477216-bb"></a><span class="identifier">same_type_mutator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp8477344-bb"></a><span class="identifier">same_type_mutator</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="internal/object_type_info.html" title="Class object_type_info">internal::object_type_info</a> <span class="special">*</span> info<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp10356608"></a><h3>
-<a name="idp7776064-bb"></a><code class="computeroutput">same_type_mutator</code> public member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp7776464-bb"></a><span class="identifier">apply_to</span><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span> o<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<a name="idp39942400"></a><h3>
+<a name="idp8474880-bb"></a><code class="computeroutput">same_type_mutator</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp8475280-bb"></a><span class="identifier">apply_to</span><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span> o<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>

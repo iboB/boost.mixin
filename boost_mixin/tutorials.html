@@ -30,10 +30,10 @@
 <a name="boost_mixin.tutorials.messages"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.messages" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5483408"></a>
+        <a class="indexterm" name="idp34335008"></a>
       </p>
 <p>
-        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/messages.cpp" target="_top">messages.cpp</a>)
+        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/messages.cpp" target="_top">messages.cpp</a>)
       </p>
 <p>
         For this tutorial will look a simplified piece of code from an imaginary
@@ -131,12 +131,12 @@
         adequate to call them by <code class="computeroutput"><span class="identifier">object</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">mixin</span><span class="special">&gt;()-&gt;</span><span class="identifier">method</span><span class="special">(...)</span></code>.
       </p>
 <p>
-        So, let's start with the simplest case. The one we alreay used in the <a class="link" href="basic.html" title="Basic usage">basic usage example</a>.
+        So, let's start with the simplest case. The one we already used in the <a class="link" href="basic.html" title="Basic usage">basic usage example</a>.
       </p>
 <p>
         The declaration syntax is the familiar macro <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MESSAGE_</span><span class="special">|</span><span class="identifier">N</span><span class="special">|</span></code>,
         where <code class="computeroutput"><span class="special">|</span><span class="identifier">N</span><span class="special">|</span></code> stands for the number of arguments the message
-        has. The macro's aruments are coma separated: return value, message/method
+        has. The macro's arguments are coma separated: return value, message/method
         name, argument 1 type, argument 1 name, argument 2 type, argument 2 name,
         etc etc.
       </p>
@@ -289,7 +289,7 @@
         we'd like to do something special with their message lists.
       </p>
 <p>
-        <a class="indexterm" name="idp5700928"></a>
+        <a class="indexterm" name="idp34552512"></a>
       </p>
 <p>
         First, about <code class="computeroutput"><span class="identifier">has_id</span></code>. What
@@ -347,9 +347,9 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">enemy</span><span class="special">;</span> <span class="comment">// just an empty boost::mixin::object</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">enemy</span><span class="special">;</span> <span class="comment">// just an empty boost::mixin::object</span>
 
-<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">)</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">has_id</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">animated_model</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">enemy_ai</span><span class="special">&gt;();</span>
@@ -359,9 +359,9 @@
 
 <span class="identifier">trace</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">,</span> <span class="identifier">cout</span><span class="special">);</span> <span class="comment">// trace enemy data</span>
 
-<span class="identifier">object</span> <span class="identifier">ally</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">ally</span><span class="special">;</span>
 
-<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">ally</span><span class="special">)</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">ally</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">has_id</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">animated_model</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">ally_ai</span><span class="special">&gt;();</span>
@@ -395,7 +395,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">).</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">stunned_ai</span><span class="special">&gt;();</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">).</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">stunned_ai</span><span class="special">&gt;();</span>
 <span class="identifier">think</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">);</span> <span class="comment">// don't do hostile stuff, because you're stunned</span>
 <span class="identifier">render</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">);</span> <span class="comment">// drawing a stunned enemy</span>
 </pre>
@@ -410,7 +410,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">).</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">stunned_ai</span><span class="special">&gt;();</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">).</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">stunned_ai</span><span class="special">&gt;();</span>
 <span class="identifier">think</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">);</span> <span class="comment">// again do hostile stuff</span>
 <span class="identifier">render</span><span class="special">(</span><span class="identifier">enemy</span><span class="special">);</span> <span class="comment">// drawing a hostile enemy</span>
 </pre>
@@ -425,10 +425,10 @@
 <a name="boost_mixin.tutorials.mutation"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation" title="Object mutation">Object mutation</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp5826912"></a>
+        <a class="indexterm" name="idp34690400"></a>
       </p>
 <p>
-        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation.cpp" target="_top">mutation.cpp</a>)
+        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/mutation.cpp" target="_top">mutation.cpp</a>)
       </p>
 <p>
         For this tutorial let's begin by introducing some mixins that may be found
@@ -456,9 +456,9 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">game_object</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">opengl_rendering</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">directx_rendering</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<pre class="programlisting"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">game_object</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">opengl_rendering</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">directx_rendering</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 </pre>
 <p>
       </p>
@@ -468,8 +468,8 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">obj1</span><span class="special">;</span>
-<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">obj1</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">game_object</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;();</span>
 </pre>
@@ -480,7 +480,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;();</span>
 </pre>
@@ -509,7 +509,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">single_object_mutator</span> <span class="identifier">mutation</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">);</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">single_object_mutator</span> <span class="identifier">mutation</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">);</span>
 
 <span class="identifier">mutation</span><span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;();</span>
 <span class="comment">// ...</span>
@@ -582,7 +582,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">object_type_template</span> <span class="identifier">directx_rendering_template</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object_type_template</span> <span class="identifier">directx_rendering_template</span><span class="special">;</span>
 <span class="identifier">directx_rendering_template</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">game_object</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;()</span>
@@ -606,7 +606,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">obj2</span><span class="special">(</span><span class="identifier">directx_rendering_template</span><span class="special">);</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">obj2</span><span class="special">(</span><span class="identifier">directx_rendering_template</span><span class="special">);</span>
 </pre>
 <p>
       </p>
@@ -619,7 +619,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">object_type_template</span> <span class="identifier">opengl_rendering_template</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object_type_template</span> <span class="identifier">opengl_rendering_template</span><span class="special">;</span>
 <span class="identifier">opengl_rendering_template</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">game_object</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;()</span>
@@ -658,7 +658,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">same_type_mutator</span> <span class="identifier">directx</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">same_type_mutator</span> <span class="identifier">directx</span><span class="special">;</span>
 <span class="identifier">directx</span>
     <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">opengl_rendering</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">directx_rendering</span><span class="special">&gt;();</span>
@@ -687,10 +687,10 @@
 <a name="boost_mixin.tutorials.mutation.mrules"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation.mrules" title="Mutation rules">Mutation rules</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp5985696"></a>
+          <a class="indexterm" name="idp34870992"></a>
         </p>
 <p>
-          (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/mutation_rules.cpp" target="_top">mutation_rules.cpp</a>)
+          (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/mutation_rules.cpp" target="_top">mutation_rules.cpp</a>)
         </p>
 <p>
           Let's define some mixins that may be present in a CAD system specialized
@@ -709,7 +709,7 @@
     <span class="comment">// ... other common fields</span>
 <span class="special">};</span>
 
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">furniture</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">furniture</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 </pre>
 <p>
         </p>
@@ -719,10 +719,10 @@
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">wood_frame</span> <span class="special">{};</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">wood_frame</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">wood_frame</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 
 <span class="keyword">class</span> <span class="identifier">metal_frame</span> <span class="special">{};</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">metal_frame</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">metal_frame</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 </pre>
 <p>
         </p>
@@ -732,10 +732,10 @@
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">ofml_serialization</span> <span class="special">{};</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">ofml_serialization</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">ofml_serialization</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 
 <span class="keyword">class</span> <span class="identifier">xml_serialization</span> <span class="special">{};</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">xml_serialization</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">xml_serialization</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 </pre>
 <p>
         </p>
@@ -747,10 +747,10 @@
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">has_doors</span> <span class="special">{};</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">has_doors</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">has_doors</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 
 <span class="keyword">class</span> <span class="identifier">container</span> <span class="special">{};</span>
-<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">container</span><span class="special">,</span> <span class="identifier">none</span><span class="special">);</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">container</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">none</span><span class="special">);</span>
 </pre>
 <p>
         </p>
@@ -772,7 +772,7 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">mandatory_mixin</span><span class="special">&lt;</span><span class="identifier">furniture</span><span class="special">&gt;);</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mandatory_mixin</span><span class="special">&lt;</span><span class="identifier">furniture</span><span class="special">&gt;);</span>
 </pre>
 <p>
         </p>
@@ -805,7 +805,7 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">deprecated_mixin</span><span class="special">&lt;</span><span class="identifier">ofml_serialization</span><span class="special">&gt;);</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">deprecated_mixin</span><span class="special">&lt;</span><span class="identifier">ofml_serialization</span><span class="special">&gt;);</span>
 </pre>
 <p>
         </p>
@@ -827,10 +827,10 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutually_exclusive_mixins</span><span class="special">*</span> <span class="identifier">rule</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">mutually_exclusive_mixins</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutually_exclusive_mixins</span><span class="special">*</span> <span class="identifier">rule</span> <span class="special">=</span> <span class="keyword">new</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutually_exclusive_mixins</span><span class="special">;</span>
 <span class="identifier">rule</span><span class="special">-&gt;</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">wood_frame</span><span class="special">&gt;();</span>
 <span class="identifier">rule</span><span class="special">-&gt;</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">metal_frame</span><span class="special">&gt;();</span>
-<span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="identifier">rule</span><span class="special">);</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="identifier">rule</span><span class="special">);</span>
 </pre>
 <p>
         </p>
@@ -854,7 +854,7 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">o</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">o</span><span class="special">;</span>
 </pre>
 <p>
         </p>
@@ -865,7 +865,7 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">ofml_serialization</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">xml_serialization</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">wood_frame</span><span class="special">&gt;();</span>
@@ -882,7 +882,7 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">metal_frame</span><span class="special">&gt;();</span>
 </pre>
 <p>
@@ -916,7 +916,7 @@
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">container_rule</span> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutation_rule</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
-    <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">apply_to</span><span class="special">(</span><span class="identifier">object_type_mutation</span><span class="special">&amp;</span> <span class="identifier">mutation</span><span class="special">)</span>
+    <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">apply_to</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object_type_mutation</span><span class="special">&amp;</span> <span class="identifier">mutation</span><span class="special">)</span>
     <span class="special">{</span>
         <span class="keyword">if</span><span class="special">(</span><span class="identifier">mutation</span><span class="special">.</span><span class="identifier">is_adding</span><span class="special">&lt;</span><span class="identifier">has_doors</span><span class="special">&gt;())</span>
         <span class="special">{</span>
@@ -938,9 +938,9 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">container_rule</span><span class="special">);</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">add_new_mutation_rule</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">container_rule</span><span class="special">);</span>
 
-<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">has_doors</span><span class="special">&gt;();</span>
 </pre>
 <p>
@@ -950,7 +950,7 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">container</span><span class="special">&gt;();</span>
 </pre>
 <p>
@@ -997,10 +997,10 @@
 <a name="boost_mixin.tutorials.combinators"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.combinators" title="Multicast result combinators">Multicast result combinators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp6201648"></a>
+        <a class="indexterm" name="idp35121472"></a>
       </p>
 <p>
-        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/combinators.cpp" target="_top">combinators.cpp</a>)
+        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/combinators.cpp" target="_top">combinators.cpp</a>)
       </p>
 <p>
         For this tutorial let's imagine we have a simple CAD program, which deals
@@ -1099,9 +1099,9 @@
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">NUM_OBJECTS</span> <span class="special">=</span> <span class="number">20</span><span class="special">;</span>
-<span class="identifier">object</span> <span class="identifier">objects</span><span class="special">[</span><span class="identifier">NUM_OBJECTS</span><span class="special">];</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">objects</span><span class="special">[</span><span class="identifier">NUM_OBJECTS</span><span class="special">];</span>
 
-<span class="keyword">const</span> <span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span> <span class="special">=</span> <span class="identifier">objects</span><span class="special">[</span><span class="number">0</span><span class="special">];</span>
+<span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span> <span class="special">=</span> <span class="identifier">objects</span><span class="special">[</span><span class="number">0</span><span class="special">];</span>
 </pre>
 <p>
       </p>
@@ -1116,9 +1116,9 @@
 </p>
 <pre class="programlisting"><span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">NUM_OBJECTS</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
 <span class="special">{</span>
-    <span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span> <span class="special">=</span> <span class="identifier">objects</span><span class="special">[</span><span class="identifier">i</span><span class="special">];</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span> <span class="special">=</span> <span class="identifier">objects</span><span class="special">[</span><span class="identifier">i</span><span class="special">];</span>
 
-    <span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
         <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">vertices</span><span class="special">&gt;()</span>
         <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">wireframe</span><span class="special">&gt;()</span>
         <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">surface</span><span class="special">&gt;();</span>
@@ -1153,7 +1153,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="keyword">bool</span> <span class="identifier">is_first_visible</span> <span class="special">=</span> <span class="identifier">visible</span><span class="special">&lt;</span><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">boolean_or</span><span class="special">&gt;(</span><span class="identifier">o</span><span class="special">);</span>
+<pre class="programlisting"><span class="keyword">bool</span> <span class="identifier">is_first_visible</span> <span class="special">=</span> <span class="identifier">visible</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">boolean_or</span><span class="special">&gt;(</span><span class="identifier">o</span><span class="special">);</span>
 <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The first object is "</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">is_first_visible</span> <span class="special">?</span> <span class="string">"visible"</span> <span class="special">:</span> <span class="string">"invisible"</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
 </pre>
 <p>
@@ -1177,7 +1177,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"There are "</span> <span class="special">&lt;&lt;</span> <span class="identifier">elements_count</span><span class="special">&lt;</span><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">sum</span><span class="special">&gt;(</span><span class="identifier">o</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">" elements in the first object."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"There are "</span> <span class="special">&lt;&lt;</span> <span class="identifier">elements_count</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">sum</span><span class="special">&gt;(</span><span class="identifier">o</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">" elements in the first object."</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
 </pre>
 <p>
       </p>
@@ -1193,7 +1193,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">sum</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">sum</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">combinators</span><span class="special">::</span><span class="identifier">sum</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">sum</span><span class="special">;</span>
 <span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">NUM_OBJECTS</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">elements_count</span><span class="special">(</span><span class="identifier">objects</span><span class="special">[</span><span class="identifier">i</span><span class="special">],</span> <span class="identifier">sum</span><span class="special">);</span>
@@ -1554,7 +1554,7 @@
 </ul></div>
             </li>
 <li class="listitem">
-              Multiple refernces to <code class="computeroutput"><span class="identifier">_boost_register_mixin_feature</span></code>
+              Multiple references to <code class="computeroutput"><span class="identifier">_boost_register_mixin_feature</span></code>
               and <code class="computeroutput"><span class="identifier">_booost_get_mixin_feature</span></code>
               <div class="itemizedlist"><ul class="itemizedlist" type="circle">
 <li class="listitem">

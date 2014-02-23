@@ -18,7 +18,7 @@
 <a name="boost_mixin.basic"></a><a class="link" href="basic.html" title="Basic usage">Basic usage</a>
 </h2></div></div></div>
 <p>
-      (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/libs/mixin/tutorial/basic.cpp" target="_top">basic.cpp</a>)
+      (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/basic.cpp" target="_top">basic.cpp</a>)
     </p>
 <p>
       Let's imagine a program that needs to create representations for various music
@@ -120,9 +120,9 @@
     </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">object</span> <span class="identifier">sound_player</span><span class="special">;</span> <span class="comment">// just an empty boost::mixin::object</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">sound_player</span><span class="special">;</span> <span class="comment">// just an empty boost::mixin::object</span>
 
-<span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">cd_player</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">headphones_player</span><span class="special">&gt;();</span>
 </pre>
@@ -166,7 +166,7 @@
     </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">headphones_player</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">speakers_player</span><span class="special">&gt;();</span>
 
@@ -182,7 +182,7 @@
     </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">sound_player</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">cd_player</span><span class="special">&gt;()</span>
     <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">mp3_player</span><span class="special">&gt;();</span>
 

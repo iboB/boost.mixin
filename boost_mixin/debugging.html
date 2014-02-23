@@ -1,0 +1,218 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Debugging code that uses Boost.Mixin</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="prev" href="examples.html" title="Examples">
+<link rel="next" href="advanced.html" title="Advanced topics">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="examples.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="advanced.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_mixin.debugging"></a><a class="link" href="debugging.html" title="Debugging code that uses Boost.Mixin">Debugging code that uses Boost.Mixin</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="debugging.html#boost_mixin.debugging.watch_obj">Watching boost::mixin::object
+      instances</a></span></dt>
+<dt><span class="section"><a href="debugging.html#boost_mixin.debugging.step_into">Stepping into messages</a></span></dt>
+<dt><span class="section"><a href="debugging.html#boost_mixin.debugging.trace">Tracing/Logging information
+      with code</a></span></dt>
+</dl></div>
+<p>
+      <a class="indexterm" name="idp35711008"></a>
+    </p>
+<p>
+      Unfortunately debugging code that uses Boost.Mixin is a bit more challenging
+      than debugging plain classes and method calls.
+    </p>
+<p>
+      This is in part due to the macros that generate the message calling code, and
+      also because &#8211; to save memory &#8211; the data within an object instance
+      is not packed in easy to use and watch structures.
+    </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.debugging.watch_obj"></a><a class="link" href="debugging.html#boost_mixin.debugging.watch_obj" title="Watching boost::mixin::object instances">Watching boost::mixin::object
+      instances</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp35715440"></a>
+      </p>
+<p>
+        Perhaps one of the most common operations you'll want to have, will be to
+        place a watch on a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>
+        instance, in order to see the mixins that comprise it.
+      </p>
+<p>
+        If you're using Microsoft Visual Studio, you can install one of the debug
+        visualizers, provided with the library. There are instructions on how to
+        do so in <a class="link" href="appendix.html#boost_mixin.appendix.app_vs_watch" title="Appendix B. Visual Studio watch visualizers">appendix entry
+        B of this book</a>.
+      </p>
+<p>
+        If you're not using Microsoft Visual Studio or you don't want to install
+        the visualizers here, we'll assume you're trying to inspect an object called
+        <code class="computeroutput"><span class="identifier">obj</span></code> and proceed with the
+        instructions for watching objects and their mixins:
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.debugging.watch_obj.mixins_list"></a><a class="link" href="debugging.html#boost_mixin.debugging.watch_obj.mixins_list" title="Inspecting what mixins are in an object">Inspecting
+        what mixins are in an object</a>
+</h4></div></div></div>
+<p>
+          The list of mixins in an object can be found in a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>
+          in its type data. The field from our object's perspective is <code class="computeroutput"><span class="identifier">obj</span><span class="special">.</span><span class="identifier">_type_info</span><span class="special">.</span><span class="identifier">_compact_mixins</span></code>.
+        </p>
+<p>
+          The length of this vector is the number of mixins. Each element of the
+          vector is of type <code class="computeroutput"><span class="identifier">mixin_type_info</span></code>
+          and has a field <code class="computeroutput"><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">name</span></code>
+          with the mixin name (which is a stringized version of its type)
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.debugging.watch_obj.mixin_data"></a><a class="link" href="debugging.html#boost_mixin.debugging.watch_obj.mixin_data" title="Inspecting a concrete mixin">Inspecting
+        a concrete mixin</a>
+</h4></div></div></div>
+<p>
+          In order to see one of the mixins in an object, you have to examine its
+          mixin data. The field in the object is <code class="computeroutput"><span class="identifier">obj</span><span class="special">.</span><span class="identifier">_mixin_data</span></code>.
+          This is a plain array of <code class="computeroutput"><span class="identifier">mixin_data_in_object</span></code>.
+          Its length is equal to the mixin count and each element corresponds to
+          an element of the aforementioned <code class="computeroutput"><span class="identifier">_compact_mixins</span></code>
+          vector in the object type data. Each element has a field, called <code class="computeroutput"><span class="identifier">_mixin</span></code>. This is a pointer to the actual
+          mixin instance.
+        </p>
+<p>
+          So, as an example let's assume <code class="computeroutput"><span class="identifier">obj</span></code>
+          is composed of the mixins <code class="computeroutput"><span class="identifier">opengl_rendering</span></code>,
+          <code class="computeroutput"><span class="identifier">mesh</span></code>, and <code class="computeroutput"><span class="identifier">transform</span></code>. This means that <code class="computeroutput"><span class="identifier">obj</span><span class="special">.</span><span class="identifier">_type_info</span><span class="special">.</span><span class="identifier">_compact_mixins</span></code> will be a vector of three
+          elements, and the names of those elements will be <code class="computeroutput"><span class="string">"opengl_rendering"</span></code>,
+          <code class="computeroutput"><span class="string">"mesh"</span></code>, and <code class="computeroutput"><span class="string">"transform"</span></code> in some (but not necessarily
+          this) order.
+        </p>
+<p>
+          Let's assume you want to inspect the mesh mixin within our object. Let's
+          say it's with index N in the <code class="computeroutput"><span class="identifier">_compact_mixins</span></code>
+          vector. The value you'll need to watch then will be: <code class="computeroutput"><span class="special">(</span><span class="identifier">mesh</span><span class="special">*)</span><span class="identifier">obj</span><span class="special">.</span><span class="identifier">_mixin_data</span><span class="special">[</span><span class="identifier">N</span><span class="special">].</span><span class="identifier">_mixin</span></code>
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.debugging.watch_obj.messages"></a><a class="link" href="debugging.html#boost_mixin.debugging.watch_obj.messages" title="Inspecting the messages in an object">Inspecting
+        the messages in an object</a>
+</h4></div></div></div>
+<p>
+          The most difficult thing to see from an object is a list of the messages
+          it implements. There is no compact structure that you can check.
+        </p>
+<p>
+          The only way to do it is to check the call table of the type and compare
+          it with the data in the domain.
+        </p>
+<p>
+          So, first you need to inspect the plain array <code class="computeroutput"><span class="identifier">obj</span><span class="special">.</span><span class="identifier">_type</span><span class="special">.</span><span class="identifier">_call_table</span></code>.
+          Its size is the maximum number of messages allowed in the system. Some
+          of its members are going to ne none-null pointers. Those are the messages
+          that are implemented by the objects.
+        </p>
+<p>
+          Unfortunately this information cannot help you see the message names, but
+          only their ids. To see the exact name you need to add a domain instance
+          to the watches. To do so, you'll have to have a line in your code like
+          this one:
+        </p>
+<pre class="programlisting"><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">domain</span><span class="special">&amp;</span> <span class="identifier">bm_domain</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">domain</span><span class="special">::</span><span class="identifier">instance</span><span class="special">();</span>
+</pre>
+<p>
+          From this domain instance you should be able to check its member <code class="computeroutput"><span class="identifier">bm_domain</span><span class="special">.</span><span class="identifier">_messages</span></code>. This again is an array of
+          size <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MESSAGES</span></code>.
+          Now you can use indexes of the non-null messages from <code class="computeroutput"><span class="identifier">obj</span><span class="special">.</span><span class="identifier">_type</span><span class="special">.</span><span class="identifier">_call_table</span></code>
+          in <code class="computeroutput"><span class="identifier">bm_domain</span><span class="special">.</span><span class="identifier">_messages</span></code> to see the message names. For
+          example if our object implements message N, you can see its name in <code class="computeroutput"><span class="identifier">bm_domain</span><span class="special">.</span><span class="identifier">_messages</span><span class="special">[</span><span class="identifier">N</span><span class="special">]-&gt;</span><span class="identifier">name</span></code>.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.debugging.step_into"></a><a class="link" href="debugging.html#boost_mixin.debugging.step_into" title="Stepping into messages">Stepping into messages</a>
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp35804096"></a>
+      </p>
+<p>
+        Unfortunately due to the fact the the message caller functions are generated
+        by macros, to step into a message call is a slightly annoying operation when
+        debugging code that uses the library.
+      </p>
+<p>
+        If you know which method in a mixin class will be called for a message it
+        is a good idea to run to its first line (or place a breakpoint there) in
+        order to skip the macro steps.
+      </p>
+<p>
+        If you don't know, you will have to step into the macro. Since there's no
+        debugger that we're aware of which will allow you to actually see the macro
+        code as you're stepping through it, you most likely will have to spend some
+        steps on the line <code class="computeroutput"><span class="identifier">BOOST_MIXIN_xxx_MESSAGE_N</span></code>
+        for the given message. And due to the fact that different IDEs and debuggers
+        handle the stepping through macros differently, it's also hard to tell how
+        many steps you need to spend there. It will be between 4 and 8 for unicasts
+        and 5 and 14 for multicasts (plus 1 to 3 more if you're using a multicast
+        combinator).
+      </p>
+<p>
+        Your best approach is to experiment and write down how many steps (and what
+        kind) you need to make on the macro line for your particular case of compiler
+        and debugger. Initially stepping into everything until you reach the mixin
+        class method.
+      </p>
+<p>
+        For example, for Visual Studio 2012, in a Debug compilation, the pattern
+        we use for a unicast message is 6 times step, 2 times step into.
+      </p>
+<p>
+        Naturally, you might alternatively use a custom external preprocessor to
+        expand the macro line (or expand it manually), for a message that you need
+        to step into very often.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.debugging.trace"></a><a class="link" href="debugging.html#boost_mixin.debugging.trace" title="Tracing/Logging information with code">Tracing/Logging information
+      with code</a>
+</h3></div></div></div>
+<p>
+        The <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> class has two methods that have
+        output parameters of type <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span></code>
+        &#8211; <code class="computeroutput"><span class="identifier">get_message_names</span></code>
+        and <code class="computeroutput"><span class="identifier">get_mixin_names</span></code>.
+      </p>
+<p>
+        They will fill those vectors with the names of the messages the object implements
+        and the mixins it has, respectively.
+      </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2013, 2014 Borislav Stanimirov, Zahary Karadjov<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="examples.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="advanced.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

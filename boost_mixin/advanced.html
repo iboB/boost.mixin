@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
-<link rel="prev" href="examples.html" title="Examples">
+<link rel="prev" href="debugging.html" title="Debugging code that uses Boost.Mixin">
 <link rel="next" href="../mixin/reference.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="examples.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../mixin/reference.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="debugging.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../mixin/reference.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -22,13 +22,14 @@
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.allocators">Using custom allocators</a></span></dt>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.dynlib">Dynamic libraries and program
       plugins</a></span></dt>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.implementation">Implementation notes</a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.advanced.performance"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Performance">Performance</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp6769552"></a>
+        <a class="indexterm" name="idp35828208"></a>
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -36,7 +37,7 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp6772528"></a>
+          <a class="indexterm" name="idp35831248"></a>
         </p>
 <p>
           The performance of messages is indeed slower than regular function calls
@@ -68,7 +69,7 @@
           call, which again can be called negligible.
         </p>
 <p>
-          As, we've mentionet before if cache locality is an absolutely critical
+          As, we've mentioned before if cache locality is an absolutely critical
           feature for the desired performance, mixin messages, virtual calls, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code>, and other types of polymorphism
           will almost certainly be detrimental for this code, and the programmers
           are advised to do something else.
@@ -85,7 +86,7 @@
           </p>
 <p>
             It creates 10,000 objects, then processes them until 100,000,000 calls
-            are made. The actuall calls perform a simple adition whose cost compared
+            are made. The actual calls perform a simple addition whose cost compared
             with the call cost is indeed negligible.
           </p>
 <p>
@@ -447,14 +448,14 @@
 <p>
             If you don't want to recompile the library with exceptions disabled,
             or if you just want all other exceptions, but not these, you can disable
-            the throwing of exceptions from the message functions fi you define
+            the throwing of exceptions from the message functions if you define
             <code class="computeroutput"><span class="identifier">BOOST_MIXIN_NO_MSG_THROW</span></code>
             <span class="emphasis"><em>before</em></span> including the Boost.Mixin headers.
           </p>
 <p>
             Note that if you disable the exceptions from the message functions, calling
             a message on an object that doesn't implement it, will certainly lead
-            to undefined behaviour and crashes.
+            to undefined behavior and crashes.
           </p>
 <p>
             Also have in mind, that removing the 'if'-s will improve the performance
@@ -464,18 +465,788 @@
           </p>
 </div>
 </div>
-<div class="section"><div class="titlepage"><div><div><h4 class="title">
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="boost_mixin.advanced.performance.mutation_perf"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance.mutation_perf" title="Mutation performance">Mutation
         performance</a>
-</h4></div></div></div></div>
+</h4></div></div></div>
+<p>
+          <a class="indexterm" name="idp35946448"></a>
+        </p>
+<p>
+          An object mutation can be a relatively slow operation.
+        </p>
+<p>
+          Every mutation will invoke all mutation rules registered within the system.
+          Their speed may vary and will depend on whether they end up changing the
+          mutation or not. If they do change it, some allocation may take place.
+          Even if they don't, each of them will be invoked by a virtual function
+          and will have at least one 'if' check (possibly more, depending on the
+          mutation rule).
+        </p>
+<p>
+          If the mutation ends up creating a new type &#8211; a mixin combination
+          that hasn't yet been met &#8211; this will also lead to the relatively
+          slow process of initializing the internal data structures for that type.
+          This will lead to some allocations and loops that generate the type's call
+          table.
+        </p>
+<p>
+          Even if the mutation doesn't generate a new type, it will have to find
+          the existing one, which is a hash table lookup with key a bitset of size
+          <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MIXINS</span></code>.
+        </p>
+<p>
+          Finally, the mutation will change the object (unless it happens to be an
+          identity mutation &#8211; adding and removing nothing). To change it it
+          will have to allocate new mixin data for it &#8211; an array of pointers
+          to mixins, then deallocate any mixins being removed and allocate any mixins
+          being added, and finally deallocate the old mixin data for the object.
+        </p>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost_mixin.advanced.performance.mutation_perf.optimize_mutation"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance.mutation_perf.optimize_mutation" title="Optimizing mutations">Optimizing
+          mutations</a>
+</h5></div></div></div>
+<p>
+            Using <code class="computeroutput"><span class="identifier">object_type_template</span></code>
+            or <code class="computeroutput"><span class="identifier">same_type_mutator</span></code>
+            will perform the first steps &#8211; the ones concerning the identification
+            of the object's type &#8211; only once.
+          </p>
+<p>
+            To reduce the allocations for the individual object's being mutated,
+            you can add custom allocators to some of the mixins or to the entire
+            domain.
+          </p>
 </div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost_mixin.advanced.performance.mutation_perf.mutation_perf_test"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance.mutation_perf.mutation_perf_test" title="Mutations performance test">Mutations
+          performance test</a>
+</h5></div></div></div>
+<p>
+            The mutation performance tests performs a couple of tasks to evaluate
+            the time they consume:
+          </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                <span class="bold"><strong>New type</strong></span> &#8211; Creation of new
+                types. Mutating objects in such a way that each mutation triggers
+                the creation of a new object type.
+              </li>
+<li class="listitem">
+                <span class="bold"><strong>Existing type</strong></span> &#8211; Creation
+                of objects with a type template, such that each object is created
+                with a type, that's already been met in the system.
+              </li>
+<li class="listitem">
+                <span class="bold"><strong>Mutate</strong></span> &#8211; Mutation of objects
+                of different types with a target an existing type.
+              </li>
+<li class="listitem">
+                <span class="bold"><strong>Same type mutate</strong></span>: Mutation of objects
+                of the same type with <code class="computeroutput"><span class="identifier">same_type_mutator</span></code>.
+                It adds two mixins and removes one.
+              </li>
+<li class="listitem">
+                <span class="bold"><strong>Custom allocator</strong></span>: Mutation of objects
+                of different types with a mixin that has a custom allocator attached.
+                The custom allocator preallocates pools of 100,000 mixins.
+              </li>
+<li class="listitem">
+                <span class="bold"><strong>Same type alloc</strong></span>: Mutation of objects
+                of the same type with <code class="computeroutput"><span class="identifier">same_type_mutator</span></code>.
+                It adds a mixin with the same custom allocator.
+              </li>
+</ul></div>
+<p>
+            Here is a sample test result:
+          </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                OS: Ubuntu 13.04
+              </li>
+<li class="listitem">
+                CPU: AMD FX X8 8150
+              </li>
+<li class="listitem">
+                Compiler: g++ (Ubuntu/Linaro 4.7.3-1ubuntu1)
+              </li>
+<li class="listitem">
+                Debug compilation parameters: <code class="computeroutput"><span class="special">-</span><span class="identifier">fexceptions</span> <span class="special">-</span><span class="identifier">g</span></code>
+              </li>
+<li class="listitem">
+                Release compilation parameters <code class="computeroutput"><span class="special">-</span><span class="identifier">fexceptions</span> <span class="special">-</span><span class="identifier">O2</span></code>
+              </li>
+</ul></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                    <p>
+                      Task
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Mean time in Debug
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Mean time in Release
+                    </p>
+                  </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                    <p>
+                      New type
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1900 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      990 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Existing type
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1662 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      550 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Mutate
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      6700 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      697 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Same type mutate
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1308 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      322 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Custom allocator
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      5155 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      544 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Same type alloc
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1073 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      158 ns
+                    </p>
+                  </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.advanced.allocators"></a><a class="link" href="advanced.html#boost_mixin.advanced.allocators" title="Using custom allocators">Using custom allocators</a>
-</h3></div></div></div></div>
-<div class="section"><div class="titlepage"><div><div><h3 class="title">
+</h3></div></div></div>
+<p>
+        <a class="indexterm" name="idp36009968"></a>
+      </p>
+<p>
+        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/allocators.cpp" target="_top">allocators.cpp</a>)
+      </p>
+<p>
+        Boost.Mixin allows you to set custom allocators for the persistent pieces
+        of memory the library may require.
+      </p>
+<p>
+        The library allocates some memory on initialization, which happens at a global
+        scope &#8211; before the entry point of a program. It also has some allocations
+        which are for objects with a very short lifetime. Currently those are not
+        covered by the allocators.
+      </p>
+<p>
+        What you can control with the custom allocators is the new memory allocated
+        for object instances - their internal mixin data. You can assign a global
+        allocator to the library and you could also set individual allocators per
+        mixin type.
+      </p>
+<p>
+        First let's see how you can create a global allocator. Let's assume you have
+        a couple of functions of your own that allocate and deallocate memory in
+        some way specific to your needs:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">char</span><span class="special">*</span> <span class="identifier">allocate</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">size</span><span class="special">);</span>
+<span class="keyword">void</span> <span class="identifier">deallocate</span><span class="special">(</span><span class="keyword">char</span><span class="special">*</span> <span class="identifier">buffer</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        To create a global allocator you need to create a class derived from <code class="computeroutput"><span class="identifier">global_allocator</span></code> and override its virtual
+        methods.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">custom_allocator</span> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">global_allocator</span>
+<span class="special">{</span>
+</pre>
+<p>
+      </p>
+<p>
+        The first two methods allocate a buffer for the mixin data pointers. Every
+        object has pointers to its mixins within it. This is the array of such pointers.
+        The class <code class="computeroutput"><span class="identifier">global_allocator</span></code>
+        has a static constant member &#8211; <code class="computeroutput"><span class="identifier">mixin_data_size</span></code>
+        &#8211; which you should use to see the size of a single element in that
+        array.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">virtual</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">alloc_mixin_data</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">allocate</span><span class="special">(</span><span class="identifier">count</span> <span class="special">*</span> <span class="identifier">mixin_data_size</span><span class="special">);</span>
+<span class="special">}</span>
+
+<span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">dealloc_mixin_data</span><span class="special">(</span><span class="keyword">char</span><span class="special">*</span> <span class="identifier">ptr</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">deallocate</span><span class="special">(</span><span class="identifier">ptr</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        The other two methods you need to overload, allocate and deallocate the memory
+        for an actual mixin class instance. As you may have already read, the buffer
+        allocated for a mixin instance is bigger than needed because the library
+        stores a pointer to the owning object immediately before the memory used
+        by the mixin instance.
+      </p>
+<p>
+        That's why this function is not as simple as the one for the mixin data array.
+        It has to conform to the mixin (and also <code class="computeroutput"><span class="identifier">object</span><span class="special">*</span></code>) alignment.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">alloc_mixin</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">mixin_size</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">mixin_alignment</span><span class="special">,</span> <span class="keyword">char</span><span class="special">*&amp;</span> <span class="identifier">out_buffer</span><span class="special">,</span> <span class="identifier">size_t</span><span class="special">&amp;</span> <span class="identifier">out_mixin_offset</span><span class="special">)</span>
+<span class="special">{</span>
+</pre>
+<p>
+      </p>
+<p>
+        The users are strongly advised to use the static method <code class="computeroutput"><span class="identifier">global_allocator</span><span class="special">::</span><span class="identifier">calculate_mem_size_for_mixin</span></code>.
+        It will appropriately calculate how much memory is needed for the mixin instance
+        such that there is enough room at the beginning for the pointer to the owning
+        object and the memory alignment is respected.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">size_t</span> <span class="identifier">size</span> <span class="special">=</span> <span class="identifier">calculate_mem_size_for_mixin</span><span class="special">(</span><span class="identifier">mixin_size</span><span class="special">,</span> <span class="identifier">mixin_alignment</span><span class="special">);</span>
+<span class="identifier">out_buffer</span> <span class="special">=</span> <span class="identifier">allocate</span><span class="special">(</span><span class="identifier">size</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        After you allocate the buffer you should take care of the other output parameter
+        - the mixin offset. It calculates the offset of the actual mixin instance
+        memory within the buffer, such that there is room for the owning object pointer
+        in before it and all alignments are respected.
+      </p>
+<p>
+        You are encouraged to use the static method <code class="computeroutput"><span class="identifier">global_allocator</span><span class="special">::</span><span class="identifier">calculate_mixin_offset</span></code>
+        for this purpose.
+      </p>
+<p>
+</p>
+<pre class="programlisting">    <span class="identifier">out_mixin_offset</span> <span class="special">=</span> <span class="identifier">calculate_mixin_offset</span><span class="special">(</span><span class="identifier">out_buffer</span><span class="special">,</span> <span class="identifier">mixin_alignment</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        The mixin instance deallocation method can be trivial
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">dealloc_mixin</span><span class="special">(</span><span class="keyword">char</span><span class="special">*</span> <span class="identifier">ptr</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">deallocate</span><span class="special">(</span><span class="identifier">ptr</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        To use the custom global allocator you need to instantiate it and then set
+        it with <code class="computeroutput"><span class="identifier">set_global_allocator</span></code>.
+        Unlike the mutation rules, the responsibility for the allocator instance
+        is yours. You need to make sure that the lifetime of the instance is at least
+        as long as the lifetime of all objects in the system.
+      </p>
+<p>
+        Unfortunately this means that if you have global or static objects, you need
+        to create a new pointer that is, in a way, a memory leak. If you do not have
+        global or static objects, it should be safe for it to just be a local variable
+        in your program's entry point function.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">custom_allocator</span> <span class="identifier">alloc</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">set_global_allocator</span><span class="special">(&amp;</span><span class="identifier">alloc</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        As we mentioned before, you can have an allocator specific for a mixin type.
+      </p>
+<p>
+        A common case for such use is to have a per-frame allocator &#8211; one
+        that has a preallocated buffer which is used much like a stack, with its
+        pointer reset at the end of each simulation frame (or at the beginning each
+        new one). Let's create such an allocator.
+      </p>
+<p>
+        First, a mixin instance allocator is not necessarily bound to a concrete
+        mixin type. You can can the same instance of such an allocator set for many
+        mixins (which would be a common use of a per-frame allocator), but for our
+        example let's create one that <span class="emphasis"><em>is</em></span> bound to an instance.
+        We will make it a template class because the code for each mixin type will
+        be the same.
+      </p>
+<p>
+        A mixin instance allocator needs to be derived from the class <code class="computeroutput"><span class="identifier">mixin_allocator</span></code>. You then need to overload
+        its two virtual methods which are exactly the same as the mixin instance
+        allocation/deallocation methods in <code class="computeroutput"><span class="identifier">global_allocator</span></code>.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Mixin</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">per_frame_allocator</span> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mixin_allocator</span>
+<span class="special">{</span>
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">size_t</span> <span class="identifier">NUM_IN_PAGE</span> <span class="special">=</span> <span class="number">1000</span><span class="special">;</span>
+
+    <span class="identifier">size_t</span> <span class="identifier">_num_allocations</span><span class="special">;</span> <span class="comment">// number of "living" instances allocated</span>
+    <span class="keyword">const</span> <span class="identifier">size_t</span> <span class="identifier">mixin_buf_size</span><span class="special">;</span> <span class="comment">// the size of a single mixin instance buffer</span>
+    <span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">*&gt;</span> <span class="identifier">_pages</span><span class="special">;</span> <span class="comment">// use pages of data where each page can store NUM_IN_PAGE instances</span>
+    <span class="identifier">size_t</span> <span class="identifier">_page_byte_index</span><span class="special">;</span> <span class="comment">// index within a memory "page"</span>
+    <span class="keyword">const</span> <span class="identifier">size_t</span> <span class="identifier">page_size</span><span class="special">;</span> <span class="comment">// size in bytes of a page</span>
+
+<span class="keyword">public</span><span class="special">:</span>
+
+    <span class="comment">// some way to obtain the instance</span>
+    <span class="keyword">static</span> <span class="identifier">per_frame_allocator</span><span class="special">&amp;</span> <span class="identifier">instance</span><span class="special">()</span>
+    <span class="special">{</span>
+        <span class="keyword">static</span> <span class="identifier">per_frame_allocator</span> <span class="identifier">i</span><span class="special">;</span>
+        <span class="keyword">return</span> <span class="identifier">i</span><span class="special">;</span>
+    <span class="special">}</span>
+
+
+    <span class="identifier">per_frame_allocator</span><span class="special">()</span>
+        <span class="special">:</span> <span class="identifier">mixin_buf_size</span><span class="special">(</span>
+            <span class="identifier">calculate_mem_size_for_mixin</span><span class="special">(</span>
+                <span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">Mixin</span><span class="special">),</span>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">alignment_of</span><span class="special">&lt;</span><span class="identifier">Mixin</span><span class="special">&gt;::</span><span class="identifier">value</span><span class="special">))</span>
+        <span class="special">,</span> <span class="identifier">_num_allocations</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
+        <span class="special">,</span> <span class="identifier">page_size</span><span class="special">(</span><span class="identifier">mixin_buf_size</span> <span class="special">*</span> <span class="identifier">NUM_IN_PAGE</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="identifier">new_memory_page</span><span class="special">();</span>
+    <span class="special">}</span>
+
+    <span class="keyword">void</span> <span class="identifier">new_memory_page</span><span class="special">()</span>
+    <span class="special">{</span>
+        <span class="keyword">char</span><span class="special">*</span> <span class="identifier">page</span> <span class="special">=</span> <span class="keyword">new</span> <span class="keyword">char</span><span class="special">[</span><span class="identifier">page_size</span><span class="special">];</span>
+        <span class="identifier">_pages</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">page</span><span class="special">);</span>
+        <span class="identifier">_page_byte_index</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="special">}</span>
+    <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">alloc_mixin</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">mixin_class_size</span><span class="special">,</span> <span class="identifier">size_t</span> <span class="identifier">mixin_alignment</span><span class="special">,</span> <span class="keyword">char</span><span class="special">*&amp;</span> <span class="identifier">out_buffer</span><span class="special">,</span> <span class="identifier">size_t</span><span class="special">&amp;</span> <span class="identifier">out_mixin_offset</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="keyword">if</span><span class="special">(</span><span class="identifier">_page_byte_index</span> <span class="special">==</span> <span class="identifier">NUM_IN_PAGE</span><span class="special">)</span>
+        <span class="special">{</span>
+            <span class="comment">// if we don't have space in our current page, create a new one</span>
+            <span class="identifier">new_memory_page</span><span class="special">();</span>
+        <span class="special">}</span>
+
+        <span class="identifier">out_buffer</span> <span class="special">=</span> <span class="identifier">_pages</span><span class="special">.</span><span class="identifier">back</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">_page_byte_index</span> <span class="special">*</span> <span class="identifier">mixin_buf_size</span><span class="special">;</span>
+
+        <span class="comment">// again calculate the offset using this static member function</span>
+        <span class="identifier">out_mixin_offset</span> <span class="special">=</span> <span class="identifier">calculate_mixin_offset</span><span class="special">(</span><span class="identifier">out_buffer</span><span class="special">,</span> <span class="identifier">mixin_alignment</span><span class="special">);</span>
+
+        <span class="special">++</span><span class="identifier">_page_byte_index</span><span class="special">;</span>
+        <span class="special">++</span><span class="identifier">_num_allocations</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="identifier">dealloc_mixin</span><span class="special">(</span><span class="keyword">char</span><span class="special">*</span> <span class="identifier">buf</span><span class="special">)</span>
+    <span class="special">{</span>
+<span class="preprocessor">#if</span> <span class="special">!</span><span class="identifier">defined</span><span class="special">(</span><span class="identifier">NDEBUG</span><span class="special">)</span>
+        <span class="comment">// in debug mode check if the mixin is within any of our pages</span>
+        <span class="keyword">for</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">_pages</span><span class="special">.</span><span class="identifier">size</span><span class="special">();</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+        <span class="special">{</span>
+            <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">page_begin</span> <span class="special">=</span> <span class="identifier">_pages</span><span class="special">[</span><span class="identifier">i</span><span class="special">];</span>
+            <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">page_end</span> <span class="special">=</span> <span class="identifier">page_begin</span> <span class="special">+</span> <span class="identifier">page_size</span><span class="special">;</span>
+
+            <span class="identifier">BOOST_ASSERT</span><span class="special">(</span><span class="identifier">buf</span> <span class="special">&gt;=</span> <span class="identifier">page_begin</span> <span class="special">&amp;&amp;</span> <span class="identifier">buf</span> <span class="special">&lt;</span> <span class="identifier">page_end</span><span class="special">);</span>
+        <span class="special">}</span>
+<span class="preprocessor">#else</span>
+        <span class="identifier">buf</span><span class="special">;</span> <span class="comment">// to skip warning for unused parameter</span>
+<span class="preprocessor">#endif</span>
+        <span class="comment">// no actual deallocation to be done</span>
+        <span class="comment">// just decrement our living instances counter</span>
+
+        <span class="special">--</span><span class="identifier">_num_allocations</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="comment">// function to be called once each frame that resets the allocator</span>
+    <span class="keyword">void</span> <span class="identifier">reset</span><span class="special">()</span>
+    <span class="special">{</span>
+        <span class="identifier">BOOST_ASSERT</span><span class="special">(</span><span class="identifier">_num_allocations</span> <span class="special">==</span> <span class="number">0</span><span class="special">);</span> <span class="comment">// premature reset</span>
+        <span class="keyword">for</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">i</span><span class="special">=</span><span class="number">1</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">_pages</span><span class="special">.</span><span class="identifier">size</span><span class="special">();</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+        <span class="special">{</span>
+            <span class="keyword">delete</span><span class="special">[]</span> <span class="identifier">_pages</span><span class="special">[</span><span class="identifier">i</span><span class="special">];</span>
+        <span class="special">}</span>
+
+        <span class="identifier">_page_byte_index</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now this class can be set as a mixin allocator for a given mixin type. A
+        side effect of the fact that it's bound to the type is that it keeps mixin
+        instances in a continuous buffer. With some changes (to take care of potential
+        holes in the buffer) such an allocator can be used by a subsystem that works
+        through mixins relying on them being in a continuous buffer to avoid cache
+        misses.
+      </p>
+<p>
+        To illustrate a usage for our mixin allocator, let's imagine we have a game.
+        If a character in our game dies, it will be destroyed at the end of the current
+        frame and should stop responding to any messages. We can create a mixin called
+        <code class="computeroutput"><span class="identifier">dead_character</span></code> which implements
+        all those the messages with a higher priority than the rest of the mixins.
+        Since every object that has a <code class="computeroutput"><span class="identifier">dead_character</span></code>
+        mixin will be destroyed by the end of the frame, it will be save to use the
+        per-frame allocator for it.
+      </p>
+<p>
+        First let's create the mixin class and sample messages:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">dead_character</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">die</span><span class="special">()</span> <span class="special">{}</span>
+    <span class="comment">// ...</span>
+<span class="special">};</span>
+
+<span class="identifier">BOOST_MIXIN_MESSAGE_0</span><span class="special">(</span><span class="keyword">void</span><span class="special">,</span> <span class="identifier">die</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">die</span><span class="special">);</span>
+<span class="comment">//...</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now we define the mixin so that is uses the allocator, we just need to add
+        it with <code class="computeroutput"><span class="special">&amp;</span></code> to the mixin feature
+        list, just like we add messages. There are two ways to do so. First we could
+        do it like this
+      </p>
+<pre class="programlisting"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">dead_character</span><span class="special">,</span> <span class="special">...</span> <span class="special">&amp;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="identifier">die_msg</span><span class="special">)</span>
+    <span class="special">&amp;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">per_frame_allocator</span><span class="special">&lt;</span><span class="identifier">dead_character</span><span class="special">&gt;&gt;());</span>
+</pre>
+<p>
+        This will create the instance of the allocator internally and we won't be
+        able to get it. Since in our case we do care about the instance because we
+        want to call its <code class="computeroutput"><span class="identifier">reset</span></code> method,
+        we could use an alternative way, by just adding an actual instance of the
+        allocator to the feature list:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">dead_character</span><span class="special">,</span> <span class="comment">/*...*/</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="identifier">die_msg</span><span class="special">)</span>
+    <span class="special">&amp;</span> <span class="identifier">per_frame_allocator</span><span class="special">&lt;</span><span class="identifier">dead_character</span><span class="special">&gt;::</span><span class="identifier">instance</span><span class="special">());</span>
+</pre>
+<p>
+      </p>
+<p>
+        If we share a mixin instance allocator between multiple mixins, the second
+        way is also the way to go.
+      </p>
+<p>
+        Now all mixin allocations and deallocations will pass through our mixin allocator:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">o</span><span class="special">;</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">dead_character</span><span class="special">&gt;();</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">o</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">remove</span><span class="special">&lt;</span><span class="identifier">dead_character</span><span class="special">&gt;();</span>
+
+<span class="comment">// safe because we've destroyed all instances of `dead_character`</span>
+<span class="identifier">per_frame_allocator</span><span class="special">&lt;</span><span class="identifier">dead_character</span><span class="special">&gt;::</span><span class="identifier">instance</span><span class="special">().</span><span class="identifier">reset</span><span class="special">();</span>
+</pre>
+<p>
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.advanced.dynlib"></a><a class="link" href="advanced.html#boost_mixin.advanced.dynlib" title="Dynamic libraries and program plugins">Dynamic libraries and program
       plugins</a>
-</h3></div></div></div></div>
+</h3></div></div></div>
+<p>
+        As long as the library itself is dynamic (<code class="computeroutput"><span class="special">.</span><span class="identifier">dll</span></code> on Windows or <code class="computeroutput"><span class="special">.</span><span class="identifier">so</span></code> on Unix or Linux) its safe to use in
+        an application that has dynamic libraries which use Boost.Mixin.
+      </p>
+<p>
+        An interesting thing which you can accomplish with the library is to have
+        optional plugins &#8211; dynamic libraries that aren't liked with the executable
+        but may or may not be present, and if they are, they are being loaded dynamically
+        (with <code class="computeroutput"><span class="identifier">LoadLibrary</span></code> or <code class="computeroutput"><span class="identifier">dlopen</span></code>).
+      </p>
+<p>
+        Such plugin may add a mutation rule for its special mixins, or export functions
+        that mutate objects.
+      </p>
+<p>
+        For example this may be very useful for an engineering CAD system that could
+        potentially have many different optional plugins for its different needs.
+        Say a plugin that extends the buildings with electrical wiring, could simply
+        export a mixin called <code class="computeroutput"><span class="identifier">electrical_wiring</span></code>
+        that contains the appropriate functionality.
+      </p>
+<p>
+        There is only one thing you need to remember when you're exporting mixins
+        or messages from a dynamic library: to use the export macros: <code class="computeroutput"><span class="identifier">BOOST_DECLARE_EXPORTED_MIXIN</span></code> and <code class="computeroutput"><span class="identifier">BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N</span></code>. They
+        are exactly like their regular counterparts but for their first argument,
+        which is the compiler specific export symbol (say <code class="computeroutput"><span class="identifier">__declspec</span><span class="special">(</span><span class="identifier">dllexport</span><span class="special">)</span></code> for Visual C++ or just <code class="computeroutput"><span class="identifier">BOOST_SYMBOL_EXPORT</span></code>
+        if you're using Boost.
+      </p>
+<p>
+        <a class="link" href="examples.html#boost_mixin.examples.multi_dll" title="Multi DLL">One of the examples</a>
+        that come with the library illustrates how you can have the two types of
+        dynamic libraries &#8211; one which you link with, and one plugin.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.implementation"></a><a class="link" href="advanced.html#boost_mixin.advanced.implementation" title="Implementation notes">Implementation notes</a>
+</h3></div></div></div>
+<p>
+        The overall structure of the library is based on a main class called <code class="computeroutput"><span class="identifier">domain</span></code> which holds all registered mixins
+        and messages, and keeps the type registry.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.implementation.reg"></a><a class="link" href="advanced.html#boost_mixin.advanced.implementation.reg" title="Mixin and feature registration">Mixin and
+        feature registration</a>
+</h4></div></div></div>
+<p>
+          The <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>
+          macro instantiates a class that is similar to a metafunction, as its only
+          purpose is to globally instantiate itself, which in turn will lead to
+          <code class="computeroutput"><span class="identifier">domain</span><span class="special">::</span><span class="identifier">register_mixin_type</span></code> being called.
+        </p>
+<p>
+          It also generates a function that registers the mixin features.
+        </p>
+<p>
+          <code class="computeroutput"><span class="identifier">domain</span><span class="special">::</span><span class="identifier">register_mixin_type</span></code> is a template method
+          and it will appropriately fill a structure, containing the mixin type information
+          &#8211; name, constructor, destructor, id, and will also call the generated
+          function that registers its features.
+        </p>
+<p>
+          The feature registration is composed of two parts: one global - to introduce
+          the feature to the domain, and local called for the specific mixin type
+          being registered. This means that a feature is globally registered multiple
+          times - once for each of its uses for a mixin type. The first of those
+          times will give it an id and fill the feature information structure appropriately.
+          The other global registrations of a feature will see that it has a valid
+          id, and will simply skip the rest of the code.
+        </p>
+<p>
+          The local feature registration is performed by the class <code class="computeroutput"><span class="identifier">feature_parser</span></code> that has overloads for
+          the supported mixin features: currently messages and allocators. The allocator
+          registration is simple it just sets the allocator member in the mixin type
+          information structure to the appropriate value.
+        </p>
+<p>
+          The message registration generates a caller function, based on the specific
+          mixin. This caller function is a specific instantiation of a template function
+          which is generated by the message declaration macros. It's template parameters
+          are the mixin type and the actual member function in the mixin. The caller
+          is then cast to <code class="computeroutput"><span class="keyword">void</span> <span class="special">(*)()</span></code>
+          to be stored in a vector in the mixin type information structure along
+          with the caller functions for all of its messages.
+        </p>
+<p>
+          This process of creating a caller function is based on the article <a href="http://www.codeproject.com/Articles/11015/The-Impossibly-Fast-C-Delegates" target="_top">The
+          Impossibly Fast C++ Delegates</a> by Sergey Ryazanov.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.implementation.reg0"></a><a class="link" href="advanced.html#boost_mixin.advanced.implementation.reg0" title="Mixin and message id-s">Mixin and
+        message id-s</a>
+</h4></div></div></div>
+<p>
+          Each newly registered mixin and message get an id. The id-s are consecutive
+          indexes in arrays (of <code class="computeroutput"><span class="identifier">mixin_type_info</span></code>
+          and <code class="computeroutput"><span class="identifier">message_t</span></code> respectively)
+          in the domain. Thus getting the information for a mixin or a message through
+          its id is a O(1) operation.
+        </p>
+<p>
+          The maximum numbers of registered messages and mixins are fixed through
+          the constants <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MIXINS</span></code>
+          and <code class="computeroutput"><span class="identifier">BOOST_MIXIN_MAX_MESSAGES</span></code>
+          in <code class="computeroutput"><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span></code>.
+        </p>
+<p>
+          This allows us to have fixed-size arrays for both in the domain and per
+          object type.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.implementation.reg1"></a><a class="link" href="advanced.html#boost_mixin.advanced.implementation.reg1" title="Mutation and type information">Mutation
+        and type information</a>
+</h4></div></div></div>
+<p>
+          A new object type is initially identified via a bitset per mixin. The domain
+          contains an unordered (hash) map where the key is such a bitset, and the
+          value is an object type info.
+        </p>
+<p>
+          The object type info consists of such a bitset (to mark which mixins are
+          available in this type), a compact vector of mixin type information structures
+          a cross indexing array (to indicate which mixin data is at which position
+          in the compact array), and a call table.
+        </p>
+<p>
+          The call table plays the same role as the virtual table in C++. It's a
+          fixed size array for every message with non-null values for the messages
+          that are implemented by that type. An element of that array is of type
+          <code class="computeroutput"><span class="identifier">call_table_entry</span></code>. This
+          is a union that, based on whether the message is a unicast or a multicast,
+          will contain the message data or a begin and an end for a buffer or message
+          datas.
+        </p>
+<p>
+          When a type is requested for an object it's first checked whether such
+          a combination of mixins is an existing type. If not a new object type is
+          created. This fills the mixin information bitset, vector and cross indexing
+          array and then fills the call table. It will allocate a single buffer for
+          all multicast messages within that type. When filling the call table the
+          type creation process will choose the top priority unicast messages and
+          sort the multicasts by priority. It will throw and exception if same-priority
+          unicasts exist.
+        </p>
+<p>
+          After the type is available the object data needs to be filled. The object
+          consists of a pointer to its type and an array of the structure <code class="computeroutput"><span class="identifier">mixin_data_in_object</span></code>. This structure
+          wraps a simple buffer that contains the mixin instance and a pointer to
+          the owning object right in front of it. This is required for the need to
+          get the owning object from within the code of the mixin class (made through
+          <code class="computeroutput"><span class="identifier">bm_this</span></code> or <code class="computeroutput"><span class="identifier">object_of</span></code>). Thus, getting the owning
+          object from the mixin is an offset from the <code class="computeroutput"><span class="keyword">this</span></code>
+          pointer.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.implementation.msg_call"></a><a class="link" href="advanced.html#boost_mixin.advanced.implementation.msg_call" title="Calling messages">Calling
+        messages</a>
+</h4></div></div></div>
+<p>
+          The message calling happens through the message functions which are generated
+          by the message declaration macros.
+        </p>
+<p>
+          The call consists of the following steps: * Get the message info through
+          a function generated by the message definition macro * Get the call table
+          entry for this message from the object's type * Get the mixin info and
+          the caller function from the call table entry * Get the mixin pointer from
+          the object, based on the mixin info * Cast the caller function from <code class="computeroutput"><span class="keyword">void</span> <span class="special">(*)()</span></code>
+          to the appropriate signature. * Call the caller function for the mixin
+          pointer.
+        </p>
+<p>
+          For multicasts there is a for loop for the last four steps.
+        </p>
+</div>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
@@ -487,7 +1258,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="examples.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../mixin/reference.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="debugging.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="../mixin/reference.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>
