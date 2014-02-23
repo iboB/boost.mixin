@@ -32,8 +32,8 @@ install images
 
 doxygen reference
     :
-        ../../../boost/mixin.hpp
-        [ path.glob-tree ../../../boost/mixin : *.hpp ]
+        ../include/boost/mixin.hpp
+        [ path.glob-tree ../include/boost/mixin : *.hpp ]
     :
         # <doxygen:param>QUIET=YES
         # <doxygen:param>ALPHABETICAL_INDEX=YES

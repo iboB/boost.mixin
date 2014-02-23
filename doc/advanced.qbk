@@ -284,6 +284,10 @@ Here is a sample test result:
 [endsect]
 
 [section:allocators Using custom allocators]
+
+[import ../tutorial/allocators.cpp]
+[tutorial_allocators]
+
 [endsect]
 
 [section:dynlib Dynamic libraries and program plugins]
@@ -311,6 +315,10 @@ messages from a dynamic library: to use the export macros:
 are exactly like their regular counterparts but for their first argument, which
 is the compiler specific export symbol (say `__declspec(dllexport)` for Visual
 C++ or just `BOOST_SYMBOL_EXPORT` if you're using Boost.
+
+[link boost_mixin.examples.multi_dll One of the examples] that come with the
+library illustrates how you can have the two types of dynamic libraries --
+one which you link with, and one plugin.
 
 [endsect]
 
