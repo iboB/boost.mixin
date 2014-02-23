@@ -38,78 +38,78 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-fPIC" />
-			<Add directory="../../../.." />
+			<Add directory="../../include" />
 		</Compiler>
-		<Unit filename="../../../../boost/mixin.hpp">
+		<Unit filename="../../include/boost/mixin.hpp">
 			<Option virtualFolder="includes/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/allocators.hpp">
+		<Unit filename="../../include/boost/mixin/allocators.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/combinators.hpp">
+		<Unit filename="../../include/boost/mixin/combinators.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/common_mutation_rules.hpp">
+		<Unit filename="../../include/boost/mixin/common_mutation_rules.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/config.hpp">
+		<Unit filename="../../include/boost/mixin/config.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/domain.hpp">
+		<Unit filename="../../include/boost/mixin/domain.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/exception.hpp">
+		<Unit filename="../../include/boost/mixin/exception.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/feature.hpp">
+		<Unit filename="../../include/boost/mixin/feature.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/feature_parser.hpp">
+		<Unit filename="../../include/boost/mixin/feature_parser.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/gen/message_macros.ipp">
+		<Unit filename="../../include/boost/mixin/gen/message_macros.ipp">
 			<Option virtualFolder="includes/boost/gen/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/global.hpp">
+		<Unit filename="../../include/boost/mixin/global.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/message.hpp">
+		<Unit filename="../../include/boost/mixin/message.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/message_macros.hpp">
+		<Unit filename="../../include/boost/mixin/message_macros.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/mixin.hpp">
+		<Unit filename="../../include/boost/mixin/mixin.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/mixin_collection.hpp">
+		<Unit filename="../../include/boost/mixin/mixin_collection.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/mixin_type_info.hpp">
+		<Unit filename="../../include/boost/mixin/mixin_type_info.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/mutation_rule.hpp">
+		<Unit filename="../../include/boost/mixin/mutation_rule.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/object.hpp">
+		<Unit filename="../../include/boost/mixin/object.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/object_mutator.hpp">
+		<Unit filename="../../include/boost/mixin/object_mutator.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/object_type_info.hpp">
+		<Unit filename="../../include/boost/mixin/object_type_info.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/object_type_mutation.hpp">
+		<Unit filename="../../include/boost/mixin/object_type_mutation.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/object_type_template.hpp">
+		<Unit filename="../../include/boost/mixin/object_type_template.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/same_type_mutator.hpp">
+		<Unit filename="../../include/boost/mixin/same_type_mutator.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
-		<Unit filename="../../../../boost/mixin/single_object_mutator.hpp">
+		<Unit filename="../../include/boost/mixin/single_object_mutator.hpp">
 			<Option virtualFolder="includes/boost/" />
 		</Unit>
 		<Unit filename="../../src/allocators.cpp">

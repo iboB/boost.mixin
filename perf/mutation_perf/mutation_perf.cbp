@@ -36,7 +36,7 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add directory="../../../.." />
+			<Add directory="../../include" />
 		</Compiler>
 		<Unit filename="main.cpp" />
 		<Extensions>

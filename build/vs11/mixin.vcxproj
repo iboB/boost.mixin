@@ -25,33 +25,33 @@
     <ClCompile Include="..\..\src\single_object_mutator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\boost\mixin.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\allocators.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\combinators.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\common_mutation_rules.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\config.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\domain.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\exception.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\feature.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\feature_parser.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\global.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\message.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\message_macros.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\mixin.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\mixin_collection.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\mixin_type_info.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\mutation_rule.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\object.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\object_mutator.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\object_type_mutation.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\object_type_template.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\object_type_info.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\same_type_mutator.hpp" />
-    <ClInclude Include="..\..\..\..\boost\mixin\single_object_mutator.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\allocators.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\combinators.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\common_mutation_rules.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\config.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\domain.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\exception.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\feature.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\feature_parser.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\global.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\message.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\message_macros.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\mixin.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\mixin_collection.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\mixin_type_info.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\mutation_rule.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\object.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\object_mutator.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\object_type_mutation.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\object_type_template.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\object_type_info.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\same_type_mutator.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\single_object_mutator.hpp" />
     <ClInclude Include="..\..\src\internal.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\boost\mixin\gen\message_macros.ipp" />
+    <None Include="..\..\include\boost\mixin\gen\message_macros.ipp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{70D4D2E6-2947-4F77-B671-6500FB1E7DDB}</ProjectGuid>
@@ -100,7 +100,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MIXIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..;C:\Libraries\boost_1_51_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;C:\Libraries\boost_1_51_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -115,7 +115,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MIXIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..;C:\Libraries\boost_1_51_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;C:\Libraries\boost_1_51_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

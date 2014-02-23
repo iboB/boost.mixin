@@ -1,3 +1,11 @@
+#
+# Copyright (c) 2013-2014 Borislav Stanimirov, Zahary Karadjov
+#
+# Distributed under the Boost Software License, Version 1.0.
+# See accompanying file LICENSE_1_0.txt or copy at
+# http://www.boost.org/LICENSE_1_0.txt
+#
+
 cmake_minimum_required(VERSION 2.8.6)
 
 project(boost_mixin)
@@ -10,7 +18,7 @@ else() # assuming gcc compatible compiler
 endif()
 
 
-set(BM_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../..)
+set(BM_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/..)
 set(BM_SRC_DIR ${BM_ROOT}/libs/mixin/src)
 
 add_library(boost_mixin
@@ -31,7 +39,7 @@ add_library(boost_mixin
 
 # cached to use in other projects
 set(BM_INCLUDE_DIR
-    ${BM_ROOT}
+    ${BM_ROOT}/include
     CACHE STRING "boost.mixin include dir"
 )
 

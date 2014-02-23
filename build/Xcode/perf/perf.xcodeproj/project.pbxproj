@@ -191,7 +191,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-					../../../../..,
+					../../../include,
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
@@ -206,7 +206,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-					../../../../..,
+					../../../include,
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = (

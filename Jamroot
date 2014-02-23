@@ -8,6 +8,11 @@
 
 # fake Jamroot while the library is not yet part of boost
 
+project boost
+    : requirements
+        <include>include
+    ;
+
 # stub install
 rule boost-install ( libraries * )
 {

@@ -4,7 +4,7 @@ CONFIG -= qt
 
 QMAKE_CXXFLAGS += -std=c++0x
 
-INCLUDEPATH += ../../../../
+INCLUDEPATH += ../../include
 
 CONFIG(debug, debug|relese)
 {

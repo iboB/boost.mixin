@@ -59,30 +59,30 @@
 		1F2A5B5516E7AEA500CD32E1 /* object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = object.cpp; path = ../../../src/object.cpp; sourceTree = "<group>"; };
 		1F2A5B5616E7AEA500CD32E1 /* same_type_mutator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = same_type_mutator.cpp; path = ../../../src/same_type_mutator.cpp; sourceTree = "<group>"; };
 		1F2A5B5716E7AEA500CD32E1 /* single_object_mutator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = single_object_mutator.cpp; path = ../../../src/single_object_mutator.cpp; sourceTree = "<group>"; };
-		1F2A5B6616E7AED500CD32E1 /* mixin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin.hpp; path = ../../../../../boost/mixin.hpp; sourceTree = "<group>"; };
-		1F2A5B6A16E7AEF600CD32E1 /* combinators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = combinators.hpp; path = ../../../../../boost/mixin/combinators.hpp; sourceTree = "<group>"; };
-		1F2A5B6B16E7AEF600CD32E1 /* common_mutation_rules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = common_mutation_rules.hpp; path = ../../../../../boost/mixin/common_mutation_rules.hpp; sourceTree = "<group>"; };
-		1F2A5B6C16E7AEF600CD32E1 /* config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = config.hpp; path = ../../../../../boost/mixin/config.hpp; sourceTree = "<group>"; };
-		1F2A5B6D16E7AEF600CD32E1 /* domain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = domain.hpp; path = ../../../../../boost/mixin/domain.hpp; sourceTree = "<group>"; };
-		1F2A5B6E16E7AEF600CD32E1 /* exception.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = exception.hpp; path = ../../../../../boost/mixin/exception.hpp; sourceTree = "<group>"; };
-		1F2A5B6F16E7AEF600CD32E1 /* feature_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = feature_parser.hpp; path = ../../../../../boost/mixin/feature_parser.hpp; sourceTree = "<group>"; };
-		1F2A5B7016E7AEF600CD32E1 /* feature.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = feature.hpp; path = ../../../../../boost/mixin/feature.hpp; sourceTree = "<group>"; };
-		1F2A5B7116E7AEF600CD32E1 /* global.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = global.hpp; path = ../../../../../boost/mixin/global.hpp; sourceTree = "<group>"; };
-		1F2A5B7216E7AEF600CD32E1 /* message_macros.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = message_macros.hpp; path = ../../../../../boost/mixin/message_macros.hpp; sourceTree = "<group>"; };
-		1F2A5B7316E7AEF600CD32E1 /* message.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = message.hpp; path = ../../../../../boost/mixin/message.hpp; sourceTree = "<group>"; };
-		1F2A5B7416E7AEF600CD32E1 /* mixin_collection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin_collection.hpp; path = ../../../../../boost/mixin/mixin_collection.hpp; sourceTree = "<group>"; };
-		1F2A5B7516E7AEF600CD32E1 /* mixin_type_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin_type_info.hpp; path = ../../../../../boost/mixin/mixin_type_info.hpp; sourceTree = "<group>"; };
-		1F2A5B7616E7AEF600CD32E1 /* mixin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin.hpp; path = ../../../../../boost/mixin/mixin.hpp; sourceTree = "<group>"; };
-		1F2A5B7716E7AEF600CD32E1 /* mutation_rule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mutation_rule.hpp; path = ../../../../../boost/mixin/mutation_rule.hpp; sourceTree = "<group>"; };
-		1F2A5B7816E7AEF600CD32E1 /* object_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_mutator.hpp; path = ../../../../../boost/mixin/object_mutator.hpp; sourceTree = "<group>"; };
-		1F2A5B7916E7AEF600CD32E1 /* object_type_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_type_info.hpp; path = ../../../../../boost/mixin/object_type_info.hpp; sourceTree = "<group>"; };
-		1F2A5B7A16E7AEF600CD32E1 /* object_type_mutation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_type_mutation.hpp; path = ../../../../../boost/mixin/object_type_mutation.hpp; sourceTree = "<group>"; };
-		1F2A5B7B16E7AEF600CD32E1 /* object_type_template.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_type_template.hpp; path = ../../../../../boost/mixin/object_type_template.hpp; sourceTree = "<group>"; };
-		1F2A5B7C16E7AEF600CD32E1 /* object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object.hpp; path = ../../../../../boost/mixin/object.hpp; sourceTree = "<group>"; };
-		1F2A5B7D16E7AEF600CD32E1 /* same_type_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = same_type_mutator.hpp; path = ../../../../../boost/mixin/same_type_mutator.hpp; sourceTree = "<group>"; };
-		1F2A5B7E16E7AEF600CD32E1 /* single_object_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = single_object_mutator.hpp; path = ../../../../../boost/mixin/single_object_mutator.hpp; sourceTree = "<group>"; };
-		1F2A5B9416E7AF1000CD32E1 /* message_macros.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = message_macros.ipp; path = ../../../../../boost/mixin/gen/message_macros.ipp; sourceTree = "<group>"; };
-		1F4E7D7F17996CD400EFBC49 /* allocators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = allocators.hpp; path = ../../../../../boost/mixin/allocators.hpp; sourceTree = "<group>"; };
+		1F2A5B6616E7AED500CD32E1 /* mixin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin.hpp; path = ../../../include/boost/mixin.hpp; sourceTree = "<group>"; };
+		1F2A5B6A16E7AEF600CD32E1 /* combinators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = combinators.hpp; path = ../../../include/boost/mixin/combinators.hpp; sourceTree = "<group>"; };
+		1F2A5B6B16E7AEF600CD32E1 /* common_mutation_rules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = common_mutation_rules.hpp; path = ../../../include/boost/mixin/common_mutation_rules.hpp; sourceTree = "<group>"; };
+		1F2A5B6C16E7AEF600CD32E1 /* config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = config.hpp; path = ../../../include/boost/mixin/config.hpp; sourceTree = "<group>"; };
+		1F2A5B6D16E7AEF600CD32E1 /* domain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = domain.hpp; path = ../../../include/boost/mixin/domain.hpp; sourceTree = "<group>"; };
+		1F2A5B6E16E7AEF600CD32E1 /* exception.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = exception.hpp; path = ../../../include/boost/mixin/exception.hpp; sourceTree = "<group>"; };
+		1F2A5B6F16E7AEF600CD32E1 /* feature_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = feature_parser.hpp; path = ../../../include/boost/mixin/feature_parser.hpp; sourceTree = "<group>"; };
+		1F2A5B7016E7AEF600CD32E1 /* feature.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = feature.hpp; path = ../../../include/boost/mixin/feature.hpp; sourceTree = "<group>"; };
+		1F2A5B7116E7AEF600CD32E1 /* global.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = global.hpp; path = ../../../include/boost/mixin/global.hpp; sourceTree = "<group>"; };
+		1F2A5B7216E7AEF600CD32E1 /* message_macros.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = message_macros.hpp; path = ../../../include/boost/mixin/message_macros.hpp; sourceTree = "<group>"; };
+		1F2A5B7316E7AEF600CD32E1 /* message.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = message.hpp; path = ../../../include/boost/mixin/message.hpp; sourceTree = "<group>"; };
+		1F2A5B7416E7AEF600CD32E1 /* mixin_collection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin_collection.hpp; path = ../../../include/boost/mixin/mixin_collection.hpp; sourceTree = "<group>"; };
+		1F2A5B7516E7AEF600CD32E1 /* mixin_type_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin_type_info.hpp; path = ../../../include/boost/mixin/mixin_type_info.hpp; sourceTree = "<group>"; };
+		1F2A5B7616E7AEF600CD32E1 /* mixin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mixin.hpp; path = ../../../include/boost/mixin/mixin.hpp; sourceTree = "<group>"; };
+		1F2A5B7716E7AEF600CD32E1 /* mutation_rule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mutation_rule.hpp; path = ../../../include/boost/mixin/mutation_rule.hpp; sourceTree = "<group>"; };
+		1F2A5B7816E7AEF600CD32E1 /* object_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_mutator.hpp; path = ../../../include/boost/mixin/object_mutator.hpp; sourceTree = "<group>"; };
+		1F2A5B7916E7AEF600CD32E1 /* object_type_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_type_info.hpp; path = ../../../include/boost/mixin/object_type_info.hpp; sourceTree = "<group>"; };
+		1F2A5B7A16E7AEF600CD32E1 /* object_type_mutation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_type_mutation.hpp; path = ../../../include/boost/mixin/object_type_mutation.hpp; sourceTree = "<group>"; };
+		1F2A5B7B16E7AEF600CD32E1 /* object_type_template.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object_type_template.hpp; path = ../../../include/boost/mixin/object_type_template.hpp; sourceTree = "<group>"; };
+		1F2A5B7C16E7AEF600CD32E1 /* object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object.hpp; path = ../../../include/boost/mixin/object.hpp; sourceTree = "<group>"; };
+		1F2A5B7D16E7AEF600CD32E1 /* same_type_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = same_type_mutator.hpp; path = ../../../include/boost/mixin/same_type_mutator.hpp; sourceTree = "<group>"; };
+		1F2A5B7E16E7AEF600CD32E1 /* single_object_mutator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = single_object_mutator.hpp; path = ../../../include/boost/mixin/single_object_mutator.hpp; sourceTree = "<group>"; };
+		1F2A5B9416E7AF1000CD32E1 /* message_macros.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = message_macros.ipp; path = ../../../include/boost/mixin/gen/message_macros.ipp; sourceTree = "<group>"; };
+		1F4E7D7F17996CD400EFBC49 /* allocators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = allocators.hpp; path = ../../../include/boost/mixin/allocators.hpp; sourceTree = "<group>"; };
 		1F4E7D8117996CEA00EFBC49 /* allocators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = allocators.cpp; path = ../../../src/allocators.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../../../..,
+					../../../include,
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = "";
@@ -342,7 +342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../../../..,
+					../../../include,
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = "";

@@ -6,7 +6,7 @@ CONFIG = dll
 
 QMAKE_CXXFLAGS += -std=c++0x
 
-INCLUDEPATH += ../../../../
+INCLUDEPATH += ../../include
 
 mixin_src = ../../src
 
@@ -25,7 +25,7 @@ SOURCES += \
     $${mixin_src}/single_object_mutator.cpp \
     $${mixin_src}/allocators.cpp \
 
-mixin_inc = ../../../../boost/mixin
+mixin_inc = ../../include/boost/mixin
 
 HEADERS += \
     $${mixin_inc}/../mixin.hpp \
