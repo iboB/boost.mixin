@@ -446,4 +446,67 @@ For multicasts there is a `for` loop for the last four steps.
 
 [endsect]
 
+[section:macros Macros rationale]
+
+Many people, upon seeing Boost.Mixin for the first time, have expressed a
+concern with the seemingly excessive amount of macros the library's users are
+required to write.
+
+[section:mixin Mixin definition and declaration macros]
+
+The mixin definition and declaration macros are often mentioned as easy to
+remove, and indeed there is a way to reproduce almost all of their functionality
+without any macros. However not all of it can be reproduced.
+
+One of the key features those macros provide is the global instantiation.
+Without them, the users will be required to provide explicit entry points for
+their subsystems and dynamic libraries, where they will have to call some
+mixin initialization functions. This is not as simple as it sounds. Here is a
+list of downsides that such explicit entry points may introduce:
+
+* They will be compilation dependency "focal points": All mixins classes
+introduced by a subsystem would need to be visible from there, which means
+recompilations on every change, and more maintenance for the code.
+* The users will have to be extra careful not to add mixins to objects before
+their initialization is called.
+* Duplicated instances of the mixin data structures will exist in different
+modules (executable and dynamic libraries). In order to deal with this, the
+domain would need to store multiple copies of info for the same mixin. This will
+add a small runtime cost to the message calls and mutations.
+
+[endsect]
+
+[section:message Message definition and declaration macros]
+
+The message macros are most likely impossible to remove. Unlike the mixin ones,
+each of them generates many lines of code. More than a hundred.
+
+Probably the only way to remove them completely, would be to make the message
+calls by string. This will cause the calls to make hash table look-ups
+(or worse) and will prohibitively slow them down. Such a scenario will also
+reflect on the way mixins are registerd. The mixin messages would have to be
+set through something that resembles `std::bind` adding yet more complexity to
+the user code.
+
+[endsect]
+
+[section:moc External custom preprocessor]
+
+Is is possible (and probably part of the future of the library) to create an
+external tool that makes the user code a bit nicer. It would resemble
+[@http://qt-project.org/doc/qt-4.8/moc.html The Meta-Object Compiler of Qt],
+and similarly, would require a custom preprocessing step of the users' code.
+
+Such a tool could theoretically solve more of the library's problems, like the
+need to call `message(object)` instead of `object.message()` at the very least,
+and many more...
+
+Still, such an approach also has many opponents, as the code you write when you
+use it becomes effectively not-C++, but something that can be called a C++
+dialect.
+
+[endsect]
+
+[endsect]
+
 [endsect]
