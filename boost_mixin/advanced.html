@@ -20,16 +20,19 @@
 <div class="toc"><dl>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.performance">Performance</a></span></dt>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.allocators">Using custom allocators</a></span></dt>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.arity">Having messages with more
+      arguments</a></span></dt>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.dynlib">Dynamic libraries and program
       plugins</a></span></dt>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.implementation">Implementation notes</a></span></dt>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.macros">Macros rationale</a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.advanced.performance"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Performance">Performance</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp35828208"></a>
+        <a class="indexterm" name="idp36105520"></a>
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -37,7 +40,7 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp35831248"></a>
+          <a class="indexterm" name="idp36108544"></a>
         </p>
 <p>
           The performance of messages is indeed slower than regular function calls
@@ -65,7 +68,7 @@
           So, generally speaking if the programmer doesn't take special care to achieve
           cache locality for their object lists, a message call is about 2 times
           slower than a regular method call and about 1.3 times slower than a virtual
-          call and abotut as fast as a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code>
+          call and about as fast as a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code>
           call, which again can be called negligible.
         </p>
 <p>
@@ -471,7 +474,7 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp35946448"></a>
+          <a class="indexterm" name="idp36223936"></a>
         </p>
 <p>
           An object mutation can be a relatively slow operation.
@@ -716,7 +719,7 @@
 <a name="boost_mixin.advanced.allocators"></a><a class="link" href="advanced.html#boost_mixin.advanced.allocators" title="Using custom allocators">Using custom allocators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp36009968"></a>
+        <a class="indexterm" name="idp36287504"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/allocators.cpp" target="_top">allocators.cpp</a>)
@@ -728,14 +731,14 @@
 <p>
         The library allocates some memory on initialization, which happens at a global
         scope &#8211; before the entry point of a program. It also has some allocations
-        which are for objects with a very short lifetime. Currently those are not
+        which are for instances with a very short lifetime. Currently those are not
         covered by the allocators.
       </p>
 <p>
         What you can control with the custom allocators is the new memory allocated
-        for object instances - their internal mixin data. You can assign a global
-        allocator to the library and you could also set individual allocators per
-        mixin type.
+        for <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code> instances - their internal mixin
+        data. You can assign a global allocator to the library and you can also set
+        individual allocators per mixin type.
       </p>
 <p>
         First let's see how you can create a global allocator. Let's assume you have
@@ -750,7 +753,7 @@
 <p>
       </p>
 <p>
-        To create a global allocator you need to create a class derived from <code class="computeroutput"><span class="identifier">global_allocator</span></code> and override its virtual
+        To create a global allocator, you need to create a class derived from <code class="computeroutput"><span class="identifier">global_allocator</span></code> and override its virtual
         methods.
       </p>
 <p>
@@ -783,7 +786,7 @@
 <p>
       </p>
 <p>
-        The other two methods you need to overload, allocate and deallocate the memory
+        The other two methods you need to overload allocate and deallocate the memory
         for an actual mixin class instance. As you may have already read, the buffer
         allocated for a mixin instance is bigger than needed because the library
         stores a pointer to the owning object immediately before the memory used
@@ -791,7 +794,8 @@
       </p>
 <p>
         That's why this function is not as simple as the one for the mixin data array.
-        It has to conform to the mixin (and also <code class="computeroutput"><span class="identifier">object</span><span class="special">*</span></code>) alignment.
+        It has to conform to the mixin (and also <code class="computeroutput"><span class="identifier">object</span></code>
+        pointer) alignment.
       </p>
 <p>
 </p>
@@ -873,7 +877,7 @@
       </p>
 <p>
         First, a mixin instance allocator is not necessarily bound to a concrete
-        mixin type. You can can the same instance of such an allocator set for many
+        mixin type. You can have the same instance of such an allocator set for many
         mixins (which would be a common use of a per-frame allocator), but for our
         example let's create one that <span class="emphasis"><em>is</em></span> bound to an instance.
         We will make it a template class because the code for each mixin type will
@@ -992,7 +996,7 @@
         <code class="computeroutput"><span class="identifier">dead_character</span></code> which implements
         all those the messages with a higher priority than the rest of the mixins.
         Since every object that has a <code class="computeroutput"><span class="identifier">dead_character</span></code>
-        mixin will be destroyed by the end of the frame, it will be save to use the
+        mixin will be destroyed by the end of the frame, it will be safe to use the
         per-frame allocator for it.
       </p>
 <p>
@@ -1014,10 +1018,10 @@
 <p>
       </p>
 <p>
-        Now we define the mixin so that is uses the allocator, we just need to add
-        it with <code class="computeroutput"><span class="special">&amp;</span></code> to the mixin feature
-        list, just like we add messages. There are two ways to do so. First we could
-        do it like this
+        Now we define the mixin so that it uses the allocator, we just need to add
+        it with "<code class="computeroutput"><span class="special">&amp;</span></code>" to
+        the mixin feature list, just like we add messages. There are two ways to
+        do so. The first one would be to do it like this:
       </p>
 <pre class="programlisting"><span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">dead_character</span><span class="special">,</span> <span class="special">...</span> <span class="special">&amp;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="identifier">die_msg</span><span class="special">)</span>
     <span class="special">&amp;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">per_frame_allocator</span><span class="special">&lt;</span><span class="identifier">dead_character</span><span class="special">&gt;&gt;());</span>
@@ -1061,6 +1065,36 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.arity"></a><a class="link" href="advanced.html#boost_mixin.advanced.arity" title="Having messages with more arguments">Having messages with more
+      arguments</a>
+</h3></div></div></div>
+<p>
+        Currently the maximum number of arguments you can have in a message is:
+      </p>
+<p>
+        4
+      </p>
+<p>
+        There simply is no message declaration macro for messages with more. If you
+        need macros for messages with more arguments, you can do so, without having
+        to rebuild the library.
+      </p>
+<p>
+        In your Boost.Mixin installation, in the <code class="computeroutput"><span class="identifier">gen</span></code>
+        directory you will see a file, named <code class="computeroutput"><span class="identifier">arity</span></code>.
+        It is a text file with a single number in it. Edit the file, setting the
+        number to whichever value you need. Then run the script <code class="computeroutput"><span class="identifier">gen_message_macros</span><span class="special">.</span><span class="identifier">rb</span></code> (you
+        will need a Ruby interpreter to do so). It will generate the file <code class="computeroutput"><span class="identifier">include</span><span class="special">/</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mixin</span><span class="special">/</span><span class="identifier">gen</span><span class="special">/</span><span class="identifier">message_macros</span><span class="special">.</span><span class="identifier">ipp</span></code> with
+        macros for messages with 0 to <span class="emphasis"><em>arity</em></span> arguments.
+      </p>
+<p>
+        If you use an include directory for Boost.Mixin diferent from the one in
+        your installation, you will have to manually copy the newly generated message
+        macros file over the one you use.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.advanced.dynlib"></a><a class="link" href="advanced.html#boost_mixin.advanced.dynlib" title="Dynamic libraries and program plugins">Dynamic libraries and program
       plugins</a>
 </h3></div></div></div>
@@ -1070,7 +1104,7 @@
       </p>
 <p>
         An interesting thing which you can accomplish with the library is to have
-        optional plugins &#8211; dynamic libraries that aren't liked with the executable
+        optional plugins &#8211; dynamic libraries that aren't linked with the executable
         but may or may not be present, and if they are, they are being loaded dynamically
         (with <code class="computeroutput"><span class="identifier">LoadLibrary</span></code> or <code class="computeroutput"><span class="identifier">dlopen</span></code>).
       </p>
@@ -1081,16 +1115,16 @@
 <p>
         For example this may be very useful for an engineering CAD system that could
         potentially have many different optional plugins for its different needs.
-        Say a plugin that extends the buildings with electrical wiring, could simply
-        export a mixin called <code class="computeroutput"><span class="identifier">electrical_wiring</span></code>
+        Say, a plugin that extends the buildings with electrical wiring could simply
+        mutate objects, adding a mixin mixin called <code class="computeroutput"><span class="identifier">electrical_wiring</span></code>
         that contains the appropriate functionality.
       </p>
 <p>
         There is only one thing you need to remember when you're exporting mixins
         or messages from a dynamic library: to use the export macros: <code class="computeroutput"><span class="identifier">BOOST_DECLARE_EXPORTED_MIXIN</span></code> and <code class="computeroutput"><span class="identifier">BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N</span></code>. They
         are exactly like their regular counterparts but for their first argument,
-        which is the compiler specific export symbol (say <code class="computeroutput"><span class="identifier">__declspec</span><span class="special">(</span><span class="identifier">dllexport</span><span class="special">)</span></code> for Visual C++ or just <code class="computeroutput"><span class="identifier">BOOST_SYMBOL_EXPORT</span></code>
-        if you're using Boost.
+        which is the compiler specific export symbol (<code class="computeroutput"><span class="identifier">__declspec</span><span class="special">(</span><span class="identifier">dllexport</span><span class="special">)</span></code> for Visual C++ or just <code class="computeroutput"><span class="identifier">BOOST_SYMBOL_EXPORT</span></code>
+        if you're using Boost).
       </p>
 <p>
         <a class="link" href="examples.html#boost_mixin.examples.multi_dll" title="Multi DLL">One of the examples</a>
@@ -1102,6 +1136,10 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_mixin.advanced.implementation"></a><a class="link" href="advanced.html#boost_mixin.advanced.implementation" title="Implementation notes">Implementation notes</a>
 </h3></div></div></div>
+<p>
+        Here are some explanations that may help you make sense of the code of the
+        library if you need to read it:
+      </p>
 <p>
         The overall structure of the library is based on a main class called <code class="computeroutput"><span class="identifier">domain</span></code> which holds all registered mixins
         and messages, and keeps the type registry.
@@ -1123,8 +1161,8 @@
 <p>
           <code class="computeroutput"><span class="identifier">domain</span><span class="special">::</span><span class="identifier">register_mixin_type</span></code> is a template method
           and it will appropriately fill a structure, containing the mixin type information
-          &#8211; name, constructor, destructor, id, and will also call the generated
-          function that registers its features.
+          &#8211; name, constructor, destructor, id &#8211; and will also call
+          the generated function that registers its features.
         </p>
 <p>
           The feature registration is composed of two parts: one global - to introduce
@@ -1138,13 +1176,13 @@
 <p>
           The local feature registration is performed by the class <code class="computeroutput"><span class="identifier">feature_parser</span></code> that has overloads for
           the supported mixin features: currently messages and allocators. The allocator
-          registration is simple it just sets the allocator member in the mixin type
-          information structure to the appropriate value.
+          registration is simple. It just sets the allocator member in the mixin
+          type information structure to the appropriate value.
         </p>
 <p>
           The message registration generates a caller function, based on the specific
           mixin. This caller function is a specific instantiation of a template function
-          which is generated by the message declaration macros. It's template parameters
+          which is generated by the message declaration macros. Its template parameters
           are the mixin type and the actual member function in the mixin. The caller
           is then cast to <code class="computeroutput"><span class="keyword">void</span> <span class="special">(*)()</span></code>
           to be stored in a vector in the mixin type information structure along
@@ -1204,13 +1242,13 @@
           datas.
         </p>
 <p>
-          When a type is requested for an object it's first checked whether such
+          When a type is requested for an object, first it's checked whether such
           a combination of mixins is an existing type. If not a new object type is
           created. This fills the mixin information bitset, vector and cross indexing
           array and then fills the call table. It will allocate a single buffer for
           all multicast messages within that type. When filling the call table the
           type creation process will choose the top priority unicast messages and
-          sort the multicasts by priority. It will throw and exception if same-priority
+          sort the multicasts by priority. It will throw an exception if same-priority
           unicasts exist.
         </p>
 <p>
@@ -1234,16 +1272,119 @@
           by the message declaration macros.
         </p>
 <p>
-          The call consists of the following steps: * Get the message info through
-          a function generated by the message definition macro * Get the call table
-          entry for this message from the object's type * Get the mixin info and
-          the caller function from the call table entry * Get the mixin pointer from
-          the object, based on the mixin info * Cast the caller function from <code class="computeroutput"><span class="keyword">void</span> <span class="special">(*)()</span></code>
-          to the appropriate signature. * Call the caller function for the mixin
-          pointer.
+          The call consists of the following steps:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Get the message info through a function generated by the message definition
+              macro
+            </li>
+<li class="listitem">
+              Get the call table entry for this message from the object's type
+            </li>
+<li class="listitem">
+              Get the mixin info and the caller function from the call table entry
+            </li>
+<li class="listitem">
+              Get the mixin pointer from the object, based on the mixin info
+            </li>
+<li class="listitem">
+              Cast the caller function from <code class="computeroutput"><span class="keyword">void</span>
+              <span class="special">(*)()</span></code> to the appropriate signature.
+            </li>
+<li class="listitem">
+              Call the caller function for the mixin pointer.
+            </li>
+</ul></div>
+<p>
+          For multicasts there is a <code class="computeroutput"><span class="keyword">for</span></code>
+          loop for the last four steps.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.macros"></a><a class="link" href="advanced.html#boost_mixin.advanced.macros" title="Macros rationale">Macros rationale</a>
+</h3></div></div></div>
+<p>
+        Many people, upon seeing Boost.Mixin for the first time, have expressed a
+        concern with the seemingly excessive amount of macros the library's users
+        are required to write.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.macros.mixin"></a><a class="link" href="advanced.html#boost_mixin.advanced.macros.mixin" title="Mixin definition and declaration macros">Mixin definition
+        and declaration macros</a>
+</h4></div></div></div>
+<p>
+          The mixin definition and declaration macros are often mentioned as easy
+          to remove, and indeed there is a way to reproduce almost all of their functionality
+          without any macros. However not all of it can be reproduced.
         </p>
 <p>
-          For multicasts there is a for loop for the last four steps.
+          One of the key features those macros provide is the global instantiation.
+          Without them, the users will be required to provide explicit entry points
+          for their subsystems and dynamic libraries, where they will have to call
+          some mixin initialization functions. This is not as simple as it sounds.
+          Here is a list of downsides that such explicit entry points may introduce:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              They will be compilation dependency "focal points": All mixins
+              classes introduced by a subsystem would need to be visible from there,
+              which means recompilations on every change, and more maintenance for
+              the code.
+            </li>
+<li class="listitem">
+              The users will have to be extra careful not to add mixins to objects
+              before their initialization is called.
+            </li>
+<li class="listitem">
+              Duplicated instances of the mixin data structures will exist in different
+              modules (executable and dynamic libraries). In order to deal with this,
+              the domain would need to store multiple copies of info for the same
+              mixin. This will add a small runtime cost to the message calls and
+              mutations.
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.macros.message"></a><a class="link" href="advanced.html#boost_mixin.advanced.macros.message" title="Message definition and declaration macros">Message definition
+        and declaration macros</a>
+</h4></div></div></div>
+<p>
+          The message macros are most likely impossible to remove. Unlike the mixin
+          ones, each of them generates many lines of code. More than a hundred.
+        </p>
+<p>
+          Probably the only way to remove them completely, would be to make the message
+          calls by string. This will cause the calls to make hash table look-ups
+          (or worse) and will prohibitively slow them down. Such a scenario will
+          also reflect on the way mixins are registerd. The mixin messages would
+          have to be set through something that resembles <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind</span></code>
+          adding yet more complexity to the user code.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_mixin.advanced.macros.moc"></a><a class="link" href="advanced.html#boost_mixin.advanced.macros.moc" title="External custom preprocessor">External custom preprocessor</a>
+</h4></div></div></div>
+<p>
+          Is is possible (and probably part of the future of the library) to create
+          an external tool that makes the user code a bit nicer. It would resemble
+          <a href="http://qt-project.org/doc/qt-4.8/moc.html" target="_top">The Meta-Object
+          Compiler of Qt</a>, and similarly, would require a custom preprocessing
+          step of the users' code.
+        </p>
+<p>
+          Such a tool could theoretically solve more of the library's problems, like
+          the need to call <code class="computeroutput"><span class="identifier">message</span><span class="special">(</span><span class="identifier">object</span><span class="special">)</span></code> instead of <code class="computeroutput"><span class="identifier">object</span><span class="special">.</span><span class="identifier">message</span><span class="special">()</span></code> at the very least, and many more...
+        </p>
+<p>
+          Still, such an approach also has many opponents, as the code you write
+          when you use it becomes effectively not-C++, but something that can be
+          called a C++ dialect.
         </p>
 </div>
 </div>

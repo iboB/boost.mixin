@@ -33,7 +33,7 @@
 <a name="boost_mixin.glossary.object"></a><a class="link" href="glossary.html#boost_mixin.glossary.object" title="Objects">Objects</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34265312"></a>
+        <a class="indexterm" name="idp34532080"></a>
       </p>
 <p>
         An object in terms of Boost.Mixin is an instance of the class <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>. By itself it's not much more than
@@ -64,7 +64,7 @@
 <a name="boost_mixin.glossary.mixin"></a><a class="link" href="glossary.html#boost_mixin.glossary.mixin" title="Mixins">Mixins</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34282752"></a>
+        <a class="indexterm" name="idp34549520"></a>
       </p>
 <p>
         A mixin is a class used as a "building block" for an object. In
@@ -93,13 +93,13 @@
 <a name="boost_mixin.glossary.message"></a><a class="link" href="glossary.html#boost_mixin.glossary.message" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34289904"></a>
+        <a class="indexterm" name="idp34556672"></a>
       </p>
 <p>
         Messages in Boost.Mixin are a way of calling the methods of the mixins that
         comprise an object. You can think of messages as the methods of an object.
         Unfortunately C++ doesn't allow extension methods (as for example C# does)
-        and to call an object's message, you need to write <code class="computeroutput"><span class="identifier">message</span><span class="special">(</span><span class="identifier">object</span><span class="special">,</span> <span class="identifier">params</span><span class="special">...)</span></code>, instead of the much nicer <code class="computeroutput"><span class="identifier">object</span><span class="special">-&gt;</span><span class="identifier">message</span><span class="special">(</span><span class="identifier">params</span><span class="special">...)</span></code>.
+        and to call an object's message, you need to write <code class="computeroutput"><span class="identifier">message</span><span class="special">(</span><span class="identifier">object</span><span class="special">,</span> <span class="identifier">params</span><span class="special">...)</span></code>, instead of the much nicer <code class="computeroutput"><span class="identifier">object</span><span class="special">.</span><span class="identifier">message</span><span class="special">(</span><span class="identifier">params</span><span class="special">...)</span></code>.
       </p>
 <p>
         The methods from your mixins, that will also become messages, cannot be inferred
@@ -114,7 +114,7 @@
 <a name="boost_mixin.glossary.message.multicast"></a><a class="link" href="glossary.html#boost_mixin.glossary.message.multicast" title="Multicast messages">Multicast messages</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34300928"></a>
+          <a class="indexterm" name="idp34567696"></a>
         </p>
 <p>
           One key difference between messages and methods is the multicast mechanism,
@@ -123,10 +123,11 @@
           message.
         </p>
 <p>
-          In the regular case one (at random) of those mixin will handle it. But
-          if you define the message as a <span class="emphasis"><em>multicast</em></span>, all of them
-          will. This is very useful for cases such as information gathering (say
-          with a message like <code class="computeroutput"><span class="identifier">trace</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">)</span></code>)
+          In the regular case one (based on priority) of those mixin will handle
+          it. But if you define the message as a <span class="emphasis"><em>multicast</em></span>,
+          all of them will. This is very useful for cases such as information gathering
+          (say with a message like <code class="computeroutput"><span class="identifier">trace</span>
+          <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">)</span></code>)
         </p>
 </div>
 </div>
@@ -135,8 +136,8 @@
 <a name="boost_mixin.glossary.priority"></a><a class="link" href="glossary.html#boost_mixin.glossary.priority" title="Message priority">Message priority</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34310288"></a>
- <a class="indexterm" name="idp34311040"></a>
+        <a class="indexterm" name="idp34577056"></a>
+ <a class="indexterm" name="idp34577808"></a>
       </p>
 <p>
         A message priority can be used for both unicast and multicast messages. In
@@ -145,9 +146,8 @@
       </p>
 <p>
         For a unicast (regular) message, the mixin with the highest message priority
-        will handle it. If multiple mixins have the same priority, it cannot be determined
-        which one of the it will be. It will be the same issue as the order of global
-        object initialization.
+        will handle it. If multiple mixins have the same top priority, a runtime
+        error will be triggered.
       </p>
 <p>
         For a multicast message, the order of the mixins that handle it will be
@@ -162,8 +162,8 @@
 <a name="boost_mixin.glossary.combinators"></a><a class="link" href="glossary.html#boost_mixin.glossary.combinators" title="Multicast result combinators">Multicast result combinators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34318224"></a>
- <a class="indexterm" name="idp34318976"></a>
+        <a class="indexterm" name="idp34584896"></a>
+ <a class="indexterm" name="idp34585648"></a>
       </p>
 <p>
         When calling multicast messages, their return values are lost. Naturally,
@@ -185,7 +185,7 @@
 <a name="boost_mixin.glossary.mutation"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutation" title="Mutations">Mutations</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34326512"></a>
+        <a class="indexterm" name="idp34593184"></a>
       </p>
 <p>
         A mutation changes the type of an object. You have to use some kind of mutator
@@ -199,7 +199,7 @@
 <a name="boost_mixin.glossary.mutation.mrules"></a><a class="link" href="glossary.html#boost_mixin.glossary.mutation.mrules" title="Mutation rules">Mutation rules</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34329808"></a>
+          <a class="indexterm" name="idp34596480"></a>
         </p>
 <p>
           A mutation rule is set globally applied to all mutations. A mutation rule
@@ -209,6 +209,10 @@
 <p>
           A very common mutation rule is to have mutually exclusive mixins, where
           when you add one, the other is removed.
+        </p>
+<p>
+          The library offers some common mutation rules, but users can easily define
+          their own custom ones.
         </p>
 </div>
 </div>

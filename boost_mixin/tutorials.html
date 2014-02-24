@@ -30,13 +30,13 @@
 <a name="boost_mixin.tutorials.messages"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.messages" title="Messages">Messages</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34335008"></a>
+        <a class="indexterm" name="idp34602208"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/messages.cpp" target="_top">messages.cpp</a>)
       </p>
 <p>
-        For this tutorial will look a simplified piece of code from an imaginary
+        For this tutorial we'll look at a simplified piece of code from an imaginary
         game. First let's define the mixin classes that we're going to use.
       </p>
 <p>
@@ -189,9 +189,9 @@
       </p>
 <p>
         A message overload will require you to think of a special name, that's used
-        to refer to that message, different from the name of the method. Don't worry
-        though the stand-alone function that's generated for the message call itself
-        will have the appropriate name (the method's name).
+        to refer to that message, different from the name of the method. Don't worry.
+        The stand-alone function that's generated for the message call itself will
+        have the appropriate name (the method's name).
       </p>
 <p>
         The macro used for message overloads is the same as before with <code class="computeroutput"><span class="identifier">OVERLOAD</span></code> at the end. The other difference
@@ -250,25 +250,24 @@
         above as mixins.
       </p>
 <p>
-        Normally if the our program is spread across several files, you should use
-        <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span></code> to declare
-        that those classes are mixins, but since our program is in a single file,
-        it can be omitted. All of its functionality is also encompassed by <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>.
+        Normally if our program is spread across several files, you should use <code class="computeroutput"><span class="identifier">BOOST_DECLARE_MIXIN</span></code> to declare that those
+        classes are mixins, but since our program is in a single file, it can be
+        omitted. All of its functionality is also in <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>.
       </p>
 <p>
         We met the <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>
         macro from the basic example. It has two arguments &#8211; the mixin/class
-        name and it's feature list. The feature list is a ampersand separated list
-        symbols that represent the mixin's features and can contain many things but
-        for now we'll focus on messages &#8211; the ones this mixin is supposed
+        name and its feature list. The feature list is a ampersand separated list
+        of symbols that represent the mixin's features. It can contain many things,
+        but for now we'll focus on messages &#8211; the ones this mixin is supposed
         to handle.
       </p>
 <p>
-        The special thing here, is that in order to distinguish the stand-alone function
+        The special thing here is that in order to distinguish the stand-alone function
         that's generated to make message calls from the message, the library defines
         a special symbol for each message. This symbol is used in the mixin feature
         list and when checking whether a mixin implements a message. The symbol is
-        the message postfixed with <code class="computeroutput"><span class="identifier">_msg</span></code>.
+        the message name postfixed with <code class="computeroutput"><span class="identifier">_msg</span></code>.
       </p>
 <p>
         Let's define three of our simple mixins along with their feature (message)
@@ -289,19 +288,19 @@
         we'd like to do something special with their message lists.
       </p>
 <p>
-        <a class="indexterm" name="idp34552512"></a>
+        <a class="indexterm" name="idp34819328"></a>
       </p>
 <p>
         First, about <code class="computeroutput"><span class="identifier">has_id</span></code>. What
         we'd like to do is display its info first, because the object id is usually
-        the first thing you need about an object. So in order to achieve this the
+        the first thing you need about an object. So in order to achieve this, the
         notion of message priority is introduced. Each message in a mixin gets a
-        priority of 0 by default. For multicast messages like <code class="computeroutput"><span class="identifier">trace</span></code>
+        priority of 0 by default. For multicast messages, like <code class="computeroutput"><span class="identifier">trace</span></code>,
         the priority will affect the order in which they're executed. The higher
         priority a multicast message has in a mixin, the earlier it will be executed.
         So if we set the priority of <code class="computeroutput"><span class="identifier">trace</span></code>
         in <code class="computeroutput"><span class="identifier">has_id</span></code> to something greater
-        than zero, we'll have a guarantee that when the object info is displayed
+        than zero, we'll have a guarantee that when the object info is displayed,
         its id will come first.
       </p>
 <p>
@@ -312,7 +311,7 @@
       </p>
 <p>
         For unicast messages the priority determines which of the potentially many
-        mixin candidates will handle the message. Again mixins with higher priority
+        mixin candidates will handle the message. Again, mixins with higher priority
         for a message are considered better candidates.
       </p>
 <p>
@@ -320,7 +319,7 @@
         in <code class="computeroutput"><span class="identifier">stunned_ai</span></code> to something
         greater than zero, then adding this mixin to an object that already has a
         think message (like objects with <code class="computeroutput"><span class="identifier">enemy_ai</span></code>
-        or <code class="computeroutput"><span class="identifier">ally_ai</span></code>) will hide it
+        or <code class="computeroutput"><span class="identifier">ally_ai</span></code>), will hide it
         previous implementation and override it with the one from <code class="computeroutput"><span class="identifier">stunned_ai</span></code>.
         If we remove the mixin, the previous implementation will be exposed and will
         resume handling the <code class="computeroutput"><span class="identifier">think</span></code>
@@ -425,7 +424,7 @@
 <a name="boost_mixin.tutorials.mutation"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation" title="Object mutation">Object mutation</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp34690400"></a>
+        <a class="indexterm" name="idp34957216"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/mutation.cpp" target="_top">mutation.cpp</a>)
@@ -464,7 +463,7 @@
       </p>
 <p>
         You're probably familiar from the previous examples with the most basic way
-        to mutate an object, so let's use it to give it a type.
+        to mutate an object, so let's use it to give this one a type.
       </p>
 <p>
 </p>
@@ -490,7 +489,7 @@
         Using the <code class="computeroutput"><span class="identifier">mutate</span></code> class is
         probably the most common way in which you'll mutate objects in Boost.Mixin.
         Yes, <code class="computeroutput"><span class="identifier">mutate</span></code> is not a function
-        but a class, that has methods <code class="computeroutput"><span class="identifier">remove</span></code>
+        but a class. It has methods <code class="computeroutput"><span class="identifier">remove</span></code>
         and <code class="computeroutput"><span class="identifier">add</span></code>, and in its destructor
         it applies the actual mutation.
       </p>
@@ -601,8 +600,8 @@
         be triggered.
       </p>
 <p>
-        To apply a type template to an object you may pass it as a parameter to its
-        constructor.
+        To apply a type template to an object, you may pass it as a parameter to
+        its constructor.
       </p>
 <p>
 </p>
@@ -679,7 +678,7 @@
       </p>
 <p>
         Remember that the only time you can afford to use a same type mutator, is
-        when <span class="emphasis"><em>all</em></span> objects that need to be mutated with it have
+        when <span class="emphasis"><em>all</em></span> objects that need to be mutated with it are
         composed of the same set of mixins.
       </p>
 <div class="section">
@@ -687,14 +686,14 @@
 <a name="boost_mixin.tutorials.mutation.mrules"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.mutation.mrules" title="Mutation rules">Mutation rules</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp34870992"></a>
+          <a class="indexterm" name="idp35137728"></a>
         </p>
 <p>
           (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/mutation_rules.cpp" target="_top">mutation_rules.cpp</a>)
         </p>
 <p>
           Let's define some mixins that may be present in a CAD system specialized
-          for furniture design. Like the previous example we won't concern ourselves
+          for furniture design. Like in the previous example, we won't concern ourselves
           with any particular messages.
         </p>
 <p>
@@ -777,15 +776,14 @@
 <p>
         </p>
 <p>
-          Now each mutation after this line, will add <code class="computeroutput"><span class="identifier">furniture</span></code>
+          Now each mutation after this line will add <code class="computeroutput"><span class="identifier">furniture</span></code>
           to the objects (even if it's not been explicitly added) and also if a mutation
-          tries to remove the mixin from the object it won't be allowed. There won't
-          be an error or a warning. The library will silently ignore the request
-          to remove <code class="computeroutput"><span class="identifier">furniture</span></code>, or
-          any other mixin, that's been added as mandatory. Note, that if a mutation
-          tries to remove <code class="computeroutput"><span class="identifier">furniture</span></code>,
-          and also adds and removes other mixins, only the part removing the mandatory
-          mixin will be ignored. The others will be performed.
+          tries to remove the <code class="computeroutput"><span class="identifier">furniture</span></code>
+          mixin from the object, it won't be allowed. There won't be an error or
+          a warning. The library will silently ignore the request to remove <code class="computeroutput"><span class="identifier">furniture</span></code>, or any other mixin that's
+          been added as mandatory. Note, that if a mutation tries to remove <code class="computeroutput"><span class="identifier">furniture</span></code>, and also adds and removes
+          other mixins, only the part removing the mandatory mixin will be ignored.
+          The others will be performed.
         </p>
 <p>
           Another common case for using <code class="computeroutput"><span class="identifier">mandatory_mixin</span></code>
@@ -810,10 +808,10 @@
 <p>
         </p>
 <p>
-          After the previous line of code, any mutation that tries to add <code class="computeroutput"><span class="identifier">ofml_serialization</span></code> won't be able to,
-          and all mutations will try to remove it if it's present in an object. Again,
-          as was the case before, if a mutation does many things, only the part from
-          it, trying to add <code class="computeroutput"><span class="identifier">ofml_serialization</span></code>
+          After that line of code, any mutation that tries to add <code class="computeroutput"><span class="identifier">ofml_serialization</span></code>
+          won't be able to, and all mutations will try to remove it if it's present
+          in an object. Again, as was the case before, if a mutation does many things,
+          only the part from it, trying to add <code class="computeroutput"><span class="identifier">ofml_serialization</span></code>
           will be silently ignored.
         </p>
 <p>
@@ -836,7 +834,7 @@
         </p>
 <p>
           You may add as many mutually exclusive mixins as you wish. If you had,
-          say, <code class="computeroutput"><span class="identifier">plastic_frame</span></code> you
+          say, <code class="computeroutput"><span class="identifier">plastic_frame</span></code>, you
           could also add it to that list.
         </p>
 <p>
@@ -956,17 +954,16 @@
 <p>
         </p>
 <p>
-          And after this line, thanks to our custom mutation rule <code class="computeroutput"><span class="identifier">o</span></code>
-          will also have its <code class="computeroutput"><span class="identifier">has_doors</span></code>
+          And after this line, thanks to our custom mutation rule, the object <code class="computeroutput"><span class="identifier">o</span></code> will also have its <code class="computeroutput"><span class="identifier">has_doors</span></code>
           mixin removed.
         </p>
 <p>
-          To see all ways in which you can change a mutation from the mutation rule
+          To see all ways in which you can change a mutation from the mutation rule,
           check out the documentation entry on <code class="computeroutput"><span class="identifier">object_type_mutation</span></code>.
         </p>
 <p>
           Lastly, there are two important pieces of information about mutation rules
-          you need to know.
+          that you need to know.
         </p>
 <p>
           First, note that the library will be responsible for freeing the memory
@@ -997,7 +994,7 @@
 <a name="boost_mixin.tutorials.combinators"></a><a class="link" href="tutorials.html#boost_mixin.tutorials.combinators" title="Multicast result combinators">Multicast result combinators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp35121472"></a>
+        <a class="indexterm" name="idp35405840"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/combinators.cpp" target="_top">combinators.cpp</a>)
@@ -1136,7 +1133,7 @@
 <p>
       </p>
 <p>
-        As you may have noticed all our messages are functions that have a return
+        As you may have noticed, all of our messages are functions that have a return
         value. You may have tried making multicast messages with non-void functions
         and noticed that the generated message function <span class="emphasis"><em>is</em></span> void
         and doesn't return anything.
@@ -1170,10 +1167,9 @@
         mixins were visible, then we could have used the built-in combinator <code class="computeroutput"><span class="identifier">boolean_and</span></code>.
       </p>
 <p>
-        Now let's another built-in combinator &#8211; <code class="computeroutput"><span class="identifier">sum</span></code>.
+        Now let's look at another built-in combinator &#8211; <code class="computeroutput"><span class="identifier">sum</span></code>.
         You may have guessed that it's a sum of all values returned by the messages.
-        In our case we may want to check how many elements are in the entire object
-        like this:
+        In our case we may want to check how many elements are there in an object:
       </p>
 <p>
 </p>
@@ -1273,7 +1269,7 @@
         return value of its own.
       </p>
 <p>
-        To do this is only slightly more complicated the the previous, return parameter
+        To do this is only slightly more complicated the the previous return parameter
         case.
       </p>
 <p>
@@ -1398,17 +1394,17 @@
           same common parent is a good idea and Boost.Mixin will work exactly the
           same way if you do this. However there is a pitfall in this case. It happens
           when you have multiple inheritance. Due to the special nature in which
-          the library arranges the memory internally if a mixin type has more than
-          one parent using <code class="computeroutput"><span class="identifier">bm_this</span></code>
-          in one of those parents might lead to crashes.
+          the library arranges the memory internally, if a mixin type has more than
+          one parent, using <code class="computeroutput"><span class="identifier">bm_this</span></code>
+          in some of those parents might lead to crashes.
         </p>
 <p>
-          More precisely, when the library allocates memory for a mixin type it allocates
-          a buffer that is slightly bigger than needed and puts the pointer to the
-          owning object at its front. What <code class="computeroutput"><span class="identifier">bm_this</span></code>
+          More precisely, when the library allocates memory for a mixin type, it
+          allocates a buffer that is slightly bigger than needed and puts the pointer
+          to the owning object at its front. What <code class="computeroutput"><span class="identifier">bm_this</span></code>
           does is actually an offset from <code class="computeroutput"><span class="keyword">this</span></code>
           with the appropriate number of bytes for <code class="computeroutput"><span class="identifier">object</span><span class="special">*</span></code>. So if a parent of your mixin type, other
-          than the first calls <code class="computeroutput"><span class="identifier">bm_this</span></code>
+          than the first, calls <code class="computeroutput"><span class="identifier">bm_this</span></code>,
           it will end up returning an invalid pointer to the owning object.
         </p>
 <p>
@@ -1526,8 +1522,8 @@
                     Solution 1: Define the mixin with <code class="computeroutput"><span class="identifier">BOOST_DEFINE_MIXIN</span></code>
                   </li>
 <li class="listitem">
-                    Problem 2: A mixin is being used from a dynamic library, that
-                    hasn't been exported correctly.
+                    Problem 2: A mixin is being used from a dynamic library and hasn't
+                    been exported correctly.
                   </li>
 <li class="listitem">
                     Solution 2: Declare the mixin properly as <code class="computeroutput"><span class="identifier">BOOST_DECLARE_EXPORTED_MIXIN</span></code>
@@ -1545,7 +1541,7 @@
                     Solution 1: Define the message with <code class="computeroutput"><span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span></code>
                   </li>
 <li class="listitem">
-                    Problem 2 : A message is being used from a dynamic library, that
+                    Problem 2 : A message is being used from a dynamic library and
                     hasn't been exported correctly.
                   </li>
 <li class="listitem">
