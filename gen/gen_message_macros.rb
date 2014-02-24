@@ -8,8 +8,8 @@
 
 # script generating message declaration macros
 
-MAX_ARITY = 5
-OUT_FILE = '../../../boost/mixin/gen/message_macros.ipp'
+MAX_ARITY = File.open('arity').read.strip.to_i + 1
+OUT_FILE = '../include/boost/mixin/gen/message_macros.ipp'
 
 HEADER = <<DATA
 //
