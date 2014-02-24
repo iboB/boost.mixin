@@ -293,6 +293,28 @@ Here is a sample test result:
 
 [endsect]
 
+[section:arity Having messages with more arguments]
+
+Currently the maximum number of arguments you can have in a message is:
+[include ../gen/arity]
+
+There simply is no message declaration macro for messages with more. If you need
+macros for messages with more arguments, you can do so, without having to
+rebuild the library.
+
+In your Boost.Mixin installation, in the `gen` directory you will see a file,
+named `arity`. It is a text file with a single number in it. Edit the file,
+setting the number to whichever value you need. Then run the script
+`gen_message_macros.rb` (you will need a Ruby interpreter to do so). It will
+generate the file `include/boost/mixin/gen/message_macros.ipp` with macros for
+messages with 0 to /arity/ arguments.
+
+If you use an include directory for Boost.Mixin diferent from the one in your
+installation, you will have to manually copy the newly generated message macros
+file over the one you use.
+
+[endsect]
+
 [section:dynlib Dynamic libraries and program plugins]
 
 As long as the library itself is dynamic (`.dll` on Windows or `.so` on Unix or
