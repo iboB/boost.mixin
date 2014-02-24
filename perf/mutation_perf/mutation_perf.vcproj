@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\include&quot;;C:\Libraries\boost_1_49_0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\include&quot;;C:\Libraries\boost_1_53_0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_MIXIN_DYN_LINK=1"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -117,8 +117,8 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\include&quot;;C:\Libraries\boost_1_49_0"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\include&quot;;C:\Libraries\boost_1_53_0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;BOOST_MIXIN_DYN_LINK=1"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -172,6 +172,14 @@
 	<Files>
 		<File
 			RelativePath=".\common.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\custom_alloc_mixin.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\custom_alloc_mixin.hpp"
 			>
 		</File>
 		<File
