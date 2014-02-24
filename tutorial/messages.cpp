@@ -14,7 +14,7 @@ using namespace std;
 
 //[tutorial_messages_A
 /*`
-For this tutorial will look a simplified piece of code from an imaginary game.
+For this tutorial we'll look at a simplified piece of code from an imaginary game.
 First let's define the mixin classes that we're going to use.
 
 There's a mixin that's a part from every object of our game. The one that gives
@@ -141,8 +141,8 @@ The last type of message there is meant for overloaded methods. For these we
 need message overloads.
 
 A message overload will require you to think of a special name, that's used to
-refer to that message, different from the name of the method. Don't worry though
-the stand-alone function that's generated for the message call itself will have
+refer to that message, different from the name of the method. Don't worry.
+The stand-alone function that's generated for the message call itself will have
 the appropriate name (the method's name).
 
 The macro used for message overloads is the same as before with `OVERLOAD` at
@@ -185,22 +185,22 @@ BOOST_MIXIN_DEFINE_MESSAGE(set_anim_by_id);
 Great! Now that we have our messages it's time to define the classes from above
 as mixins.
 
-Normally if the our program is spread across several files, you should use
+Normally if our program is spread across several files, you should use
 `BOOST_DECLARE_MIXIN` to declare that those classes are mixins, but since our
 program is in a single file, it can be omitted. All of its functionality is also
-encompassed by `BOOST_DEFINE_MIXIN`.
+in `BOOST_DEFINE_MIXIN`.
 
 We met the `BOOST_DEFINE_MIXIN` macro from the basic example. It has
-two arguments -- the mixin/class name and it's feature list. The feature list is
-a ampersand separated list symbols that represent the mixin's features and can
-contain many things but for now we'll focus on messages -- the ones this mixin
+two arguments -- the mixin/class name and its feature list. The feature list is
+a ampersand separated list of symbols that represent the mixin's features. It can
+contain many things, but for now we'll focus on messages -- the ones this mixin
 is supposed to handle.
 
-The special thing here, is that in order to distinguish the stand-alone function
+The special thing here is that in order to distinguish the stand-alone function
 that's generated to make message calls from the message, the library defines a
 special symbol for each message. This symbol is used in the mixin feature list
 and when checking whether a mixin implements a message. The symbol is the
-message postfixed with `_msg`.
+message name postfixed with `_msg`.
 
 Let's define three of our simple mixins along with their feature (message)
 lists:
@@ -219,24 +219,24 @@ something special with their message lists.
 
 First, about `has_id`. What we'd like to do is display its info first, because
 the object id is usually the first thing you need about an object. So in order
-to achieve this the notion of message priority is introduced. Each message in
-a mixin gets a priority of 0 by default. For multicast messages like `trace` the
+to achieve this, the notion of message priority is introduced. Each message in
+a mixin gets a priority of 0 by default. For multicast messages, like `trace`, the
 priority will affect the order in which they're executed. The higher priority
 a multicast message has in a mixin, the earlier it will be executed. So if we
 set the priority of `trace` in `has_id` to something greater than zero, we'll
-have a guarantee that when the object info is displayed its id will come first.
+have a guarantee that when the object info is displayed, its id will come first.
 */
 
 BOOST_DEFINE_MIXIN(has_id, priority(1, trace_msg));
 
 /*`
 For unicast messages the priority determines which of the potentially many mixin
-candidates will handle the message. Again mixins with higher priority for a
+candidates will handle the message. Again, mixins with higher priority for a
 message are considered better candidates.
 
 So if we set the priority of `think` in `stunned_ai` to something greater than
 zero, then adding this mixin to an object that already has a think message
-(like objects with `enemy_ai` or `ally_ai`) will hide it previous implementation
+(like objects with `enemy_ai` or `ally_ai`), will hide it previous implementation
 and override it with the one from `stunned_ai`. If we remove the mixin, the
 previous implementation will be exposed and will resume handling the `think`
 calls.

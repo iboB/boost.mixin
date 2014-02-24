@@ -13,7 +13,7 @@ using namespace std;
 //[tutorial_mutation_rules_A
 /*`
 Let's define some mixins that may be present in a CAD system specialized for
-furniture design. Like the previous example we won't concern ourselves with any
+furniture design. Like in the previous example, we won't concern ourselves with any
 particular messages.
 
 So, again we have a mixin that we want to be present in every object.
@@ -80,11 +80,11 @@ accomplish this with a single line of code:
 */
     boost::mixin::add_new_mutation_rule(new boost::mixin::mandatory_mixin<furniture>);
 /*`
-Now each mutation after this line, will add `furniture` to the objects (even if
-it's not been explicitly added) and also if a mutation tries to remove the mixin
-from the object it won't be allowed. There won't be an error or a warning. The
+Now each mutation after this line will add `furniture` to the objects (even if
+it's not been explicitly added) and also if a mutation tries to remove the `furniture` mixin
+from the object, it won't be allowed. There won't be an error or a warning. The
 library will silently ignore the request to remove `furniture`, or any other
-mixin, that's been added as mandatory. Note, that if a mutation tries to remove
+mixin that's been added as mandatory. Note, that if a mutation tries to remove
 `furniture`, and also adds and removes other mixins, only the part removing the
 mandatory mixin will be ignored. The others will be performed.
 
@@ -104,7 +104,7 @@ of `mandatory_mixin`. This is the mutation rule `deprecated_mixin`
 
     boost::mixin::add_new_mutation_rule(new boost::mixin::deprecated_mixin<ofml_serialization>);
 /*`
-After the previous line of code, any mutation that tries to add
+After that line of code, any mutation that tries to add
 `ofml_serialization` won't be able to, and all mutations will try to remove it
 if it's present in an object. Again, as was the case before, if a mutation does
 many things, only the part from it, trying to add `ofml_serialization` will be
@@ -125,7 +125,7 @@ helps us do exactly that.
 
 /*`
 You may add as many mutually exclusive mixins as you wish. If you had, say,
-`plastic_frame` you could also add it to that list.
+`plastic_frame`, you could also add it to that list.
 
 Any object mutated after that rule is set will implicitly remove any of the
 mutually exclusive mixins if another is added.
@@ -213,14 +213,14 @@ the object.
         .remove<container>();
 
 /*`
-And after this line, thanks to our custom mutation rule `o` will also have
+And after this line, thanks to our custom mutation rule, the object `o` will also have
 its `has_doors` mixin removed.
 
-To see all ways in which you can change a mutation from the mutation rule
+To see all ways in which you can change a mutation from the mutation rule,
 check out the documentation entry on `object_type_mutation`.
 
 Lastly, there are two important pieces of information about mutation rules
-you need to know.
+that you need to know.
 
 First, note that the library will be responsible for freeing the memory and
 destroying the rules you've added. All you need to do is call

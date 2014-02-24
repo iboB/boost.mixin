@@ -42,7 +42,7 @@ int main()
 //[tutorial_mutation_B
 /*`
 You're probably familiar from the previous examples with the most basic way to
-mutate an object, so let's use it to give it a type.
+mutate an object, so let's use it to give this one a type.
 */
     boost::mixin::object obj1;
     boost::mixin::mutate(obj1)
@@ -58,7 +58,7 @@ mutate an object, so let's use it to give it a type.
 
 /*`
 Using the `mutate` class is probably the most common way in which you'll mutate
-objects in Boost.Mixin. Yes, `mutate` is not a function but a class, that has
+objects in Boost.Mixin. Yes, `mutate` is not a function but a class. It has
 methods `remove` and `add`, and in its destructor it applies the actual
 mutation.
 
@@ -133,7 +133,7 @@ Don't forget to call `create`. It is the method that creates the internal object
 type. If you try to apply a type template that hasn't been created to an object,
 a runtime error will be triggered.
 
-To apply a type template to an object you may pass it as a parameter to its
+To apply a type template to an object, you may pass it as a parameter to its
 constructor.
 */
 
@@ -186,7 +186,7 @@ preparations are done when the mutation is applied to the first object.
 
 /*`
 Remember that the only time you can afford to use a same type mutator, is when
-/all/ objects that need to be mutated with it have composed of the same set of
+/all/ objects that need to be mutated with it are composed of the same set of
 mixins.
 */
 

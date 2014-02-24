@@ -52,7 +52,7 @@ official repository at GitHub].
 
 [section:standalone As a standalone library]
 
-You can build it with it's Jamfile and Boost.Build.
+You can build it with its Jamfile and Boost.Build.
 
 Also in [@https://github.com/iboB/boost.mixin the official Git repository at
 GitHub], you can find project files for Visual Studio 2012 and 2008 for Windows,

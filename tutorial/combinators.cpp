@@ -139,7 +139,7 @@ void built_in_combinators()
 {
 //[tutorial_combinators_built_in
 /*`
-As you may have noticed all our messages are functions that have a return value.
+As you may have noticed, all of our messages are functions that have a return value.
 You may have tried making multicast messages with non-void functions and noticed
 that the generated message function /is/ void and doesn't return anything.
 
@@ -163,9 +163,9 @@ which is true if at least one of the messages returns non-zero.
 Had we defined that an object is visible if /all/ of its mixins were visible,
 then we could have used the built-in combinator `boolean_and`.
 
-Now let's another built-in combinator -- `sum`. You may have guessed that it's
+Now let's look at another built-in combinator -- `sum`. You may have guessed that it's
 a sum of all values returned by the messages. In our case we may want to check
-how many elements are in the entire object like this:
+how many elements are there in an object:
 */
     cout << "There are " << elements_count<boost::mixin::combinators::sum>(o) << " elements in the first object." << endl;
 
@@ -256,7 +256,7 @@ Now, the last case we need to cover is when you want your custom combinator to
 be added as a template argument to the message's function giving it a return
 value of its own.
 
-To do this is only slightly more complicated the the previous, return parameter
+To do this is only slightly more complicated the the previous return parameter
 case.
 
 You need to create a template class whose template parameter will be provided by

@@ -11,7 +11,7 @@
 The examples given with the library are programs composed of multiple files and
 modules that provide a deeper illustration of how the library is supposed to be
 used, as opposed to the tutorials, which are single stand-alone files that
-illustrate concrete library features with focusing on functionality and not on
+illustrate concrete library features focusing on functionality and not on
 structure.
 
 [section:basic Basic]

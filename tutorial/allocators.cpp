@@ -17,12 +17,13 @@ memory the library may require.
 
 The library allocates some memory on initialization, which happens at a global
 scope -- before the entry point of a program. It also has some allocations which
-are for objects with a very short lifetime. Currently those are not covered by
+are for instances with a very short lifetime. Currently those are not covered by
 the allocators.
 
 What you can control with the custom allocators is the new memory allocated for
-object instances - their internal mixin data. You can assign a global allocator
-to the library and you could also set individual allocators per mixin type.
+`boost::mixin::object`
+instances - their internal mixin data. You can assign a global allocator
+to the library and you can also set individual allocators per mixin type.
 
 First let's see how you can create a global allocator. Let's assume you have
 a couple of functions of your own that allocate and deallocate memory in some
@@ -33,7 +34,7 @@ char* allocate(size_t size);
 void deallocate(char* buffer);
 
 /*`
-To create a global allocator you need to create a class derived from
+To create a global allocator, you need to create a class derived from
 `global_allocator` and override its virtual methods.
 */
 
@@ -58,14 +59,14 @@ class custom_allocator : public boost::mixin::global_allocator
     }
 
     /*`
-    The other two methods you need to overload, allocate and deallocate the
+    The other two methods you need to overload allocate and deallocate the
     memory for an actual mixin class instance. As you may have already read, the
     buffer allocated for a mixin instance is bigger than needed because the
     library stores a pointer to the owning object immediately before the memory
     used by the mixin instance.
 
     That's why this function is not as simple as the one for the mixin data
-    array. It has to conform to the mixin (and also `object*`) alignment.
+    array. It has to conform to the mixin (and also `object` pointer) alignment.
     */
     virtual void alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset)
     {
@@ -113,7 +114,7 @@ the end of each simulation frame (or at the beginning each new one). Let's
 create such an allocator.
 
 First, a mixin instance allocator is not necessarily bound to a concrete mixin
-type. You can can the same instance of such an allocator set for many mixins
+type. You can have the same instance of such an allocator set for many mixins
 (which would be a common use of a per-frame allocator), but for our example
 let's create one that /is/ bound to an instance. We will make it a template
 class because the code for each mixin type will be the same.
@@ -224,7 +225,7 @@ a character in our game dies, it will be destroyed at the end of the current
 frame and should stop responding to any messages. We can create a mixin called
 `dead_character` which implements all those the messages with a higher priority
 than the rest of the mixins. Since every object that has a `dead_character` mixin
-will be destroyed by the end of the frame, it will be save to use the per-frame
+will be destroyed by the end of the frame, it will be safe to use the per-frame
 allocator for it.
 
 First let's create the mixin class and sample messages:
@@ -242,9 +243,9 @@ BOOST_MIXIN_DEFINE_MESSAGE(die);
 //...
 
 /*`
-Now we define the mixin so that is uses the allocator, we just need to add it
-with `&` to the mixin feature list, just like we add messages. There are two
-ways to do so. First we could do it like this
+Now we define the mixin so that it uses the allocator, we just need to add it
+with "`&`" to the mixin feature list, just like we add messages. There are two
+ways to do so. The first one would be to do it like this:
 
     BOOST_DEFINE_MIXIN(dead_character, ... & boost::mixin::priority(1, die_msg)
         & boost::mixin::allocator<per_frame_allocator<dead_character>>());

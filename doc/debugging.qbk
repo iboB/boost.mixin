@@ -28,7 +28,7 @@ visualizers, provided with the library. There are instructions on how to do so
 in [link boost_mixin.appendix.app_vs_watch appendix entry B of this book].
 
 If you're not using Microsoft Visual Studio or you don't want to install the
-visualizers here, we'll assume you're trying to inspect an object called `obj`
+visualizers, we'll assume you're trying to inspect an object instance called `obj`
 and proceed with the instructions for watching objects and their mixins:
 
 [section:mixins_list Inspecting what mixins are in an object]

@@ -72,14 +72,14 @@ some common functionality. Moving the shared functionality in the same common
 parent is a good idea and Boost.Mixin will work exactly the same way if you do
 this. However there is a pitfall in this case. It happens when you have
 multiple inheritance. Due to the special nature in which the library arranges the
-memory internally if a mixin type has more than one parent using `bm_this` in
-one of those parents might lead to crashes.
+memory internally, if a mixin type has more than one parent, using `bm_this` in
+some of those parents might lead to crashes.
 
-More precisely, when the library allocates memory for a mixin type it allocates
+More precisely, when the library allocates memory for a mixin type, it allocates
 a buffer that is slightly bigger than needed and puts the pointer to the owning
 object at its front. What `bm_this` does is actually an offset from `this` with
 the appropriate number of bytes for `object*`. So if a parent of your mixin
-type, other than the first calls `bm_this` it will end up returning an invalid
+type, other than the first, calls `bm_this`, it will end up returning an invalid
 pointer to the owning object.
 
 To be able to have parents, other than the first, with access to the owning
@@ -136,14 +136,14 @@ external symbol" in Visual C++.
 * Undefined reference to `_boost_mixin_get_type_info`
     * Problem 1: A type has been declared as a mixin, but hasn't been defined
     * Solution 1: Define the mixin with `BOOST_DEFINE_MIXIN`
-    * Problem 2: A mixin is being used from a dynamic library, that hasn't been
+    * Problem 2: A mixin is being used from a dynamic library and hasn't been
     exported correctly.
     * Solution 2: Declare the mixin properly as `BOOST_DECLARE_EXPORTED_MIXIN`
 * Undefined references to `_boost_register_mixin_feature` and
 `_booost_get_mixin_feature`
     * Problem 1: A message has been declared but not defined.
     * Solution 1: Define the message with `BOOST_MIXIN_DEFINE_MESSAGE`
-    * Problem 2 : A message is being used from a dynamic library, that hasn't been
+    * Problem 2 : A message is being used from a dynamic library and hasn't been
     exported correctly.
     * Solution 2: Declare the message properly as
     `BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N`
