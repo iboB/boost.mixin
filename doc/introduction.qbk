@@ -152,7 +152,7 @@ will hardly be any need for Boost.Mixin.
 [section:bm_as_multi_inh Comparison with multiple inheritance]
 
 The closest thing to Boost.Mixin that C++ can offer out of the box is multiple
-inheritance. A `boost::mixin::object` composed of some mixins, can be though of
+inheritance. A `boost::mixin::object` composed of some mixins, can be thought of
 as an empty class that's derived from these classes -- the object's interface
 will be equal to the union of the interfaces of its mixins, and it will
 internally instantiate them.
