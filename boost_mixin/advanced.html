@@ -4,8 +4,8 @@
 <title>Advanced topics</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
-<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 1.0">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 1.0">
 <link rel="prev" href="debugging.html" title="Debugging code that uses Boost.Mixin">
 <link rel="next" href="../mixin/reference.html" title="Reference">
 </head>
@@ -32,7 +32,7 @@
 <a name="boost_mixin.advanced.performance"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Performance">Performance</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp36105520"></a>
+        <a class="indexterm" name="idp7043888"></a>
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -40,7 +40,7 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp36108544"></a>
+          <a class="indexterm" name="idp7046912"></a>
         </p>
 <p>
           The performance of messages is indeed slower than regular function calls
@@ -88,10 +88,20 @@
             message calls.
           </p>
 <p>
-            It creates 10,000 objects, then processes them until 100,000,000 calls
-            are made. The actual calls perform a simple addition whose cost compared
-            with the call cost is indeed negligible.
+            It creates 10,000 objects, then processes them until 10,000,000 calls
+            are made. The actual calls are of two kinds:
           </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                <span class="bold"><strong>Noop</strong></span>: call to a completely empty
+                function that does nothing
+              </li>
+<li class="listitem">
+                <span class="bold"><strong>Sum</strong></span>: performs a simple addition
+                and stores the result in the object. This is used to simulate a function
+                argument and also a this pointer indirection.
+              </li>
+</ul></div>
 <p>
             The regular method calls are what you would have in cache-locality optimized
             setting &#8211; they are methods in an array of objects of the the same
@@ -99,10 +109,11 @@
           </p>
 <p>
             The other calls are polymorphic and their arrays store objects by address
-            that can be one of two types.
+            that can be one of two types to simulate some cache misses in a real-world
+            scenario with various polymorphic object types.
           </p>
 <p>
-            Here are some test results:
+            Here is a sample test result:
           </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
@@ -137,22 +148,22 @@
                   </th>
 <th>
                     <p>
-                      Debug
+                      Debug noop
                     </p>
                   </th>
 <th>
                     <p>
-                      Debug mean
+                      Debug sum
                     </p>
                   </th>
 <th>
                     <p>
-                      Release
+                      Release noop
                     </p>
                   </th>
 <th>
                     <p>
-                      Release mean
+                      Release sum
                     </p>
                   </th>
 </tr></thead>
@@ -165,22 +176,22 @@
                   </td>
 <td>
                     <p>
-                      2345 ms
+                      8 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      23 ns
+                      18 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      1088 ms
+                      8 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      11 ns
+                      8 ns
                     </p>
                   </td>
 </tr>
@@ -192,17 +203,17 @@
                   </td>
 <td>
                     <p>
-                      2894 ms
+                      22 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      29 ns
+                      23 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      1580 ms
+                      15 ns
                     </p>
                   </td>
 <td>
@@ -219,191 +230,22 @@
                   </td>
 <td>
                     <p>
-                      11910 ms
+                      73 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      119 ns
+                      129 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      1966 ms
+                      30 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      20 ns
-                    </p>
-                  </td>
-</tr>
-<tr>
-<td>
-                    <p>
-                      Boost.Mixin msg
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      4942 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      50 ns
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      1986 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      20 ns
-                    </p>
-                  </td>
-</tr>
-</tbody>
-</table></div>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
-                OS: Windows 7
-              </li>
-<li class="listitem">
-                CPU: AMD FX 4100
-              </li>
-<li class="listitem">
-                Compiler: msvc 9 (Visual Studio 2008)
-              </li>
-<li class="listitem">
-                Debug compilation parameters: Standard (<code class="computeroutput"><span class="special">/</span><span class="identifier">Od</span> <span class="special">/</span><span class="identifier">EHsc</span> <span class="special">/</span><span class="identifier">RTC1</span> <span class="special">/</span><span class="identifier">MDd</span> <span class="special">/</span><span class="identifier">ZI</span></code>)
-              </li>
-<li class="listitem">
-                Release compilation parameters: Standard, but with no link time code
-                generation (<code class="computeroutput"><span class="special">/</span><span class="identifier">O2</span>
-                <span class="special">/</span><span class="identifier">Oi</span>
-                <span class="special">/</span><span class="identifier">EHsc</span>
-                <span class="special">/</span><span class="identifier">MD</span>
-                <span class="special">/</span><span class="identifier">Gy</span>
-                <span class="special">/</span><span class="identifier">Zi</span></code>)
-              </li>
-</ul></div>
-<div class="informaltable"><table class="table">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-                    <p>
-                      Method
-                    </p>
-                  </th>
-<th>
-                    <p>
-                      Debug
-                    </p>
-                  </th>
-<th>
-                    <p>
-                      Debug mean
-                    </p>
-                  </th>
-<th>
-                    <p>
-                      Release
-                    </p>
-                  </th>
-<th>
-                    <p>
-                      Release mean
-                    </p>
-                  </th>
-</tr></thead>
-<tbody>
-<tr>
-<td>
-                    <p>
-                      Regular
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      4103 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      41 ns
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      1419 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      14 ns
-                    </p>
-                  </td>
-</tr>
-<tr>
-<td>
-                    <p>
-                      Virtual
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      5585 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      55 ns
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      1560 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      16 ns
-                    </p>
-                  </td>
-</tr>
-<tr>
-<td>
-                    <p>
-                      <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function</span></code>
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      45240 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      452 ns
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      1919 ms
-                    </p>
-                  </td>
-<td>
-                    <p>
-                      19 ns
+                      34 ns
                     </p>
                   </td>
 </tr>
@@ -415,22 +257,22 @@
                   </td>
 <td>
                     <p>
-                      25100 ms
+                      48 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      251 ns
+                      72 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      2714 ms
+                      24 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      27 ns
+                      35 ns
                     </p>
                   </td>
 </tr>
@@ -474,7 +316,7 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp36223936"></a>
+          <a class="indexterm" name="idp7119648"></a>
         </p>
 <p>
           An object mutation can be a relatively slow operation.
@@ -615,12 +457,12 @@
                   </td>
 <td>
                     <p>
-                      1900 ns
+                      2119 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      990 ns
+                      682 ns
                     </p>
                   </td>
 </tr>
@@ -632,12 +474,12 @@
                   </td>
 <td>
                     <p>
-                      1662 ns
+                      1821 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      550 ns
+                      561 ns
                     </p>
                   </td>
 </tr>
@@ -649,12 +491,12 @@
                   </td>
 <td>
                     <p>
-                      6700 ns
+                      6635 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      697 ns
+                      742 ns
                     </p>
                   </td>
 </tr>
@@ -666,12 +508,12 @@
                   </td>
 <td>
                     <p>
-                      1308 ns
+                      1403 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      322 ns
+                      303 ns
                     </p>
                   </td>
 </tr>
@@ -683,12 +525,12 @@
                   </td>
 <td>
                     <p>
-                      5155 ns
+                      5570 ns
                     </p>
                   </td>
 <td>
                     <p>
-                      544 ns
+                      632 ns
                     </p>
                   </td>
 </tr>
@@ -705,7 +547,7 @@
                   </td>
 <td>
                     <p>
-                      158 ns
+                      164 ns
                     </p>
                   </td>
 </tr>
@@ -719,7 +561,7 @@
 <a name="boost_mixin.advanced.allocators"></a><a class="link" href="advanced.html#boost_mixin.advanced.allocators" title="Using custom allocators">Using custom allocators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp36287504"></a>
+        <a class="indexterm" name="idp7183344"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/allocators.cpp" target="_top">allocators.cpp</a>)
