@@ -8,7 +8,7 @@
 
 [library Boost.Mixin
     [quickbook 1.5]
-    [version 0.1]
+    [version 1.0]
     [authors [Stanimirov, Borislav] [Karadjov, Zahary]]
     [copyright 2013-2014 Borislav Stanimirov, Zahary Karadjov]
     [purpose Entity-component system]
