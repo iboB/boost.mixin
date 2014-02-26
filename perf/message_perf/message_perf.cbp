@@ -38,6 +38,10 @@
 			<Add option="-fexceptions" />
 			<Add directory="../../include" />
 		</Compiler>
+		<Linker>
+			<Add library="boost_timer" />
+			<Add library="boost_system" />
+		</Linker>
 		<Unit filename="main.cpp" />
 		<Unit filename="perf.cpp" />
 		<Unit filename="perf.hpp" />

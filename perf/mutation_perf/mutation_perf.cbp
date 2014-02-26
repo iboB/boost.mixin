@@ -38,7 +38,17 @@
 			<Add option="-fexceptions" />
 			<Add directory="../../include" />
 		</Compiler>
+		<Linker>
+			<Add library="boost_timer" />
+			<Add library="boost_system" />
+		</Linker>
+		<Unit filename="common.hpp" />
+		<Unit filename="custom_alloc_mixin.cpp" />
+		<Unit filename="custom_alloc_mixin.hpp" />
+		<Unit filename="generated.cpp" />
+		<Unit filename="generated.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="timer.ipp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
