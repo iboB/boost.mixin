@@ -19,9 +19,7 @@
 #    include <boost/bind.hpp>
 #endif
 
-
-
-extern int A_LOT; // intentionally not const
+extern size_t A_LOT; // intentionally not const
 extern int OBJ_NUM; // number of objects
 
 //////////////////////////////////
@@ -33,8 +31,9 @@ public:
     regular_class() : _sum(0) {}
 
     void add(int i);
-
     int sum() const;
+
+    void noop() const;
 
 private:
     int _sum;
@@ -50,6 +49,8 @@ class abstract_class
 public:
     virtual void add(int) = 0;
     virtual int sum() const = 0;
+
+    virtual void noop() const = 0;
 };
 
 extern abstract_class** ac_instances;
@@ -59,6 +60,7 @@ extern abstract_class** ac_instances;
 
 extern BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)>* f_add;
 extern BOOST_MIXIN_CXX11_NAMESPACE::function<int()>* f_sum;
+extern BOOST_MIXIN_CXX11_NAMESPACE::function<void()>* f_noop;
 
 //////////////////////////////////
 // boost mixin
@@ -67,7 +69,7 @@ extern boost::mixin::object** bm_objects;
 
 BOOST_MIXIN_MESSAGE_1(void, add, int, val);
 BOOST_MIXIN_CONST_MESSAGE_0(int, sum);
-
+BOOST_MIXIN_CONST_MESSAGE_0(void, noop);
 
 //////////////////////////////////
 

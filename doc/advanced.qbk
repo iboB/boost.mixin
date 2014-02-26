@@ -49,18 +49,22 @@ else.
 The message performance test compares regular method calls vs virtual method
 calls vs `std::function` calls vs Boost.Mixin unicast message calls.
 
-It creates 10,000 objects, then processes them until 100,000,000 calls are made.
-The actual calls perform a simple addition whose cost compared with the call
-cost is indeed negligible.
+It creates 10,000 objects, then processes them until 10,000,000 calls are made.
+The actual calls are of two kinds:
+
+* *Noop*: call to a completely empty function that does nothing
+* *Sum*: performs a simple addition and stores the result in the object.
+This is used to simulate a function argument and also a this pointer indirection.
 
 The regular method calls are what you would have in cache-locality optimized
 setting -- they are methods in an array of objects of the the same type stored
 by value.
 
 The other calls are polymorphic and their arrays store objects by address that
-can be one of two types.
+can be one of two types to simulate some cache misses in a real-world scenario
+with various polymorphic object types.
 
-Here are some test results:
+Here is a sample test result:
 
 * OS: Ubuntu 13.04
 * CPU: AMD FX X8 8150
@@ -71,82 +75,38 @@ Here are some test results:
 [table
     [
         [Method]
-        [Debug]
-        [Debug mean]
-        [Release]
-        [Release mean]
+        [Debug noop]
+        [Debug sum]
+        [Release noop]
+        [Release sum]
     ]
     [
         [Regular]
-        [2345 ms]
-        [23 ns]
-        [1088 ms]
-        [11 ns]
+        [8 ns]
+        [18 ns]
+        [8 ns]
+        [8 ns]
     ]
     [
         [Virtual]
-        [2894 ms]
-        [29 ns]
-        [1580 ms]
+        [22 ns]
+        [23 ns]
+        [15 ns]
         [16 ns]
     ]
     [
         [`std::function`]
-        [11910 ms]
-        [119 ns]
-        [1966 ms]
-        [20 ns]
+        [73 ns]
+        [129 ns]
+        [30 ns]
+        [34 ns]
     ]
     [
         [Boost.Mixin msg]
-        [4942 ms]
-        [50 ns]
-        [1986 ms]
-        [20 ns]
-    ]
-]
-
-* OS: Windows 7
-* CPU: AMD FX 4100
-* Compiler: msvc 9 (Visual Studio 2008)
-* Debug compilation parameters: Standard (`/Od /EHsc /RTC1 /MDd /ZI`)
-* Release compilation parameters: Standard, but with no link time code generation (`/O2 /Oi /EHsc /MD /Gy /Zi`)
-
-[table
-    [
-        [Method]
-        [Debug]
-        [Debug mean]
-        [Release]
-        [Release mean]
-    ]
-    [
-        [Regular]
-        [4103 ms]
-        [41 ns]
-        [1419 ms]
-        [14 ns]
-    ]
-    [
-        [Virtual]
-        [5585 ms]
-        [55 ns]
-        [1560 ms]
-        [16 ns]
-    ]
-    [
-        [`boost::function`]
-        [45240 ms]
-        [452 ns]
-        [1919 ms]
-        [19 ns]
-    ]
-    [
-        [Boost.Mixin msg]
-        [25100 ms]
-        [251 ns]
-        [2714 ms]
-        [27 ns]
+        [48 ns]
+        [72 ns]
+        [24 ns]
+        [35 ns]
     ]
 ]
 
@@ -248,33 +208,33 @@ Here is a sample test result:
     ]
     [
         [New type]
-        [1900 ns]
-        [990 ns]
+        [2119 ns]
+        [682 ns]
     ]
     [
         [Existing type]
-        [1662 ns]
-        [550 ns]
+        [1821 ns]
+        [561 ns]
     ]
     [
         [Mutate]
-        [6700 ns]
-        [697 ns]
+        [6635 ns]
+        [742 ns]
     ]
     [
         [Same type mutate]
-        [1308 ns]
-        [322 ns]
+        [1403 ns]
+        [303 ns]
     ]
     [
         [Custom allocator]
-        [5155 ns]
-        [544 ns]
+        [5570 ns]
+        [632 ns]
     ]
     [
         [Same type alloc]
         [1073 ns]
-        [158 ns]
+        [164 ns]
     ]
 ]
 

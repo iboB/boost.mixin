@@ -8,7 +8,8 @@
 #include "perf.hpp"
 #include <boost/bind.hpp>
 
-int A_LOT = 100000000;
+size_t A_LOT = 10000000;
+
 int OBJ_NUM = 100000;
 
 using namespace boost::mixin;
@@ -17,6 +18,7 @@ using namespace std;
 abstract_class** ac_instances;
 BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)>* f_add;
 BOOST_MIXIN_CXX11_NAMESPACE::function<int()>* f_sum;
+BOOST_MIXIN_CXX11_NAMESPACE::function<void()>* f_noop;
 boost::mixin::object** bm_objects;
 regular_class* regular_objects;
 
@@ -30,13 +32,15 @@ public:
 
     void add(int i)
     {
-        //_sum+=i;
+        _sum+=i;
     }
 
     int sum() const
     {
         return _sum;
     }
+
+    void noop() const {}
 
     int _sum;
 };
@@ -48,13 +52,15 @@ public:
 
     void add(int i)
     {
-        //_sum+=i;
+        _sum+=i;
     }
 
     int sum() const
     {
         return _sum;
     }
+
+    void noop() const {}
 
     int _sum;
 };
@@ -67,6 +73,8 @@ public:
     void add(int i);
 
     int sum() const;
+
+    void noop() const;
 
 private:
     int _sum;
@@ -89,6 +97,7 @@ extern void initialize_globals()
 
     f_add = new BOOST_MIXIN_CXX11_NAMESPACE::function<void(int)>[OBJ_NUM];
     f_sum = new BOOST_MIXIN_CXX11_NAMESPACE::function<int()>[OBJ_NUM];
+    f_noop = new BOOST_MIXIN_CXX11_NAMESPACE::function<void()>[OBJ_NUM];
     regular_class* objs = new regular_class[OBJ_NUM];
     regular_class2* objs2 = new regular_class2[OBJ_NUM];
 
@@ -105,6 +114,7 @@ extern void initialize_globals()
 
             f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::add, objs + i, _1_NAMESPACE::_1);
             f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::sum, objs + i);
+            f_noop[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class::noop, objs + i);
 
             mutate(bm_objects[i]).add<regular_class>();
         }
@@ -114,6 +124,7 @@ extern void initialize_globals()
 
             f_add[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::add, objs2 + i, _1_NAMESPACE::_1);
             f_sum[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::sum, objs2 + i);
+            f_noop[i] = BOOST_MIXIN_CXX11_NAMESPACE::bind(&regular_class2::noop, objs2 + i);
 
             mutate(bm_objects[i]).add<regular_class2>();
         }
@@ -126,26 +137,31 @@ extern void initialize_globals()
 
 void regular_class::add(int i)
 {
-    //_sum += i;
+    _sum += i;
 }
 
-int  regular_class::sum() const
+int regular_class::sum() const
 {
     return _sum;
 }
+
+void regular_class::noop() const {}
 
 void regular_class2::add(int i)
 {
-    //_sum += i;
+    _sum += i;
 }
 
-int  regular_class2::sum() const
+int regular_class2::sum() const
 {
     return _sum;
 }
 
-BOOST_DEFINE_MIXIN(regular_class, add_msg & sum_msg);
-BOOST_DEFINE_MIXIN(regular_class2, add_msg & sum_msg);
+void regular_class2::noop() const {}
+
+BOOST_DEFINE_MIXIN(regular_class, add_msg & sum_msg & noop_msg);
+BOOST_DEFINE_MIXIN(regular_class2, add_msg & sum_msg & noop_msg);
 
 BOOST_MIXIN_DEFINE_MESSAGE(add);
 BOOST_MIXIN_DEFINE_MESSAGE(sum);
+BOOST_MIXIN_DEFINE_MESSAGE(noop);
