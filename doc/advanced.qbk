@@ -64,7 +64,7 @@ The other calls are polymorphic and their arrays store objects by address that
 can be one of two types to simulate some cache misses in a real-world scenario
 with various polymorphic object types.
 
-Here is a sample test result:
+Here are some sample test results:
 
 * OS: Ubuntu 13.04
 * CPU: AMD FX X8 8150
@@ -107,6 +107,50 @@ Here is a sample test result:
         [72 ns]
         [24 ns]
         [35 ns]
+    ]
+]
+
+* OS: Windows 7
+* CPU: AMD FX 4100
+* Compiler: msvc 9 (Visual Studio 2008)
+* Debug compilation parameters: Standard (`/Od /EHsc /RTC1 /MDd /ZI`)
+* Release compilation parameters: Standard, but with no link time code generation (`/O2 /Oi /EHsc /MD /Gy /Zi`)
+
+[table
+    [
+        [Method]
+        [Debug noop]
+        [Debug sum]
+        [Release noop]
+        [Release sum]
+    ]
+    [
+        [Regular]
+        [33 ns]
+        [36 ns]
+        [9 ns]
+        [11 ns]
+    ]
+    [
+        [Virtual]
+        [50 ns]
+        [55 ns]
+        [14 ns]
+        [14 ns]
+    ]
+    [
+        [`std::function`]
+        [427 ns]
+        [444 ns]
+        [9 ns]
+        [16 ns]
+    ]
+    [
+        [Boost.Mixin msg]
+        [232 ns]
+        [235 ns]
+        [14 ns]
+        [28 ns]
     ]
 ]
 
@@ -192,7 +236,7 @@ has a custom allocator attached. The custom allocator preallocates pools of
 * *Same type alloc*: Mutation of objects of the same type with
 `same_type_mutator`. It adds a mixin with the same custom allocator.
 
-Here is a sample test result:
+Here are some sample test results:
 
 * OS: Ubuntu 13.04
 * CPU: AMD FX X8 8150
@@ -235,6 +279,50 @@ Here is a sample test result:
         [Same type alloc]
         [1073 ns]
         [164 ns]
+    ]
+]
+
+* OS: Windows 7
+* CPU: AMD FX 4100
+* Compiler: msvc 9 (Visual Studio 2008)
+* Debug compilation parameters: Standard (`/Od /EHsc /RTC1 /MDd /ZI`)
+* Release compilation parameters: Standard, but with no link time code generation (`/O2 /Oi /EHsc /MD /Gy /Zi`)
+
+[table
+    [
+        [Task]
+        [Mean time in Debug]
+        [Mean time in Release]
+    ]
+    [
+        [New type]
+        [21,256 ns]
+        [1,113 ns]
+    ]
+    [
+        [Existing type]
+        [20,343 ns]
+        [814 ns]
+    ]
+    [
+        [Mutate]
+        [238,219 ns]
+        [3,125 ns]
+    ]
+    [
+        [Same type mutate]
+        [16,668 ns]
+        [489 ns]
+    ]
+    [
+        [Custom allocator]
+        [219,416 ns]
+        [2,740 ns]
+    ]
+    [
+        [Same type alloc]
+        [16,176 ns]
+        [286 ns]
     ]
 ]
 
