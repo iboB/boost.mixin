@@ -4,7 +4,7 @@
 <title>Macro BOOST_DEFINE_MIXIN</title>
 <link rel="stylesheet" href="boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.Mixin 1.0">
 <link rel="up" href="mixin/reference.html#header.boost.mixin.mixin_hpp" title="Header &lt;boost/mixin/mixin.hpp&gt;">
 <link rel="prev" href="BOOST_DECLARE_MIXIN.html" title="Macro BOOST_DECLARE_MIXIN">
 <link rel="next" href="bm_this.html" title="Macro bm_this">
@@ -24,10 +24,10 @@
 
 </span>BOOST_DEFINE_MIXIN(mixin_type, mixin_features)</pre></div>
 <div class="refsect1">
-<a name="idp36557264"></a><h2>Description</h2>
+<a name="idp8155024"></a><h2>Description</h2>
 <p>
 The macro defines a mixin in the domain. Call this once per mixin in a compilation unit (.cpp file). A good idea is, if possible, to place it in the compilation unit of the mixin class itself.</p>
-<p>To work properly, the macro needs to see a forward declaration of the mixin by BOOST_DECLARE[_EXPORED]_MIXIN.</p>
+<p>To work properly, the macro needs to see a forward declaration of the mixin (by BOOST_DECLARE_MIXIN or BOOST_DECLARE_EXPORED_MIXIN).</p>
 <p><b>Mixin features:&#160;</b>The features argument is an ampersand (&amp;) separated list of the features - messages, allocators, and others - that the mixin will support. If the features have a special suffix (as messages do), it applies here.</p>
 <p>
 If the mixin has no features, then <code class="computeroutput">boost::mixin::none</code> should be set as the last argument</p>

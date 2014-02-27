@@ -24,6 +24,7 @@
       arguments</a></span></dt>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.dynlib">Dynamic libraries and program
       plugins</a></span></dt>
+<dt><span class="section"><a href="advanced.html#boost_mixin.advanced.serialization">Serializing objects</a></span></dt>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.implementation">Implementation notes</a></span></dt>
 <dt><span class="section"><a href="advanced.html#boost_mixin.advanced.macros">Macros rationale</a></span></dt>
 </dl></div>
@@ -32,7 +33,7 @@
 <a name="boost_mixin.advanced.performance"></a><a class="link" href="advanced.html#boost_mixin.advanced.performance" title="Performance">Performance</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp7043888"></a>
+        <a class="indexterm" name="idp6940160"></a>
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -40,7 +41,7 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp7046912"></a>
+          <a class="indexterm" name="idp6943184"></a>
         </p>
 <p>
           The performance of messages is indeed slower than regular function calls
@@ -113,7 +114,7 @@
             scenario with various polymorphic object types.
           </p>
 <p>
-            Here is a sample test result:
+            Here are some sample test results:
           </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
@@ -278,6 +279,175 @@
 </tr>
 </tbody>
 </table></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                OS: Windows 7
+              </li>
+<li class="listitem">
+                CPU: AMD FX 4100
+              </li>
+<li class="listitem">
+                Compiler: msvc 9 (Visual Studio 2008)
+              </li>
+<li class="listitem">
+                Debug compilation parameters: Standard (<code class="computeroutput"><span class="special">/</span><span class="identifier">Od</span> <span class="special">/</span><span class="identifier">EHsc</span> <span class="special">/</span><span class="identifier">RTC1</span> <span class="special">/</span><span class="identifier">MDd</span> <span class="special">/</span><span class="identifier">ZI</span></code>)
+              </li>
+<li class="listitem">
+                Release compilation parameters: Standard, but with no link time code
+                generation (<code class="computeroutput"><span class="special">/</span><span class="identifier">O2</span>
+                <span class="special">/</span><span class="identifier">Oi</span>
+                <span class="special">/</span><span class="identifier">EHsc</span>
+                <span class="special">/</span><span class="identifier">MD</span>
+                <span class="special">/</span><span class="identifier">Gy</span>
+                <span class="special">/</span><span class="identifier">Zi</span></code>)
+              </li>
+</ul></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                    <p>
+                      Method
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Debug noop
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Debug sum
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Release noop
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Release sum
+                    </p>
+                  </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                    <p>
+                      Regular
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      33 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      36 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      9 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      11 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Virtual
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      50 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      55 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      14 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      14 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">function</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      427 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      444 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      9 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      16 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Boost.Mixin msg
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      232 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      235 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      14 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      28 ns
+                    </p>
+                  </td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
@@ -316,7 +486,7 @@
         performance</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idp7119648"></a>
+          <a class="indexterm" name="idp7062192"></a>
         </p>
 <p>
           An object mutation can be a relatively slow operation.
@@ -406,7 +576,7 @@
               </li>
 </ul></div>
 <p>
-            Here is a sample test result:
+            Here are some sample test results:
           </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
@@ -553,6 +723,157 @@
 </tr>
 </tbody>
 </table></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+                OS: Windows 7
+              </li>
+<li class="listitem">
+                CPU: AMD FX 4100
+              </li>
+<li class="listitem">
+                Compiler: msvc 9 (Visual Studio 2008)
+              </li>
+<li class="listitem">
+                Debug compilation parameters: Standard (<code class="computeroutput"><span class="special">/</span><span class="identifier">Od</span> <span class="special">/</span><span class="identifier">EHsc</span> <span class="special">/</span><span class="identifier">RTC1</span> <span class="special">/</span><span class="identifier">MDd</span> <span class="special">/</span><span class="identifier">ZI</span></code>)
+              </li>
+<li class="listitem">
+                Release compilation parameters: Standard, but with no link time code
+                generation (<code class="computeroutput"><span class="special">/</span><span class="identifier">O2</span>
+                <span class="special">/</span><span class="identifier">Oi</span>
+                <span class="special">/</span><span class="identifier">EHsc</span>
+                <span class="special">/</span><span class="identifier">MD</span>
+                <span class="special">/</span><span class="identifier">Gy</span>
+                <span class="special">/</span><span class="identifier">Zi</span></code>)
+              </li>
+</ul></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                    <p>
+                      Task
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Mean time in Debug
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Mean time in Release
+                    </p>
+                  </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                    <p>
+                      New type
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      21,256 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      1,113 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Existing type
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      20,343 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      814 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Mutate
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      238,219 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      3,125 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Same type mutate
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      16,668 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      489 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Custom allocator
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      219,416 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      2,740 ns
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Same type alloc
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      16,176 ns
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      286 ns
+                    </p>
+                  </td>
+</tr>
+</tbody>
+</table></div>
 </div>
 </div>
 </div>
@@ -561,7 +882,7 @@
 <a name="boost_mixin.advanced.allocators"></a><a class="link" href="advanced.html#boost_mixin.advanced.allocators" title="Using custom allocators">Using custom allocators</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="idp7183344"></a>
+        <a class="indexterm" name="idp7167456"></a>
       </p>
 <p>
         (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/allocators.cpp" target="_top">allocators.cpp</a>)
@@ -755,11 +1076,11 @@
 
 
     <span class="identifier">per_frame_allocator</span><span class="special">()</span>
-        <span class="special">:</span> <span class="identifier">mixin_buf_size</span><span class="special">(</span>
+        <span class="special">:</span> <span class="identifier">_num_allocations</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
+        <span class="special">,</span> <span class="identifier">mixin_buf_size</span><span class="special">(</span>
             <span class="identifier">calculate_mem_size_for_mixin</span><span class="special">(</span>
                 <span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">Mixin</span><span class="special">),</span>
                 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">alignment_of</span><span class="special">&lt;</span><span class="identifier">Mixin</span><span class="special">&gt;::</span><span class="identifier">value</span><span class="special">))</span>
-        <span class="special">,</span> <span class="identifier">_num_allocations</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
         <span class="special">,</span> <span class="identifier">page_size</span><span class="special">(</span><span class="identifier">mixin_buf_size</span> <span class="special">*</span> <span class="identifier">NUM_IN_PAGE</span><span class="special">)</span>
     <span class="special">{</span>
         <span class="identifier">new_memory_page</span><span class="special">();</span>
@@ -972,6 +1293,297 @@
         <a class="link" href="examples.html#boost_mixin.examples.multi_dll" title="Multi DLL">One of the examples</a>
         that come with the library illustrates how you can have the two types of
         dynamic libraries &#8211; one which you link with, and one plugin.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_mixin.advanced.serialization"></a><a class="link" href="advanced.html#boost_mixin.advanced.serialization" title="Serializing objects">Serializing objects</a>
+</h3></div></div></div>
+<p>
+        (For the complete, working source of this example see <a href="https://github.com/iboB/boost.mixin/blob/master/tutorial/serialization.cpp" target="_top">serialization.cpp</a>)
+      </p>
+<p>
+        Of course dealing with objects in a complex system means also having some
+        way to save and load them. Be it from a file, database, or through a network.
+        We did mention serialization before in our examples but we never gave an
+        example of how you can serialize <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span></code>-s.
+      </p>
+<p>
+        The main issue would be how to convert the object's type information to a
+        string and then use this string to create an object with the same type information.
+        As for the concrete serialization of the data within the mixins, this example
+        will only offer a very na&#239;ve approach. We don't recommend that you use
+        such an approach for your mixins as it is not safe, and not backward compatible.
+        We only use it here because it's very easy to write and the focus of this
+        example is on the object type information.
+      </p>
+<p>
+        Basically what we'll do here to save and load the data inside the mixins
+        is rely on two multicast messages &#8211; <code class="computeroutput"><span class="identifier">save</span></code>
+        and <code class="computeroutput"><span class="identifier">load</span></code> &#8211; which will
+        have a given priority for each mixin. Thus ensuring the order of execution
+        to be the same in loading as it is in saving. Each save and load method of
+        the mixin type will assume it has the right data to save and load.
+      </p>
+<p>
+        So, let's declare and define our messages.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">BOOST_MIXIN_CONST_MULTICAST_MESSAGE_1</span><span class="special">(</span><span class="keyword">void</span><span class="special">,</span> <span class="identifier">save</span><span class="special">,</span> <span class="identifier">ostream</span><span class="special">&amp;,</span> <span class="identifier">out</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_MULTICAST_MESSAGE_1</span><span class="special">(</span><span class="keyword">void</span><span class="special">,</span> <span class="identifier">load</span><span class="special">,</span> <span class="identifier">istream</span><span class="special">&amp;,</span> <span class="identifier">in</span><span class="special">);</span>
+
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">save</span><span class="special">);</span>
+<span class="identifier">BOOST_MIXIN_DEFINE_MESSAGE</span><span class="special">(</span><span class="identifier">load</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now let's define some simple mixins. For this example we'll assume we're
+        writing a company management system, which has a database of key individuals
+        &#8211; employees and clients.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">person</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">set_name</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">name</span><span class="special">)</span> <span class="special">{</span> <span class="identifier">_name</span> <span class="special">=</span> <span class="identifier">name</span><span class="special">;</span> <span class="special">}</span>
+
+    <span class="keyword">void</span> <span class="identifier">save</span><span class="special">(</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="identifier">load</span><span class="special">(</span><span class="identifier">istream</span><span class="special">&amp;</span> <span class="identifier">in</span><span class="special">);</span>
+
+    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">serialize_priority</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="identifier">string</span> <span class="identifier">_name</span><span class="special">;</span>
+<span class="special">};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">person</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="identifier">person</span><span class="special">::</span><span class="identifier">serialize_priority</span><span class="special">,</span> <span class="identifier">save_msg</span><span class="special">)</span>
+    <span class="special">&amp;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="identifier">person</span><span class="special">::</span><span class="identifier">serialize_priority</span><span class="special">,</span> <span class="identifier">load_msg</span><span class="special">));</span>
+
+<span class="keyword">class</span> <span class="identifier">employee</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">set_position</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">position</span><span class="special">)</span> <span class="special">{</span> <span class="identifier">_position</span> <span class="special">=</span> <span class="identifier">position</span><span class="special">;</span> <span class="special">}</span>
+
+    <span class="keyword">void</span> <span class="identifier">save</span><span class="special">(</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="identifier">load</span><span class="special">(</span><span class="identifier">istream</span><span class="special">&amp;</span> <span class="identifier">in</span><span class="special">);</span>
+
+    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">serialize_priority</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="identifier">string</span> <span class="identifier">_position</span><span class="special">;</span>
+<span class="special">};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">employee</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="identifier">employee</span><span class="special">::</span><span class="identifier">serialize_priority</span><span class="special">,</span> <span class="identifier">save_msg</span><span class="special">)</span>
+    <span class="special">&amp;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="identifier">employee</span><span class="special">::</span><span class="identifier">serialize_priority</span><span class="special">,</span> <span class="identifier">load_msg</span><span class="special">));</span>
+
+<span class="keyword">class</span> <span class="identifier">client</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">void</span> <span class="identifier">set_organization</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">position</span><span class="special">)</span> <span class="special">{</span> <span class="identifier">_organization</span> <span class="special">=</span> <span class="identifier">position</span><span class="special">;</span> <span class="special">}</span>
+
+    <span class="keyword">void</span> <span class="identifier">save</span><span class="special">(</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="identifier">load</span><span class="special">(</span><span class="identifier">istream</span><span class="special">&amp;</span> <span class="identifier">in</span><span class="special">);</span>
+
+    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">serialize_priority</span> <span class="special">=</span> <span class="number">3</span><span class="special">;</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="identifier">string</span> <span class="identifier">_organization</span><span class="special">;</span>
+<span class="special">};</span>
+<span class="identifier">BOOST_DEFINE_MIXIN</span><span class="special">(</span><span class="identifier">client</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="identifier">client</span><span class="special">::</span><span class="identifier">serialize_priority</span><span class="special">,</span> <span class="identifier">save_msg</span><span class="special">)</span>
+    <span class="special">&amp;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">priority</span><span class="special">(</span><span class="identifier">client</span><span class="special">::</span><span class="identifier">serialize_priority</span><span class="special">,</span> <span class="identifier">load_msg</span><span class="special">));</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now let's declare the save and load functions for an object.
+      </p>
+<p>
+        Because in this example they're stand-alone functions, like the messages,
+        we can't just name them save and load, because they'll clash with the message
+        functions defined by the message macros. So let's just name them <code class="computeroutput"><span class="identifier">save_obj</span></code> and <code class="computeroutput"><span class="identifier">load_obj</span></code>.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">save_obj</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span><span class="special">,</span> <span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">out</span><span class="special">);</span>
+<span class="keyword">void</span> <span class="identifier">load_obj</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span><span class="special">&amp;</span> <span class="identifier">o</span><span class="special">,</span> <span class="identifier">istream</span><span class="special">&amp;</span> <span class="identifier">in</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        Assuming those functions are written and work correctly, we could write some
+        code with them like this.
+      </p>
+<p>
+        First we create some objects:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">e</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">e</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">person</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">employee</span><span class="special">&gt;();</span>
+
+<span class="identifier">e</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">person</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_name</span><span class="special">(</span><span class="string">"Alice Anderson"</span><span class="special">);</span>
+<span class="identifier">e</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">employee</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_position</span><span class="special">(</span><span class="string">"Programmer"</span><span class="special">);</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">c</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">mutate</span><span class="special">(</span><span class="identifier">c</span><span class="special">)</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">person</span><span class="special">&gt;()</span>
+    <span class="special">.</span><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">client</span><span class="special">&gt;();</span>
+
+<span class="identifier">c</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">person</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_name</span><span class="special">(</span><span class="string">"Bob Behe"</span><span class="special">);</span>
+<span class="identifier">c</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">client</span><span class="special">&gt;()-&gt;</span><span class="identifier">set_organization</span><span class="special">(</span><span class="string">"Business Co"</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        Then we save them to some stream:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">ostringstream</span> <span class="identifier">out</span><span class="special">;</span>
+<span class="identifier">save_obj</span><span class="special">(</span><span class="identifier">e</span><span class="special">,</span> <span class="identifier">out</span><span class="special">);</span>
+<span class="identifier">save_obj</span><span class="special">(</span><span class="identifier">c</span><span class="special">,</span> <span class="identifier">out</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        And finally use that stream to load those objects:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">string</span> <span class="identifier">data</span> <span class="special">=</span> <span class="identifier">out</span><span class="special">.</span><span class="identifier">str</span><span class="special">();</span>
+
+<span class="identifier">istringstream</span> <span class="identifier">in</span><span class="special">(</span><span class="identifier">data</span><span class="special">);</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">obj1</span><span class="special">,</span> <span class="identifier">obj2</span><span class="special">;</span>
+<span class="identifier">load_obj</span><span class="special">(</span><span class="identifier">obj1</span><span class="special">,</span> <span class="identifier">in</span><span class="special">);</span> <span class="comment">// loading Alice</span>
+<span class="identifier">load_obj</span><span class="special">(</span><span class="identifier">obj2</span><span class="special">,</span> <span class="identifier">in</span><span class="special">);</span> <span class="comment">// loading Bob</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now, let's see what we need to do to make the code from above work as expected.
+      </p>
+<p>
+        First let's write the save function.
+      </p>
+<p>
+        To save the object we'll need to write the names of its mixins. You might
+        know that mixins also have id-s, but saving id-s is not a safe operation
+        as they are generated based on the global instantiation order. This means
+        that different programs with the same mixins (like a client or a server),
+        or even the same program after a recompilation, could end up generating different
+        id-s for the same mixins.
+      </p>
+<p>
+        To get the names of the mixins in an object we could use <code class="computeroutput"><span class="identifier">object</span><span class="special">::</span><span class="identifier">get_mixin_names</span></code>
+        and it's perfectly fine, but in order to make this example a bit more interesting,
+        let's dive a bit into the library's internal structure.
+      </p>
+<p>
+        If you've read the implementation notes or the debugging tutorial, you'll
+        know that an object has a type information member which contains the mixin
+        composition of the object in a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>
+        called <code class="computeroutput"><span class="identifier">_compact_mixins</span></code>. We'll
+        use this vector to save the mixin names.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">size_t</span> <span class="identifier">num_mixins</span> <span class="special">=</span> <span class="identifier">obj</span><span class="special">.</span><span class="identifier">_type_info</span><span class="special">-&gt;</span><span class="identifier">_compact_mixins</span><span class="special">.</span><span class="identifier">size</span><span class="special">();</span>
+<span class="identifier">out</span> <span class="special">&lt;&lt;</span> <span class="identifier">num_mixins</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span> <span class="comment">// write the size</span>
+<span class="keyword">for</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">num_mixins</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="comment">// write each name</span>
+    <span class="identifier">out</span> <span class="special">&lt;&lt;</span> <span class="identifier">obj</span><span class="special">.</span><span class="identifier">_type_info</span><span class="special">-&gt;</span><span class="identifier">_compact_mixins</span><span class="special">[</span><span class="identifier">i</span><span class="special">]-&gt;</span><span class="identifier">name</span> <span class="special">&lt;&lt;</span> <span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        After we've stored the object type information, we can now save the data
+        within its mixins via the <code class="computeroutput"><span class="identifier">save</span></code>
+        message from above.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">save</span><span class="special">(</span><span class="identifier">obj</span><span class="special">,</span> <span class="identifier">out</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        That was it. Now let's move to the code of the <code class="computeroutput"><span class="identifier">load_obj</span></code>
+        function.
+      </p>
+<p>
+        First we need to get the number of mixins we're loading. Let's do it in this
+        simple fashion:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">string</span> <span class="identifier">line</span><span class="special">;</span>
+<span class="identifier">getline</span><span class="special">(</span><span class="identifier">in</span><span class="special">,</span> <span class="identifier">line</span><span class="special">);</span>
+
+<span class="identifier">size_t</span> <span class="identifier">num_mixins</span> <span class="special">=</span> <span class="identifier">atoi</span><span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">c_str</span><span class="special">());</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now we'll create an <code class="computeroutput"><span class="identifier">object_type_template</span></code>
+        which we'll use to store the loaded type and give it to a new object. The
+        type template class (as all other mutator classes) has the method <code class="computeroutput"><span class="identifier">add</span></code>. Besides the way you're used to calling
+        it &#8211; <code class="computeroutput"><span class="identifier">add</span><span class="special">&lt;</span><span class="identifier">mixin</span><span class="special">&gt;()</span></code>
+        &#8211; you can also call it with a <code class="computeroutput"><span class="keyword">const</span>
+        <span class="keyword">char</span><span class="special">*</span></code>
+        argument, which will be interpreted as a mixin name.
+      </p>
+<p>
+        When being called like this, it will return <code class="computeroutput"><span class="keyword">bool</span></code>.
+        True if a mixin of this name was found, and false if it wasn't. Note that
+        this true or false value does not give you the information on whether the
+        mixin will be added or removed from the object, but only a mixin of name
+        exists in the domain. As you might remember the mutation rules (if such are
+        added) will determine whether the mixin is actually added an removed.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">object_type_template</span> <span class="identifier">tmpl</span><span class="special">;</span>
+<span class="keyword">for</span><span class="special">(</span><span class="identifier">size_t</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;</span> <span class="identifier">i</span><span class="special">&lt;</span><span class="identifier">num_mixins</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">getline</span><span class="special">(</span><span class="identifier">in</span><span class="special">,</span> <span class="identifier">line</span><span class="special">);</span>
+    <span class="identifier">tmpl</span><span class="special">.</span><span class="identifier">add</span><span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">c_str</span><span class="special">());</span>
+<span class="special">}</span>
+<span class="identifier">tmpl</span><span class="special">.</span><span class="identifier">create</span><span class="special">();</span>
+</pre>
+<p>
+      </p>
+<p>
+        Now what's left is to apply the template to the object:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">tmpl</span><span class="special">.</span><span class="identifier">apply_to</span><span class="special">(</span><span class="identifier">obj</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        The last thing we need to do when loading an object is to load the data within
+        its mixins. The object is created with the appropriate mixins, so let's call
+        the <code class="computeroutput"><span class="identifier">load</span></code> multicast message.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">load</span><span class="special">(</span><span class="identifier">obj</span><span class="special">,</span> <span class="identifier">in</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        It should load the data correctly because the order of the save and load
+        execution is the same &#8211; determined by their priority.
       </p>
 </div>
 <div class="section">

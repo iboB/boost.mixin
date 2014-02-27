@@ -4,14 +4,14 @@
 <title>Class single_object_mutator</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 1.0">
 <link rel="up" href="../../mixin/reference.html#header.boost.mixin.single_object_mutator_hpp" title="Header &lt;boost/mixin/single_object_mutator.hpp&gt;">
 <link rel="prev" href="same_type_mutator.html" title="Class same_type_mutator">
-<link rel="next" href="../../boost_mixin/roadmap.html" title="Roadmap">
+<link rel="next" href="../../BOOST_MIXIN_VERSION_MAJOR.html" title="Macro BOOST_MIXIN_VERSION_MAJOR">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="same_type_mutator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.single_object_mutator_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../boost_mixin/roadmap.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="same_type_mutator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.single_object_mutator_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../BOOST_MIXIN_VERSION_MAJOR.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.mixin.single_object_mutator"></a><div class="titlepage"></div>
@@ -26,33 +26,33 @@
 <span class="keyword">class</span> <a class="link" href="single_object_mutator.html" title="Class single_object_mutator">single_object_mutator</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">object_mutator</span> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="single_object_mutator.html#boost.mixin.single_object_mutatorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="single_object_mutator.html#idp8483920-bb"><span class="identifier">single_object_mutator</span></a><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="single_object_mutator.html#idp8485024-bb"><span class="identifier">single_object_mutator</span></a><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="single_object_mutator.html#idp8486128-bb"><span class="special">~</span><span class="identifier">single_object_mutator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="single_object_mutator.html#idp9342496-bb"><span class="identifier">single_object_mutator</span></a><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="single_object_mutator.html#idp9343600-bb"><span class="identifier">single_object_mutator</span></a><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="single_object_mutator.html#idp9344704-bb"><span class="special">~</span><span class="identifier">single_object_mutator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="single_object_mutator.html#idp8482256-bb">public member functions</a></span>
-  <span class="keyword">void</span> <a class="link" href="single_object_mutator.html#idp8482656-bb"><span class="identifier">apply</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="single_object_mutator.html#idp9340832-bb">public member functions</a></span>
+  <span class="keyword">void</span> <a class="link" href="single_object_mutator.html#idp9341232-bb"><span class="identifier">apply</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp39996016"></a><h2>Description</h2>
+<a name="idp11651392"></a><h2>Description</h2>
 <p>The single object mutator mutates objects. Namely it adds and removes mixins from an object While synchronizing the object's type information</p>
 <p>The usage is to call add and remove for the desired components and then call <code class="computeroutput">single_object_mutator::apply()</code> or simply have it leave the scope, or use the typedef mutate to do the mutation on a single line </p>
 <div class="refsect2">
-<a name="idp39997920"></a><h3>
+<a name="idp11653296"></a><h3>
 <a name="boost.mixin.single_object_mutatorconstruct-copy-destruct"></a><code class="computeroutput">single_object_mutator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idp8483920-bb"></a><span class="identifier">single_object_mutator</span><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">*</span> o<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idp8485024-bb"></a><span class="identifier">single_object_mutator</span><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span> o<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idp8486128-bb"></a><span class="special">~</span><span class="identifier">single_object_mutator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp9342496-bb"></a><span class="identifier">single_object_mutator</span><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">*</span> o<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp9343600-bb"></a><span class="identifier">single_object_mutator</span><span class="special">(</span><a class="link" href="object.html" title="Class object">object</a> <span class="special">&amp;</span> o<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp9344704-bb"></a><span class="special">~</span><span class="identifier">single_object_mutator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp40014560"></a><h3>
-<a name="idp8482256-bb"></a><code class="computeroutput">single_object_mutator</code> public member functions</h3>
+<a name="idp11670000"></a><h3>
+<a name="idp9340832-bb"></a><code class="computeroutput">single_object_mutator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp8482656-bb"></a><span class="identifier">apply</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Applies the mutation to the object. </li></ol></div>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp9341232-bb"></a><span class="identifier">apply</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Applies the mutation to the object. </li></ol></div>
 </div>
 </div>
 </div>
@@ -66,7 +66,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="same_type_mutator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.single_object_mutator_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../boost_mixin/roadmap.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="same_type_mutator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../mixin/reference.html#header.boost.mixin.single_object_mutator_hpp"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../BOOST_MIXIN_VERSION_MAJOR.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

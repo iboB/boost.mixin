@@ -4,7 +4,7 @@
 <title>Macro BOOST_MIXIN_MESSAGE_N</title>
 <link rel="stylesheet" href="boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.Mixin 1.0">
 <link rel="up" href="mixin/reference.html#header.boost.mixin.message_macros_hpp" title="Header &lt;boost/mixin/message_macros.hpp&gt;">
 <link rel="prev" href="BOOST_MIXIN_FWD.html" title="Macro BOOST_MIXIN_FWD">
 <link rel="next" href="BOOST_MIXIN_DEFINE_MESSAGE.html" title="Macro BOOST_MIXIN_DEFINE_MESSAGE">
@@ -24,7 +24,7 @@
 
 </span>BOOST_MIXIN_MESSAGE_N(return_type, message, args)</pre></div>
 <div class="refsect1">
-<a name="idp38204672"></a><h2>Description</h2>
+<a name="idp9806672"></a><h2>Description</h2>
 <p>Macro that declares a message</p>
 <p>This generates the stand-alone function which is users should use to call messages.</p>
 <p>The calls will throw the exception <code class="computeroutput">bad_message_call</code> if none of the mixins from which the object is composed handles this message. To prevent the message calls from Throwing exceptions you can define <code class="computeroutput">BOOST_MIXIN_NO_MSG_THROW</code> before including the library's headers.</p>

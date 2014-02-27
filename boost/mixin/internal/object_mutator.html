@@ -4,7 +4,7 @@
 <title>Class object_mutator</title>
 <link rel="stylesheet" href="../../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 0.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Mixin 1.0">
 <link rel="up" href="../../../mixin/reference.html#header.boost.mixin.object_mutator_hpp" title="Header &lt;boost/mixin/object_mutator.hpp&gt;">
 <link rel="prev" href="../object.html" title="Class object">
 <link rel="next" href="object_type_info.html" title="Class object_type_info">
@@ -26,44 +26,52 @@
 <span class="keyword">class</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mixin</span><span class="special">::</span><span class="identifier">internal</span><span class="special">::</span><span class="identifier">noncopyable</span> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="object_mutator.html#boost.mixin.internal.object_mutatorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="object_mutator.html#idp8371392-bb"><span class="identifier">object_mutator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="object_mutator.html#idp8371520-bb"><span class="identifier">object_mutator</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="../mixin_collection.html" title="Class mixin_collection">mixin_collection</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="object_mutator.html#idp9228736-bb"><span class="identifier">object_mutator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="object_mutator.html#idp9228864-bb"><span class="identifier">object_mutator</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="../mixin_collection.html" title="Class mixin_collection">mixin_collection</a> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="object_mutator.html#idp8364880-bb">public member functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a class="link" href="object_mutator.html#idp8365280-bb"><span class="identifier">add</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a class="link" href="object_mutator.html#idp8367376-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp8369472-bb"><span class="identifier">cancel</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp8370432-bb"><span class="identifier">create</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="object_mutator.html#idp9215632-bb">public member functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a class="link" href="object_mutator.html#idp9216032-bb"><span class="identifier">add</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a class="link" href="object_mutator.html#idp9218128-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="object_mutator.html#idp9220224-bb"><span class="identifier">add</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="object_mutator.html#idp9221872-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp9223520-bb"><span class="identifier">add</span></a><span class="special">(</span><span class="identifier">mixin_id</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp9225168-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="identifier">mixin_id</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp9226816-bb"><span class="identifier">cancel</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp9227776-bb"><span class="identifier">create</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="object_mutator.html#idp8372784-bb">protected member functions</a></span>
-  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp8373200-bb"><span class="identifier">apply_to</span></a><span class="special">(</span><a class="link" href="../object.html" title="Class object">object</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="object_mutator.html#idp9230128-bb">protected member functions</a></span>
+  <span class="keyword">void</span> <a class="link" href="object_mutator.html#idp9230544-bb"><span class="identifier">apply_to</span></a><span class="special">(</span><a class="link" href="../object.html" title="Class object">object</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp39135792"></a><h2>Description</h2>
+<a name="idp10766960"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idp39136208"></a><h3>
+<a name="idp10767376"></a><h3>
 <a name="boost.mixin.internal.object_mutatorconstruct-copy-destruct"></a><code class="computeroutput">object_mutator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idp8371392-bb"></a><span class="identifier">object_mutator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idp8371520-bb"></a><span class="identifier">object_mutator</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="../mixin_collection.html" title="Class mixin_collection">mixin_collection</a> <span class="special">*</span> source_mixins<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp9228736-bb"></a><span class="identifier">object_mutator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp9228864-bb"></a><span class="identifier">object_mutator</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="../mixin_collection.html" title="Class mixin_collection">mixin_collection</a> <span class="special">*</span> source_mixins<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp39148144"></a><h3>
-<a name="idp8364880-bb"></a><code class="computeroutput">object_mutator</code> public member functions</h3>
+<a name="idp10779248"></a><h3>
+<a name="idp9215632-bb"></a><code class="computeroutput">object_mutator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a name="idp8365280-bb"></a><span class="identifier">add</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a name="idp8367376-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp8369472-bb"></a><span class="identifier">cancel</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp8370432-bb"></a><span class="identifier">create</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a name="idp9216032-bb"></a><span class="identifier">add</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Mixin<span class="special">&gt;</span> <a class="link" href="object_mutator.html" title="Class object_mutator">object_mutator</a> <span class="special">&amp;</span> <a name="idp9218128-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp9220224-bb"></a><span class="identifier">add</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> mixin_type_name<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp9221872-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> mixin_type_name<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp9223520-bb"></a><span class="identifier">add</span><span class="special">(</span><span class="identifier">mixin_id</span> id<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp9225168-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="identifier">mixin_id</span> id<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp9226816-bb"></a><span class="identifier">cancel</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp9227776-bb"></a><span class="identifier">create</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp39174208"></a><h3>
-<a name="idp8372784-bb"></a><code class="computeroutput">object_mutator</code> protected member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp8373200-bb"></a><span class="identifier">apply_to</span><span class="special">(</span><a class="link" href="../object.html" title="Class object">object</a> <span class="special">&amp;</span> obj<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+<a name="idp10828032"></a><h3>
+<a name="idp9230128-bb"></a><code class="computeroutput">object_mutator</code> protected member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp9230544-bb"></a><span class="identifier">apply_to</span><span class="special">(</span><a class="link" href="../object.html" title="Class object">object</a> <span class="special">&amp;</span> obj<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>
