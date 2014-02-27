@@ -48,6 +48,7 @@
     <ClInclude Include="..\..\include\boost\mixin\object_type_info.hpp" />
     <ClInclude Include="..\..\include\boost\mixin\same_type_mutator.hpp" />
     <ClInclude Include="..\..\include\boost\mixin\single_object_mutator.hpp" />
+    <ClInclude Include="..\..\include\boost\mixin\version.hpp" />
     <ClInclude Include="..\..\src\internal.hpp" />
   </ItemGroup>
   <ItemGroup>

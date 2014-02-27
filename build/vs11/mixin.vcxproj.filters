@@ -125,6 +125,9 @@
     <ClInclude Include="..\..\include\boost\mixin\allocators.hpp">
       <Filter>boost\mixin</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\boost\mixin\version.hpp">
+      <Filter>boost\mixin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\boost\mixin\gen\message_macros.ipp">
