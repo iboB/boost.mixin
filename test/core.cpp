@@ -62,6 +62,7 @@ BOOST_AUTO_TEST_CASE(simple_inline_mutation)
 {
     object o;
 
+    BOOST_CHECK(o.empty());
     BOOST_CHECK(!o.has<no_messages>());
     BOOST_CHECK_NULL(o.get<no_messages>());
 
@@ -74,6 +75,14 @@ BOOST_AUTO_TEST_CASE(simple_inline_mutation)
 
     BOOST_CHECK(!o.has<no_messages>());
     BOOST_CHECK_NULL(o.get<no_messages>());
+    BOOST_CHECK(o.empty());
+
+    mutate(o).add<no_messages>();
+    o.clear();
+
+    BOOST_CHECK(!o.has<no_messages>());
+    BOOST_CHECK_NULL(o.get<no_messages>());
+    BOOST_CHECK(o.empty());
 }
 
 BOOST_AUTO_TEST_CASE(basic_message)

@@ -94,6 +94,9 @@ public:
     // (sets null type info)
     void clear();
 
+    /// Returns true if the object is empty - has no mixins
+    bool empty() const;
+
     /////////////////////////////////////////////////////////////////
     // logging and diagnostics
 
