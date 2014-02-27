@@ -58,6 +58,7 @@ a hypothetical big program example
 [include debugging.qbk]
 [include advanced.qbk]
 [xinclude reference.xml]
+[include revision_history.qbk]
 [include roadmap.qbk]
 [include appendix.qbk]
 [xinclude index.xml]

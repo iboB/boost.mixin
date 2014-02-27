@@ -8,4 +8,11 @@
 
 [section:history Revision history]
 
+[section:v1_0_0 Boost.Mixin 1.0.0]
+
+First official release of the library. Version submitted for formal review in
+Boost.
+
+[endsect]
+
 [endsect]
