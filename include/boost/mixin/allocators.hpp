@@ -10,7 +10,7 @@
 
 /**
  * \file
- * Allocator classes
+ * Allocator classes.
  */
 
 #include "global.hpp"

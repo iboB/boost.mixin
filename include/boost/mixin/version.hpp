@@ -10,15 +10,16 @@
 
 /**
  * \file
- * Library version info
- * Optional header file
+ * Optional header file, which contains library version info.
  */
 
 #define BOOST_MIXIN_VERSION_MAJOR 1
 #define BOOST_MIXIN_VERSION_MINOR 0
 #define BOOST_MIXIN_VERSION_SUB_MINOR 0
 
-/// Version composed of `major*10000 + minor*100 + subminor`.
+/// The library's version.
+///
+/// It is composed of `major*10000 + minor*100 + subminor`.
 /// For example, version 2.31.11 would be 23111.
 #define BOOST_MIXIN_VERSION (BOOST_MIXIN_VERSION_MAJOR*10000 + BOOST_MIXIN_VERSION_MINOR*100 + BOOST_MIXIN_VERSION_SUB_MINOR)
 

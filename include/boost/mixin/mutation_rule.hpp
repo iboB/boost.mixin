@@ -35,8 +35,8 @@ public:
 
 /// Adds a mutation rule to the domain.
 ///
-/// Does *not* perform a topological sort of the rules
-/// It is the user's responsibility to add the mutation rules in the appropriate order
+/// Does *not* perform a topological sort of the rules.
+/// It is the user's responsibility to add the mutation rules in the appropriate order.
 void BOOST_MIXIN_API add_new_mutation_rule(mutation_rule* rule);
 
 } // namespace mixin

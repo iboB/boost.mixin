@@ -164,8 +164,7 @@ boost_mixin_internal:
 
 // allocator functions
 
-/// Sets an global allocator for all mixins
-/// Returns the previous allocator
+/// Sets an global allocator for all mixins.
 void BOOST_MIXIN_API set_global_allocator(global_allocator* allocator);
 
 } // namespace mixin

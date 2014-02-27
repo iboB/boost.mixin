@@ -10,7 +10,7 @@
 
 /**
  * \file
- * Common feature related classes.
+ * Types related to mixin features.
  */
 
 #include "global.hpp"
@@ -23,7 +23,7 @@ namespace mixin
 /// The type of the `none` feature.
 struct BOOST_MIXIN_API no_features_t {};
 
-/// Use this as a mixin feature, to indicate that the mixin
+/// Use this as a mixin feature to indicate that the mixin
 /// implements no features.
 extern BOOST_MIXIN_API no_features_t* none;
 

@@ -25,12 +25,12 @@ namespace internal
 /// It is used by mutators and mutation rules.
 ///
 /// Internally the class has two `mixin_collection` objects -
-/// removing and adding that represent the mixins that are supposed to be
+/// `removing` and `adding`. They represent the mixins that are supposed to be
 /// removed and added by the mutation.
 ///
 /// Additionally another mixin collection might be present - the source.
 /// It is a pointer that may be null. If it's not, it represents the mixins
-/// of the object that's been currently mutated.
+/// of the object that currently being mutated by this mutation.
 class BOOST_MIXIN_API object_type_mutation
 {
 public:
@@ -163,6 +163,7 @@ public:
     template <typename Feature>
     void start_removing(const Feature* f);
 
+    /// Returns true if the mutation is empty - adds no mixins and removes no mixins.
     bool empty() const { return _adding.empty() && _removing.empty(); }
 
     /// Normalize the collections _adding and _removing.

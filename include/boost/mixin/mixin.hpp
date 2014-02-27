@@ -49,7 +49,7 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
  * in Visual C++.
  * \param mixin_type is the class name of the declared mixin.
  *
- * When using mixins from dynamic libraries use this macro in your headers
+ * When using mixins from dynamic libraries, use this macro in your headers
  * to forward declare a class as a mixin.
  * This may be included separately and doesn't need to be in the same
  * header as the actual mixin class definition.
@@ -60,7 +60,7 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
  * \par Example:
  * \code
  * // Assuming MY_LIB_API is a macro that expands accordingly to the
- * // export/import symbols for the compiler, you're using.
+ * // export/import symbols for the compiler you're using.
  * BOOST_DECLARE_EXPORTED_MIXIN(MY_LIB_API, my_mixin_type);
  * \endcode
  */
@@ -92,7 +92,7 @@ mixin_type_info_instance<Mixin>::mixin_type_info_instance()
  * in the compilation unit of the mixin class itself.
  *
  * To work properly, the macro needs to see a forward declaration of the mixin
- * by BOOST_DECLARE[_EXPORED]_MIXIN.
+ * (by BOOST_DECLARE_MIXIN or BOOST_DECLARE_EXPORED_MIXIN).
  *
  * \par Mixin features:
  * The features argument is an ampersand (&) separated list of the features -

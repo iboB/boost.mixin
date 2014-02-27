@@ -127,7 +127,7 @@
 #endif
 
 /**
- * The macro for defining a message
+ * The macro for defining a message.
  * Use it once per message in a compilation unit (.cpp file)
  */
 #define BOOST_MIXIN_DEFINE_MESSAGE(message_name) \
