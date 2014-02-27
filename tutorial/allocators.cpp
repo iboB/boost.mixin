@@ -147,11 +147,11 @@ public:
 
 
     per_frame_allocator()
-        : mixin_buf_size(
+        : _num_allocations(0)
+        , mixin_buf_size(
             calculate_mem_size_for_mixin(
                 sizeof(Mixin),
                 boost::alignment_of<Mixin>::value))
-        , _num_allocations(0)
         , page_size(mixin_buf_size * NUM_IN_PAGE)
     {
         new_memory_page();
