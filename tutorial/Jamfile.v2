@@ -17,3 +17,4 @@ exe combinators : combinators.cpp ;
 exe mutation : mutation.cpp ;
 exe mutation_rules : mutation_rules.cpp ;
 exe allocators : allocators.cpp ;
+exe serialization : serialization.cpp ;
