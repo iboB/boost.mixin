@@ -11,9 +11,6 @@
 Here is a list of planned features and events for the library: (The authors
 write it in their own free time, so concrete dates are hard to estimate)
 
-* Hopefully by April 2014:
-    * Full documentation
-    * Formal submission to Boost
 * Not soon, but with concrete idea of how to be done:
     * Case-study: A demo project, that better illustrates the libraries
     functionalities in a "real life" scenario. Complete with a document which
