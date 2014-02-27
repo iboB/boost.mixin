@@ -51,13 +51,24 @@ public:
         return *this;
     }
 
+    // add/remove mixin by type name string
+    // both functions will return whether a mixin with this name exists
+    // Note: the return value has nothing to with whether the mixin has been added 
+    // or removed from the object(s) being mutated (this is resolved by the mutation rules)
+    bool add(const char* mixin_type_name);
+    bool remove(const char* mixin_type_name);
+
+    // add/remove mixin by mixin id
+    // ann exception is thrown if a mixin with this id doesn't exist
+    void add(mixin_id id);
+    void remove(mixin_id id);
+
     // todo: add operators + and -
 
     void cancel();
 
     void create();
 protected:
-
     void apply_to(object& obj) const;
 
     object_type_mutation _mutation;

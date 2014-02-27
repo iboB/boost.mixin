@@ -148,6 +148,46 @@ void object_mutator::apply_to(object& obj) const
     }
 }
 
+bool object_mutator::add(const char* mixin_type_name)
+{
+    mixin_id id = domain::instance().get_mixin_id_by_name(mixin_type_name);
+
+    if(id == INVALID_MIXIN_ID)
+    {
+        return false;
+    }
+
+    _mutation.start_adding(id);
+
+    return true;
+}
+
+bool object_mutator::remove(const char* mixin_type_name)
+{
+    mixin_id id = domain::instance().get_mixin_id_by_name(mixin_type_name);
+
+    if(id == INVALID_MIXIN_ID)
+    {
+        return false;
+    }
+
+    _mutation.start_removing(id);
+
+    return true;
+}
+
+void object_mutator::add(mixin_id id)
+{
+    BOOST_MIXIN_THROW_UNLESS(id >= domain::instance()._num_registered_mixins, bad_mutation);
+    _mutation.start_adding(id);
+}
+
+void object_mutator::remove(mixin_id id)
+{
+    BOOST_MIXIN_THROW_UNLESS(id >= domain::instance()._num_registered_mixins, bad_mutation);
+    _mutation.start_removing(id);
+}
+
 }
 }
 }

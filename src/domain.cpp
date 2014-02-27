@@ -204,6 +204,22 @@ void domain::set_allocator(global_allocator* allocator)
     _allocator = allocator;
 }
 
+mixin_id domain::get_mixin_id_by_name(const char* mixin_name) const
+{
+    for(size_t i=0; i<_num_registered_mixins; ++i)
+    {
+        const mixin_type_info& registered = *_mixin_type_infos[i];
+
+        if(strcmp(mixin_name, registered.name) == 0)
+        {
+            return registered.id;
+        }
+    }
+
+    // no mixin of this name found
+    return INVALID_MIXIN_ID;
+}
+
 } // namespace internal
 
 void add_new_mutation_rule(mutation_rule* rule)

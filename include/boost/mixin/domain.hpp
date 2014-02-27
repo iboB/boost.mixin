@@ -127,6 +127,9 @@ public:
     void set_allocator(global_allocator* allocator);
     global_allocator* allocator() const { return _allocator; }
 
+    // get mixin id by name string
+    mixin_id get_mixin_id_by_name(const char* mixin_name) const;
+
 boost_mixin_internal:
 
     domain();
