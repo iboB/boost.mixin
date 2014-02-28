@@ -99,7 +99,7 @@ the virtual function is probably the cleanest and safest one.
 
 [section:common_problems Common problems and solutions]
 
-[section:compiler_errors Compiler erros]
+[section:compiler_errors Compiler errors]
 
 * No overload of `_boost_get_mixin_type_info` supports the type
     * Problem: In your code you're referring to a mixin, that the library cannot
@@ -120,7 +120,7 @@ the virtual function is probably the cleanest and safest one.
     * Solution: If it's a message, check that you've added the `_msg` suffix.
     If it's an allocator, make sure it's derived from the `mixin_allocator`
     class
-* Redefinition of _booost_get_mixin_feature
+* Redefinition of _boost_get_mixin_feature
     * Problem: You're defining two messages with `BOOST_MIXIN_DEFINE_MESSAGE`
     that have same name in the same file.
     * Solution: Declare the messages as overloads with
@@ -128,7 +128,7 @@ the virtual function is probably the cleanest and safest one.
 
 [endsect]
 
-[section:linker_errors Linker erros]
+[section:linker_errors Linker errors]
 
 Undefined reference (mentioned below) will be reported as an "unresolved
 external symbol" in Visual C++.
@@ -156,7 +156,7 @@ external symbol" in Visual C++.
 
 [endsect]
 
-[section:runtime_errors Runtime erros]
+[section:runtime_errors Runtime errors]
 
 The exceptions the library may throw, what causes them, and how to fix them
 can be found in the reference. Besides them, these may also occur:
