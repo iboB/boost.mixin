@@ -140,7 +140,7 @@ external symbol" in Visual C++.
     exported correctly.
     * Solution 2: Declare the mixin properly as `BOOST_DECLARE_EXPORTED_MIXIN`
 * Undefined references to `_boost_register_mixin_feature` and
-`_booost_get_mixin_feature`
+`_boost_get_mixin_feature`
     * Problem 1: A message has been declared but not defined.
     * Solution 1: Define the message with `BOOST_MIXIN_DEFINE_MESSAGE`
     * Problem 2 : A message is being used from a dynamic library and hasn't been
@@ -148,7 +148,7 @@ external symbol" in Visual C++.
     * Solution 2: Declare the message properly as
     `BOOST_MIXIN_EXPORTED_xxx_MESSAGE_N`
 * Multiple references to `_boost_register_mixin_feature` and
-`_booost_get_mixin_feature`
+`_boost_get_mixin_feature`
     * Problem: Two messages have been defined with the same name and different
     arguments.
     * Solution: Declare the messages as overloads with
