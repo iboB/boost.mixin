@@ -34,7 +34,8 @@ This is given while also having full abstraction between the interface and the
 definition of types -- a problem often given as the motivation for the
 [@http://www.drdobbs.com/cpp/making-pimpl-easy/205918714 PIMPL idiom].
 
-In short, /Boost.Mixin is an alternative way to accomplish polymorphism/.
+In short, /Boost.Mixin is an alternative way to accomplish polymorphism/. It is
+a means to create a project's /architecture/, rather than its purpose.
 
 The library uses the type `boost::mixin::object` as a placeholder, whose
 instances can be extended with existing classes (mixins), thus providing
