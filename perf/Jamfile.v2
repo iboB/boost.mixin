@@ -12,8 +12,8 @@ project boost/mixin/perf
         # can't use this while not part of boost
         # <library>/boost/test//boost_timer
         # instead use this
-        <target-os>linux:<library>/usr/lib/libboost_timer.so
-        <target-os>linux:<library>/usr/lib/libboost_system.so
+        <target-os>linux:<library>/usr/lib/x86_64-linux-gnu/libboost_timer.so
+        <target-os>linux:<library>/usr/lib/x86_64-linux-gnu/libboost_system.so
     ;
 
 

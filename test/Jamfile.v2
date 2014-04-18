@@ -14,7 +14,7 @@ project boost/mixin/test
         # can't use this while not part of boost
         # <library>/boost/test//boost_unit_test_framework
         # instead use this
-        <target-os>linux:<file>/usr/lib/libboost_unit_test_framework.so
+        <target-os>linux:<file>/usr/lib/x86_64-linux-gnu/libboost_unit_test_framework.so
     ;
 
 rule test_all
