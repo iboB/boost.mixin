@@ -26,3 +26,4 @@ See license FAQ [here](http://www.boost.org/users/license.html).
 
 Copyright (c) 2013-2014 [Borislav Stanimirov](http://github.com/iboB), [Zahary Karadjov](http://github.com/zah)
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/iboB/boost.mixin/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
