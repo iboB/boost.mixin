@@ -39,7 +39,7 @@ const object_type_info& object_type_info::null()
 
 mixin_data_in_object* object_type_info::alloc_mixin_data() const
 {
-    size_t num_to_allocate = _compact_mixins.size() + 1; //reserve idnex 0 for nullptr
+    size_t num_to_allocate = _compact_mixins.size() + 1; //reserve index 0 for nullptr
 
     char* memory = domain::instance().allocator()->alloc_mixin_data(num_to_allocate);
     mixin_data_in_object* ret = new (memory) mixin_data_in_object[num_to_allocate];
