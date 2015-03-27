@@ -96,7 +96,7 @@ const object_type_info* domain::get_object_type_info(const mixin_type_info_vecto
         {
             BOOST_ASSERT(mixins[i]);
             new_type->_mixins[mixins[i]->id] = true;
-            new_type->_mixin_indices[mixins[i]->id] = i + 1; // reserve mixin index 0 for nullptr
+            new_type->_mixin_indices[mixins[i]->id] = i + object_type_info::MIXIN_INDEX_OFFSET;
         }
 
         new_type->fill_call_table();

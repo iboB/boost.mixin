@@ -57,8 +57,13 @@ boost_mixin_internal:
     using mixin_collection::_mixins;
     using mixin_collection::_compact_mixins;
 
-    // indices in the _compact_mixins member
+    // indices in the object::_mixin_data
     size_t _mixin_indices[BOOST_MIXIN_MAX_MIXINS];
+
+    // offset of the mixin indices in the object's _mixin_data member
+    // index 0 is reserved for a null mixin data. It's used to return nullptr on queries for non member mixins 
+    //         (without having to check with an if or worse yet - a loop)
+    static const size_t MIXIN_INDEX_OFFSET = 1;
 
     struct call_table_entry
     {
