@@ -18,6 +18,7 @@
 
 #include <boost/assert.hpp>
 #include <algorithm>
+#include <functional> // for std::greater
 #include <vector>
 #include <cstring> // for memset
 
