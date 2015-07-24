@@ -43,10 +43,8 @@ object::object(const object_type_template& type)
 object::object(object&& o)
     : _type_info(o._type_info)
     , _mixin_data(o._mixin_data)
-
 {
-    // start with 1 since 0 is reserved for the null mixin
-    for(size_t i=1; i<=_type_info->_compact_mixins.size(); ++i)
+    for (size_t i = object_type_info::MIXIN_INDEX_OFFSET; i < _type_info->_compact_mixins.size() + object_type_info::MIXIN_INDEX_OFFSET; ++i)
     {
         _mixin_data[i].set_object(this);
     }
