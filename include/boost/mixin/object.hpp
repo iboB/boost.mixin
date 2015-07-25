@@ -135,6 +135,16 @@ boost_mixin_internal:
     }
 
     bool implements_message(feature_id id) const;
+
+    // virtual mixin for default behavior
+    // used only so as to not have a null pointer cast to the appropriate type for default implementations
+    struct default_impl_virtual_mixin { void* unused; };
+    struct default_impl_virtual_mixin_data_in_object
+    {
+        object* obj;
+        default_impl_virtual_mixin mixin;
+    };
+    default_impl_virtual_mixin_data_in_object _default_impl_virtual_mixin_data;
 };
 
 } // namespace mixin

@@ -38,6 +38,12 @@
 #   define BOOST_MIXIN_FWD(arg_type, arg) arg
 #endif
 
+// default impl helper macros
+
+// name of default implementation struct
+/// INTERNAL ONLY
+#define BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name) BOOST_PP_CAT(message_name, _default_impl_t)
+
 #if defined(BOOST_MIXIN_DOXYGEN)
 // use these macros for the docs only
 
@@ -121,6 +127,31 @@
 * \endcode
 */
 #define BOOST_MIXIN_MESSAGE_N(return_type, message, args)
+
+/**
+* Macro that defines a message by also providing a default implementation
+*
+* Use it once per message in a compilation unit (.cpp file)
+*
+* A default implementation lets the user provide code to be executed if
+* a message is called for an object which has no mixin implementing it.
+*
+* \par Legend:
+* - `N` is a number that indicates how many parameters the
+* message takes. If `N` is 0, then `args` is omitted.
+* - `args` is a coma-separated list of the argument types and argument names of
+* the message's arguments
+* - `message_name` - is the name of the message
+*
+* \par Notes:
+* - As is the case with the mutation rules, an empty object won't implement default
+* message implementations. You'll need at least one mutation to make it do so
+* - A default implementation can be treated the same way as your implementation
+* in the method for a regular message: ie `bm_this` is valid
+* - If any of the mixins in an object implements this message, the default
+* implementation will be unreachable. Multicasts won't feature it.
+*/
+#define BOOST_MIXIN_DEFINE_MESSAGE_N_WITH_DEFAULT_IMPL(return_type, message_name, args)
 #else
 // include the generated macros
 #include "gen/message_macros.ipp"
@@ -144,6 +175,5 @@
     } \
     /* provide a tag instance */ \
     _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name) * _BOOST_MIXIN_MESSAGE_TAG(message_name)
-
 
 #endif // _BOOST_MIXIN_MESSAGE_MACROS_HPP_INCLUDED

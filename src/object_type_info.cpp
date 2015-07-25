@@ -24,6 +24,11 @@ object_type_info::object_type_info()
 {
     zero_memory(_mixin_indices, sizeof(_mixin_indices));
     zero_memory(_call_table, sizeof(_call_table));
+
+    // set the end of the array to point to the virtual default impl mixin
+    // since every default impl message will have this as an id,
+    // it will make the correct cross index when the message is called
+    _mixin_indices[BOOST_MIXIN_MAX_MIXINS] = DEFAULT_MSG_IMPL_INDEX;
 }
 
 object_type_info::~object_type_info()
@@ -111,6 +116,31 @@ void object_type_info::fill_call_table()
         }
     }
 
+    const domain& dom = domain::instance();
+
+    // pass through all messages to check for ones that we don't implement
+    // and have default implementations
+    // we need to set the multicast buffer size to include those ones too
+    for (size_t i = 0; i < dom._num_registered_messages; ++i)
+    {
+        if (!dom._messages[i]->default_impl_data)
+        {
+            // message doesn't have default implementation
+            continue;
+        }
+
+        const call_table_entry& table_entry = _call_table[i];
+
+        // note the hacky way of checking if we implement a multicast message
+        // we make use of the fact that in the step above we use the end pointer
+        // to count the number of clients for a message
+        // so, if it's zero, we don't implement it
+        if (dom._messages[i]->mechanism == message_t::multicast && !table_entry.multicast_end)
+        {
+            ++total_multicast_length;
+        }
+    }
+
     // pass 1.5
     // check for unicast clashes
     for(size_t i=0; i<_compact_mixins.size(); ++i)
@@ -192,9 +222,7 @@ void object_type_info::fill_call_table()
         }
     }
 
-    const domain& dom = domain::instance();
-
-    // final pass through all messages of the domain
+    // fourth pass through all messages of the domain
     // if we implement it AND it is a multicast, sort our buffer
     for(size_t i=0; i<dom._num_registered_messages; ++i)
     {
@@ -215,6 +243,40 @@ void object_type_info::fill_call_table()
         }
     }
 
+
+    // final pass through all messages
+    // if we don't implement a message and it has a default implementation, set it
+    for (size_t i = 0; i<dom._num_registered_messages; ++i)
+    {
+        call_table_entry& table_entry = _call_table[i];
+
+        if (table_entry.message_data)
+        {
+            // we already implement this message
+            continue;
+        }
+
+        const message_t* msg_data = dom._messages[i];
+
+        if (!msg_data->default_impl_data)
+        {
+            // message doesn't have a default implementation
+            continue;
+        }
+
+        if (msg_data->mechanism == message_t::unicast)
+        {
+            table_entry.message_data = msg_data->default_impl_data;
+        }
+        else
+        {
+            table_entry.multicast_begin = multicast_buffer_ptr;
+            table_entry.multicast_begin->message_data = msg_data->default_impl_data;
+            table_entry.multicast_end = table_entry.multicast_begin;
+            ++table_entry.multicast_end;
+            ++multicast_buffer_ptr;
+        }
+    }
 }
 
 }

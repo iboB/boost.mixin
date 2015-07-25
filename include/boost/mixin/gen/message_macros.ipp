@@ -183,6 +183,46 @@
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_0_OVERLOAD(export, message_name, return_type, method_name ) \
     _BOOST_MIXIN_MESSAGE0_MULTI(export, message_name, method_name, return_type, const )
 
+#define BOOST_MIXIN_DEFINE_MESSAGE_0_WITH_DEFAULT_IMPL(return_type, message_name ) \
+    /* standard message definition */ \
+    struct BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name) \
+    { \
+        return_type impl(); \
+        static return_type caller(void* self ) \
+        { \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(); \
+        } \
+    }; \
+    /* create a feature getter for the message */ \
+    ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        return ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+    } \
+    /* create a feature registrator */ \
+    void _boost_register_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)& msg = ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+        ::boost::mixin::internal::domain::instance().register_feature(msg); \
+        \
+        /* set message default implementation data */ \
+        static ::boost::mixin::internal::message_for_mixin default_impl = { \
+            &msg, \
+            BOOST_MIXIN_MAX_MIXINS, \
+            reinterpret_cast<::boost::mixin::internal::func_ptr>(&BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::caller), \
+            ::std::numeric_limits<int>::min(), \
+        }; \
+        msg.default_impl_data = &default_impl; \
+    } \
+    /* provide a tag instance */ \
+    _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)* _BOOST_MIXIN_MESSAGE_TAG(message_name); \
+    /* instantiate metafunction initializator in case no class registers the message */ \
+    inline void _boost_register_message_default_impl(_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        ::boost::mixin::internal::message_default_impl_registrator<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::registrator.unused = true; \
+    } \
+    /* begin default impl function so the used can just enter it after the macro */ \
+    return_type BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::impl()
+
 #define _BOOST_MIXIN_MESSAGE1_DECL(export, message_name, method_name, return_type, constness, message_mechanism , arg0_type, a0) \
     /* mechanism shows whether it's a multicast or unicast */ \
     \
@@ -356,6 +396,46 @@
 
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_1_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0) \
     _BOOST_MIXIN_MESSAGE1_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0)
+
+#define BOOST_MIXIN_DEFINE_MESSAGE_1_WITH_DEFAULT_IMPL(return_type, message_name , arg0_type, a0) \
+    /* standard message definition */ \
+    struct BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name) \
+    { \
+        return_type impl(arg0_type a0); \
+        static return_type caller(void* self , arg0_type a0) \
+        { \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0)); \
+        } \
+    }; \
+    /* create a feature getter for the message */ \
+    ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        return ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+    } \
+    /* create a feature registrator */ \
+    void _boost_register_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)& msg = ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+        ::boost::mixin::internal::domain::instance().register_feature(msg); \
+        \
+        /* set message default implementation data */ \
+        static ::boost::mixin::internal::message_for_mixin default_impl = { \
+            &msg, \
+            BOOST_MIXIN_MAX_MIXINS, \
+            reinterpret_cast<::boost::mixin::internal::func_ptr>(&BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::caller), \
+            ::std::numeric_limits<int>::min(), \
+        }; \
+        msg.default_impl_data = &default_impl; \
+    } \
+    /* provide a tag instance */ \
+    _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)* _BOOST_MIXIN_MESSAGE_TAG(message_name); \
+    /* instantiate metafunction initializator in case no class registers the message */ \
+    inline void _boost_register_message_default_impl(_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        ::boost::mixin::internal::message_default_impl_registrator<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::registrator.unused = true; \
+    } \
+    /* begin default impl function so the used can just enter it after the macro */ \
+    return_type BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::impl(arg0_type a0)
 
 #define _BOOST_MIXIN_MESSAGE2_DECL(export, message_name, method_name, return_type, constness, message_mechanism , arg0_type, a0, arg1_type, a1) \
     /* mechanism shows whether it's a multicast or unicast */ \
@@ -531,6 +611,46 @@
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_2_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1) \
     _BOOST_MIXIN_MESSAGE2_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1)
 
+#define BOOST_MIXIN_DEFINE_MESSAGE_2_WITH_DEFAULT_IMPL(return_type, message_name , arg0_type, a0, arg1_type, a1) \
+    /* standard message definition */ \
+    struct BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name) \
+    { \
+        return_type impl(arg0_type a0, arg1_type a1); \
+        static return_type caller(void* self , arg0_type a0, arg1_type a1) \
+        { \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+        } \
+    }; \
+    /* create a feature getter for the message */ \
+    ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        return ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+    } \
+    /* create a feature registrator */ \
+    void _boost_register_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)& msg = ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+        ::boost::mixin::internal::domain::instance().register_feature(msg); \
+        \
+        /* set message default implementation data */ \
+        static ::boost::mixin::internal::message_for_mixin default_impl = { \
+            &msg, \
+            BOOST_MIXIN_MAX_MIXINS, \
+            reinterpret_cast<::boost::mixin::internal::func_ptr>(&BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::caller), \
+            ::std::numeric_limits<int>::min(), \
+        }; \
+        msg.default_impl_data = &default_impl; \
+    } \
+    /* provide a tag instance */ \
+    _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)* _BOOST_MIXIN_MESSAGE_TAG(message_name); \
+    /* instantiate metafunction initializator in case no class registers the message */ \
+    inline void _boost_register_message_default_impl(_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        ::boost::mixin::internal::message_default_impl_registrator<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::registrator.unused = true; \
+    } \
+    /* begin default impl function so the used can just enter it after the macro */ \
+    return_type BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::impl(arg0_type a0, arg1_type a1)
+
 #define _BOOST_MIXIN_MESSAGE3_DECL(export, message_name, method_name, return_type, constness, message_mechanism , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
     /* mechanism shows whether it's a multicast or unicast */ \
     \
@@ -705,6 +825,46 @@
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_3_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
     _BOOST_MIXIN_MESSAGE3_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2)
 
+#define BOOST_MIXIN_DEFINE_MESSAGE_3_WITH_DEFAULT_IMPL(return_type, message_name , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
+    /* standard message definition */ \
+    struct BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name) \
+    { \
+        return_type impl(arg0_type a0, arg1_type a1, arg2_type a2); \
+        static return_type caller(void* self , arg0_type a0, arg1_type a1, arg2_type a2) \
+        { \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+        } \
+    }; \
+    /* create a feature getter for the message */ \
+    ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        return ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+    } \
+    /* create a feature registrator */ \
+    void _boost_register_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)& msg = ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+        ::boost::mixin::internal::domain::instance().register_feature(msg); \
+        \
+        /* set message default implementation data */ \
+        static ::boost::mixin::internal::message_for_mixin default_impl = { \
+            &msg, \
+            BOOST_MIXIN_MAX_MIXINS, \
+            reinterpret_cast<::boost::mixin::internal::func_ptr>(&BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::caller), \
+            ::std::numeric_limits<int>::min(), \
+        }; \
+        msg.default_impl_data = &default_impl; \
+    } \
+    /* provide a tag instance */ \
+    _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)* _BOOST_MIXIN_MESSAGE_TAG(message_name); \
+    /* instantiate metafunction initializator in case no class registers the message */ \
+    inline void _boost_register_message_default_impl(_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        ::boost::mixin::internal::message_default_impl_registrator<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::registrator.unused = true; \
+    } \
+    /* begin default impl function so the used can just enter it after the macro */ \
+    return_type BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::impl(arg0_type a0, arg1_type a1, arg2_type a2)
+
 #define _BOOST_MIXIN_MESSAGE4_DECL(export, message_name, method_name, return_type, constness, message_mechanism , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
     /* mechanism shows whether it's a multicast or unicast */ \
     \
@@ -878,3 +1038,43 @@
 
 #define BOOST_MIXIN_EXPORTED_CONST_MULTICAST_MESSAGE_4_OVERLOAD(export, message_name, return_type, method_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
     _BOOST_MIXIN_MESSAGE4_MULTI(export, message_name, method_name, return_type, const , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3)
+
+#define BOOST_MIXIN_DEFINE_MESSAGE_4_WITH_DEFAULT_IMPL(return_type, message_name , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
+    /* standard message definition */ \
+    struct BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name) \
+    { \
+        return_type impl(arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3); \
+        static return_type caller(void* self , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
+        { \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+        } \
+    }; \
+    /* create a feature getter for the message */ \
+    ::boost::mixin::feature& _boost_get_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        return ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+    } \
+    /* create a feature registrator */ \
+    void _boost_register_mixin_feature(const _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)& msg = ::boost::mixin::internal::feature_instance<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::the_feature(); \
+        ::boost::mixin::internal::domain::instance().register_feature(msg); \
+        \
+        /* set message default implementation data */ \
+        static ::boost::mixin::internal::message_for_mixin default_impl = { \
+            &msg, \
+            BOOST_MIXIN_MAX_MIXINS, \
+            reinterpret_cast<::boost::mixin::internal::func_ptr>(&BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::caller), \
+            ::std::numeric_limits<int>::min(), \
+        }; \
+        msg.default_impl_data = &default_impl; \
+    } \
+    /* provide a tag instance */ \
+    _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)* _BOOST_MIXIN_MESSAGE_TAG(message_name); \
+    /* instantiate metafunction initializator in case no class registers the message */ \
+    inline void _boost_register_message_default_impl(_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)*) \
+    { \
+        ::boost::mixin::internal::message_default_impl_registrator<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)>::registrator.unused = true; \
+    } \
+    /* begin default impl function so the used can just enter it after the macro */ \
+    return_type BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)::impl(arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3)

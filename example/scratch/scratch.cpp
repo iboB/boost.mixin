@@ -19,6 +19,17 @@ BOOST_MIXIN_MULTICAST_MESSAGE_1(void, load, istream&, in);
 BOOST_MIXIN_DEFINE_MESSAGE(save);
 BOOST_MIXIN_DEFINE_MESSAGE(load);
 
+BOOST_MIXIN_CONST_MESSAGE_0(const string&, name);
+BOOST_MIXIN_DEFINE_MESSAGE(name);
+
+BOOST_MIXIN_CONST_MESSAGE_1(int, test, int, x);
+
+BOOST_MIXIN_DEFINE_MESSAGE_1_WITH_DEFAULT_IMPL(int, test, int, x)
+{
+    cout << name(bm_this) << x + 1 << endl;
+    return 1245;
+}
+
 class person
 {
 public:
@@ -29,10 +40,12 @@ public:
 
     static const int serialize_priority = 1;
 
+    const string& name() const { return _name; }
+
 private:
     string _name;
 };
-BOOST_DEFINE_MIXIN(person, priority(person::serialize_priority, save_msg) & priority(person::serialize_priority, load_msg));
+BOOST_DEFINE_MIXIN(person, priority(person::serialize_priority, save_msg) & priority(person::serialize_priority, load_msg) & name_msg);
 
 class employee
 {
@@ -43,6 +56,12 @@ public:
     void load(istream& in);
 
     static const int serialize_priority = 2;
+
+    int test(int x) const
+    {
+        cout << "implement!!!" << endl;
+        return 1111;
+    }
 
 private:
     string _position;
@@ -99,6 +118,8 @@ int main()
 
     save_obj(obj1, cout);
     save_obj(obj2, cout);
+
+    test(obj1, 12);
 
     return 0;
 }

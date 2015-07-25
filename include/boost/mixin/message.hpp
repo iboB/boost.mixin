@@ -24,6 +24,11 @@ namespace mixin
 namespace internal
 {
 
+struct BOOST_MIXIN_API message_for_mixin;
+
+// used for a general function address for all message calls
+typedef void(*func_ptr)();
+
 // feature tags are used by feature parsers and the domain to distinguish between feature types
 // and register them appropriately
 struct BOOST_MIXIN_API message_feature_tag {};
@@ -43,14 +48,16 @@ struct BOOST_MIXIN_API message_t : public feature
     /* the way messages identify themselves to feature parsers and the domain */
     typedef message_feature_tag feature_tag;
 
+    // default message implementation (if any)
+    message_for_mixin* default_impl_data;
+
 protected:
     message_t(const char* name, e_mechanism mecha, bool is_private)
         : feature(name, is_private)
         , mechanism(mecha)
+        , default_impl_data(nullptr)
     {}
 };
-
-typedef void (*func_ptr)();
 
 template <typename Message>
 struct message_priority
@@ -74,6 +81,28 @@ struct BOOST_MIXIN_API message_for_mixin
     // message perks
     int priority;
 };
+
+
+// metafunction used to register default implementations of messages
+// in case no mixin implements them (if it does, it will also register the message)
+template <typename Message>
+struct message_default_impl_registrator
+{
+    message_default_impl_registrator()
+    {
+        _boost_register_mixin_feature((Message*)nullptr);
+    }
+
+    // "payload" instance of the type
+    static message_default_impl_registrator registrator;
+
+    // as with mixin_type_info_instance, this is
+    // to prevent warnings and optimizations that will say that we're not using
+    // instantiator by simply referencing it
+    int unused;
+};
+template <typename Message>
+message_default_impl_registrator<Message> message_default_impl_registrator<Message>::registrator;
 
 
 } // namespace internal
