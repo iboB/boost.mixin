@@ -39,7 +39,9 @@ rule test_all
         all_tests += [ run $(cxx1_test) ] ;
     }
 
-    all_test += [ run by_string.cpp ] ;
+    all_tests += [ run by_string.cpp ] ;
+
+    all_tests += [ run msg_default_impl.cpp ] ;
 
     return $(all_tests) ;
 }
