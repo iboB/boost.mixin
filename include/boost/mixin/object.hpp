@@ -74,6 +74,19 @@ public:
         // intentionally disregarding the actual info
         return reinterpret_cast<const Mixin*>(internal_get_mixin(info.id));
     }
+
+    /// Checks if the object has a specific mixin by id.
+    bool has(mixin_id id) const;
+
+    /// Gets a specific mixin by id from the object. Returns nullptr if the mixin
+    /// isn't available. It is the user's responsibility to cast the returned
+    /// value to the appropriate type
+    void* get(mixin_id id);
+
+    /// Gets a specific mixin by id from the object. Returns nullptr if the mixin
+    /// isn't available. It is the user's responsibility to cast the returned
+    /// value to the appropriate type
+    const void* get(mixin_id id) const;
     /////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////
