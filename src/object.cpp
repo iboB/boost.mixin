@@ -213,5 +213,26 @@ void object::get_mixin_names(std::vector<const char*>& out_mixin_names) const
     }
 }
 
+bool object::has(mixin_id id) const
+{
+    if (id >= BOOST_MIXIN_MAX_MIXINS)
+        return false;
+    return internal_has_mixin(id);
+}
+
+void* object::get(mixin_id id)
+{
+    if (id >= BOOST_MIXIN_MAX_MIXINS)
+        return nullptr;
+    return internal_get_mixin(id);
+}
+
+const void* object::get(mixin_id id) const
+{
+    if (id >= BOOST_MIXIN_MAX_MIXINS)
+        return nullptr;
+    return internal_get_mixin(id);
+}
+
 }
 }

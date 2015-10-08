@@ -69,6 +69,18 @@ BOOST_AUTO_TEST_CASE(mixin_ids)
     BOOST_CHECK(o.has<other_mixin>());
     BOOST_CHECK(o.has<third>());
     BOOST_CHECK(!o.has<unused>());
+
+    BOOST_CHECK(o.has(aid));
+    BOOST_CHECK(o.has(omid));
+    BOOST_CHECK(o.has(tid));
+    BOOST_CHECK(!o.has(uid));
+    BOOST_CHECK(!o.has(invalid));
+    BOOST_CHECK(!o.has(1234));
+
+    BOOST_CHECK_EQUAL(o.get<mixin_a>(), o.get(aid));
+    BOOST_CHECK_EQUAL(o.get<other_mixin>(), o.get(omid));
+    BOOST_CHECK(!o.get(uid));
+    BOOST_CHECK(!o.get(invalid));
 }
 
 BOOST_AUTO_TEST_CASE(mixin_names)
