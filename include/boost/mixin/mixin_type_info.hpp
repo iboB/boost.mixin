@@ -24,10 +24,10 @@ namespace mixin
 
 class global_allocator;
 
+static const mixin_id INVALID_MIXIN_ID = ~mixin_id(0);
+
 namespace internal
 {
-
-static const mixin_id INVALID_MIXIN_ID = ~mixin_id(0);
 
 typedef void (*mixin_constructor_proc)(void* memory);
 typedef void (*mixin_destructor_proc)(void* memory);
