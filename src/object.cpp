@@ -8,7 +8,6 @@
 #include "internal.hpp"
 #include <boost/mixin/object.hpp>
 #include <boost/mixin/object_type_info.hpp>
-#include <boost/foreach.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
 #include <boost/mixin/message.hpp>
 #include <boost/mixin/domain.hpp>
@@ -81,8 +80,10 @@ bool object::internal_has_mixin(mixin_id id) const
 
 void object::clear()
 {
-    BOOST_FOREACH(const mixin_type_info* mixin_info, _type_info->_compact_mixins)
+    for (internal::mixin_type_info_vector::const_iterator it = _type_info->_compact_mixins.begin(); it != _type_info->_compact_mixins.end(); ++it)
     {
+        const mixin_type_info* mixin_info = *it;
+
         destroy_mixin(mixin_info->id);
     }
 
@@ -106,8 +107,10 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
     mixin_data_in_object* old_mixin_data = _mixin_data;
     mixin_data_in_object* new_mixin_data = new_type->alloc_mixin_data();
 
-    BOOST_FOREACH(const mixin_type_info* mixin_info, old_type->_compact_mixins)
+    for (internal::mixin_type_info_vector::const_iterator it = old_type->_compact_mixins.begin(); it != old_type->_compact_mixins.end(); ++it)
     {
+        const mixin_type_info* mixin_info = *it;
+
         mixin_id id = mixin_info->id;
         if(new_type->has(id))
         {
@@ -129,8 +132,10 @@ void object::change_type(const object_type_info* new_type, bool manage_mixins /*
 
     if(manage_mixins)
     {
-        BOOST_FOREACH(const mixin_type_info* mixin_info, new_type->_compact_mixins)
+        for (internal::mixin_type_info_vector::const_iterator it = new_type->_compact_mixins.begin(); it != new_type->_compact_mixins.end(); ++it)
         {
+            const mixin_type_info* mixin_info = *it;
+
             size_t index = new_type->mixin_index(mixin_info->id);
             if(!new_mixin_data[index].buffer())
             {
@@ -207,8 +212,10 @@ void object::get_message_names(std::vector<const char*>& out_message_names) cons
 
 void object::get_mixin_names(std::vector<const char*>& out_mixin_names) const
 {
-    BOOST_FOREACH(const mixin_type_info* mixin_info, _type_info->_compact_mixins)
+    for (internal::mixin_type_info_vector::const_iterator it = _type_info->_compact_mixins.begin(); it != _type_info->_compact_mixins.end(); ++it)
     {
+        const mixin_type_info* mixin_info = *it;
+
         out_mixin_names.push_back(mixin_info->name);
     }
 }
