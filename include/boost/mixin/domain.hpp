@@ -15,7 +15,6 @@
 #include <boost/mixin/feature_parser.hpp>
 #include <boost/mixin/message.hpp>
 
-#include <boost/ptr_container/ptr_set.hpp>
 #include <boost/type_traits/alignment_of.hpp>
 
 #if BOOST_MIXIN_USING_CXX11

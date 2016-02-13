@@ -12,7 +12,6 @@
 #include <boost/mixin/exception.hpp>
 #include <boost/mixin/domain.hpp>
 #include <boost/mixin/object.hpp>
-#include <boost/foreach.hpp>
 
 namespace boost
 {
@@ -131,8 +130,10 @@ void object_mutator::apply_to(object& obj) const
         return;
     }
 
-    BOOST_FOREACH(const mixin_type_info* rem, _mutation._removing._compact_mixins)
+    for (internal::mixin_type_info_vector::const_iterator it = _mutation._removing._compact_mixins.begin(); it != _mutation._removing._compact_mixins.end(); ++it)
     {
+        const mixin_type_info* rem = *it;
+
         // we allow removing of mixins that aren't even there
         if(obj.internal_has_mixin(rem->id))
             obj.destroy_mixin(rem->id);
@@ -140,8 +141,10 @@ void object_mutator::apply_to(object& obj) const
 
     obj.change_type(_target_type_info, false);
 
-    BOOST_FOREACH(const mixin_type_info* add, _mutation._adding._compact_mixins)
+    for (internal::mixin_type_info_vector::const_iterator it = _mutation._adding._compact_mixins.begin(); it != _mutation._adding._compact_mixins.end(); ++it)
     {
+        const mixin_type_info* add = *it;
+
         // we allow adding mixins that are already there
         if(!obj.internal_get_mixin(add->id))
             obj.construct_mixin(add->id);

@@ -8,7 +8,6 @@
 #include "internal.hpp"
 #include <boost/mixin/global.hpp>
 #include <boost/mixin/mixin_type_info.hpp>
-#include <boost/foreach.hpp>
 
 namespace boost
 {
@@ -24,8 +23,9 @@ namespace internal
     {
         available_mixins_bitset result;
 
-        BOOST_FOREACH(const mixin_type_info* mixin_info, mixins)
+        for (internal::mixin_type_info_vector::const_iterator it = mixins.begin(); it != mixins.end(); ++it)
         {
+            const mixin_type_info* mixin_info = *it;
             result[mixin_info->id] = true;
         }
 

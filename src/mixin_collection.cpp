@@ -9,7 +9,6 @@
 #include <boost/mixin/domain.hpp>
 #include <boost/mixin/mixin_collection.hpp>
 #include <boost/mixin/exception.hpp>
-#include <boost/foreach.hpp>
 
 using namespace std;
 
@@ -73,8 +72,10 @@ void mixin_collection::remove(mixin_id id)
 void mixin_collection::rebuild_from_compact_mixins()
 {
     _mixins.reset();
-    BOOST_FOREACH(const mixin_type_info* info, _compact_mixins)
+    for (internal::mixin_type_info_vector::iterator it = _compact_mixins.begin(); it != _compact_mixins.end(); ++it)
     {
+        const mixin_type_info* info = *it;
+
         _mixins[info->id] = true;
     }
 }
