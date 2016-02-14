@@ -15,6 +15,7 @@
 
 
 #include "message.hpp"
+#include <boost/preprocessor/cat.hpp>
 
 // some macros here have an underscore in front so it doesn't appear as a suggestion in
 // ides that support these
