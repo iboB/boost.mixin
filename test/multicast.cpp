@@ -6,7 +6,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 //
 
-#define BOOST_TEST_MODULE cxx11_boost_mixin_features
+#define BOOST_TEST_MODULE boost_mixin_multicast
 
 #include <boost/mixin.hpp>
 #include <boost/test/unit_test.hpp>

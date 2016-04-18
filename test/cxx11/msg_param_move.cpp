@@ -11,8 +11,6 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/included/unit_test.hpp>
 
-#if BOOST_MIXIN_USING_CXX11
-
 using namespace boost::mixin;
 
 BOOST_DECLARE_MIXIN(receive_rvalue);
@@ -67,5 +65,3 @@ public:
 BOOST_DEFINE_MIXIN(receive_rvalue, i_like_msg);
 
 BOOST_MIXIN_DEFINE_MESSAGE(i_like);
-
-#endif

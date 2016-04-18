@@ -11,8 +11,6 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/included/unit_test.hpp>
 
-#if BOOST_MIXIN_USING_CXX11
-
 using namespace boost::mixin;
 
 class a
@@ -106,6 +104,3 @@ BOOST_AUTO_TEST_CASE(obj_move_ctor)
     BOOST_CHECK_EQUAL(&v.back(), get_obj_b(v.back()));
     BOOST_CHECK_EQUAL(11, value<combinators::sum>(v.back()));
 }
-
-#endif
-
