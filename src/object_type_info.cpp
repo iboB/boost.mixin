@@ -91,13 +91,10 @@ void object_type_info::fill_call_table()
     // set unicast messages and determine total multicast length
     int total_multicast_length = 0;
 
-    for(size_t i=0; i<_compact_mixins.size(); ++i)
+    for (const mixin_type_info* info : _compact_mixins)
     {
-        const mixin_type_info& info = *_compact_mixins[i];
-
-        for(size_t j=0; j<info.message_infos.size(); ++j)
+        for (const message_for_mixin& msg : info->message_infos)
         {
-            const message_for_mixin& msg = info.message_infos[j];
             call_table_entry& table_entry = _call_table[msg.message->id];
 
             if(msg.message->mechanism == message_t::unicast)
@@ -143,13 +140,10 @@ void object_type_info::fill_call_table()
 
     // pass 1.5
     // check for unicast clashes
-    for(size_t i=0; i<_compact_mixins.size(); ++i)
+    for (const mixin_type_info* info : _compact_mixins)
     {
-        const mixin_type_info& info = *_compact_mixins[i];
-
-        for(size_t j=0; j<info.message_infos.size(); ++j)
+        for (const message_for_mixin& msg : info->message_infos)
         {
-            const message_for_mixin& msg = info.message_infos[j];
             call_table_entry& table_entry = _call_table[msg.message->id];
 
             if(msg.message->mechanism == message_t::unicast)
@@ -167,13 +161,10 @@ void object_type_info::fill_call_table()
 
     // second pass
     // set first multicast messages in buffer
-    for(size_t i=0; i<_compact_mixins.size(); ++i)
+    for (const mixin_type_info* info : _compact_mixins)
     {
-        const mixin_type_info& info = *_compact_mixins[i];
-
-        for(size_t j=0; j<info.message_infos.size(); ++j)
+        for (const message_for_mixin& msg : info->message_infos)
         {
-            const message_for_mixin& msg = info.message_infos[j];
             call_table_entry& table_entry = _call_table[msg.message->id];
 
             if(msg.message->mechanism == message_t::multicast)
@@ -198,13 +189,10 @@ void object_type_info::fill_call_table()
 
     // third pass
     // fill the rest of the multicast messages in the buffer
-    for(size_t i=0; i<_compact_mixins.size(); ++i)
+    for (const mixin_type_info* info : _compact_mixins)
     {
-        const mixin_type_info& info = *_compact_mixins[i];
-
-        for(size_t j=0; j<info.message_infos.size(); ++j)
+        for (const message_for_mixin& msg : info->message_infos)
         {
-            const message_for_mixin& msg = info.message_infos[j];
             call_table_entry& table_entry = _call_table[msg.message->id];
 
             if(msg.message->mechanism == message_t::multicast)

@@ -40,14 +40,14 @@ domain::domain()
 domain::~domain()
 {
     // why is there no boost::ptr_unordered_map ?
-    for(object_type_info_map::iterator i=_object_type_infos.begin(); i!=_object_type_infos.end(); ++i)
+    for(auto& i : _object_type_infos)
     {
-        delete i->second;
+        delete i.second;
     }
 
-    for(size_t i=0; i<_mutation_rules.size(); ++i)
+    for (const mutation_rule* rule : _mutation_rules)
     {
-        delete _mutation_rules[i];
+        delete rule;
     }
 }
 
@@ -58,9 +58,9 @@ void domain::add_new_mutation_rule(mutation_rule* rule)
 
 void domain::apply_mutation_rules(object_type_mutation& mutation)
 {
-    for(size_t i=0; i<_mutation_rules.size(); ++i)
+    for (mutation_rule* rule : _mutation_rules)
     {
-        _mutation_rules[i]->apply_to(mutation);
+        rule->apply_to(mutation);
     }
 }
 
@@ -73,9 +73,9 @@ const object_type_info* domain::get_object_type_info(const mixin_type_info_vecto
 
     available_mixins_bitset query;
 
-    for(size_t i=0; i<mixins.size(); ++i)
+    for(const mixin_type_info* info : mixins)
     {
-        query[mixins[i]->id] = true;
+        query[info->id] = true;
     }
 
     object_type_info_map::iterator i = _object_type_infos.find(query);

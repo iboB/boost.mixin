@@ -22,9 +22,8 @@ void mutually_exclusive_mixins::apply_to(object_type_mutation& mutation)
 
     mixin_id adding = INVALID_MIXIN_ID;
 
-    for (internal::mixin_type_info_vector::iterator it = _compact_mixins.begin(); it != _compact_mixins.end(); ++it)
+    for (const mixin_type_info* mixin_info : _compact_mixins)
     {
-        const mixin_type_info* mixin_info = *it;
         if(mutation.is_adding(mixin_info->id))
         {
             BOOST_ASSERT_MSG(adding == INVALID_MIXIN_ID, "mutation breaking a mutually exclusive mixin rule");
@@ -48,10 +47,8 @@ void mutually_exclusive_mixins::apply_to(object_type_mutation& mutation)
     }
 
     // find if the object has one of the mutually exclusive mixins
-    for (internal::mixin_type_info_vector::iterator it = _compact_mixins.begin(); it != _compact_mixins.end(); ++it)
+    for (const mixin_type_info* mixin_info : _compact_mixins)
     {
-        const mixin_type_info* mixin_info = *it;
-
         if(mixin_info->id == adding)
         {
             continue;

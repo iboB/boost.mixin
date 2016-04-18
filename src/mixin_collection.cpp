@@ -72,10 +72,8 @@ void mixin_collection::remove(mixin_id id)
 void mixin_collection::rebuild_from_compact_mixins()
 {
     _mixins.reset();
-    for (internal::mixin_type_info_vector::iterator it = _compact_mixins.begin(); it != _compact_mixins.end(); ++it)
+    for (const mixin_type_info* info : _compact_mixins)
     {
-        const mixin_type_info* info = *it;
-
         _mixins[info->id] = true;
     }
 }

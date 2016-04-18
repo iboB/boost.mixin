@@ -111,7 +111,7 @@ int main()
     string data = out.str();
 
     istringstream in(data);
-    
+
     object obj1, obj2;
     load_obj(obj1, in);
     load_obj(obj2, in);
@@ -145,14 +145,14 @@ void load_obj(object& obj, istream& in)
 
     object_type_template tmpl;
 
-    size_t num_mixins = atoi(line.c_str());    
+    size_t num_mixins = atoi(line.c_str());
     for(size_t i=0; i<num_mixins; ++i)
     {
         getline(in, line);
         tmpl.add(line.c_str());
     }
     tmpl.create();
-    
+
     tmpl.apply_to(obj);
 
     load(obj, in);

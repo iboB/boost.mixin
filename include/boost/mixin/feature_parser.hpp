@@ -113,9 +113,8 @@ private:
     {
 #if defined(BOOST_MIXIN_DEBUG)
         // check for duplicate entries
-        for(size_t i=0; i<mixin_info.message_infos.size(); ++i)
+        for (const message_for_mixin& msg_info : mixin_info.message_infos)
         {
-            const message_for_mixin& msg_info = mixin_info.message_infos[i];
             BOOST_ASSERT(msg_info.message); // null message ???
             BOOST_ASSERT(msg_info.message != &msg); // duplicate message. You have "x_msg & ... & x_msg"
         }

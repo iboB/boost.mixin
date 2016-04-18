@@ -70,10 +70,8 @@ void object_mutator::create()
 
     new_type_mixins = _mutation._adding._compact_mixins;
 
-    for(size_t i=0; i<old_mixins.size(); ++i)
+    for (const mixin_type_info* mixin_info : old_mixins)
     {
-        const mixin_type_info* mixin_info = old_mixins[i];
-
         // intentionally using linear search instead of binary
         // cache locality makes it faster for small arrays
         if(!has_elem(_mutation._removing._compact_mixins, mixin_info))
@@ -130,10 +128,8 @@ void object_mutator::apply_to(object& obj) const
         return;
     }
 
-    for (internal::mixin_type_info_vector::const_iterator it = _mutation._removing._compact_mixins.begin(); it != _mutation._removing._compact_mixins.end(); ++it)
+    for (const mixin_type_info* rem : _mutation._removing._compact_mixins)
     {
-        const mixin_type_info* rem = *it;
-
         // we allow removing of mixins that aren't even there
         if(obj.internal_has_mixin(rem->id))
             obj.destroy_mixin(rem->id);
@@ -141,10 +137,8 @@ void object_mutator::apply_to(object& obj) const
 
     obj.change_type(_target_type_info, false);
 
-    for (internal::mixin_type_info_vector::const_iterator it = _mutation._adding._compact_mixins.begin(); it != _mutation._adding._compact_mixins.end(); ++it)
+    for (const mixin_type_info* add : _mutation._adding._compact_mixins)
     {
-        const mixin_type_info* add = *it;
-
         // we allow adding mixins that are already there
         if(!obj.internal_get_mixin(add->id))
             obj.construct_mixin(add->id);

@@ -23,9 +23,8 @@ namespace internal
     {
         available_mixins_bitset result;
 
-        for (internal::mixin_type_info_vector::const_iterator it = mixins.begin(); it != mixins.end(); ++it)
+        for (const mixin_type_info* mixin_info : mixins)
         {
-            const mixin_type_info* mixin_info = *it;
             result[mixin_info->id] = true;
         }
 
