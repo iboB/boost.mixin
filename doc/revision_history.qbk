@@ -13,6 +13,7 @@
 Work on library resumed.
 
 * Removed C++98/03 support. Switch to C++11 only.
+* Added default message implementations.
 
 [endsect]
 

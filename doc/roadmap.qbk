@@ -28,8 +28,6 @@ write it in their own free time, so concrete dates are hard to estimate)
     module - leave more room for other messages/mixins
     * Add a new mixin feature `fact`. Facts are static const variables in a
     mixin. No multicasts. No virtual tables.
-    * Add possibility for custom default message implementations
-    (instead of a runtime error if no message is provided)
     * Call mixin constructors when mutating object or constructing them via
     object type templates. Sample usage:
     `mutate(obj).add<mixin>("foo", param2).add<other_mixin>(42)`
