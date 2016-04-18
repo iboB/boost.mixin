@@ -66,7 +66,7 @@ public:
 private:
     string _position;
 };
-BOOST_DEFINE_MIXIN(employee, priority(employee::serialize_priority, save_msg) & priority(employee::serialize_priority, load_msg));
+BOOST_DEFINE_MIXIN(employee, priority(employee::serialize_priority, save_msg) & priority(employee::serialize_priority, load_msg) & test_msg);
 
 class client
 {
@@ -117,9 +117,11 @@ int main()
     load_obj(obj2, in);
 
     save_obj(obj1, cout);
-    save_obj(obj2, cout);
-
     test(obj1, 12);
+    save_obj(obj2, cout);
+    test(obj2, 22);
+
+
 
     return 0;
 }

@@ -56,7 +56,6 @@ write it in their own free time, so concrete dates are hard to estimate)
     * A way to mutate static mixins in and out. Slight mutation execution penalty.
     * Some magic to make it work even faster.
     * Integration with Boost.Python and luabind.
-    * Remove C++03 backward compatibility.
     * Library being accepted in Boost?
 	* Mixin/Message domains - sets of mixins and messages that cannot be mixed.
 	Will throw a runtime error when trying to combine certain mixins or messages.

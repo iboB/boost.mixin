@@ -46,7 +46,7 @@ def params_for_arity(arity)
 
   args_coma = ', ' + arg_types.zip(args).flatten.join(', ')
   args_signature = arg_types.zip(args).map { |tuple| tuple.join(' ') }. join(', ')
-  fwd_args = arg_types.zip(args).map { |type, arg| "BOOST_MIXIN_FWD(#{type}, #{arg})" }. join(', ')
+  fwd_args = arg_types.zip(args).map { |type, arg| "std::forward<#{type}>(#{arg})" }. join(', ')
   args = args.join(', ')
   arg_types = arg_types.join(', ')
 

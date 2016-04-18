@@ -25,13 +25,6 @@
 #   define BOOST_MIXIN_DEBUG // define this for ease of use
 #endif
 
-// some features will compile faster when this is set to true
-#if defined(_MSC_VER) && _MSC_VER < 1700
-#   define BOOST_MIXIN_USING_CXX11 0
-#else
-#   define BOOST_MIXIN_USING_CXX11 1
-#endif
-
 // maximum number of registered mixins
 // an assertion will occur if this limit is reached in a program
 // *    the object type creation and the object mutation are proportional

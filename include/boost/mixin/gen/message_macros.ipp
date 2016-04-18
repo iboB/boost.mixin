@@ -234,7 +234,7 @@
         static Ret caller1(void* _b_m_ptr , arg0_type a0) \
         { \
             Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
-            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0)); \
+            return (_b_m_m->*Method)(std::forward<arg0_type>(a0)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -273,12 +273,12 @@
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0)); \
+        return _b_m_func(_b_m_mixin_data , std::forward<arg0_type>(a0)); \
     }\
     /* also define a pointer function */ \
     inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0) \
     {\
-        return method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0)); \
+        return method_name(*_b_m_obj , std::forward<arg0_type>(a0)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE1_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0) \
@@ -346,7 +346,7 @@
     /* also define a pointer function with no combinator */ \
     inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0) \
     {\
-        method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0)); \
+        method_name(*_b_m_obj , std::forward<arg0_type>(a0)); \
     }\
 
 #define BOOST_MIXIN_MESSAGE_1(return_type, message , arg0_type, a0) \
@@ -404,7 +404,7 @@
         return_type impl(arg0_type a0); \
         static return_type caller(void* self , arg0_type a0) \
         { \
-            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0)); \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(std::forward<arg0_type>(a0)); \
         } \
     }; \
     /* create a feature getter for the message */ \
@@ -448,7 +448,7 @@
         static Ret caller2(void* _b_m_ptr , arg0_type a0, arg1_type a1) \
         { \
             Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
-            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+            return (_b_m_m->*Method)(std::forward<arg0_type>(a0), std::forward<arg1_type>(a1)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -487,12 +487,12 @@
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+        return _b_m_func(_b_m_mixin_data , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1)); \
     }\
     /* also define a pointer function */ \
     inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1) \
     {\
-        return method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+        return method_name(*_b_m_obj , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE2_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1) \
@@ -560,7 +560,7 @@
     /* also define a pointer function with no combinator */ \
     inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1) \
     {\
-        method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+        method_name(*_b_m_obj , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1)); \
     }\
 
 #define BOOST_MIXIN_MESSAGE_2(return_type, message , arg0_type, a0, arg1_type, a1) \
@@ -618,7 +618,7 @@
         return_type impl(arg0_type a0, arg1_type a1); \
         static return_type caller(void* self , arg0_type a0, arg1_type a1) \
         { \
-            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1)); \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(std::forward<arg0_type>(a0), std::forward<arg1_type>(a1)); \
         } \
     }; \
     /* create a feature getter for the message */ \
@@ -662,7 +662,7 @@
         static Ret caller3(void* _b_m_ptr , arg0_type a0, arg1_type a1, arg2_type a2) \
         { \
             Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
-            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+            return (_b_m_m->*Method)(std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -701,12 +701,12 @@
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+        return _b_m_func(_b_m_mixin_data , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2)); \
     }\
     /* also define a pointer function */ \
     inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2) \
     {\
-        return method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+        return method_name(*_b_m_obj , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE3_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
@@ -774,7 +774,7 @@
     /* also define a pointer function with no combinator */ \
     inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2) \
     {\
-        method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+        method_name(*_b_m_obj , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2)); \
     }\
 
 #define BOOST_MIXIN_MESSAGE_3(return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2) \
@@ -832,7 +832,7 @@
         return_type impl(arg0_type a0, arg1_type a1, arg2_type a2); \
         static return_type caller(void* self , arg0_type a0, arg1_type a1, arg2_type a2) \
         { \
-            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2)); \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2)); \
         } \
     }; \
     /* create a feature getter for the message */ \
@@ -876,7 +876,7 @@
         static Ret caller4(void* _b_m_ptr , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
         { \
             Mixin* _b_m_m = reinterpret_cast<Mixin*>(_b_m_ptr); \
-            return (_b_m_m->*Method)(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+            return (_b_m_m->*Method)(std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2), std::forward<arg3_type>(a3)); \
         } \
         typedef return_type (*caller_func)(void* , arg0_type, arg1_type, arg2_type, arg3_type); \
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)() \
@@ -915,12 +915,12 @@
         _BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func _b_m_func = \
                 reinterpret_cast<_BOOST_MIXIN_MESSAGE_STRUCT_NAME(message_name)::caller_func>(_b_m_msg_data->caller); \
         /* forward unicast arguments since some of them might be rvalue references */ \
-        return _b_m_func(_b_m_mixin_data , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+        return _b_m_func(_b_m_mixin_data , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2), std::forward<arg3_type>(a3)); \
     }\
     /* also define a pointer function */ \
     inline return_type method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
     {\
-        return method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+        return method_name(*_b_m_obj , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2), std::forward<arg3_type>(a3)); \
     }\
 
 #define _BOOST_MIXIN_MESSAGE4_MULTI(export, message_name, method_name, return_type, constness , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
@@ -988,7 +988,7 @@
     /* also define a pointer function with no combinator */ \
     inline void method_name(constness ::boost::mixin::object* _b_m_obj , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
     {\
-        method_name(*_b_m_obj , BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+        method_name(*_b_m_obj , std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2), std::forward<arg3_type>(a3)); \
     }\
 
 #define BOOST_MIXIN_MESSAGE_4(return_type, message , arg0_type, a0, arg1_type, a1, arg2_type, a2, arg3_type, a3) \
@@ -1046,7 +1046,7 @@
         return_type impl(arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3); \
         static return_type caller(void* self , arg0_type a0, arg1_type a1, arg2_type a2, arg3_type a3) \
         { \
-            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(BOOST_MIXIN_FWD(arg0_type, a0), BOOST_MIXIN_FWD(arg1_type, a1), BOOST_MIXIN_FWD(arg2_type, a2), BOOST_MIXIN_FWD(arg3_type, a3)); \
+            return reinterpret_cast<BOOST_MIXIN_DEFAULT_IMPL_STRUCT(message_name)*>(self)->impl(std::forward<arg0_type>(a0), std::forward<arg1_type>(a1), std::forward<arg2_type>(a2), std::forward<arg3_type>(a3)); \
         } \
     }; \
     /* create a feature getter for the message */ \

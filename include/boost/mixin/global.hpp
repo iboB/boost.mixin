@@ -22,13 +22,6 @@
 #include <vector>
 #include <cstring> // for memset
 
-#if BOOST_MIXIN_USING_CXX11
-#   define BOOST_MIXIN_CXX11_NAMESPACE std // some c++11 classes exist in boost use this namespace for them
-#else
-#   define BOOST_MIXIN_CXX11_NAMESPACE boost
-#   define nullptr NULL
-#endif
-
 // getting a type's name
 #if BOOST_MIXIN_USE_TYPEID // using typeid: tested for msvc and gcc
 #   if defined(__GNUC__)

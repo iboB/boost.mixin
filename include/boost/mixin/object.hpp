@@ -35,10 +35,8 @@ public:
     /// Constructs an object from a specific type template.
     explicit object(const object_type_template& type_template);
 
-#if BOOST_MIXIN_USING_CXX11
     /// Move constructor from an existing object
     object(object&& o);
-#endif
 
     ~object();
 

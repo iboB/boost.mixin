@@ -15,7 +15,7 @@
 
 #define BOOST_MIXIN_VERSION_MAJOR 1
 #define BOOST_MIXIN_VERSION_MINOR 0
-#define BOOST_MIXIN_VERSION_SUB_MINOR 0
+#define BOOST_MIXIN_VERSION_SUB_MINOR 1
 
 /// The library's version.
 ///

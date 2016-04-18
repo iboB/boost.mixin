@@ -38,7 +38,6 @@ object::object(const object_type_template& type)
     type.apply_to(*this);
 }
 
-#if BOOST_MIXIN_USING_CXX11
 object::object(object&& o)
     : _type_info(o._type_info)
     , _mixin_data(o._mixin_data)
@@ -56,7 +55,6 @@ object::object(object&& o)
     o._type_info = &object_type_info::null();
     o._mixin_data = &null_mixin_data;
 }
-#endif
 
 object::~object()
 {

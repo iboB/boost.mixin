@@ -17,11 +17,7 @@
 
 #include <boost/type_traits/alignment_of.hpp>
 
-#if BOOST_MIXIN_USING_CXX11
-#   include <unordered_map>
-#else
-#   include <boost/unordered_map.hpp>
-#endif
+#include <unordered_map>
 
 /**
  * \file
@@ -44,25 +40,6 @@ namespace internal
 {
 
 struct message_t;
-
-#if !BOOST_MIXIN_USING_CXX11
-// we need to define a hash function for bitsets
-// curiously boost doesn't seem to have one
-struct hash_avaliable_mixins_bitset : std::unary_function<available_mixins_bitset, size_t>
-{
-    size_t operator()(const available_mixins_bitset& bs) const
-    {
-        const int bits = sizeof(size_t)*8;
-        size_t result = 0;
-        for(size_t i=0; i<BOOST_MIXIN_MAX_MIXINS; ++i)
-        {
-            // xor groups of bits
-            result ^= size_t(bs[i]) << (i % bits);
-        }
-        return result;
-    }
-};
-#endif
 
 class BOOST_MIXIN_API domain : public noncopyable
 {
@@ -142,11 +119,7 @@ boost_mixin_internal:
     const message_t* _messages[BOOST_MIXIN_MAX_MESSAGES];
     size_t _num_registered_messages;
 
-#if BOOST_MIXIN_USING_CXX11
     typedef std::unordered_map<available_mixins_bitset, object_type_info*> object_type_info_map;
-#else
-    typedef boost::unordered_map<available_mixins_bitset, object_type_info*, hash_avaliable_mixins_bitset > object_type_info_map;
-#endif
 
     object_type_info_map _object_type_infos;
 
