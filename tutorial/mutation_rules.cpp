@@ -181,7 +181,7 @@ is being removed and the object has doors.
     class container_rule : public boost::mixin::mutation_rule
     {
     public:
-        virtual void apply_to(boost::mixin::object_type_mutation& mutation)
+        virtual void apply_to(boost::mixin::object_type_mutation& mutation) override
         {
             if(mutation.is_adding<has_doors>())
             {

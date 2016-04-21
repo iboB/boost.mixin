@@ -42,7 +42,7 @@ struct custom_allocator : public mixin_allocator
         mixin_index = 0;
     }
 
-    virtual void alloc_mixin(size_t mixin_class_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset)
+    virtual void alloc_mixin(size_t mixin_class_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset) override
     {
         if(mixin_index == NUM_IN_PAGE)
         {
@@ -55,7 +55,7 @@ struct custom_allocator : public mixin_allocator
         out_mixin_offset = calculate_mixin_offset(out_buffer, mixin_alignment);
     }
 
-    virtual void dealloc_mixin(char* ptr)
+    virtual void dealloc_mixin(char* ptr) override
     {
     }
 };

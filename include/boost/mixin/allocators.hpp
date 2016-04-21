@@ -128,9 +128,9 @@ class BOOST_MIXIN_API mixin_allocator : public global_allocator
 {
 private:
     /// INTERNAL ONLY
-    virtual char* alloc_mixin_data(size_t count);
+    virtual char* alloc_mixin_data(size_t count) override;
     /// INTERNAL ONLY
-    virtual void dealloc_mixin_data(char* ptr);
+    virtual void dealloc_mixin_data(char* ptr) override;
 };
 
 namespace internal
@@ -145,13 +145,13 @@ class BOOST_MIXIN_API default_allocator : public global_allocator
 {
 public:
     /// INTERNAL ONLY
-    virtual char* alloc_mixin_data(size_t count);
+    virtual char* alloc_mixin_data(size_t count) override;
     /// INTERNAL ONLY
-    virtual void dealloc_mixin_data(char* ptr);
+    virtual void dealloc_mixin_data(char* ptr) override;
     /// INTERNAL ONLY
-    virtual void alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset);
+    virtual void alloc_mixin(size_t mixin_size, size_t mixin_alignment, char*& out_buffer, size_t& out_mixin_offset) override;
     /// INTERNAL ONLY
-    virtual void dealloc_mixin(char* ptr);
+    virtual void dealloc_mixin(char* ptr) override;
 };
 
 

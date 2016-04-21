@@ -40,7 +40,7 @@ public:
     using mixin_collection::remove;
 
     /// Applies the rule to a mutation.
-    virtual void apply_to(object_type_mutation& mutation); // override
+    virtual void apply_to(object_type_mutation& mutation) override;
 };
 
 namespace internal
@@ -54,7 +54,7 @@ public:
     {
     }
 
-    virtual void apply_to(object_type_mutation& mutation); // override
+    virtual void apply_to(object_type_mutation& mutation) override;
 
 protected:
     const mixin_id _id;
@@ -69,7 +69,7 @@ public:
     {
     }
 
-    virtual void apply_to(object_type_mutation& mutation); // override
+    virtual void apply_to(object_type_mutation& mutation) override;
 
 protected:
     const mixin_id _id;
@@ -85,7 +85,7 @@ public:
     {
     }
 
-    virtual void apply_to(object_type_mutation& mutation); // override
+    virtual void apply_to(object_type_mutation& mutation) override;
 
 protected:
     const mixin_id _source_id;
