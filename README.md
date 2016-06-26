@@ -1,3 +1,15 @@
+IMPORTANT
+=========
+
+**Boost.Mixin is now [DynaMix](https://github.com/iboB/dynamix).**
+
+The new library is exactly the same as Boost.Mixin (as of June 2016), but has no dependencies on Boost.
+
+All new features of the library will be added to the new re-branded repo. This version is on hold for now. It may be supported in the future if plans to submit it to Boost are renewed.
+
+Check it out here: https://github.com/iboB/dynamix
+
+
 Boost.Mixin
 ===========
 
